@@ -527,7 +527,7 @@
     #=Integrands*of*the*form*x^m*cosh(c+d*x)^n*(a+b*sinh(c+d*x)^2)^p=#
 
 
-     [(cosh(a + b*x)*(-2 + sinh(a + b*x)^2))/x, x, 13, (-(9/4))*cosh(a)*CoshIntegral(b*x) + (1/4)*cosh(3*a)*CoshIntegral(3*b*x) - (9/4)*sinh(a)*SinhIntegral(b*x) + (1/4)*sinh(3*a)*SinhIntegral(3*b*x)]
+    @test_int [(cosh(a + b*x)*(-2 + sinh(a + b*x)^2))/x, x, 13, (-(9/4))*cosh(a)*CoshIntegral(b*x) + (1/4)*cosh(3*a)*CoshIntegral(3*b*x) - (9/4)*sinh(a)*SinhIntegral(b*x) + (1/4)*sinh(3*a)*SinhIntegral(3*b*x)]
 
 
     #= ::Section::Closed:: =#

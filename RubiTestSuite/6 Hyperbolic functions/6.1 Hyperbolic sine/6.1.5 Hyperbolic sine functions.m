@@ -524,7 +524,7 @@
 (*Integrands of the form x^m Cosh[c+d x]^n (a+b Sinh[c+d x]^2)^p*)
 
 
- {(Cosh[a + b*x]*(-2 + Sinh[a + b*x]^2))/x, x, 13, (-(9/4))*Cosh[a]*CoshIntegral[b*x] + (1/4)*Cosh[3*a]*CoshIntegral[3*b*x] - (9/4)*Sinh[a]*SinhIntegral[b*x] + (1/4)*Sinh[3*a]*SinhIntegral[3*b*x]}
+{(Cosh[a + b*x]*(-2 + Sinh[a + b*x]^2))/x, x, 13, (-(9/4))*Cosh[a]*CoshIntegral[b*x] + (1/4)*Cosh[3*a]*CoshIntegral[3*b*x] - (9/4)*Sinh[a]*SinhIntegral[b*x] + (1/4)*Sinh[3*a]*SinhIntegral[3*b*x]}
 
 
 (* ::Section::Closed:: *)
