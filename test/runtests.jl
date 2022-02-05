@@ -5,7 +5,7 @@ macro test_int(expr)
         (integrand, symbol, steps, result) = expr.args
         return :(@test true)
     else
-        # println(expr)
+        println("Incorrect test problem at ", __source__)
         return :(@test_broken false)
     end
 end
