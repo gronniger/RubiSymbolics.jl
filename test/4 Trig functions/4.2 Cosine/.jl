@@ -1,18 +1,18 @@
 @testset "4.2 Cosine" begin
-    include("4.2.0 (a cos)^m (b trg)^n.jl")
-    include("4.2.1.1 (a+b cos)^n.jl")
-    include("4.2.1.2 (g sin)^p (a+b cos)^m.jl")
-    include("4.2.1.3 (g tan)^p (a+b cos)^m.jl")
-    include("4.2.10 (c+d x)^m (a+b cos)^n.jl")
-    include("4.2.12 (e x)^m (a+b cos(c+d x^n))^p.jl")
-    include("4.2.13 (d+e x)^m cos(a+b x+c x^2)^n.jl")
-    include("4.2.2.1 (a+b cos)^m (c+d cos)^n.jl")
-    include("4.2.2.2 (g sin)^p (a+b cos)^m (c+d cos)^n.jl")
-    include("4.2.2.3 (g cos)^p (a+b cos)^m (c+d cos)^n.jl")
-    include("4.2.3.1 (a+b cos)^m (c+d cos)^n (A+B cos).jl")
-    include("4.2.4.1 (a+b cos)^m (A+B cos+C cos^2).jl")
-    include("4.2.4.2 (a+b cos)^m (c+d cos)^n (A+B cos+C cos^2).jl")
-    include("4.2.7 (d trig)^m (a+b (c cos)^n)^p.jl")
-    include("4.2.8 (a+b cos)^m (c+d trig)^n.jl")
-    include("4.2.9 trig^m (a+b cos^n+c cos^(2 n))^p.jl")
+    @include "4 Trig functions/4.2 Cosine/4.2.0 (a cos)^m (b trg)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.1.1 (a+b cos)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.1.2 (g sin)^p (a+b cos)^m.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.1.3 (g tan)^p (a+b cos)^m.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.10 (c+d x)^m (a+b cos)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.12 (e x)^m (a+b cos(c+d x^n))^p.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.13 (d+e x)^m cos(a+b x+c x^2)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.2.1 (a+b cos)^m (c+d cos)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.2.2 (g sin)^p (a+b cos)^m (c+d cos)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.2.3 (g cos)^p (a+b cos)^m (c+d cos)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.3.1 (a+b cos)^m (c+d cos)^n (A+B cos).jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.4.1 (a+b cos)^m (A+B cos+C cos^2).jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.4.2 (a+b cos)^m (c+d cos)^n (A+B cos+C cos^2).jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.7 (d trig)^m (a+b (c cos)^n)^p.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.8 (a+b cos)^m (c+d trig)^n.jl" 
+    @include "4 Trig functions/4.2 Cosine/4.2.9 trig^m (a+b cos^n+c cos^(2 n))^p.jl" 
 end

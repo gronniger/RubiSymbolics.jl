@@ -30,16 +30,17 @@ for (root, dirs, files) in walkdir(testsuite_path)
 
     end
     rel_path = relpath(root, testsuite_path)
-    mkpath(joinpath(tests_root_path, rel_path))
-    root_include_file = joinpath(tests_root_path, rel_path, ".jl")
+    root_include_path = joinpath(tests_root_path, rel_path)
+    mkpath(root_include_path)
+    root_include_file = joinpath(root_include_path, ".jl")
     touch(root_include_file)
     open(root_include_file, "w") do f
         write(f, "@testset \"$(splitpath(root)[end])\" begin\n")
         for dir in dirs
-            write(f, "    include(\"$(joinpath(dir, ".jl"))\")\n")
+            write(f, "    @include \"$(joinpath(rel_path, dir, ".jl"))\"\n")
         end
         for file in files
-            write(f, "    include(\"$(stem(file)*".jl")\")\n")
+            write(f, "    @include \"$(joinpath(rel_path, stem(file)*".jl"))\" \n")
         end
         write(f, "end\n")
     end
