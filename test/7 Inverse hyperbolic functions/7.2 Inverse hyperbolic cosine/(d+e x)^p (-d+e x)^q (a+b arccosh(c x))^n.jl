@@ -1,5 +1,5 @@
 @testset "(d+e x)^p (-d+e x)^q (a+b arccosh(c x))^n" begin
-    @variables a, b, c, x
+    (a, b, c, x, ) = @variables a b c x
 
     #= ::Package:: =#
 

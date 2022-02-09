@@ -1,5 +1,5 @@
 @testset "3.1.5 u (a+b log(c x^n))^p" begin
-    @variables a, b, c, d, e, f, g, k, m, n, p, q, r, x
+    (a, b, c, d, e, f, g, k, m, n, p, q, r, x, ) = @variables a b c d e f g k m n p q r x
 
     #= ::Package:: =#
 
@@ -403,8 +403,8 @@
 
 
     @test_int [(d*x)^m*PolyLog(1, e*x^q)*(a + b*log(c*x^n)), x, 0, -Unintegrable((d*x)^m*(a + b*log(c*x^n))*log(1 - e*x^q), x)]
-    @test_int [(d*x)^m*PolyLog(2, e*x^q)*(a + b*log(c*x^n)), x, 4, -((b*e*n*q^2*x^(1 + q)*(d*x)^m*Hypergeometric2F1(1, (1 + m + q)/q, (1 + m + 2*q)/q, e*x^q))/((1 + m)^3*(1 + m + q))) - (b*n*q*(d*x)^(1 + m)*log(1 - e*x^q))/(d*(1 + m)^3) - (b*n*(d*x)^(1 + m)*PolyLog(2, e*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*(a + b*log(c*x^n))*PolyLog(2, e*x^q))/(d*(1 + m)) + (q*Unintegrable((d*x)^m*(a + b*log(c*x^n))*log(1 - e*x^q), x))/(1 + m)]
-    @test_int [(d*x)^m*PolyLog(3, e*x^q)*(a + b*log(c*x^n)), x, 9, (2*b*e*n*q^3*x^(1 + q)*(d*x)^m*Hypergeometric2F1(1, (1 + m + q)/q, (1 + m + 2*q)/q, e*x^q))/((1 + m)^4*(1 + m + q)) + (2*b*n*q^2*(d*x)^(1 + m)*log(1 - e*x^q))/(d*(1 + m)^4) + (2*b*n*q*(d*x)^(1 + m)*PolyLog(2, e*x^q))/(d*(1 + m)^3) - (q*(d*x)^(1 + m)*(a + b*log(c*x^n))*PolyLog(2, e*x^q))/(d*(1 + m)^2) - (b*n*(d*x)^(1 + m)*PolyLog(3, e*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*(a + b*log(c*x^n))*PolyLog(3, e*x^q))/(d*(1 + m)) - (q^2*Unintegrable((d*x)^m*(a + b*log(c*x^n))*log(1 - e*x^q), x))/(1 + m)^2]
+    @test_int [(d*x)^m*PolyLog(2, e*x^q)*(a + b*log(c*x^n)), x, 4, -((b*e*n*q^2*x^(1 + q)*(d*x)^m*HypergeometricFunctions._₂F₁(1, (1 + m + q)/q, (1 + m + 2*q)/q, e*x^q))/((1 + m)^3*(1 + m + q))) - (b*n*q*(d*x)^(1 + m)*log(1 - e*x^q))/(d*(1 + m)^3) - (b*n*(d*x)^(1 + m)*PolyLog(2, e*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*(a + b*log(c*x^n))*PolyLog(2, e*x^q))/(d*(1 + m)) + (q*Unintegrable((d*x)^m*(a + b*log(c*x^n))*log(1 - e*x^q), x))/(1 + m)]
+    @test_int [(d*x)^m*PolyLog(3, e*x^q)*(a + b*log(c*x^n)), x, 9, (2*b*e*n*q^3*x^(1 + q)*(d*x)^m*HypergeometricFunctions._₂F₁(1, (1 + m + q)/q, (1 + m + 2*q)/q, e*x^q))/((1 + m)^4*(1 + m + q)) + (2*b*n*q^2*(d*x)^(1 + m)*log(1 - e*x^q))/(d*(1 + m)^4) + (2*b*n*q*(d*x)^(1 + m)*PolyLog(2, e*x^q))/(d*(1 + m)^3) - (q*(d*x)^(1 + m)*(a + b*log(c*x^n))*PolyLog(2, e*x^q))/(d*(1 + m)^2) - (b*n*(d*x)^(1 + m)*PolyLog(3, e*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*(a + b*log(c*x^n))*PolyLog(3, e*x^q))/(d*(1 + m)) - (q^2*Unintegrable((d*x)^m*(a + b*log(c*x^n))*log(1 - e*x^q), x))/(1 + m)^2]
 
 
     #= ::Title::Closed:: =#

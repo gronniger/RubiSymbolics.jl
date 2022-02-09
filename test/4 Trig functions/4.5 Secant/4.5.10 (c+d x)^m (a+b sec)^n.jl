@@ -1,5 +1,5 @@
 @testset "4.5.10 (c+d x)^m (a+b sec)^n" begin
-    @variables a, b, c, d, e, f, m, n, x
+    (a, b, c, d, e, f, m, n, x, ) = @variables a b c d e f m n x
 
     #= ::Package:: =#
 

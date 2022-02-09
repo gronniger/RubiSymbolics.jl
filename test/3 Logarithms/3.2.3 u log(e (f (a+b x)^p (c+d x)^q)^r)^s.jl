@@ -1,5 +1,5 @@
 @testset "3.2.3 u log(e (f (a+b x)^p (c+d x)^q)^r)^s" begin
-    @variables A, B, a, b, c, d, e, f, g, h, i, j, k, m, n, p, q, r, s, t, u, x
+    (A, B, a, b, c, d, e, f, g, h, i, j, k, m, n, p, q, r, s, t, u, x, ) = @variables A B a b c d e f g h i j k m n p q r s t u x
 
     #= ::Package:: =#
 

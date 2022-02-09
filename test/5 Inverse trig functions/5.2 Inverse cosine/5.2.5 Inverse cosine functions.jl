@@ -1,5 +1,5 @@
 @testset "5.2.5 Inverse cosine functions" begin
-    @variables a, b, c, d, f, g, h, m, n, x
+    (a, b, c, d, f, g, h, m, n, x, ) = @variables a b c d f g h m n x
 
     #= ::Package:: =#
 
@@ -156,11 +156,11 @@
 
 
     @test_int [x^3*acos(a*x^2), x, 5, -((x^2*sqrt(1 - a^2*x^4))/(8*a)) + (1/4)*x^4*acos(a*x^2) + asin(a*x^2)/(8*a^2)]
-    @test_int [x^2*acos(a*x^2), x, 4, -((2*x*sqrt(1 - a^2*x^4))/(9*a)) + (1/3)*x^3*acos(a*x^2) + (2*EllipticF(asin(sqrt(a)*x), -1))/(9*a^(3/2))]
+    @test_int [x^2*acos(a*x^2), x, 4, -((2*x*sqrt(1 - a^2*x^4))/(9*a)) + (1/3)*x^3*acos(a*x^2) + (2*Elliptic.F(asin(sqrt(a)*x), -1))/(9*a^(3/2))]
     @test_int [x^1*acos(a*x^2), x, 3, -(sqrt(1 - a^2*x^4)/(2*a)) + (1/2)*x^2*acos(a*x^2)]
-    @test_int [x^0*acos(a*x^2), x, 6, x*acos(a*x^2) + (2*EllipticE(asin(sqrt(a)*x), -1))/sqrt(a) - (2*EllipticF(asin(sqrt(a)*x), -1))/sqrt(a)]
+    @test_int [x^0*acos(a*x^2), x, 6, x*acos(a*x^2) + (2*Elliptic.E(asin(sqrt(a)*x), -1))/sqrt(a) - (2*Elliptic.F(asin(sqrt(a)*x), -1))/sqrt(a)]
     @test_int [acos(a*x^2)/x^1, x, 5, (-(1/4))*im*acos(a*x^2)^2 + (1/2)*acos(a*x^2)*log(1 + ℯ^(2*im*acos(a*x^2))) - (1/4)*im*PolyLog(2, -ℯ^(2*im*acos(a*x^2)))]
-    @test_int [acos(a*x^2)/x^2, x, 3, -(acos(a*x^2)/x) - 2*sqrt(a)*EllipticF(asin(sqrt(a)*x), -1)]
+    @test_int [acos(a*x^2)/x^2, x, 3, -(acos(a*x^2)/x) - 2*sqrt(a)*Elliptic.F(asin(sqrt(a)*x), -1)]
 
 
     #= ::Subsubsection::Closed:: =#
@@ -292,8 +292,8 @@
     @test_int [x^2*ℯ^acos(a*x), x, 6, (ℯ^acos(a*x)*x)/(8*a^2) - (ℯ^acos(a*x)*sqrt(1 - a^2*x^2))/(8*a^3) + (3*ℯ^acos(a*x)*cos(3*acos(a*x)))/(40*a^3) - (ℯ^acos(a*x)*sin(3*acos(a*x)))/(40*a^3)]
     @test_int [x^1*ℯ^acos(a*x), x, 5, (ℯ^acos(a*x)*cos(2*acos(a*x)))/(5*a^2) - (ℯ^acos(a*x)*sin(2*acos(a*x)))/(10*a^2)]
     @test_int [x^0*ℯ^acos(a*x), x, 2, (1/2)*ℯ^acos(a*x)*x - (ℯ^acos(a*x)*sqrt(1 - a^2*x^2))/(2*a)]
-    @test_int [ℯ^acos(a*x)/x^1, x, 6, im*ℯ^acos(a*x) - 2*im*ℯ^acos(a*x)*Hypergeometric2F1(-(im/2), 1, 1 - im/2, -ℯ^(2*im*acos(a*x)))]
-    @test_int [ℯ^acos(a*x)/x^2, x, 6, (1 + im)*a*ℯ^((1 + im)*acos(a*x))*Hypergeometric2F1(1/2 - im/2, 1, 3/2 - im/2, -ℯ^(2*im*acos(a*x))) - (2 + 2*im)*a*ℯ^((1 + im)*acos(a*x))*Hypergeometric2F1(1/2 - im/2, 2, 3/2 - im/2, -ℯ^(2*im*acos(a*x)))]
+    @test_int [ℯ^acos(a*x)/x^1, x, 6, im*ℯ^acos(a*x) - 2*im*ℯ^acos(a*x)*HypergeometricFunctions._₂F₁(-(im/2), 1, 1 - im/2, -ℯ^(2*im*acos(a*x)))]
+    @test_int [ℯ^acos(a*x)/x^2, x, 6, (1 + im)*a*ℯ^((1 + im)*acos(a*x))*HypergeometricFunctions._₂F₁(1/2 - im/2, 1, 3/2 - im/2, -ℯ^(2*im*acos(a*x))) - (2 + 2*im)*a*ℯ^((1 + im)*acos(a*x))*HypergeometricFunctions._₂F₁(1/2 - im/2, 2, 3/2 - im/2, -ℯ^(2*im*acos(a*x)))]
 
 
     #= ::Section::Closed:: =#

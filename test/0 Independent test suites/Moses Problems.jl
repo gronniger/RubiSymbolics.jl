@@ -1,5 +1,5 @@
 @testset "Moses Problems" begin
-    @variables A, B, H, K, a, e, r, t, w, x, y, z
+    (A, B, H, K, a, e, r, t, w, x, y, z, ) = @variables A B H K a e r t w x y z
 
     #= ::Package:: =#
 
@@ -121,7 +121,7 @@
     @test_int [x*ℯ^x, x, 2, -ℯ^x + ℯ^x*x]
     @test_int [(x/(x + 1)^2)*ℯ^x, x, 1, ℯ^x/(1 + x)]
     @test_int [(1 + 2*x^2)*ℯ^x^2, x, 5, ℯ^x^2*x]
-    @test_int [ℯ^x^2, x, 1, (1/2)*sqrt(pi)*Erfi(x)]
+    @test_int [ℯ^x^2, x, 1, (1/2)*sqrt(pi)*erfi(x)]
     @test_int [ℯ^x/x, x, 1, ExpIntegralEi(x)]
 
 
@@ -254,10 +254,10 @@
     @test_int [1/(r*sqrt(2*H*r^2 - a^2 - 2*K*r^4)), x, 1, x/(r*sqrt(-a^2 + 2*H*r^2 - 2*K*r^4))]
     @test_int [1/(r*sqrt(2*H*r^2 - a^2 - e^2 - 2*K*r^4)), x, 1, x/(r*sqrt(-a^2 - e^2 + 2*H*r^2 - 2*K*r^4))]
     @test_int [1/(r*sqrt(2*H*r^2 - a^2 - 2*K*r)), x, 1, x/(r*sqrt(-a^2 - 2*r*(K - H*r)))]
-    @test_int [1/(r*sqrt(2*H*r^2 - a^2 - e^2 - 2*K*r)), x, 1, If($VersionNumber>=8, x/(r*sqrt(-a^2 - e^2 - 2*r*(K - H*r))), x/(r*sqrt(-a^2 - e^2 - 2*K*r + 2*H*r^2)))]
+    @test_int [1/(r*sqrt(2*H*r^2 - a^2 - e^2 - 2*K*r)), x, 1, If(13>=8, x/(r*sqrt(-a^2 - e^2 - 2*r*(K - H*r))), x/(r*sqrt(-a^2 - e^2 - 2*K*r + 2*H*r^2)))]
     @test_int [r/sqrt(2*ℯ*r^2 - a^2), x, 1, (r*x)/sqrt(-a^2 + 2*ℯ*r^2)]
     @test_int [r/sqrt(2*ℯ*r^2 - a^2 - e^2), x, 1, (r*x)/sqrt(-a^2 - e^2 + 2*ℯ*r^2)]
     @test_int [r/sqrt(2*ℯ*r^2 - a^2 - 2*K*r^4), x, 1, (r*x)/sqrt(-a^2 + 2*ℯ*r^2 - 2*K*r^4)]
     @test_int [r/sqrt(2*ℯ*r^2 - a^2 - e^2 - 2*K*r^4), x, 1, (r*x)/sqrt(-a^2 - e^2 + 2*ℯ*r^2 - 2*K*r^4)]
-    @test_int [r/sqrt(2*H*r^2 - a^2 - e^2 - 2*K*r), x, 1, If($VersionNumber>=8, (r*x)/sqrt(-a^2 - e^2 - 2*r*(K - H*r)), (r*x)/sqrt(-a^2 - e^2 - 2*K*r + 2*H*r^2))]
+    @test_int [r/sqrt(2*H*r^2 - a^2 - e^2 - 2*K*r), x, 1, If(13>=8, (r*x)/sqrt(-a^2 - e^2 - 2*r*(K - H*r)), (r*x)/sqrt(-a^2 - e^2 - 2*K*r + 2*H*r^2))]
     end

@@ -1,5 +1,5 @@
 @testset "2.2 (c+d x)^m (F^(g (e+f x)))^n (a+b (F^(g (e+f x)))^n)^p" begin
-    @variables F, a, b, c, d, e, f, g, m, n, p, x
+    (F, a, b, c, d, e, f, g, m, n, p, x, ) = @variables F a b c d e f g m n p x
 
     #= ::Package:: =#
 
@@ -123,13 +123,13 @@
     #=p>0=#
 
 
-    @test_int [sqrt(c + d*x)*(a + b*ℯ^x), x, 5, b*ℯ^x*sqrt(c + d*x) + (2*a*(c + d*x)^(3/2))/(3*d) - ((1/2)*b*sqrt(d)*sqrt(pi)*Erfi(sqrt(c + d*x)/sqrt(d)))/ℯ^(c/d)]
+    @test_int [sqrt(c + d*x)*(a + b*ℯ^x), x, 5, b*ℯ^x*sqrt(c + d*x) + (2*a*(c + d*x)^(3/2))/(3*d) - ((1/2)*b*sqrt(d)*sqrt(pi)*erfi(sqrt(c + d*x)/sqrt(d)))/ℯ^(c/d)]
 
 
-    @test_int [sqrt(c + d*x)*(a + b*ℯ^x)^2, x, 8, 2*a*b*ℯ^x*sqrt(c + d*x) + (1/2)*b^2*ℯ^(2*x)*sqrt(c + d*x) + (2*a^2*(c + d*x)^(3/2))/(3*d) - (a*b*sqrt(d)*sqrt(pi)*Erfi(sqrt(c + d*x)/sqrt(d)))/ℯ^(c/d) - ((1/4)*b^2*sqrt(d)*sqrt(pi/2)*Erfi((sqrt(2)*sqrt(c + d*x))/sqrt(d)))/ℯ^((2*c)/d)]
+    @test_int [sqrt(c + d*x)*(a + b*ℯ^x)^2, x, 8, 2*a*b*ℯ^x*sqrt(c + d*x) + (1/2)*b^2*ℯ^(2*x)*sqrt(c + d*x) + (2*a^2*(c + d*x)^(3/2))/(3*d) - (a*b*sqrt(d)*sqrt(pi)*erfi(sqrt(c + d*x)/sqrt(d)))/ℯ^(c/d) - ((1/4)*b^2*sqrt(d)*sqrt(pi/2)*erfi((sqrt(2)*sqrt(c + d*x))/sqrt(d)))/ℯ^((2*c)/d)]
 
 
-    @test_int [sqrt(c + d*x)*(a + b*ℯ^x)^3, x, 11, 3*a^2*b*ℯ^x*sqrt(c + d*x) + (3/2)*a*b^2*ℯ^(2*x)*sqrt(c + d*x) + (1/3)*b^3*ℯ^(3*x)*sqrt(c + d*x) + (2*a^3*(c + d*x)^(3/2))/(3*d) - ((3/2)*a^2*b*sqrt(d)*sqrt(pi)*Erfi(sqrt(c + d*x)/sqrt(d)))/ℯ^(c/d) - ((3/4)*a*b^2*sqrt(d)*sqrt(pi/2)*Erfi((sqrt(2)*sqrt(c + d*x))/sqrt(d)))/ℯ^((2*c)/d) - ((1/6)*b^3*sqrt(d)*sqrt(pi/3)*Erfi((sqrt(3)*sqrt(c + d*x))/sqrt(d)))/ℯ^((3*c)/d)]
+    @test_int [sqrt(c + d*x)*(a + b*ℯ^x)^3, x, 11, 3*a^2*b*ℯ^x*sqrt(c + d*x) + (3/2)*a*b^2*ℯ^(2*x)*sqrt(c + d*x) + (1/3)*b^3*ℯ^(3*x)*sqrt(c + d*x) + (2*a^3*(c + d*x)^(3/2))/(3*d) - ((3/2)*a^2*b*sqrt(d)*sqrt(pi)*erfi(sqrt(c + d*x)/sqrt(d)))/ℯ^(c/d) - ((3/4)*a*b^2*sqrt(d)*sqrt(pi/2)*erfi((sqrt(2)*sqrt(c + d*x))/sqrt(d)))/ℯ^((2*c)/d) - ((1/6)*b^3*sqrt(d)*sqrt(pi/3)*erfi((sqrt(3)*sqrt(c + d*x))/sqrt(d)))/ℯ^((3*c)/d)]
 
 
     #= ::Subsubsection::Closed:: =#

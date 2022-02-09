@@ -1,5 +1,5 @@
 @testset "5.3.5 u (a+b arctan(c+d x))^p" begin
-    @variables a, b, c, d, e, f, m, x
+    (a, b, c, d, e, f, m, x, ) = @variables a b c d e f m x
 
     #= ::Package:: =#
 
@@ -85,7 +85,7 @@
     #=Integrands*of*the*form*(e+f*x)^m*(a+b*atan(c+d*x))^p*with*m*symbolic=#
 
 
-    @test_int [(e + f*x)^m*(a + b*atan(c + d*x))^1, x, 6, ((e + f*x)^(1 + m)*(a + b*atan(c + d*x)))/(f*(1 + m)) - (im*b*d*(e + f*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e + im*f - c*f)))/(2*f*(d*e + (im - c)*f)*(1 + m)*(2 + m)) + (im*b*d*(e + f*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e - (im + c)*f)))/(2*f*(d*e - (im + c)*f)*(1 + m)*(2 + m))]
+    @test_int [(e + f*x)^m*(a + b*atan(c + d*x))^1, x, 6, ((e + f*x)^(1 + m)*(a + b*atan(c + d*x)))/(f*(1 + m)) - (im*b*d*(e + f*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e + im*f - c*f)))/(2*f*(d*e + (im - c)*f)*(1 + m)*(2 + m)) + (im*b*d*(e + f*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e - (im + c)*f)))/(2*f*(d*e - (im + c)*f)*(1 + m)*(2 + m))]
     @test_int [(e + f*x)^m*(a + b*atan(c + d*x))^2, x, 1, Unintegrable((e + f*x)^m*(a + b*atan(c + d*x))^2, x)]
     @test_int [(e + f*x)^m*(a + b*atan(c + d*x))^3, x, 1, Unintegrable((e + f*x)^m*(a + b*atan(c + d*x))^3, x)]
 

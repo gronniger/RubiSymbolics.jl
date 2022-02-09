@@ -1,5 +1,5 @@
 @testset "2.3 Exponential functions" begin
-    @variables F, G, H, a, b, c, d, e, f, g, h, i, k, m, n, p, r, s, t, x
+    (F, G, H, a, b, c, d, e, f, g, h, i, k, m, n, p, r, s, t, x, ) = @variables F G H a b c d e f g h i k m n p r s t x
 
     #= ::Package:: =#
 
@@ -124,14 +124,14 @@
     #= [x^3/(a*f^x + b*f^(-x))^3, x, 49, -((3*x*atan((sqrt(a)*f^x)/sqrt(b)))/(4*a^(3/2)*b^(3/2)*log(f)^3)) + (3*f^x*x^2)/(8*a*b*(b + a*f^(2*x))*log(f)^2) - (f^x*(5 + (3*a*f^(2*x))/b)*x^3)/(8*a*(b + a*f^(2*x))^2*log(f)) + (x^3*((4*sqrt(a)*sqrt(b)*f^x)/(b + a*f^(2*x)) + atan((sqrt(a)*f^x)/sqrt(b))))/(8*a^(3/2)*b^(3/2)*log(f)) + (3*im*(2 - x^2*log(f)^2)*PolyLog(2, -((im*sqrt(a)*f^x)/sqrt(b))))/(16*a^(3/2)*b^(3/2)*log(f)^4) - (3*im*(2 - x^2*log(f)^2)*PolyLog(2, (im*sqrt(a)*f^x)/sqrt(b)))/(16*a^(3/2)*b^(3/2)*log(f)^4) + (3*im*x*PolyLog(3, -((im*sqrt(a)*f^x)/sqrt(b))))/(8*a^(3/2)*b^(3/2)*log(f)^3) - (3*im*x*PolyLog(3, (im*sqrt(a)*f^x)/sqrt(b)))/(8*a^(3/2)*b^(3/2)*log(f)^3) - (3*im*PolyLog(4, -((im*sqrt(a)*f^x)/sqrt(b))))/(8*a^(3/2)*b^(3/2)*log(f)^4) + (3*im*PolyLog(4, (im*sqrt(a)*f^x)/sqrt(b)))/(8*a^(3/2)*b^(3/2)*log(f)^4)] =#
 
 
-    @test_int [f^(a + b*x + c*x^2)*g^(d + e*x + f*x^2), x, 3, (f^a*g^d*sqrt(pi)*Erfi((b*log(f) + e*log(g) + 2*x*(c*log(f) + f*log(g)))/(2*sqrt(c*log(f) + f*log(g)))))/(ℯ^((b*log(f) + e*log(g))^2/(4*(c*log(f) + f*log(g))))*(2*sqrt(c*log(f) + f*log(g))))]
+    @test_int [f^(a + b*x + c*x^2)*g^(d + e*x + f*x^2), x, 3, (f^a*g^d*sqrt(pi)*erfi((b*log(f) + e*log(g) + 2*x*(c*log(f) + f*log(g)))/(2*sqrt(c*log(f) + f*log(g)))))/(ℯ^((b*log(f) + e*log(g))^2/(4*(c*log(f) + f*log(g))))*(2*sqrt(c*log(f) + f*log(g))))]
 
 
-    @test_int [F^(e*(c + d*x))*(a + b*G^(h*(f + g*x)))^n, x, 2, (F^(e*(c + d*x))*(a + b*G^(h*(f + g*x)))^n*Hypergeometric2F1(-n, (d*e*log(F))/(g*h*log(G)), 1 + (d*e*log(F))/(g*h*log(G)), -((b*G^(h*(f + g*x)))/a)))/((1 + (b*G^(h*(f + g*x)))/a)^n*(d*e*log(F)))]
+    @test_int [F^(e*(c + d*x))*(a + b*G^(h*(f + g*x)))^n, x, 2, (F^(e*(c + d*x))*(a + b*G^(h*(f + g*x)))^n*HypergeometricFunctions._₂F₁(-n, (d*e*log(F))/(g*h*log(G)), 1 + (d*e*log(F))/(g*h*log(G)), -((b*G^(h*(f + g*x)))/a)))/((1 + (b*G^(h*(f + g*x)))/a)^n*(d*e*log(F)))]
 
 
-    @test_int [F^(e*(c + d*x))*H^(t*(r + s*x))/(a + b*F^(e*(c + d*x))), x, 2, (H^(t*(r + s*x))*Hypergeometric2F1(1, -((s*t*log(H))/(d*e*log(F))), 1 - (s*t*log(H))/(d*e*log(F)), -(a/(F^(e*(c + d*x))*b))))/(b*s*t*log(H))]
-    @test_int [F^(e*(f + d*x))*H^(t*(r + s*x))/(a + b*F^(e*(c + d*x))), x, 2, (H^(t*(r + s*x))*Hypergeometric2F1(1, -((s*t*log(H))/(d*e*log(F))), 1 - (s*t*log(H))/(d*e*log(F)), -(a/(F^(e*(c + d*x))*b))))/(F^(e*(c - f))*(b*s*t*log(H)))]
+    @test_int [F^(e*(c + d*x))*H^(t*(r + s*x))/(a + b*F^(e*(c + d*x))), x, 2, (H^(t*(r + s*x))*HypergeometricFunctions._₂F₁(1, -((s*t*log(H))/(d*e*log(F))), 1 - (s*t*log(H))/(d*e*log(F)), -(a/(F^(e*(c + d*x))*b))))/(b*s*t*log(H))]
+    @test_int [F^(e*(f + d*x))*H^(t*(r + s*x))/(a + b*F^(e*(c + d*x))), x, 2, (H^(t*(r + s*x))*HypergeometricFunctions._₂F₁(1, -((s*t*log(H))/(d*e*log(F))), 1 - (s*t*log(H))/(d*e*log(F)), -(a/(F^(e*(c + d*x))*b))))/(F^(e*(c - f))*(b*s*t*log(H)))]
 
 
     #= ::Section::Closed:: =#
@@ -159,15 +159,15 @@
 
     @test_int [f^(a + b*x^2)*x^12, x, 1, -((f^a*x^13*Gamma(13/2, (-b)*x^2*log(f)))/(2*((-b)*x^2*log(f))^(13/2)))]
     @test_int [f^(a + b*x^2)*x^10, x, 1, -((f^a*x^11*Gamma(11/2, (-b)*x^2*log(f)))/(2*((-b)*x^2*log(f))^(11/2)))]
-    @test_int [f^(a + b*x^2)*x^8, x, 5, (105*f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f))))/(32*b^(9/2)*log(f)^(9/2)) - (105*f^(a + b*x^2)*x)/(16*b^4*log(f)^4) + (35*f^(a + b*x^2)*x^3)/(8*b^3*log(f)^3) - (7*f^(a + b*x^2)*x^5)/(4*b^2*log(f)^2) + (f^(a + b*x^2)*x^7)/(2*b*log(f))]
-    @test_int [f^(a + b*x^2)*x^6, x, 4, -((15*f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f))))/(16*b^(7/2)*log(f)^(7/2))) + (15*f^(a + b*x^2)*x)/(8*b^3*log(f)^3) - (5*f^(a + b*x^2)*x^3)/(4*b^2*log(f)^2) + (f^(a + b*x^2)*x^5)/(2*b*log(f))]
-    @test_int [f^(a + b*x^2)*x^4, x, 3, (3*f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f))))/(8*b^(5/2)*log(f)^(5/2)) - (3*f^(a + b*x^2)*x)/(4*b^2*log(f)^2) + (f^(a + b*x^2)*x^3)/(2*b*log(f))]
-    @test_int [f^(a + b*x^2)*x^2, x, 2, -((f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f))))/(4*b^(3/2)*log(f)^(3/2))) + (f^(a + b*x^2)*x)/(2*b*log(f))]
-    @test_int [f^(a + b*x^2)*x^0, x, 1, (f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f))))/(2*sqrt(b)*sqrt(log(f)))]
-    @test_int [f^(a + b*x^2)/x^2, x, 2, -(f^(a + b*x^2)/x) + sqrt(b)*f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f)))*sqrt(log(f))]
-    @test_int [f^(a + b*x^2)/x^4, x, 3, -(f^(a + b*x^2)/(3*x^3)) - (2*b*f^(a + b*x^2)*log(f))/(3*x) + (2/3)*b^(3/2)*f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f)))*log(f)^(3/2)]
-    @test_int [f^(a + b*x^2)/x^6, x, 4, -(f^(a + b*x^2)/(5*x^5)) - (2*b*f^(a + b*x^2)*log(f))/(15*x^3) - (4*b^2*f^(a + b*x^2)*log(f)^2)/(15*x) + (4/15)*b^(5/2)*f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f)))*log(f)^(5/2)]
-    @test_int [f^(a + b*x^2)/x^8, x, 5, -(f^(a + b*x^2)/(7*x^7)) - (2*b*f^(a + b*x^2)*log(f))/(35*x^5) - (4*b^2*f^(a + b*x^2)*log(f)^2)/(105*x^3) - (8*b^3*f^(a + b*x^2)*log(f)^3)/(105*x) + (8/105)*b^(7/2)*f^a*sqrt(pi)*Erfi(sqrt(b)*x*sqrt(log(f)))*log(f)^(7/2)]
+    @test_int [f^(a + b*x^2)*x^8, x, 5, (105*f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f))))/(32*b^(9/2)*log(f)^(9/2)) - (105*f^(a + b*x^2)*x)/(16*b^4*log(f)^4) + (35*f^(a + b*x^2)*x^3)/(8*b^3*log(f)^3) - (7*f^(a + b*x^2)*x^5)/(4*b^2*log(f)^2) + (f^(a + b*x^2)*x^7)/(2*b*log(f))]
+    @test_int [f^(a + b*x^2)*x^6, x, 4, -((15*f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f))))/(16*b^(7/2)*log(f)^(7/2))) + (15*f^(a + b*x^2)*x)/(8*b^3*log(f)^3) - (5*f^(a + b*x^2)*x^3)/(4*b^2*log(f)^2) + (f^(a + b*x^2)*x^5)/(2*b*log(f))]
+    @test_int [f^(a + b*x^2)*x^4, x, 3, (3*f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f))))/(8*b^(5/2)*log(f)^(5/2)) - (3*f^(a + b*x^2)*x)/(4*b^2*log(f)^2) + (f^(a + b*x^2)*x^3)/(2*b*log(f))]
+    @test_int [f^(a + b*x^2)*x^2, x, 2, -((f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f))))/(4*b^(3/2)*log(f)^(3/2))) + (f^(a + b*x^2)*x)/(2*b*log(f))]
+    @test_int [f^(a + b*x^2)*x^0, x, 1, (f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f))))/(2*sqrt(b)*sqrt(log(f)))]
+    @test_int [f^(a + b*x^2)/x^2, x, 2, -(f^(a + b*x^2)/x) + sqrt(b)*f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f)))*sqrt(log(f))]
+    @test_int [f^(a + b*x^2)/x^4, x, 3, -(f^(a + b*x^2)/(3*x^3)) - (2*b*f^(a + b*x^2)*log(f))/(3*x) + (2/3)*b^(3/2)*f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f)))*log(f)^(3/2)]
+    @test_int [f^(a + b*x^2)/x^6, x, 4, -(f^(a + b*x^2)/(5*x^5)) - (2*b*f^(a + b*x^2)*log(f))/(15*x^3) - (4*b^2*f^(a + b*x^2)*log(f)^2)/(15*x) + (4/15)*b^(5/2)*f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f)))*log(f)^(5/2)]
+    @test_int [f^(a + b*x^2)/x^8, x, 5, -(f^(a + b*x^2)/(7*x^7)) - (2*b*f^(a + b*x^2)*log(f))/(35*x^5) - (4*b^2*f^(a + b*x^2)*log(f)^2)/(105*x^3) - (8*b^3*f^(a + b*x^2)*log(f)^3)/(105*x) + (8/105)*b^(7/2)*f^a*sqrt(pi)*erfi(sqrt(b)*x*sqrt(log(f)))*log(f)^(7/2)]
     @test_int [f^(a + b*x^2)/x^10, x, 1, -((f^a*Gamma(-(9/2), (-b)*x^2*log(f))*((-b)*x^2*log(f))^(9/2))/(2*x^9))]
     @test_int [f^(a + b*x^2)/x^12, x, 1, -((f^a*Gamma(-(11/2), (-b)*x^2*log(f))*((-b)*x^2*log(f))^(11/2))/(2*x^11))]
 
@@ -235,15 +235,15 @@
 
     @test_int [f^(a + b/x^2)*x^10, x, 1, (1/2)*f^a*x^11*Gamma(-(11/2), -((b*log(f))/x^2))*(-((b*log(f))/x^2))^(11/2)]
     @test_int [f^(a + b/x^2)*x^8, x, 1, (1/2)*f^a*x^9*Gamma(-(9/2), -((b*log(f))/x^2))*(-((b*log(f))/x^2))^(9/2)]
-    @test_int [f^(a + b/x^2)*x^6, x, 6, (1/7)*f^(a + b/x^2)*x^7 + (2/35)*b*f^(a + b/x^2)*x^5*log(f) + (4/105)*b^2*f^(a + b/x^2)*x^3*log(f)^2 + (8/105)*b^3*f^(a + b/x^2)*x*log(f)^3 - (8/105)*b^(7/2)*f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x)*log(f)^(7/2)]
-    @test_int [f^(a + b/x^2)*x^4, x, 5, (1/5)*f^(a + b/x^2)*x^5 + (2/15)*b*f^(a + b/x^2)*x^3*log(f) + (4/15)*b^2*f^(a + b/x^2)*x*log(f)^2 - (4/15)*b^(5/2)*f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x)*log(f)^(5/2)]
-    @test_int [f^(a + b/x^2)*x^2, x, 4, (1/3)*f^(a + b/x^2)*x^3 + (2/3)*b*f^(a + b/x^2)*x*log(f) - (2/3)*b^(3/2)*f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x)*log(f)^(3/2)]
-    @test_int [f^(a + b/x^2)*x^0, x, 3, f^(a + b/x^2)*x - sqrt(b)*f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x)*sqrt(log(f))]
-    @test_int [f^(a + b/x^2)/x^2, x, 2, -((f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x))/(2*sqrt(b)*sqrt(log(f))))]
-    @test_int [f^(a + b/x^2)/x^4, x, 3, (f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x))/(4*b^(3/2)*log(f)^(3/2)) - f^(a + b/x^2)/(2*b*x*log(f))]
-    @test_int [f^(a + b/x^2)/x^6, x, 4, -((3*f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x))/(8*b^(5/2)*log(f)^(5/2))) + (3*f^(a + b/x^2))/(4*b^2*x*log(f)^2) - f^(a + b/x^2)/(2*b*x^3*log(f))]
-    @test_int [f^(a + b/x^2)/x^8, x, 5, (15*f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x))/(16*b^(7/2)*log(f)^(7/2)) - (15*f^(a + b/x^2))/(8*b^3*x*log(f)^3) + (5*f^(a + b/x^2))/(4*b^2*x^3*log(f)^2) - f^(a + b/x^2)/(2*b*x^5*log(f))]
-    @test_int [f^(a + b/x^2)/x^10, x, 6, -((105*f^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(f)))/x))/(32*b^(9/2)*log(f)^(9/2))) + (105*f^(a + b/x^2))/(16*b^4*x*log(f)^4) - (35*f^(a + b/x^2))/(8*b^3*x^3*log(f)^3) + (7*f^(a + b/x^2))/(4*b^2*x^5*log(f)^2) - f^(a + b/x^2)/(2*b*x^7*log(f))]
+    @test_int [f^(a + b/x^2)*x^6, x, 6, (1/7)*f^(a + b/x^2)*x^7 + (2/35)*b*f^(a + b/x^2)*x^5*log(f) + (4/105)*b^2*f^(a + b/x^2)*x^3*log(f)^2 + (8/105)*b^3*f^(a + b/x^2)*x*log(f)^3 - (8/105)*b^(7/2)*f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x)*log(f)^(7/2)]
+    @test_int [f^(a + b/x^2)*x^4, x, 5, (1/5)*f^(a + b/x^2)*x^5 + (2/15)*b*f^(a + b/x^2)*x^3*log(f) + (4/15)*b^2*f^(a + b/x^2)*x*log(f)^2 - (4/15)*b^(5/2)*f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x)*log(f)^(5/2)]
+    @test_int [f^(a + b/x^2)*x^2, x, 4, (1/3)*f^(a + b/x^2)*x^3 + (2/3)*b*f^(a + b/x^2)*x*log(f) - (2/3)*b^(3/2)*f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x)*log(f)^(3/2)]
+    @test_int [f^(a + b/x^2)*x^0, x, 3, f^(a + b/x^2)*x - sqrt(b)*f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x)*sqrt(log(f))]
+    @test_int [f^(a + b/x^2)/x^2, x, 2, -((f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x))/(2*sqrt(b)*sqrt(log(f))))]
+    @test_int [f^(a + b/x^2)/x^4, x, 3, (f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x))/(4*b^(3/2)*log(f)^(3/2)) - f^(a + b/x^2)/(2*b*x*log(f))]
+    @test_int [f^(a + b/x^2)/x^6, x, 4, -((3*f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x))/(8*b^(5/2)*log(f)^(5/2))) + (3*f^(a + b/x^2))/(4*b^2*x*log(f)^2) - f^(a + b/x^2)/(2*b*x^3*log(f))]
+    @test_int [f^(a + b/x^2)/x^8, x, 5, (15*f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x))/(16*b^(7/2)*log(f)^(7/2)) - (15*f^(a + b/x^2))/(8*b^3*x*log(f)^3) + (5*f^(a + b/x^2))/(4*b^2*x^3*log(f)^2) - f^(a + b/x^2)/(2*b*x^5*log(f))]
+    @test_int [f^(a + b/x^2)/x^10, x, 6, -((105*f^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(f)))/x))/(32*b^(9/2)*log(f)^(9/2))) + (105*f^(a + b/x^2))/(16*b^4*x*log(f)^4) - (35*f^(a + b/x^2))/(8*b^3*x^3*log(f)^3) + (7*f^(a + b/x^2))/(4*b^2*x^5*log(f)^2) - f^(a + b/x^2)/(2*b*x^7*log(f))]
     @test_int [f^(a + b/x^2)/x^12, x, 1, (f^a*Gamma(11/2, -((b*log(f))/x^2)))/(2*x^11*(-((b*log(f))/x^2))^(11/2))]
     @test_int [f^(a + b/x^2)/x^14, x, 1, (f^a*Gamma(13/2, -((b*log(f))/x^2)))/(2*x^13*(-((b*log(f))/x^2))^(13/2))]
 
@@ -295,11 +295,11 @@
     @test_int [f^(a + b*x^n)*x^(-2*n/2-1), x, 2, -(f^(a + b*x^n)/(x^n*n)) + (b*f^a*ExpIntegralEi(b*x^n*log(f))*log(f))/n]
     @test_int [f^(a + b*x^n)*x^(-4*n/2-1), x, 3, -(f^(a + b*x^n)/(x^(2*n)*(2*n))) - (b*f^(a + b*x^n)*log(f))/(x^n*(2*n)) + (b^2*f^a*ExpIntegralEi(b*x^n*log(f))*log(f)^2)/(2*n)]
 
-    @test_int [f^(a + b*x^n)*x^(5*n/2-1), x, 4, (3*f^a*sqrt(pi)*Erfi(sqrt(b)*x^(n/2)*sqrt(log(f))))/(4*b^(5/2)*n*log(f)^(5/2)) - (3*f^(a + b*x^n)*x^(n/2))/(2*b^2*n*log(f)^2) + (f^(a + b*x^n)*x^((3*n)/2))/(b*n*log(f))]
-    @test_int [f^(a + b*x^n)*x^(3*n/2-1), x, 3, -((f^a*sqrt(pi)*Erfi(sqrt(b)*x^(n/2)*sqrt(log(f))))/(2*b^(3/2)*n*log(f)^(3/2))) + (f^(a + b*x^n)*x^(n/2))/(b*n*log(f))]
-    @test_int [f^(a + b*x^n)*x^(1*n/2-1), x, 2, (f^a*sqrt(pi)*Erfi(sqrt(b)*x^(n/2)*sqrt(log(f))))/(sqrt(b)*n*sqrt(log(f)))]
-    @test_int [f^(a + b*x^n)*x^(-1*n/2-1), x, 3, -((2*f^(a + b*x^n))/(x^(n/2)*n)) + (2*sqrt(b)*f^a*sqrt(pi)*Erfi(sqrt(b)*x^(n/2)*sqrt(log(f)))*sqrt(log(f)))/n]
-    @test_int [f^(a + b*x^n)*x^(-3*n/2-1), x, 4, -((2*f^(a + b*x^n))/(x^((3*n)/2)*(3*n))) - (4*b*f^(a + b*x^n)*log(f))/(x^(n/2)*(3*n)) + (4*b^(3/2)*f^a*sqrt(pi)*Erfi(sqrt(b)*x^(n/2)*sqrt(log(f)))*log(f)^(3/2))/(3*n)]
+    @test_int [f^(a + b*x^n)*x^(5*n/2-1), x, 4, (3*f^a*sqrt(pi)*erfi(sqrt(b)*x^(n/2)*sqrt(log(f))))/(4*b^(5/2)*n*log(f)^(5/2)) - (3*f^(a + b*x^n)*x^(n/2))/(2*b^2*n*log(f)^2) + (f^(a + b*x^n)*x^((3*n)/2))/(b*n*log(f))]
+    @test_int [f^(a + b*x^n)*x^(3*n/2-1), x, 3, -((f^a*sqrt(pi)*erfi(sqrt(b)*x^(n/2)*sqrt(log(f))))/(2*b^(3/2)*n*log(f)^(3/2))) + (f^(a + b*x^n)*x^(n/2))/(b*n*log(f))]
+    @test_int [f^(a + b*x^n)*x^(1*n/2-1), x, 2, (f^a*sqrt(pi)*erfi(sqrt(b)*x^(n/2)*sqrt(log(f))))/(sqrt(b)*n*sqrt(log(f)))]
+    @test_int [f^(a + b*x^n)*x^(-1*n/2-1), x, 3, -((2*f^(a + b*x^n))/(x^(n/2)*n)) + (2*sqrt(b)*f^a*sqrt(pi)*erfi(sqrt(b)*x^(n/2)*sqrt(log(f)))*sqrt(log(f)))/n]
+    @test_int [f^(a + b*x^n)*x^(-3*n/2-1), x, 4, -((2*f^(a + b*x^n))/(x^((3*n)/2)*(3*n))) - (4*b*f^(a + b*x^n)*log(f))/(x^(n/2)*(3*n)) + (4*b^(3/2)*f^a*sqrt(pi)*erfi(sqrt(b)*x^(n/2)*sqrt(log(f)))*log(f)^(3/2))/(3*n)]
 
 
     @test_int [x/ℯ^(0.1*x), x, 2, -100.0./ℯ^(0.1*x) - (10.0.*x)/ℯ^(0.1*x)]
@@ -317,13 +317,13 @@
     #=n>0=#
 
 
-    @test_int [f^(c*(a + b*x)^2)*x^3, x, 8, -(f^(c*(a + b*x)^2)/(2*b^4*c^2*log(f)^2)) + (3*a*sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(4*b^4*c^(3/2)*log(f)^(3/2)) + (3*a^2*f^(c*(a + b*x)^2))/(2*b^4*c*log(f)) - (3*a*f^(c*(a + b*x)^2)*(a + b*x))/(2*b^4*c*log(f)) + (f^(c*(a + b*x)^2)*(a + b*x)^2)/(2*b^4*c*log(f)) - (a^3*sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b^4*sqrt(c)*sqrt(log(f)))]
-    @test_int [f^(c*(a + b*x)^2)*x^2, x, 6, -((sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(4*b^3*c^(3/2)*log(f)^(3/2))) - (a*f^(c*(a + b*x)^2))/(b^3*c*log(f)) + (f^(c*(a + b*x)^2)*(a + b*x))/(2*b^3*c*log(f)) + (a^2*sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b^3*sqrt(c)*sqrt(log(f)))]
-    @test_int [f^(c*(a + b*x)^2)*x^1, x, 4, f^(c*(a + b*x)^2)/(2*b^2*c*log(f)) - (a*sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b^2*sqrt(c)*sqrt(log(f)))]
-    @test_int [f^(c*(a + b*x)^2)*x^0, x, 1, (sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b*sqrt(c)*sqrt(log(f)))]
+    @test_int [f^(c*(a + b*x)^2)*x^3, x, 8, -(f^(c*(a + b*x)^2)/(2*b^4*c^2*log(f)^2)) + (3*a*sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(4*b^4*c^(3/2)*log(f)^(3/2)) + (3*a^2*f^(c*(a + b*x)^2))/(2*b^4*c*log(f)) - (3*a*f^(c*(a + b*x)^2)*(a + b*x))/(2*b^4*c*log(f)) + (f^(c*(a + b*x)^2)*(a + b*x)^2)/(2*b^4*c*log(f)) - (a^3*sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b^4*sqrt(c)*sqrt(log(f)))]
+    @test_int [f^(c*(a + b*x)^2)*x^2, x, 6, -((sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(4*b^3*c^(3/2)*log(f)^(3/2))) - (a*f^(c*(a + b*x)^2))/(b^3*c*log(f)) + (f^(c*(a + b*x)^2)*(a + b*x))/(2*b^3*c*log(f)) + (a^2*sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b^3*sqrt(c)*sqrt(log(f)))]
+    @test_int [f^(c*(a + b*x)^2)*x^1, x, 4, f^(c*(a + b*x)^2)/(2*b^2*c*log(f)) - (a*sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b^2*sqrt(c)*sqrt(log(f)))]
+    @test_int [f^(c*(a + b*x)^2)*x^0, x, 1, (sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f))))/(2*b*sqrt(c)*sqrt(log(f)))]
     @test_int [f^(c*(a + b*x)^2)/x^1, x, 0, Unintegrable(f^(c*(a + b*x)^2)/x, x)]
-    @test_int [f^(c*(a + b*x)^2)/x^2, x, 2, -(f^(c*(a + b*x)^2)/x) + b*sqrt(c)*sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f)))*sqrt(log(f)) + 2*a*b*c*log(f)*Unintegrable(f^(c*(a + b*x)^2)/x, x)]
-    @test_int [f^(c*(a + b*x)^2)/x^3, x, 3, -(f^(c*(a + b*x)^2)/(2*x^2)) - (a*b*c*f^(c*(a + b*x)^2)*log(f))/x + a*b^2*c^(3/2)*sqrt(pi)*Erfi(sqrt(c)*(a + b*x)*sqrt(log(f)))*log(f)^(3/2) + b^2*c*log(f)*Unintegrable(f^(c*(a + b*x)^2)/x, x) + 2*a^2*b^2*c^2*log(f)^2*Unintegrable(f^(c*(a + b*x)^2)/x, x)]
+    @test_int [f^(c*(a + b*x)^2)/x^2, x, 2, -(f^(c*(a + b*x)^2)/x) + b*sqrt(c)*sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f)))*sqrt(log(f)) + 2*a*b*c*log(f)*Unintegrable(f^(c*(a + b*x)^2)/x, x)]
+    @test_int [f^(c*(a + b*x)^2)/x^3, x, 3, -(f^(c*(a + b*x)^2)/(2*x^2)) - (a*b*c*f^(c*(a + b*x)^2)*log(f))/x + a*b^2*c^(3/2)*sqrt(pi)*erfi(sqrt(c)*(a + b*x)*sqrt(log(f)))*log(f)^(3/2) + b^2*c*log(f)*Unintegrable(f^(c*(a + b*x)^2)/x, x) + 2*a^2*b^2*c^2*log(f)^2*Unintegrable(f^(c*(a + b*x)^2)/x, x)]
 
 
     @test_int [f^(c*(a + b*x)^3)*x^2, x, 5, f^(c*(a + b*x)^3)/(3*b^3*c*log(f)) + (2*a*(a + b*x)^2*Gamma(2/3, (-c)*(a + b*x)^3*log(f)))/(3*b^3*((-c)*(a + b*x)^3*log(f))^(2/3)) - (a^2*(a + b*x)*Gamma(1/3, (-c)*(a + b*x)^3*log(f)))/(3*b^3*((-c)*(a + b*x)^3*log(f))^(1/3))]
@@ -362,11 +362,11 @@
     @test_int [f^(c/(a + b*x))/x^3, x, 18, (b^2*f^(c/(a + b*x)))/(2*a^2) - f^(c/(a + b*x))/(2*x^2) + (b^2*c*f^(c/(a + b*x))*log(f))/(2*a^3) + (b*c*f^(c/(a + b*x))*log(f))/(2*a^2*x) + (b^2*c*f^(c/a)*ExpIntegralEi(-((b*c*x*log(f))/(a*(a + b*x))))*log(f))/a^3 + (b^2*c^2*f^(c/a)*ExpIntegralEi(-((b*c*x*log(f))/(a*(a + b*x))))*log(f)^2)/(2*a^4)]
 
 
-    @test_int [f^(c/(a + b*x)^2)*x^4, x, 19, (a^4*f^(c/(a + b*x)^2)*(a + b*x))/b^5 - (2*a^3*f^(c/(a + b*x)^2)*(a + b*x)^2)/b^5 + (2*a^2*f^(c/(a + b*x)^2)*(a + b*x)^3)/b^5 - (a*f^(c/(a + b*x)^2)*(a + b*x)^4)/b^5 + (f^(c/(a + b*x)^2)*(a + b*x)^5)/(5*b^5) - (a^4*sqrt(c)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^5 + (4*a^2*c*f^(c/(a + b*x)^2)*(a + b*x)*log(f))/b^5 - (a*c*f^(c/(a + b*x)^2)*(a + b*x)^2*log(f))/b^5 + (2*c*f^(c/(a + b*x)^2)*(a + b*x)^3*log(f))/(15*b^5) + (2*a^3*c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/b^5 - (4*a^2*c^(3/2)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(3/2))/b^5 + (4*c^2*f^(c/(a + b*x)^2)*(a + b*x)*log(f)^2)/(15*b^5) + (a*c^2*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f)^2)/b^5 - (4*c^(5/2)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(5/2))/(15*b^5)]
-    @test_int [f^(c/(a + b*x)^2)*x^3, x, 14, -((a^3*f^(c/(a + b*x)^2)*(a + b*x))/b^4) + (3*a^2*f^(c/(a + b*x)^2)*(a + b*x)^2)/(2*b^4) - (a*f^(c/(a + b*x)^2)*(a + b*x)^3)/b^4 + (f^(c/(a + b*x)^2)*(a + b*x)^4)/(4*b^4) + (a^3*sqrt(c)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^4 - (2*a*c*f^(c/(a + b*x)^2)*(a + b*x)*log(f))/b^4 + (c*f^(c/(a + b*x)^2)*(a + b*x)^2*log(f))/(4*b^4) - (3*a^2*c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/(2*b^4) + (2*a*c^(3/2)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(3/2))/b^4 - (c^2*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f)^2)/(4*b^4)]
-    @test_int [f^(c/(a + b*x)^2)*x^2, x, 11, (a^2*f^(c/(a + b*x)^2)*(a + b*x))/b^3 - (a*f^(c/(a + b*x)^2)*(a + b*x)^2)/b^3 + (f^(c/(a + b*x)^2)*(a + b*x)^3)/(3*b^3) - (a^2*sqrt(c)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^3 + (2*c*f^(c/(a + b*x)^2)*(a + b*x)*log(f))/(3*b^3) + (a*c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/b^3 - (2*c^(3/2)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(3/2))/(3*b^3)]
-    @test_int [f^(c/(a + b*x)^2)*x^1, x, 7, -((a*f^(c/(a + b*x)^2)*(a + b*x))/b^2) + (f^(c/(a + b*x)^2)*(a + b*x)^2)/(2*b^2) + (a*sqrt(c)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^2 - (c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/(2*b^2)]
-    @test_int [f^(c/(a + b*x)^2)*x^0, x, 3, (f^(c/(a + b*x)^2)*(a + b*x))/b - (sqrt(c)*sqrt(pi)*Erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b]
+    @test_int [f^(c/(a + b*x)^2)*x^4, x, 19, (a^4*f^(c/(a + b*x)^2)*(a + b*x))/b^5 - (2*a^3*f^(c/(a + b*x)^2)*(a + b*x)^2)/b^5 + (2*a^2*f^(c/(a + b*x)^2)*(a + b*x)^3)/b^5 - (a*f^(c/(a + b*x)^2)*(a + b*x)^4)/b^5 + (f^(c/(a + b*x)^2)*(a + b*x)^5)/(5*b^5) - (a^4*sqrt(c)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^5 + (4*a^2*c*f^(c/(a + b*x)^2)*(a + b*x)*log(f))/b^5 - (a*c*f^(c/(a + b*x)^2)*(a + b*x)^2*log(f))/b^5 + (2*c*f^(c/(a + b*x)^2)*(a + b*x)^3*log(f))/(15*b^5) + (2*a^3*c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/b^5 - (4*a^2*c^(3/2)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(3/2))/b^5 + (4*c^2*f^(c/(a + b*x)^2)*(a + b*x)*log(f)^2)/(15*b^5) + (a*c^2*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f)^2)/b^5 - (4*c^(5/2)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(5/2))/(15*b^5)]
+    @test_int [f^(c/(a + b*x)^2)*x^3, x, 14, -((a^3*f^(c/(a + b*x)^2)*(a + b*x))/b^4) + (3*a^2*f^(c/(a + b*x)^2)*(a + b*x)^2)/(2*b^4) - (a*f^(c/(a + b*x)^2)*(a + b*x)^3)/b^4 + (f^(c/(a + b*x)^2)*(a + b*x)^4)/(4*b^4) + (a^3*sqrt(c)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^4 - (2*a*c*f^(c/(a + b*x)^2)*(a + b*x)*log(f))/b^4 + (c*f^(c/(a + b*x)^2)*(a + b*x)^2*log(f))/(4*b^4) - (3*a^2*c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/(2*b^4) + (2*a*c^(3/2)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(3/2))/b^4 - (c^2*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f)^2)/(4*b^4)]
+    @test_int [f^(c/(a + b*x)^2)*x^2, x, 11, (a^2*f^(c/(a + b*x)^2)*(a + b*x))/b^3 - (a*f^(c/(a + b*x)^2)*(a + b*x)^2)/b^3 + (f^(c/(a + b*x)^2)*(a + b*x)^3)/(3*b^3) - (a^2*sqrt(c)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^3 + (2*c*f^(c/(a + b*x)^2)*(a + b*x)*log(f))/(3*b^3) + (a*c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/b^3 - (2*c^(3/2)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*log(f)^(3/2))/(3*b^3)]
+    @test_int [f^(c/(a + b*x)^2)*x^1, x, 7, -((a*f^(c/(a + b*x)^2)*(a + b*x))/b^2) + (f^(c/(a + b*x)^2)*(a + b*x)^2)/(2*b^2) + (a*sqrt(c)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b^2 - (c*ExpIntegralEi((c*log(f))/(a + b*x)^2)*log(f))/(2*b^2)]
+    @test_int [f^(c/(a + b*x)^2)*x^0, x, 3, (f^(c/(a + b*x)^2)*(a + b*x))/b - (sqrt(c)*sqrt(pi)*erfi((sqrt(c)*sqrt(log(f)))/(a + b*x))*sqrt(log(f)))/b]
     @test_int [f^(c/(a + b*x)^2)/x^1, x, 0, Unintegrable(f^(c/(a + b*x)^2)/x, x)]
     @test_int [f^(c/(a + b*x)^2)/x^2, x, 0, CannotIntegrate(f^(c/(a + b*x)^2)/x^2, x)]
     @test_int [f^(c/(a + b*x)^2)/x^3, x, 0, CannotIntegrate(f^(c/(a + b*x)^2)/x^3, x)]
@@ -435,15 +435,15 @@
 
     @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^12, x, 1, -((F^a*(c + d*x)^13*Gamma(13/2, (-b)*(c + d*x)^2*log(F)))/(2*d*((-b)*(c + d*x)^2*log(F))^(13/2)))]
     @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^10, x, 1, -((F^a*(c + d*x)^11*Gamma(11/2, (-b)*(c + d*x)^2*log(F)))/(2*d*((-b)*(c + d*x)^2*log(F))^(11/2)))]
-    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^8, x, 5, (105*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(32*b^(9/2)*d*log(F)^(9/2)) - (105*F^(a + b*(c + d*x)^2)*(c + d*x))/(16*b^4*d*log(F)^4) + (35*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(8*b^3*d*log(F)^3) - (7*F^(a + b*(c + d*x)^2)*(c + d*x)^5)/(4*b^2*d*log(F)^2) + (F^(a + b*(c + d*x)^2)*(c + d*x)^7)/(2*b*d*log(F))]
-    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^6, x, 4, -((15*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(16*b^(7/2)*d*log(F)^(7/2))) + (15*F^(a + b*(c + d*x)^2)*(c + d*x))/(8*b^3*d*log(F)^3) - (5*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(4*b^2*d*log(F)^2) + (F^(a + b*(c + d*x)^2)*(c + d*x)^5)/(2*b*d*log(F))]
-    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^4, x, 3, (3*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(8*b^(5/2)*d*log(F)^(5/2)) - (3*F^(a + b*(c + d*x)^2)*(c + d*x))/(4*b^2*d*log(F)^2) + (F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(2*b*d*log(F))]
-    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^2, x, 2, -((F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(4*b^(3/2)*d*log(F)^(3/2))) + (F^(a + b*(c + d*x)^2)*(c + d*x))/(2*b*d*log(F))]
-    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^0, x, 1, (F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d*sqrt(log(F)))]
-    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^2, x, 2, -(F^(a + b*(c + d*x)^2)/(d*(c + d*x))) + (sqrt(b)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*sqrt(log(F)))/d]
-    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^4, x, 3, -(F^(a + b*(c + d*x)^2)/(3*d*(c + d*x)^3)) - (2*b*F^(a + b*(c + d*x)^2)*log(F))/(3*d*(c + d*x)) + (2*b^(3/2)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(3/2))/(3*d)]
-    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^6, x, 4, -(F^(a + b*(c + d*x)^2)/(5*d*(c + d*x)^5)) - (2*b*F^(a + b*(c + d*x)^2)*log(F))/(15*d*(c + d*x)^3) - (4*b^2*F^(a + b*(c + d*x)^2)*log(F)^2)/(15*d*(c + d*x)) + (4*b^(5/2)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(5/2))/(15*d)]
-    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^8, x, 5, -(F^(a + b*(c + d*x)^2)/(7*d*(c + d*x)^7)) - (2*b*F^(a + b*(c + d*x)^2)*log(F))/(35*d*(c + d*x)^5) - (4*b^2*F^(a + b*(c + d*x)^2)*log(F)^2)/(105*d*(c + d*x)^3) - (8*b^3*F^(a + b*(c + d*x)^2)*log(F)^3)/(105*d*(c + d*x)) + (8*b^(7/2)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(7/2))/(105*d)]
+    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^8, x, 5, (105*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(32*b^(9/2)*d*log(F)^(9/2)) - (105*F^(a + b*(c + d*x)^2)*(c + d*x))/(16*b^4*d*log(F)^4) + (35*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(8*b^3*d*log(F)^3) - (7*F^(a + b*(c + d*x)^2)*(c + d*x)^5)/(4*b^2*d*log(F)^2) + (F^(a + b*(c + d*x)^2)*(c + d*x)^7)/(2*b*d*log(F))]
+    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^6, x, 4, -((15*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(16*b^(7/2)*d*log(F)^(7/2))) + (15*F^(a + b*(c + d*x)^2)*(c + d*x))/(8*b^3*d*log(F)^3) - (5*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(4*b^2*d*log(F)^2) + (F^(a + b*(c + d*x)^2)*(c + d*x)^5)/(2*b*d*log(F))]
+    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^4, x, 3, (3*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(8*b^(5/2)*d*log(F)^(5/2)) - (3*F^(a + b*(c + d*x)^2)*(c + d*x))/(4*b^2*d*log(F)^2) + (F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(2*b*d*log(F))]
+    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^2, x, 2, -((F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(4*b^(3/2)*d*log(F)^(3/2))) + (F^(a + b*(c + d*x)^2)*(c + d*x))/(2*b*d*log(F))]
+    @test_int [F^(a + b*(c + d*x)^2)*(c + d*x)^0, x, 1, (F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d*sqrt(log(F)))]
+    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^2, x, 2, -(F^(a + b*(c + d*x)^2)/(d*(c + d*x))) + (sqrt(b)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*sqrt(log(F)))/d]
+    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^4, x, 3, -(F^(a + b*(c + d*x)^2)/(3*d*(c + d*x)^3)) - (2*b*F^(a + b*(c + d*x)^2)*log(F))/(3*d*(c + d*x)) + (2*b^(3/2)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(3/2))/(3*d)]
+    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^6, x, 4, -(F^(a + b*(c + d*x)^2)/(5*d*(c + d*x)^5)) - (2*b*F^(a + b*(c + d*x)^2)*log(F))/(15*d*(c + d*x)^3) - (4*b^2*F^(a + b*(c + d*x)^2)*log(F)^2)/(15*d*(c + d*x)) + (4*b^(5/2)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(5/2))/(15*d)]
+    @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^8, x, 5, -(F^(a + b*(c + d*x)^2)/(7*d*(c + d*x)^7)) - (2*b*F^(a + b*(c + d*x)^2)*log(F))/(35*d*(c + d*x)^5) - (4*b^2*F^(a + b*(c + d*x)^2)*log(F)^2)/(105*d*(c + d*x)^3) - (8*b^3*F^(a + b*(c + d*x)^2)*log(F)^3)/(105*d*(c + d*x)) + (8*b^(7/2)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(7/2))/(105*d)]
     @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^10, x, 1, -((F^a*Gamma(-(9/2), (-b)*(c + d*x)^2*log(F))*((-b)*(c + d*x)^2*log(F))^(9/2))/(2*d*(c + d*x)^9))]
     @test_int [F^(a + b*(c + d*x)^2)/(c + d*x)^12, x, 1, -((F^a*Gamma(-(11/2), (-b)*(c + d*x)^2*log(F))*((-b)*(c + d*x)^2*log(F))^(11/2))/(2*d*(c + d*x)^11))]
 
@@ -512,15 +512,15 @@
 
     @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^10, x, 1, (F^a*(c + d*x)^11*Gamma(-(11/2), -((b*log(F))/(c + d*x)^2))*(-((b*log(F))/(c + d*x)^2))^(11/2))/(2*d)]
     @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^8, x, 1, (F^a*(c + d*x)^9*Gamma(-(9/2), -((b*log(F))/(c + d*x)^2))*(-((b*log(F))/(c + d*x)^2))^(9/2))/(2*d)]
-    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^6, x, 6, (F^(a + b/(c + d*x)^2)*(c + d*x)^7)/(7*d) + (2*b*F^(a + b/(c + d*x)^2)*(c + d*x)^5*log(F))/(35*d) + (4*b^2*F^(a + b/(c + d*x)^2)*(c + d*x)^3*log(F)^2)/(105*d) + (8*b^3*F^(a + b/(c + d*x)^2)*(c + d*x)*log(F)^3)/(105*d) - (8*b^(7/2)*F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*log(F)^(7/2))/(105*d)]
-    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^4, x, 5, (F^(a + b/(c + d*x)^2)*(c + d*x)^5)/(5*d) + (2*b*F^(a + b/(c + d*x)^2)*(c + d*x)^3*log(F))/(15*d) + (4*b^2*F^(a + b/(c + d*x)^2)*(c + d*x)*log(F)^2)/(15*d) - (4*b^(5/2)*F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*log(F)^(5/2))/(15*d)]
-    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^2, x, 4, (F^(a + b/(c + d*x)^2)*(c + d*x)^3)/(3*d) + (2*b*F^(a + b/(c + d*x)^2)*(c + d*x)*log(F))/(3*d) - (2*b^(3/2)*F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*log(F)^(3/2))/(3*d)]
-    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^0, x, 3, (F^(a + b/(c + d*x)^2)*(c + d*x))/d - (sqrt(b)*F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*sqrt(log(F)))/d]
-    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^2, x, 2, -((F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(2*sqrt(b)*d*sqrt(log(F))))]
-    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^4, x, 3, (F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(4*b^(3/2)*d*log(F)^(3/2)) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)*log(F))]
-    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^6, x, 4, -((3*F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(8*b^(5/2)*d*log(F)^(5/2))) + (3*F^(a + b/(c + d*x)^2))/(4*b^2*d*(c + d*x)*log(F)^2) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)^3*log(F))]
-    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^8, x, 5, (15*F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(16*b^(7/2)*d*log(F)^(7/2)) - (15*F^(a + b/(c + d*x)^2))/(8*b^3*d*(c + d*x)*log(F)^3) + (5*F^(a + b/(c + d*x)^2))/(4*b^2*d*(c + d*x)^3*log(F)^2) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)^5*log(F))]
-    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^10, x, 6, -((105*F^a*sqrt(pi)*Erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(32*b^(9/2)*d*log(F)^(9/2))) + (105*F^(a + b/(c + d*x)^2))/(16*b^4*d*(c + d*x)*log(F)^4) - (35*F^(a + b/(c + d*x)^2))/(8*b^3*d*(c + d*x)^3*log(F)^3) + (7*F^(a + b/(c + d*x)^2))/(4*b^2*d*(c + d*x)^5*log(F)^2) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)^7*log(F))]
+    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^6, x, 6, (F^(a + b/(c + d*x)^2)*(c + d*x)^7)/(7*d) + (2*b*F^(a + b/(c + d*x)^2)*(c + d*x)^5*log(F))/(35*d) + (4*b^2*F^(a + b/(c + d*x)^2)*(c + d*x)^3*log(F)^2)/(105*d) + (8*b^3*F^(a + b/(c + d*x)^2)*(c + d*x)*log(F)^3)/(105*d) - (8*b^(7/2)*F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*log(F)^(7/2))/(105*d)]
+    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^4, x, 5, (F^(a + b/(c + d*x)^2)*(c + d*x)^5)/(5*d) + (2*b*F^(a + b/(c + d*x)^2)*(c + d*x)^3*log(F))/(15*d) + (4*b^2*F^(a + b/(c + d*x)^2)*(c + d*x)*log(F)^2)/(15*d) - (4*b^(5/2)*F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*log(F)^(5/2))/(15*d)]
+    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^2, x, 4, (F^(a + b/(c + d*x)^2)*(c + d*x)^3)/(3*d) + (2*b*F^(a + b/(c + d*x)^2)*(c + d*x)*log(F))/(3*d) - (2*b^(3/2)*F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*log(F)^(3/2))/(3*d)]
+    @test_int [F^(a + b/(c + d*x)^2)*(c + d*x)^0, x, 3, (F^(a + b/(c + d*x)^2)*(c + d*x))/d - (sqrt(b)*F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x))*sqrt(log(F)))/d]
+    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^2, x, 2, -((F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(2*sqrt(b)*d*sqrt(log(F))))]
+    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^4, x, 3, (F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(4*b^(3/2)*d*log(F)^(3/2)) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)*log(F))]
+    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^6, x, 4, -((3*F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(8*b^(5/2)*d*log(F)^(5/2))) + (3*F^(a + b/(c + d*x)^2))/(4*b^2*d*(c + d*x)*log(F)^2) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)^3*log(F))]
+    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^8, x, 5, (15*F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(16*b^(7/2)*d*log(F)^(7/2)) - (15*F^(a + b/(c + d*x)^2))/(8*b^3*d*(c + d*x)*log(F)^3) + (5*F^(a + b/(c + d*x)^2))/(4*b^2*d*(c + d*x)^3*log(F)^2) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)^5*log(F))]
+    @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^10, x, 6, -((105*F^a*sqrt(pi)*erfi((sqrt(b)*sqrt(log(F)))/(c + d*x)))/(32*b^(9/2)*d*log(F)^(9/2))) + (105*F^(a + b/(c + d*x)^2))/(16*b^4*d*(c + d*x)*log(F)^4) - (35*F^(a + b/(c + d*x)^2))/(8*b^3*d*(c + d*x)^3*log(F)^3) + (7*F^(a + b/(c + d*x)^2))/(4*b^2*d*(c + d*x)^5*log(F)^2) - F^(a + b/(c + d*x)^2)/(2*b*d*(c + d*x)^7*log(F))]
     @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^12, x, 1, (F^a*Gamma(11/2, -((b*log(F))/(c + d*x)^2)))/(2*d*(c + d*x)^11*(-((b*log(F))/(c + d*x)^2))^(11/2))]
     @test_int [F^(a + b/(c + d*x)^2)/(c + d*x)^14, x, 1, (F^a*Gamma(13/2, -((b*log(F))/(c + d*x)^2)))/(2*d*(c + d*x)^13*(-((b*log(F))/(c + d*x)^2))^(13/2))]
 
@@ -578,8 +578,8 @@
     @test_int [F^(a + b*(c + d*x)^n)*(c + d*x)^(-5*n - 1), x, 1, (b^5*F^a*Gamma(-5, (-b)*(c + d*x)^n*log(F))*log(F)^5)/(d*n)]
 
 
-    @test_int [(a + b*x)^(n/2 - 1)*F^(c*(a + b*x)^n), x, 2, (sqrt(pi)*Erfi(sqrt(c)*(a + b*x)^(n/2)*sqrt(log(F))))/(b*sqrt(c)*n*sqrt(log(F)))]
-    @test_int [(a + b*x)^(n/2 - 1)*F^(-c*(a + b*x)^n), x, 2, (sqrt(pi)*Erf(sqrt(c)*(a + b*x)^(n/2)*sqrt(log(F))))/(b*sqrt(c)*n*sqrt(log(F)))]
+    @test_int [(a + b*x)^(n/2 - 1)*F^(c*(a + b*x)^n), x, 2, (sqrt(pi)*erfi(sqrt(c)*(a + b*x)^(n/2)*sqrt(log(F))))/(b*sqrt(c)*n*sqrt(log(F)))]
+    @test_int [(a + b*x)^(n/2 - 1)*F^(-c*(a + b*x)^n), x, 2, (sqrt(pi)*erf(sqrt(c)*(a + b*x)^(n/2)*sqrt(log(F))))/(b*sqrt(c)*n*sqrt(log(F)))]
 
 
     #= ::Section::Closed:: =#
@@ -590,15 +590,15 @@
     #=n>0=#
 
 
-    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^5, x, 14, (f^5*F^(a + b*(c + d*x)^2))/(b^3*d^6*log(F)^3) + (15*f^4*(d*e - c*f)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(8*b^(5/2)*d^6*log(F)^(5/2)) - (5*f^3*(d*e - c*f)^2*F^(a + b*(c + d*x)^2))/(b^2*d^6*log(F)^2) - (15*f^4*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x))/(4*b^2*d^6*log(F)^2) - (f^5*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(b^2*d^6*log(F)^2) - (5*f^2*(d*e - c*f)^3*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*b^(3/2)*d^6*log(F)^(3/2)) + (5*f*(d*e - c*f)^4*F^(a + b*(c + d*x)^2))/(2*b*d^6*log(F)) + (5*f^2*(d*e - c*f)^3*F^(a + b*(c + d*x)^2)*(c + d*x))/(b*d^6*log(F)) + (5*f^3*(d*e - c*f)^2*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(b*d^6*log(F)) + (5*f^4*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(2*b*d^6*log(F)) + (f^5*F^(a + b*(c + d*x)^2)*(c + d*x)^4)/(2*b*d^6*log(F)) + ((d*e - c*f)^5*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^6*sqrt(log(F)))]
-    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^4, x, 11, (3*f^4*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(8*b^(5/2)*d^5*log(F)^(5/2)) - (2*f^3*(d*e - c*f)*F^(a + b*(c + d*x)^2))/(b^2*d^5*log(F)^2) - (3*f^4*F^(a + b*(c + d*x)^2)*(c + d*x))/(4*b^2*d^5*log(F)^2) - (3*f^2*(d*e - c*f)^2*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*b^(3/2)*d^5*log(F)^(3/2)) + (2*f*(d*e - c*f)^3*F^(a + b*(c + d*x)^2))/(b*d^5*log(F)) + (3*f^2*(d*e - c*f)^2*F^(a + b*(c + d*x)^2)*(c + d*x))/(b*d^5*log(F)) + (2*f^3*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(b*d^5*log(F)) + (f^4*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(2*b*d^5*log(F)) + ((d*e - c*f)^4*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^5*sqrt(log(F)))]
-    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^3, x, 8, -((f^3*F^(a + b*(c + d*x)^2))/(2*b^2*d^4*log(F)^2)) - (3*f^2*(d*e - c*f)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(4*b^(3/2)*d^4*log(F)^(3/2)) + (3*f*(d*e - c*f)^2*F^(a + b*(c + d*x)^2))/(2*b*d^4*log(F)) + (3*f^2*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x))/(2*b*d^4*log(F)) + (f^3*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(2*b*d^4*log(F)) + ((d*e - c*f)^3*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^4*sqrt(log(F)))]
-    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^2, x, 6, -((f^2*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(4*b^(3/2)*d^3*log(F)^(3/2))) + (f*(d*e - c*f)*F^(a + b*(c + d*x)^2))/(b*d^3*log(F)) + (f^2*F^(a + b*(c + d*x)^2)*(c + d*x))/(2*b*d^3*log(F)) + ((d*e - c*f)^2*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^3*sqrt(log(F)))]
-    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^1, x, 4, (f*F^(a + b*(c + d*x)^2))/(2*b*d^2*log(F)) + ((d*e - c*f)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^2*sqrt(log(F)))]
-    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^0, x, 1, (F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d*sqrt(log(F)))]
+    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^5, x, 14, (f^5*F^(a + b*(c + d*x)^2))/(b^3*d^6*log(F)^3) + (15*f^4*(d*e - c*f)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(8*b^(5/2)*d^6*log(F)^(5/2)) - (5*f^3*(d*e - c*f)^2*F^(a + b*(c + d*x)^2))/(b^2*d^6*log(F)^2) - (15*f^4*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x))/(4*b^2*d^6*log(F)^2) - (f^5*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(b^2*d^6*log(F)^2) - (5*f^2*(d*e - c*f)^3*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*b^(3/2)*d^6*log(F)^(3/2)) + (5*f*(d*e - c*f)^4*F^(a + b*(c + d*x)^2))/(2*b*d^6*log(F)) + (5*f^2*(d*e - c*f)^3*F^(a + b*(c + d*x)^2)*(c + d*x))/(b*d^6*log(F)) + (5*f^3*(d*e - c*f)^2*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(b*d^6*log(F)) + (5*f^4*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(2*b*d^6*log(F)) + (f^5*F^(a + b*(c + d*x)^2)*(c + d*x)^4)/(2*b*d^6*log(F)) + ((d*e - c*f)^5*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^6*sqrt(log(F)))]
+    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^4, x, 11, (3*f^4*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(8*b^(5/2)*d^5*log(F)^(5/2)) - (2*f^3*(d*e - c*f)*F^(a + b*(c + d*x)^2))/(b^2*d^5*log(F)^2) - (3*f^4*F^(a + b*(c + d*x)^2)*(c + d*x))/(4*b^2*d^5*log(F)^2) - (3*f^2*(d*e - c*f)^2*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*b^(3/2)*d^5*log(F)^(3/2)) + (2*f*(d*e - c*f)^3*F^(a + b*(c + d*x)^2))/(b*d^5*log(F)) + (3*f^2*(d*e - c*f)^2*F^(a + b*(c + d*x)^2)*(c + d*x))/(b*d^5*log(F)) + (2*f^3*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(b*d^5*log(F)) + (f^4*F^(a + b*(c + d*x)^2)*(c + d*x)^3)/(2*b*d^5*log(F)) + ((d*e - c*f)^4*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^5*sqrt(log(F)))]
+    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^3, x, 8, -((f^3*F^(a + b*(c + d*x)^2))/(2*b^2*d^4*log(F)^2)) - (3*f^2*(d*e - c*f)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(4*b^(3/2)*d^4*log(F)^(3/2)) + (3*f*(d*e - c*f)^2*F^(a + b*(c + d*x)^2))/(2*b*d^4*log(F)) + (3*f^2*(d*e - c*f)*F^(a + b*(c + d*x)^2)*(c + d*x))/(2*b*d^4*log(F)) + (f^3*F^(a + b*(c + d*x)^2)*(c + d*x)^2)/(2*b*d^4*log(F)) + ((d*e - c*f)^3*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^4*sqrt(log(F)))]
+    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^2, x, 6, -((f^2*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(4*b^(3/2)*d^3*log(F)^(3/2))) + (f*(d*e - c*f)*F^(a + b*(c + d*x)^2))/(b*d^3*log(F)) + (f^2*F^(a + b*(c + d*x)^2)*(c + d*x))/(2*b*d^3*log(F)) + ((d*e - c*f)^2*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^3*sqrt(log(F)))]
+    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^1, x, 4, (f*F^(a + b*(c + d*x)^2))/(2*b*d^2*log(F)) + ((d*e - c*f)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d^2*sqrt(log(F)))]
+    @test_int [F^(a + b*(c + d*x)^2)*(e + f*x)^0, x, 1, (F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F))))/(2*sqrt(b)*d*sqrt(log(F)))]
     @test_int [F^(a + b*(c + d*x)^2)/(e + f*x)^1, x, 0, Unintegrable(F^(a + b*(c + d*x)^2)/(e + f*x), x)]
-    @test_int [F^(a + b*(c + d*x)^2)/(e + f*x)^2, x, 2, -(F^(a + b*(c + d*x)^2)/(f*(e + f*x))) + (sqrt(b)*d*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*sqrt(log(F)))/f^2 - (2*b*d*(d*e - c*f)*log(F)*Unintegrable(F^(a + b*(c + d*x)^2)/(e + f*x), x))/f^2]
-    @test_int [F^(a + b*(c + d*x)^2)/(e + f*x)^3, x, 3, -(F^(a + b*(c + d*x)^2)/(2*f*(e + f*x)^2)) + (b*d*(d*e - c*f)*F^(a + b*(c + d*x)^2)*log(F))/(f^3*(e + f*x)) - (b^(3/2)*d^2*(d*e - c*f)*F^a*sqrt(pi)*Erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(3/2))/f^4 + (b*d^2*log(F)*Unintegrable(F^(a + b*(c + d*x)^2)/(e + f*x), x))/f^2 + (2*b^2*d^2*(d*e - c*f)^2*log(F)^2*Unintegrable(F^(a + b*(c + d*x)^2)/(e + f*x), x))/f^4]
+    @test_int [F^(a + b*(c + d*x)^2)/(e + f*x)^2, x, 2, -(F^(a + b*(c + d*x)^2)/(f*(e + f*x))) + (sqrt(b)*d*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*sqrt(log(F)))/f^2 - (2*b*d*(d*e - c*f)*log(F)*Unintegrable(F^(a + b*(c + d*x)^2)/(e + f*x), x))/f^2]
+    @test_int [F^(a + b*(c + d*x)^2)/(e + f*x)^3, x, 3, -(F^(a + b*(c + d*x)^2)/(2*f*(e + f*x)^2)) + (b*d*(d*e - c*f)*F^(a + b*(c + d*x)^2)*log(F))/(f^3*(e + f*x)) - (b^(3/2)*d^2*(d*e - c*f)*F^a*sqrt(pi)*erfi(sqrt(b)*(c + d*x)*sqrt(log(F)))*log(F)^(3/2))/f^4 + (b*d^2*log(F)*Unintegrable(F^(a + b*(c + d*x)^2)/(e + f*x), x))/f^2 + (2*b^2*d^2*(d*e - c*f)^2*log(F)^2*Unintegrable(F^(a + b*(c + d*x)^2)/(e + f*x), x))/f^4]
 
 
     @test_int [ℯ^(e*(c + d*x)^3)*(a + b*x)^3, x, 6, -((b^2*(b*c - a*d)*ℯ^(e*(c + d*x)^3))/(d^4*e)) + ((b*c - a*d)^3*(c + d*x)*Gamma(1/3, (-e)*(c + d*x)^3))/(3*d^4*((-e)*(c + d*x)^3)^(1/3)) - (b*(b*c - a*d)^2*(c + d*x)^2*Gamma(2/3, (-e)*(c + d*x)^3))/(d^4*((-e)*(c + d*x)^3)^(2/3)) - (b^3*(c + d*x)^4*Gamma(4/3, (-e)*(c + d*x)^3))/(3*d^4*((-e)*(c + d*x)^3)^(4/3))]
@@ -629,10 +629,10 @@
     @test_int [ℯ^(e/(c + d*x))/(a + b*x)^3, x, 18, (d^2*ℯ^(e/(c + d*x)))/(2*b*(b*c - a*d)^2) + (d^2*e*ℯ^(e/(c + d*x)))/(2*(b*c - a*d)^3) - ℯ^(e/(c + d*x))/(2*b*(a + b*x)^2) + (d*e*ℯ^(e/(c + d*x)))/(2*(b*c - a*d)^2*(a + b*x)) + (d^2*e*ℯ^((b*e)/(b*c - a*d))*ExpIntegralEi(-((d*e*(a + b*x))/((b*c - a*d)*(c + d*x)))))/(b*c - a*d)^3 + (b*d^2*e^2*ℯ^((b*e)/(b*c - a*d))*ExpIntegralEi(-((d*e*(a + b*x))/((b*c - a*d)*(c + d*x)))))/(2*(b*c - a*d)^4)]
 
 
-    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^3, x, 14, -(((b*c - a*d)^3*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^4) - (2*b^2*(b*c - a*d)*e*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^4 + (3*b*(b*c - a*d)^2*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/(2*d^4) + (b^3*e*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/(4*d^4) - (b^2*(b*c - a*d)*ℯ^(e/(c + d*x)^2)*(c + d*x)^3)/d^4 + (b^3*ℯ^(e/(c + d*x)^2)*(c + d*x)^4)/(4*d^4) + ((b*c - a*d)^3*sqrt(e)*sqrt(pi)*Erfi(sqrt(e)/(c + d*x)))/d^4 + (2*b^2*(b*c - a*d)*e^(3/2)*sqrt(pi)*Erfi(sqrt(e)/(c + d*x)))/d^4 - (3*b*(b*c - a*d)^2*e*ExpIntegralEi(e/(c + d*x)^2))/(2*d^4) - (b^3*e^2*ExpIntegralEi(e/(c + d*x)^2))/(4*d^4)]
-    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^2, x, 11, ((b*c - a*d)^2*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^3 + (2*b^2*e*ℯ^(e/(c + d*x)^2)*(c + d*x))/(3*d^3) - (b*(b*c - a*d)*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/d^3 + (b^2*ℯ^(e/(c + d*x)^2)*(c + d*x)^3)/(3*d^3) - ((b*c - a*d)^2*sqrt(e)*sqrt(pi)*Erfi(sqrt(e)/(c + d*x)))/d^3 - (2*b^2*e^(3/2)*sqrt(pi)*Erfi(sqrt(e)/(c + d*x)))/(3*d^3) + (b*(b*c - a*d)*e*ExpIntegralEi(e/(c + d*x)^2))/d^3]
-    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^1, x, 7, -(((b*c - a*d)*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^2) + (b*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/(2*d^2) + ((b*c - a*d)*sqrt(e)*sqrt(pi)*Erfi(sqrt(e)/(c + d*x)))/d^2 - (b*e*ExpIntegralEi(e/(c + d*x)^2))/(2*d^2)]
-    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^0, x, 3, (ℯ^(e/(c + d*x)^2)*(c + d*x))/d - (sqrt(e)*sqrt(pi)*Erfi(sqrt(e)/(c + d*x)))/d]
+    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^3, x, 14, -(((b*c - a*d)^3*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^4) - (2*b^2*(b*c - a*d)*e*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^4 + (3*b*(b*c - a*d)^2*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/(2*d^4) + (b^3*e*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/(4*d^4) - (b^2*(b*c - a*d)*ℯ^(e/(c + d*x)^2)*(c + d*x)^3)/d^4 + (b^3*ℯ^(e/(c + d*x)^2)*(c + d*x)^4)/(4*d^4) + ((b*c - a*d)^3*sqrt(e)*sqrt(pi)*erfi(sqrt(e)/(c + d*x)))/d^4 + (2*b^2*(b*c - a*d)*e^(3/2)*sqrt(pi)*erfi(sqrt(e)/(c + d*x)))/d^4 - (3*b*(b*c - a*d)^2*e*ExpIntegralEi(e/(c + d*x)^2))/(2*d^4) - (b^3*e^2*ExpIntegralEi(e/(c + d*x)^2))/(4*d^4)]
+    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^2, x, 11, ((b*c - a*d)^2*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^3 + (2*b^2*e*ℯ^(e/(c + d*x)^2)*(c + d*x))/(3*d^3) - (b*(b*c - a*d)*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/d^3 + (b^2*ℯ^(e/(c + d*x)^2)*(c + d*x)^3)/(3*d^3) - ((b*c - a*d)^2*sqrt(e)*sqrt(pi)*erfi(sqrt(e)/(c + d*x)))/d^3 - (2*b^2*e^(3/2)*sqrt(pi)*erfi(sqrt(e)/(c + d*x)))/(3*d^3) + (b*(b*c - a*d)*e*ExpIntegralEi(e/(c + d*x)^2))/d^3]
+    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^1, x, 7, -(((b*c - a*d)*ℯ^(e/(c + d*x)^2)*(c + d*x))/d^2) + (b*ℯ^(e/(c + d*x)^2)*(c + d*x)^2)/(2*d^2) + ((b*c - a*d)*sqrt(e)*sqrt(pi)*erfi(sqrt(e)/(c + d*x)))/d^2 - (b*e*ExpIntegralEi(e/(c + d*x)^2))/(2*d^2)]
+    @test_int [ℯ^(e/(c + d*x)^2)*(a + b*x)^0, x, 3, (ℯ^(e/(c + d*x)^2)*(c + d*x))/d - (sqrt(e)*sqrt(pi)*erfi(sqrt(e)/(c + d*x)))/d]
     @test_int [ℯ^(e/(c + d*x)^2)/(a + b*x)^1, x, 0, Unintegrable(ℯ^(e/(c + d*x)^2)/(a + b*x), x)]
     @test_int [ℯ^(e/(c + d*x)^2)/(a + b*x)^2, x, 0, CannotIntegrate(ℯ^(e/(c + d*x)^2)/(a + b*x)^2, x)]
     @test_int [ℯ^(e/(c + d*x)^2)/(a + b*x)^3, x, 0, CannotIntegrate(ℯ^(e/(c + d*x)^2)/(a + b*x)^3, x)]
@@ -660,55 +660,55 @@
     #=Integrands*of*the*form*x^m*F^(a+b*x+c*x^2)=#
 
 
-    @test_int [x^3*f^(a + b*x + c*x^2), x, 10, -(f^(a + b*x + c*x^2)/(2*c^2*log(f)^2)) + (3*b*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*log(f)^(3/2)) + (b^2*f^(a + b*x + c*x^2))/(8*c^3*log(f)) - (b*f^(a + b*x + c*x^2)*x)/(4*c^2*log(f)) + (f^(a + b*x + c*x^2)*x^2)/(2*c*log(f)) - (b^3*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(16*c^(7/2)*sqrt(log(f)))]
-    @test_int [x^2*f^(a + b*x + c*x^2), x, 6, -((f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*log(f)^(3/2))) - (b*f^(a + b*x + c*x^2))/(4*c^2*log(f)) + (f^(a + b*x + c*x^2)*x)/(2*c*log(f)) + (b^2*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*sqrt(log(f)))]
-    @test_int [x*f^(a + b*x + c*x^2), x, 3, f^(a + b*x + c*x^2)/(2*c*log(f)) - (b*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*sqrt(log(f)))]
-    @test_int [f^(a + b*x + c*x^2), x, 2, (f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(2*sqrt(c)*sqrt(log(f)))]
+    @test_int [x^3*f^(a + b*x + c*x^2), x, 10, -(f^(a + b*x + c*x^2)/(2*c^2*log(f)^2)) + (3*b*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*log(f)^(3/2)) + (b^2*f^(a + b*x + c*x^2))/(8*c^3*log(f)) - (b*f^(a + b*x + c*x^2)*x)/(4*c^2*log(f)) + (f^(a + b*x + c*x^2)*x^2)/(2*c*log(f)) - (b^3*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(16*c^(7/2)*sqrt(log(f)))]
+    @test_int [x^2*f^(a + b*x + c*x^2), x, 6, -((f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*log(f)^(3/2))) - (b*f^(a + b*x + c*x^2))/(4*c^2*log(f)) + (f^(a + b*x + c*x^2)*x)/(2*c*log(f)) + (b^2*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*sqrt(log(f)))]
+    @test_int [x*f^(a + b*x + c*x^2), x, 3, f^(a + b*x + c*x^2)/(2*c*log(f)) - (b*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*sqrt(log(f)))]
+    @test_int [f^(a + b*x + c*x^2), x, 2, (f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(2*sqrt(c)*sqrt(log(f)))]
     @test_int [f^(a + b*x + c*x^2)/x, x, 0, Unintegrable(f^(a + b*x + c*x^2)/x, x)]
-    @test_int [f^(a + b*x + c*x^2)/x^2, x, 3, -(f^(a + b*x + c*x^2)/x) + sqrt(c)*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)) + b*Unintegrable(f^(a + b*x + c*x^2)/x, x)*log(f)]
+    @test_int [f^(a + b*x + c*x^2)/x^2, x, 3, -(f^(a + b*x + c*x^2)/x) + sqrt(c)*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)) + b*Unintegrable(f^(a + b*x + c*x^2)/x, x)*log(f)]
 
 
-    @test_int [x^3*ℯ^(a + b*x - c*x^2), x, 10, -((b^2*ℯ^(a + b*x - c*x^2))/(8*c^3)) - ℯ^(a + b*x - c*x^2)/(2*c^2) - (b*ℯ^(a + b*x - c*x^2)*x)/(4*c^2) - (ℯ^(a + b*x - c*x^2)*x^2)/(2*c) - (b^3*ℯ^(a + b^2/(4*c))*sqrt(pi)*Erf((b - 2*c*x)/(2*sqrt(c))))/(16*c^(7/2)) - (3*b*ℯ^(a + b^2/(4*c))*sqrt(pi)*Erf((b - 2*c*x)/(2*sqrt(c))))/(8*c^(5/2))]
-    @test_int [x^2*ℯ^(a + b*x - c*x^2), x, 6, -((b*ℯ^(a + b*x - c*x^2))/(4*c^2)) - (ℯ^(a + b*x - c*x^2)*x)/(2*c) - (b^2*ℯ^(a + b^2/(4*c))*sqrt(pi)*Erf((b - 2*c*x)/(2*sqrt(c))))/(8*c^(5/2)) - (ℯ^(a + b^2/(4*c))*sqrt(pi)*Erf((b - 2*c*x)/(2*sqrt(c))))/(4*c^(3/2))]
-    @test_int [x*ℯ^(a + b*x - c*x^2), x, 3, -(ℯ^(a + b*x - c*x^2)/(2*c)) - (b*ℯ^(a + b^2/(4*c))*sqrt(pi)*Erf((b - 2*c*x)/(2*sqrt(c))))/(4*c^(3/2))]
-    @test_int [ℯ^(a + b*x - c*x^2), x, 2, -((ℯ^(a + b^2/(4*c))*sqrt(pi)*Erf((b - 2*c*x)/(2*sqrt(c))))/(2*sqrt(c)))]
+    @test_int [x^3*ℯ^(a + b*x - c*x^2), x, 10, -((b^2*ℯ^(a + b*x - c*x^2))/(8*c^3)) - ℯ^(a + b*x - c*x^2)/(2*c^2) - (b*ℯ^(a + b*x - c*x^2)*x)/(4*c^2) - (ℯ^(a + b*x - c*x^2)*x^2)/(2*c) - (b^3*ℯ^(a + b^2/(4*c))*sqrt(pi)*erf((b - 2*c*x)/(2*sqrt(c))))/(16*c^(7/2)) - (3*b*ℯ^(a + b^2/(4*c))*sqrt(pi)*erf((b - 2*c*x)/(2*sqrt(c))))/(8*c^(5/2))]
+    @test_int [x^2*ℯ^(a + b*x - c*x^2), x, 6, -((b*ℯ^(a + b*x - c*x^2))/(4*c^2)) - (ℯ^(a + b*x - c*x^2)*x)/(2*c) - (b^2*ℯ^(a + b^2/(4*c))*sqrt(pi)*erf((b - 2*c*x)/(2*sqrt(c))))/(8*c^(5/2)) - (ℯ^(a + b^2/(4*c))*sqrt(pi)*erf((b - 2*c*x)/(2*sqrt(c))))/(4*c^(3/2))]
+    @test_int [x*ℯ^(a + b*x - c*x^2), x, 3, -(ℯ^(a + b*x - c*x^2)/(2*c)) - (b*ℯ^(a + b^2/(4*c))*sqrt(pi)*erf((b - 2*c*x)/(2*sqrt(c))))/(4*c^(3/2))]
+    @test_int [ℯ^(a + b*x - c*x^2), x, 2, -((ℯ^(a + b^2/(4*c))*sqrt(pi)*erf((b - 2*c*x)/(2*sqrt(c))))/(2*sqrt(c)))]
     @test_int [ℯ^(a + b*x - c*x^2)/x, x, 0, Unintegrable(ℯ^(a + b*x - c*x^2)/x, x)]
-    @test_int [ℯ^(a + b*x - c*x^2)/x^2, x, 3, -(ℯ^(a + b*x - c*x^2)/x) + sqrt(c)*ℯ^(a + b^2/(4*c))*sqrt(pi)*Erf((b - 2*c*x)/(2*sqrt(c))) + b*Unintegrable(ℯ^(a + b*x - c*x^2)/x, x)]
+    @test_int [ℯ^(a + b*x - c*x^2)/x^2, x, 3, -(ℯ^(a + b*x - c*x^2)/x) + sqrt(c)*ℯ^(a + b^2/(4*c))*sqrt(pi)*erf((b - 2*c*x)/(2*sqrt(c))) + b*Unintegrable(ℯ^(a + b*x - c*x^2)/x, x)]
 
 
-    @test_int [x^3*ℯ^((a + b*x)*(c + d*x)), x, 11, -(ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/(2*b^2*d^2)) + ((b*c + a*d)^2*ℯ^(a*c + (b*c + a*d)*x + b*d*x^2))/(8*b^3*d^3) - ((b*c + a*d)*ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)*x)/(4*b^2*d^2) + (ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)*x^2)/(2*b*d) + (3*(b*c + a*d)*sqrt(pi)*Erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(8*b^(5/2)*d^(5/2))) - ((b*c + a*d)^3*sqrt(pi)*Erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(16*b^(7/2)*d^(7/2)))]
-    @test_int [x^2*ℯ^((a + b*x)*(c + d*x)), x, 7, -(((b*c + a*d)*ℯ^(a*c + (b*c + a*d)*x + b*d*x^2))/(4*b^2*d^2)) + (ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)*x)/(2*b*d) - (sqrt(pi)*Erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(4*b^(3/2)*d^(3/2))) + ((b*c + a*d)^2*sqrt(pi)*Erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(8*b^(5/2)*d^(5/2)))]
-    @test_int [x*ℯ^((a + b*x)*(c + d*x)), x, 4, ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/(2*b*d) - ((b*c + a*d)*sqrt(pi)*Erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(4*b^(3/2)*d^(3/2)))]
-    @test_int [ℯ^((a + b*x)*(c + d*x)), x, 3, (sqrt(pi)*Erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(2*sqrt(b)*sqrt(d)))]
+    @test_int [x^3*ℯ^((a + b*x)*(c + d*x)), x, 11, -(ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/(2*b^2*d^2)) + ((b*c + a*d)^2*ℯ^(a*c + (b*c + a*d)*x + b*d*x^2))/(8*b^3*d^3) - ((b*c + a*d)*ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)*x)/(4*b^2*d^2) + (ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)*x^2)/(2*b*d) + (3*(b*c + a*d)*sqrt(pi)*erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(8*b^(5/2)*d^(5/2))) - ((b*c + a*d)^3*sqrt(pi)*erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(16*b^(7/2)*d^(7/2)))]
+    @test_int [x^2*ℯ^((a + b*x)*(c + d*x)), x, 7, -(((b*c + a*d)*ℯ^(a*c + (b*c + a*d)*x + b*d*x^2))/(4*b^2*d^2)) + (ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)*x)/(2*b*d) - (sqrt(pi)*erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(4*b^(3/2)*d^(3/2))) + ((b*c + a*d)^2*sqrt(pi)*erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(8*b^(5/2)*d^(5/2)))]
+    @test_int [x*ℯ^((a + b*x)*(c + d*x)), x, 4, ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/(2*b*d) - ((b*c + a*d)*sqrt(pi)*erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(4*b^(3/2)*d^(3/2)))]
+    @test_int [ℯ^((a + b*x)*(c + d*x)), x, 3, (sqrt(pi)*erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/(ℯ^((b*c - a*d)^2/(4*b*d))*(2*sqrt(b)*sqrt(d)))]
     @test_int [ℯ^((a + b*x)*(c + d*x))/x, x, 1, Unintegrable(ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/x, x)]
-    @test_int [ℯ^((a + b*x)*(c + d*x))/x^2, x, 4, -(ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/x) + (sqrt(b)*sqrt(d)*sqrt(pi)*Erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/ℯ^((b*c - a*d)^2/(4*b*d)) + (b*c + a*d)*Unintegrable(ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/x, x)]
+    @test_int [ℯ^((a + b*x)*(c + d*x))/x^2, x, 4, -(ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/x) + (sqrt(b)*sqrt(d)*sqrt(pi)*erfi((b*c + a*d + 2*b*d*x)/(2*sqrt(b)*sqrt(d))))/ℯ^((b*c - a*d)^2/(4*b*d)) + (b*c + a*d)*Unintegrable(ℯ^(a*c + (b*c + a*d)*x + b*d*x^2)/x, x)]
 
 
     #= ::Section::Closed:: =#
     #=Integrands*of*the*form*(d+e*x)^m*F^(a+b*x+c*x^2)=#
 
 
-    @test_int [(d + e*x)^3*f^(a + b*x + c*x^2), x, 10, -((e^3*f^(a + b*x + c*x^2))/(2*c^2*log(f)^2)) - (3*e^2*(2*c*d - b*e)*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*log(f)^(3/2)) + (e*(2*c*d - b*e)^2*f^(a + b*x + c*x^2))/(8*c^3*log(f)) + (e*(2*c*d - b*e)*f^(a + b*x + c*x^2)*(d + e*x))/(4*c^2*log(f)) + (e*f^(a + b*x + c*x^2)*(d + e*x)^2)/(2*c*log(f)) + ((2*c*d - b*e)^3*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(16*c^(7/2)*sqrt(log(f)))]
-    @test_int [(d + e*x)^2*f^(a + b*x + c*x^2), x, 6, -((e^2*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*log(f)^(3/2))) + (e*(2*c*d - b*e)*f^(a + b*x + c*x^2))/(4*c^2*log(f)) + (e*f^(a + b*x + c*x^2)*(d + e*x))/(2*c*log(f)) + ((2*c*d - b*e)^2*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*sqrt(log(f)))]
-    @test_int [(d + e*x)*f^(a + b*x + c*x^2), x, 3, (e*f^(a + b*x + c*x^2))/(2*c*log(f)) + ((2*c*d - b*e)*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*sqrt(log(f)))]
+    @test_int [(d + e*x)^3*f^(a + b*x + c*x^2), x, 10, -((e^3*f^(a + b*x + c*x^2))/(2*c^2*log(f)^2)) - (3*e^2*(2*c*d - b*e)*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*log(f)^(3/2)) + (e*(2*c*d - b*e)^2*f^(a + b*x + c*x^2))/(8*c^3*log(f)) + (e*(2*c*d - b*e)*f^(a + b*x + c*x^2)*(d + e*x))/(4*c^2*log(f)) + (e*f^(a + b*x + c*x^2)*(d + e*x)^2)/(2*c*log(f)) + ((2*c*d - b*e)^3*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(16*c^(7/2)*sqrt(log(f)))]
+    @test_int [(d + e*x)^2*f^(a + b*x + c*x^2), x, 6, -((e^2*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*log(f)^(3/2))) + (e*(2*c*d - b*e)*f^(a + b*x + c*x^2))/(4*c^2*log(f)) + (e*f^(a + b*x + c*x^2)*(d + e*x))/(2*c*log(f)) + ((2*c*d - b*e)^2*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(8*c^(5/2)*sqrt(log(f)))]
+    @test_int [(d + e*x)*f^(a + b*x + c*x^2), x, 3, (e*f^(a + b*x + c*x^2))/(2*c*log(f)) + ((2*c*d - b*e)*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(4*c^(3/2)*sqrt(log(f)))]
     @test_int [f^(a + b*x + c*x^2)/(d + e*x), x, 0, Unintegrable(f^(a + b*x + c*x^2)/(d + e*x), x)]
-    @test_int [f^(a + b*x + c*x^2)/(d + e*x)^2, x, 3, -(f^(a + b*x + c*x^2)/(e*(d + e*x))) + (sqrt(c)*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)))/e^2 - ((2*c*d - b*e)*Unintegrable(f^(a + b*x + c*x^2)/(d + e*x), x)*log(f))/e^2]
-    @test_int [f^(a + b*x + c*x^2)/(d + e*x)^3, x, 4, -(f^(a + b*x + c*x^2)/(2*e*(d + e*x)^2)) + ((2*c*d - b*e)*f^(a + b*x + c*x^2)*log(f))/(2*e^3*(d + e*x)) + (c*Unintegrable(f^(a + b*x + c*x^2)/(d + e*x), x)*log(f))/e^2 - (sqrt(c)*(2*c*d - b*e)*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*log(f)^(3/2))/(2*e^4) + ((2*c*d - b*e)^2*Unintegrable(f^(a + b*x + c*x^2)/(d + e*x), x)*log(f)^2)/(2*e^4)]
+    @test_int [f^(a + b*x + c*x^2)/(d + e*x)^2, x, 3, -(f^(a + b*x + c*x^2)/(e*(d + e*x))) + (sqrt(c)*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)))/e^2 - ((2*c*d - b*e)*Unintegrable(f^(a + b*x + c*x^2)/(d + e*x), x)*log(f))/e^2]
+    @test_int [f^(a + b*x + c*x^2)/(d + e*x)^3, x, 4, -(f^(a + b*x + c*x^2)/(2*e*(d + e*x)^2)) + ((2*c*d - b*e)*f^(a + b*x + c*x^2)*log(f))/(2*e^3*(d + e*x)) + (c*Unintegrable(f^(a + b*x + c*x^2)/(d + e*x), x)*log(f))/e^2 - (sqrt(c)*(2*c*d - b*e)*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*log(f)^(3/2))/(2*e^4) + ((2*c*d - b*e)^2*Unintegrable(f^(a + b*x + c*x^2)/(d + e*x), x)*log(f)^2)/(2*e^4)]
 
 
     @test_int [(b + 2*c*x)^3*f^(a + b*x + c*x^2), x, 2, -((4*c*f^(a + b*x + c*x^2))/log(f)^2) + (f^(a + b*x + c*x^2)*(b + 2*c*x)^2)/log(f)]
-    @test_int [(b + 2*c*x)^2*f^(a + b*x + c*x^2), x, 3, -((sqrt(c)*f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/log(f)^(3/2)) + (f^(a + b*x + c*x^2)*(b + 2*c*x))/log(f)]
+    @test_int [(b + 2*c*x)^2*f^(a + b*x + c*x^2), x, 3, -((sqrt(c)*f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/log(f)^(3/2)) + (f^(a + b*x + c*x^2)*(b + 2*c*x))/log(f)]
     @test_int [(b + 2*c*x)*f^(a + b*x + c*x^2), x, 1, f^(a + b*x + c*x^2)/log(f)]
     @test_int [f^(a + b*x + c*x^2)/(b + 2*c*x), x, 1, (f^(a - b^2/(4*c))*ExpIntegralEi(((b + 2*c*x)^2*log(f))/(4*c)))/(4*c)]
-    @test_int [f^(a + b*x + c*x^2)/(b + 2*c*x)^2, x, 3, -(f^(a + b*x + c*x^2)/(2*c*(b + 2*c*x))) + (f^(a - b^2/(4*c))*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)))/(4*c^(3/2))]
+    @test_int [f^(a + b*x + c*x^2)/(b + 2*c*x)^2, x, 3, -(f^(a + b*x + c*x^2)/(2*c*(b + 2*c*x))) + (f^(a - b^2/(4*c))*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)))/(4*c^(3/2))]
     @test_int [f^(a + b*x + c*x^2)/(b + 2*c*x)^3, x, 2, -(f^(a + b*x + c*x^2)/(4*c*(b + 2*c*x)^2)) + (f^(a - b^2/(4*c))*ExpIntegralEi(((b + 2*c*x)^2*log(f))/(4*c))*log(f))/(16*c^2)]
 
 
     @test_int [(b + 2*c*x)^3*f^(b*x + c*x^2), x, 2, -((4*c*f^(b*x + c*x^2))/log(f)^2) + (f^(b*x + c*x^2)*(b + 2*c*x)^2)/log(f)]
-    @test_int [(b + 2*c*x)^2*f^(b*x + c*x^2), x, 3, -((sqrt(c)*sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(f^(b^2/(4*c))*log(f)^(3/2))) + (f^(b*x + c*x^2)*(b + 2*c*x))/log(f)]
+    @test_int [(b + 2*c*x)^2*f^(b*x + c*x^2), x, 3, -((sqrt(c)*sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c))))/(f^(b^2/(4*c))*log(f)^(3/2))) + (f^(b*x + c*x^2)*(b + 2*c*x))/log(f)]
     @test_int [(b + 2*c*x)*f^(b*x + c*x^2), x, 1, f^(b*x + c*x^2)/log(f)]
     @test_int [f^(b*x + c*x^2)/(b + 2*c*x), x, 1, ExpIntegralEi(((b + 2*c*x)^2*log(f))/(4*c))/(f^(b^2/(4*c))*(4*c))]
-    @test_int [f^(b*x + c*x^2)/(b + 2*c*x)^2, x, 3, -(f^(b*x + c*x^2)/(2*c*(b + 2*c*x))) + (sqrt(pi)*Erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)))/(f^(b^2/(4*c))*(4*c^(3/2)))]
+    @test_int [f^(b*x + c*x^2)/(b + 2*c*x)^2, x, 3, -(f^(b*x + c*x^2)/(2*c*(b + 2*c*x))) + (sqrt(pi)*erfi(((b + 2*c*x)*sqrt(log(f)))/(2*sqrt(c)))*sqrt(log(f)))/(f^(b^2/(4*c))*(4*c^(3/2)))]
     @test_int [f^(b*x + c*x^2)/(b + 2*c*x)^3, x, 2, -(f^(b*x + c*x^2)/(4*c*(b + 2*c*x)^2)) + (ExpIntegralEi(((b + 2*c*x)^2*log(f))/(4*c))*log(f))/(f^(b^2/(4*c))*(16*c^2))]
 
 
@@ -927,15 +927,15 @@
     #=Integrands*of*the*form*(d*x)^m*F^(a+b*log(c+d*x^n))=#
 
 
-    @test_int [x^2*F^(a + b*log(c + d*x^n)), x, 4, ((1/3)*F^a*x^3*(c + d*x^n)^(b*log(F))*Hypergeometric2F1(3/n, (-b)*log(F), (3 + n)/n, -((d*x^n)/c)))/(1 + (d*x^n)/c)^(b*log(F))]
-    @test_int [x^1*F^(a + b*log(c + d*x^n)), x, 4, ((1/2)*F^a*x^2*(c + d*x^n)^(b*log(F))*Hypergeometric2F1(2/n, (-b)*log(F), (2 + n)/n, -((d*x^n)/c)))/(1 + (d*x^n)/c)^(b*log(F))]
-    @test_int [x^0*F^(a + b*log(c + d*x^n)), x, 4, (F^a*x*(c + d*x^n)^(b*log(F))*Hypergeometric2F1(1/n, (-b)*log(F), 1 + 1/n, -((d*x^n)/c)))/(1 + (d*x^n)/c)^(b*log(F))]
-    @test_int [F^(a + b*log(c + d*x^n))/x^1, x, 4, -((F^a*(c + d*x^n)^(1 + b*log(F))*Hypergeometric2F1(1, 1 + b*log(F), 2 + b*log(F), 1 + (d*x^n)/c))/(c*n*(1 + b*log(F))))]
-    @test_int [F^(a + b*log(c + d*x^n))/x^2, x, 4, -((F^a*(c + d*x^n)^(b*log(F))*Hypergeometric2F1(-(1/n), (-b)*log(F), -((1 - n)/n), -((d*x^n)/c)))/((1 + (d*x^n)/c)^(b*log(F))*x))]
-    @test_int [F^(a + b*log(c + d*x^n))/x^3, x, 4, -((F^a*(c + d*x^n)^(b*log(F))*Hypergeometric2F1(-(2/n), (-b)*log(F), -((2 - n)/n), -((d*x^n)/c)))/((1 + (d*x^n)/c)^(b*log(F))*(2*x^2)))]
+    @test_int [x^2*F^(a + b*log(c + d*x^n)), x, 4, ((1/3)*F^a*x^3*(c + d*x^n)^(b*log(F))*HypergeometricFunctions._₂F₁(3/n, (-b)*log(F), (3 + n)/n, -((d*x^n)/c)))/(1 + (d*x^n)/c)^(b*log(F))]
+    @test_int [x^1*F^(a + b*log(c + d*x^n)), x, 4, ((1/2)*F^a*x^2*(c + d*x^n)^(b*log(F))*HypergeometricFunctions._₂F₁(2/n, (-b)*log(F), (2 + n)/n, -((d*x^n)/c)))/(1 + (d*x^n)/c)^(b*log(F))]
+    @test_int [x^0*F^(a + b*log(c + d*x^n)), x, 4, (F^a*x*(c + d*x^n)^(b*log(F))*HypergeometricFunctions._₂F₁(1/n, (-b)*log(F), 1 + 1/n, -((d*x^n)/c)))/(1 + (d*x^n)/c)^(b*log(F))]
+    @test_int [F^(a + b*log(c + d*x^n))/x^1, x, 4, -((F^a*(c + d*x^n)^(1 + b*log(F))*HypergeometricFunctions._₂F₁(1, 1 + b*log(F), 2 + b*log(F), 1 + (d*x^n)/c))/(c*n*(1 + b*log(F))))]
+    @test_int [F^(a + b*log(c + d*x^n))/x^2, x, 4, -((F^a*(c + d*x^n)^(b*log(F))*HypergeometricFunctions._₂F₁(-(1/n), (-b)*log(F), -((1 - n)/n), -((d*x^n)/c)))/((1 + (d*x^n)/c)^(b*log(F))*x))]
+    @test_int [F^(a + b*log(c + d*x^n))/x^3, x, 4, -((F^a*(c + d*x^n)^(b*log(F))*HypergeometricFunctions._₂F₁(-(2/n), (-b)*log(F), -((2 - n)/n), -((d*x^n)/c)))/((1 + (d*x^n)/c)^(b*log(F))*(2*x^2)))]
 
 
-    @test_int [(d*x)^m*F^(a + b*log(c + d*x^n)), x, 4, (F^a*(d*x)^(1 + m)*(c + d*x^n)^(b*log(F))*Hypergeometric2F1((1 + m)/n, (-b)*log(F), (1 + m + n)/n, -((d*x^n)/c)))/((1 + (d*x^n)/c)^(b*log(F))*(d*(1 + m)))]
+    @test_int [(d*x)^m*F^(a + b*log(c + d*x^n)), x, 4, (F^a*(d*x)^(1 + m)*(c + d*x^n)^(b*log(F))*HypergeometricFunctions._₂F₁((1 + m)/n, (-b)*log(F), (1 + m + n)/n, -((d*x^n)/c)))/((1 + (d*x^n)/c)^(b*log(F))*(d*(1 + m)))]
 
 
     #= ::Section::Closed:: =#
@@ -946,16 +946,16 @@
     #=Integrands*of*the*form*(g+h*x)^m*F^(f*(a+b*log(c*(d+e*x)^n)^2))*when*e*g-d*h=0=#
 
 
-    @test_int [(d + e*x)^m*ℯ^log((d + e*x)^n)^2, x, 3, (sqrt(pi)*(d + e*x)^(1 + m)*Erfi((1 + m + 2*n*log((d + e*x)^n))/(2*n)))/(ℯ^((1 + m)^2/(4*n^2))*((d + e*x)^n)^((1 + m)/n)*(2*e*n))]
-    @test_int [(d*g + e*g*x)^m*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*sqrt(pi)*(d*g + e*g*x)^(1 + m)*Erfi((1 + m + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^((1 + m)^2/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^((1 + m)/n)*(2*sqrt(b)*e*sqrt(f)*g*n*sqrt(log(F))))]
+    @test_int [(d + e*x)^m*ℯ^log((d + e*x)^n)^2, x, 3, (sqrt(pi)*(d + e*x)^(1 + m)*erfi((1 + m + 2*n*log((d + e*x)^n))/(2*n)))/(ℯ^((1 + m)^2/(4*n^2))*((d + e*x)^n)^((1 + m)/n)*(2*e*n))]
+    @test_int [(d*g + e*g*x)^m*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*sqrt(pi)*(d*g + e*g*x)^(1 + m)*erfi((1 + m + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^((1 + m)^2/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^((1 + m)/n)*(2*sqrt(b)*e*sqrt(f)*g*n*sqrt(log(F))))]
 
 
-    @test_int [(d*g + e*g*x)^2*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*g^2*sqrt(pi)*(d + e*x)^3*Erfi((3 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(9/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(d*g + e*g*x)^1*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*g*sqrt(pi)*(d + e*x)^2*Erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(d*g + e*g*x)^0*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*sqrt(pi)*(d + e*x)*Erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(d*g + e*g*x)^1, x, 2, (F^(a*f)*sqrt(pi)*Erfi(sqrt(b)*sqrt(f)*sqrt(log(F))*log(c*(d + e*x)^n)))/(2*sqrt(b)*e*sqrt(f)*g*n*sqrt(log(F)))]
-    @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(d*g + e*g*x)^2, x, 3, If($VersionNumber>=8, -((F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*Erfi((1 - 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F))))), (F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*Erfi(-((1 - 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F))))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F)))))]
-    @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(d*g + e*g*x)^3, x, 3, If($VersionNumber>=8, -((F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(2/n)*Erfi((1 - b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F))))), (F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(2/n)*Erfi(-((1 - b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F))))))/(ℯ^(1/(b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F)))))]
+    @test_int [(d*g + e*g*x)^2*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*g^2*sqrt(pi)*(d + e*x)^3*erfi((3 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(9/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(d*g + e*g*x)^1*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*g*sqrt(pi)*(d + e*x)^2*erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(d*g + e*g*x)^0*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*sqrt(pi)*(d + e*x)*erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(d*g + e*g*x)^1, x, 2, (F^(a*f)*sqrt(pi)*erfi(sqrt(b)*sqrt(f)*sqrt(log(F))*log(c*(d + e*x)^n)))/(2*sqrt(b)*e*sqrt(f)*g*n*sqrt(log(F)))]
+    @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(d*g + e*g*x)^2, x, 3, If(13>=8, -((F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*erfi((1 - 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F))))), (F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*erfi(-((1 - 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F))))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F)))))]
+    @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(d*g + e*g*x)^3, x, 3, If(13>=8, -((F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(2/n)*erfi((1 - b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F))))), (F^(a*f)*sqrt(pi)*(c*(d + e*x)^n)^(2/n)*erfi(-((1 - b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F))))))/(ℯ^(1/(b*f*n^2*log(F)))*(2*sqrt(b)*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F)))))]
 
 
     #= ::Subsection::Closed:: =#
@@ -965,10 +965,10 @@
     @test_int [(g + h*x)^m*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n)^2))*(g + h*x)^m, x)]
 
 
-    @test_int [(g + h*x)^3*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 14, (3*F^(a*f)*h*(e*g - d*h)^2*sqrt(pi)*(d + e*x)^2*Erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*h^3*sqrt(pi)*(d + e*x)^4*Erfi((2 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(4/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(4/n)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*(e*g - d*h)^3*sqrt(pi)*(d + e*x)*Erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F)))) + (3*F^(a*f)*h^2*(e*g - d*h)*sqrt(pi)*(d + e*x)^3*Erfi((3 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(9/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(g + h*x)^2*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 11, (F^(a*f)*h*(e*g - d*h)*sqrt(pi)*(d + e*x)^2*Erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(sqrt(b)*e^3*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*(e*g - d*h)^2*sqrt(pi)*(d + e*x)*Erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e^3*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*h^2*sqrt(pi)*(d + e*x)^3*Erfi((3 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(9/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*sqrt(b)*e^3*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(g + h*x)^1*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 8, (F^(a*f)*h*sqrt(pi)*(d + e*x)^2*Erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*sqrt(b)*e^2*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*(e*g - d*h)*sqrt(pi)*(d + e*x)*Erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e^2*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(g + h*x)^0*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*sqrt(pi)*(d + e*x)*Erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^3*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 14, (3*F^(a*f)*h*(e*g - d*h)^2*sqrt(pi)*(d + e*x)^2*erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*h^3*sqrt(pi)*(d + e*x)^4*erfi((2 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(4/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(4/n)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*(e*g - d*h)^3*sqrt(pi)*(d + e*x)*erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F)))) + (3*F^(a*f)*h^2*(e*g - d*h)*sqrt(pi)*(d + e*x)^3*erfi((3 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(9/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*sqrt(b)*e^4*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^2*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 11, (F^(a*f)*h*(e*g - d*h)*sqrt(pi)*(d + e*x)^2*erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(sqrt(b)*e^3*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*(e*g - d*h)^2*sqrt(pi)*(d + e*x)*erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e^3*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*h^2*sqrt(pi)*(d + e*x)^3*erfi((3 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(9/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*sqrt(b)*e^3*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^1*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 8, (F^(a*f)*h*sqrt(pi)*(d + e*x)^2*erfi((1 + b*f*n*log(F)*log(c*(d + e*x)^n))/(sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(b*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*sqrt(b)*e^2*sqrt(f)*n*sqrt(log(F)))) + (F^(a*f)*(e*g - d*h)*sqrt(pi)*(d + e*x)*erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e^2*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^0*F^(f*(a + b*log(c*(d + e*x)^n)^2)), x, 3, (F^(a*f)*sqrt(pi)*(d + e*x)*erfi((1 + 2*b*f*n*log(F)*log(c*(d + e*x)^n))/(2*sqrt(b)*sqrt(f)*n*sqrt(log(F)))))/(ℯ^(1/(4*b*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*sqrt(b)*e*sqrt(f)*n*sqrt(log(F))))]
     @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(g + h*x)^1, x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n)^2))/(g + h*x), x)]
     @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(g + h*x)^2, x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n)^2))/(g + h*x)^2, x)]
     @test_int [F^(f*(a + b*log(c*(d + e*x)^n)^2))/(g + h*x)^3, x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n)^2))/(g + h*x)^3, x)]
@@ -982,15 +982,15 @@
     #=Integrands*of*the*form*(g+h*x)^m*F^(f*(a+b*log(c*(d+e*x)^n))^2)*when*e*g-d*h=0=#
 
 
-    @test_int [(d*g + e*g*x)^m*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (F^(a^2*f)*sqrt(pi)*(d + e*x)*(d*g + e*g*x)^m*Erfi((1 + m + 2*a*b*f*n*log(F) + 2*b^2*f*n*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*n*sqrt(log(F)))))/(ℯ^((1 + m + 2*a*b*f*n*log(F))^2/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^((1 + m)/n)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(d*g + e*g*x)^m*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (F^(a^2*f)*sqrt(pi)*(d + e*x)*(d*g + e*g*x)^m*erfi((1 + m + 2*a*b*f*n*log(F) + 2*b^2*f*n*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*n*sqrt(log(F)))))/(ℯ^((1 + m + 2*a*b*f*n*log(F))^2/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^((1 + m)/n)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
 
 
-    @test_int [(d*g + e*g*x)^2*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (g^2*sqrt(pi)*(d + e*x)^3*Erfi((3/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((3*(3 + 4*a*b*f*n*log(F)))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(d*g + e*g*x)^1*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (g*sqrt(pi)*(d + e*x)^2*Erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(d*g + e*g*x)^0*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (sqrt(pi)*(d + e*x)*Erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(d*g + e*g*x)^1, x, 4, (sqrt(pi)*Erfi(a*sqrt(f)*sqrt(log(F)) + b*sqrt(f)*sqrt(log(F))*log(c*(d + e*x)^n)))/(2*b*e*sqrt(f)*g*n*sqrt(log(F)))]
-    @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(d*g + e*g*x)^2, x, 4, If($VersionNumber>=8, -((ℯ^(a/(b*n) - 1/(4*b^2*f*n^2*log(F)))*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*Erfi((1/n - 2*a*b*f*log(F) - 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(2*b*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F)))), (ℯ^(a/(b*n) - 1/(4*b^2*f*n^2*log(F)))*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*Erfi(-((1/n - 2*a*b*f*log(F) - 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F))))))/(2*b*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F))))]
-    @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(d*g + e*g*x)^3, x, 4, If($VersionNumber>=8, -((sqrt(pi)*(c*(d + e*x)^n)^(2/n)*Erfi((1/n - a*b*f*log(F) - b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 - 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(2*b*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F))))), (sqrt(pi)*(c*(d + e*x)^n)^(2/n)*Erfi(-((1/n - a*b*f*log(F) - b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F))))))/(ℯ^((1 - 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(2*b*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F)))))]
+    @test_int [(d*g + e*g*x)^2*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (g^2*sqrt(pi)*(d + e*x)^3*erfi((3/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((3*(3 + 4*a*b*f*n*log(F)))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(d*g + e*g*x)^1*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (g*sqrt(pi)*(d + e*x)^2*erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(d*g + e*g*x)^0*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (sqrt(pi)*(d + e*x)*erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(d*g + e*g*x)^1, x, 4, (sqrt(pi)*erfi(a*sqrt(f)*sqrt(log(F)) + b*sqrt(f)*sqrt(log(F))*log(c*(d + e*x)^n)))/(2*b*e*sqrt(f)*g*n*sqrt(log(F)))]
+    @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(d*g + e*g*x)^2, x, 4, If(13>=8, -((ℯ^(a/(b*n) - 1/(4*b^2*f*n^2*log(F)))*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*erfi((1/n - 2*a*b*f*log(F) - 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(2*b*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F)))), (ℯ^(a/(b*n) - 1/(4*b^2*f*n^2*log(F)))*sqrt(pi)*(c*(d + e*x)^n)^(1/n)*erfi(-((1/n - 2*a*b*f*log(F) - 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F))))))/(2*b*e*sqrt(f)*g^2*n*(d + e*x)*sqrt(log(F))))]
+    @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(d*g + e*g*x)^3, x, 4, If(13>=8, -((sqrt(pi)*(c*(d + e*x)^n)^(2/n)*erfi((1/n - a*b*f*log(F) - b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 - 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(2*b*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F))))), (sqrt(pi)*(c*(d + e*x)^n)^(2/n)*erfi(-((1/n - a*b*f*log(F) - b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F))))))/(ℯ^((1 - 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(2*b*e*sqrt(f)*g^3*n*(d + e*x)^2*sqrt(log(F)))))]
 
 
     #= ::Subsection::Closed:: =#
@@ -1000,10 +1000,10 @@
     @test_int [(g + h*x)^m*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n))^2)*(g + h*x)^m, x)]
 
 
-    @test_int [(g + h*x)^3*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 18, (3*h*(e*g - d*h)^2*sqrt(pi)*(d + e*x)^2*Erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*b*e^4*sqrt(f)*n*sqrt(log(F)))) + (h^3*sqrt(pi)*(d + e*x)^4*Erfi((2/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((4*(1 + a*b*f*n*log(F)))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(4/n)*(2*b*e^4*sqrt(f)*n*sqrt(log(F)))) + ((e*g - d*h)^3*sqrt(pi)*(d + e*x)*Erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e^4*sqrt(f)*n*sqrt(log(F)))) + (3*h^2*(e*g - d*h)*sqrt(pi)*(d + e*x)^3*Erfi((3/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((3*(3 + 4*a*b*f*n*log(F)))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*b*e^4*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(g + h*x)^2*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 14, (h*(e*g - d*h)*sqrt(pi)*(d + e*x)^2*Erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(b*e^3*sqrt(f)*n*sqrt(log(F)))) + ((e*g - d*h)^2*sqrt(pi)*(d + e*x)*Erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e^3*sqrt(f)*n*sqrt(log(F)))) + (h^2*sqrt(pi)*(d + e*x)^3*Erfi((3/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((3*(3 + 4*a*b*f*n*log(F)))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*b*e^3*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(g + h*x)^1*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 10, (h*sqrt(pi)*(d + e*x)^2*Erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*b*e^2*sqrt(f)*n*sqrt(log(F)))) + ((e*g - d*h)*sqrt(pi)*(d + e*x)*Erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e^2*sqrt(f)*n*sqrt(log(F))))]
-    @test_int [(g + h*x)^0*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (sqrt(pi)*(d + e*x)*Erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^3*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 18, (3*h*(e*g - d*h)^2*sqrt(pi)*(d + e*x)^2*erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*b*e^4*sqrt(f)*n*sqrt(log(F)))) + (h^3*sqrt(pi)*(d + e*x)^4*erfi((2/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((4*(1 + a*b*f*n*log(F)))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(4/n)*(2*b*e^4*sqrt(f)*n*sqrt(log(F)))) + ((e*g - d*h)^3*sqrt(pi)*(d + e*x)*erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e^4*sqrt(f)*n*sqrt(log(F)))) + (3*h^2*(e*g - d*h)*sqrt(pi)*(d + e*x)^3*erfi((3/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((3*(3 + 4*a*b*f*n*log(F)))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*b*e^4*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^2*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 14, (h*(e*g - d*h)*sqrt(pi)*(d + e*x)^2*erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(b*e^3*sqrt(f)*n*sqrt(log(F)))) + ((e*g - d*h)^2*sqrt(pi)*(d + e*x)*erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e^3*sqrt(f)*n*sqrt(log(F)))) + (h^2*sqrt(pi)*(d + e*x)^3*erfi((3/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((3*(3 + 4*a*b*f*n*log(F)))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(3/n)*(2*b*e^3*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^1*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 10, (h*sqrt(pi)*(d + e*x)^2*erfi((1/n + a*b*f*log(F) + b^2*f*log(F)*log(c*(d + e*x)^n))/(b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 2*a*b*f*n*log(F))/(b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^(2/n)*(2*b*e^2*sqrt(f)*n*sqrt(log(F)))) + ((e*g - d*h)*sqrt(pi)*(d + e*x)*erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e^2*sqrt(f)*n*sqrt(log(F))))]
+    @test_int [(g + h*x)^0*F^(f*(a + b*log(c*(d + e*x)^n))^2), x, 4, (sqrt(pi)*(d + e*x)*erfi((1/n + 2*a*b*f*log(F) + 2*b^2*f*log(F)*log(c*(d + e*x)^n))/(2*b*sqrt(f)*sqrt(log(F)))))/(ℯ^((1 + 4*a*b*f*n*log(F))/(4*b^2*f*n^2*log(F)))*(c*(d + e*x)^n)^n^(-1)*(2*b*e*sqrt(f)*n*sqrt(log(F))))]
     @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(g + h*x)^1, x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n))^2)/(g + h*x), x)]
     @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(g + h*x)^2, x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n))^2)/(g + h*x)^2, x)]
     @test_int [F^(f*(a + b*log(c*(d + e*x)^n))^2)/(g + h*x)^3, x, 0, Unintegrable(F^(f*(a + b*log(c*(d + e*x)^n))^2)/(g + h*x)^3, x)]
@@ -1028,15 +1028,15 @@
     @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^3*(b + 2*c*x), x, 4, -(ℯ^(a + b*x + c*x^2)/(2*(a + b*x + c*x^2)^2)) - ℯ^(a + b*x + c*x^2)/(2*(a + b*x + c*x^2)) + (1/2)*ExpIntegralEi(a + b*x + c*x^2)]
 
 
-    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(7/2)*(b + 2*c*x), x, 7, (-(105/8))*ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) + (35/4)*ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2) - (7/2)*ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(5/2) + ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(7/2) + (105/16)*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(5/2)*(b + 2*c*x), x, 6, (15/4)*ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) - (5/2)*ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2) + ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(5/2) - (15/8)*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2)*(b + 2*c*x), x, 5, (-(3/2))*ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) + ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2) + (3/4)*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(1/2)*(b + 2*c*x), x, 4, ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) - (1/2)*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(1/2)*(b + 2*c*x), x, 3, sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(3/2)*(b + 2*c*x), x, 4, -((2*ℯ^(a + b*x + c*x^2))/sqrt(a + b*x + c*x^2)) + 2*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(5/2)*(b + 2*c*x), x, 5, -((2*ℯ^(a + b*x + c*x^2))/(3*(a + b*x + c*x^2)^(3/2))) - (4*ℯ^(a + b*x + c*x^2))/(3*sqrt(a + b*x + c*x^2)) + (4/3)*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(7/2)*(b + 2*c*x), x, 6, -((2*ℯ^(a + b*x + c*x^2))/(5*(a + b*x + c*x^2)^(5/2))) - (4*ℯ^(a + b*x + c*x^2))/(15*(a + b*x + c*x^2)^(3/2)) - (8*ℯ^(a + b*x + c*x^2))/(15*sqrt(a + b*x + c*x^2)) + (8/15)*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
-    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(9/2)*(b + 2*c*x), x, 7, -((2*ℯ^(a + b*x + c*x^2))/(7*(a + b*x + c*x^2)^(7/2))) - (4*ℯ^(a + b*x + c*x^2))/(35*(a + b*x + c*x^2)^(5/2)) - (8*ℯ^(a + b*x + c*x^2))/(105*(a + b*x + c*x^2)^(3/2)) - (16*ℯ^(a + b*x + c*x^2))/(105*sqrt(a + b*x + c*x^2)) + (16/105)*sqrt(pi)*Erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(7/2)*(b + 2*c*x), x, 7, (-(105/8))*ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) + (35/4)*ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2) - (7/2)*ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(5/2) + ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(7/2) + (105/16)*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(5/2)*(b + 2*c*x), x, 6, (15/4)*ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) - (5/2)*ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2) + ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(5/2) - (15/8)*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2)*(b + 2*c*x), x, 5, (-(3/2))*ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) + ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(3/2) + (3/4)*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)*(a + b*x + c*x^2)^(1/2)*(b + 2*c*x), x, 4, ℯ^(a + b*x + c*x^2)*sqrt(a + b*x + c*x^2) - (1/2)*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(1/2)*(b + 2*c*x), x, 3, sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(3/2)*(b + 2*c*x), x, 4, -((2*ℯ^(a + b*x + c*x^2))/sqrt(a + b*x + c*x^2)) + 2*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(5/2)*(b + 2*c*x), x, 5, -((2*ℯ^(a + b*x + c*x^2))/(3*(a + b*x + c*x^2)^(3/2))) - (4*ℯ^(a + b*x + c*x^2))/(3*sqrt(a + b*x + c*x^2)) + (4/3)*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(7/2)*(b + 2*c*x), x, 6, -((2*ℯ^(a + b*x + c*x^2))/(5*(a + b*x + c*x^2)^(5/2))) - (4*ℯ^(a + b*x + c*x^2))/(15*(a + b*x + c*x^2)^(3/2)) - (8*ℯ^(a + b*x + c*x^2))/(15*sqrt(a + b*x + c*x^2)) + (8/15)*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
+    @test_int [ℯ^(a + b*x + c*x^2)/(a + b*x + c*x^2)^(9/2)*(b + 2*c*x), x, 7, -((2*ℯ^(a + b*x + c*x^2))/(7*(a + b*x + c*x^2)^(7/2))) - (4*ℯ^(a + b*x + c*x^2))/(35*(a + b*x + c*x^2)^(5/2)) - (8*ℯ^(a + b*x + c*x^2))/(105*(a + b*x + c*x^2)^(3/2)) - (16*ℯ^(a + b*x + c*x^2))/(105*sqrt(a + b*x + c*x^2)) + (16/105)*sqrt(pi)*erfi(sqrt(a + b*x + c*x^2))]
 
 
     #= ::Section::Closed:: =#
@@ -1217,8 +1217,8 @@
     @test_int [(1 + 4^x)/(1 + 2^x), x, 3, x + 2^x/log(2) - (2*log(1 + 2^x))/log(2)]
     @test_int [(1 + 4^x)/(1 + 2^(-x)), x, 3, -(2^x/log(2)) + 2^(-1 + 2*x)/log(2) + (2*log(1 + 2^x))/log(2)]
 
-    @test_int [ℯ^(a + x)^2/x^2 - (2*a*ℯ^(a + x)^2)/x, x, 3, -(ℯ^(a + x)^2/x) + sqrt(pi)*Erfi(a + x)]
-    @test_int [(x^4 + x^6 + x^8)/ℯ^x^2, x, 15, ((-(147/16))*x)/ℯ^x^2 - ((49/8)*x^3)/ℯ^x^2 - ((9/4)*x^5)/ℯ^x^2 - ((1/2)*x^7)/ℯ^x^2 + (147/32)*sqrt(pi)*Erf(x)]
+    @test_int [ℯ^(a + x)^2/x^2 - (2*a*ℯ^(a + x)^2)/x, x, 3, -(ℯ^(a + x)^2/x) + sqrt(pi)*erfi(a + x)]
+    @test_int [(x^4 + x^6 + x^8)/ℯ^x^2, x, 15, ((-(147/16))*x)/ℯ^x^2 - ((49/8)*x^3)/ℯ^x^2 - ((9/4)*x^5)/ℯ^x^2 - ((1/2)*x^7)/ℯ^x^2 + (147/32)*sqrt(pi)*erf(x)]
 
     @test_int [1/(-ℯ^x + ℯ^(3*x)), x, 3, ℯ^(-x) - atanh(ℯ^x)]
     @test_int [(ℯ^x*(-5 + x + x^2))/(-1 + x)^2, x, 6, ℯ^x - (3*ℯ^x)/(1 - x)]
@@ -1228,7 +1228,7 @@
     #= [ℯ^(a + b*x + c*x^2)/(d + e*x)^2, x, 0] =#
     @test_int [(1 + ℯ^x)/sqrt(ℯ^x + x), x, 1, 2*sqrt(ℯ^x + x)]
     @test_int [(1 + ℯ^x)/(ℯ^x + x), x, 1, log(ℯ^x + x)]
-    @test_int [ℯ^x^2/x^2, x, 2, -(ℯ^x^2/x) + sqrt(pi)*Erfi(x)]
+    @test_int [ℯ^x^2/x^2, x, 2, -(ℯ^x^2/x) + sqrt(pi)*erfi(x)]
     @test_int [(ℯ^x^2*(1 + 4*x^4))/x^2, x, 6, -(ℯ^x^2/x) + 2*ℯ^x^2*x]
 
     @test_int [sqrt(f^x)*(a + b*x)^2, x, 3, (16*b^2*sqrt(f^x))/log(f)^3 - (8*b*sqrt(f^x)*(a + b*x))/log(f)^2 + (2*sqrt(f^x)*(a + b*x)^2)/log(f)]

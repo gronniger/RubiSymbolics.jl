@@ -1,5 +1,5 @@
 @testset "6.6.7 (d hyper)^m (a+b (c csch)^n)^p" begin
-    @variables a, b, c, d, x
+    (a, b, c, d, x, ) = @variables a b c d x
 
     #= ::Package:: =#
 

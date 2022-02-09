@@ -1,5 +1,5 @@
 @testset "Wester Problems" begin
-    @variables a, b, m, x
+    (a, b, m, x, ) = @variables a b m x
 
     #= ::Package:: =#
 

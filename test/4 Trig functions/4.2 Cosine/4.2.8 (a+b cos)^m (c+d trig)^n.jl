@@ -1,5 +1,5 @@
 @testset "4.2.8 (a+b cos)^m (c+d trig)^n" begin
-    @variables A, B, C, a, b, c, d, e, f, x
+    (A, B, C, a, b, c, d, e, f, x, ) = @variables A B C a b c d e f x
 
     #= ::Package:: =#
 
@@ -65,8 +65,8 @@
 
     #= [(c + d*sec(e + f*x))^(5/2)/(a + b*cos(e + f*x)), x, 0, 0] =#
     #= [(c + d*sec(e + f*x))^(3/2)/(a + b*cos(e + f*x)), x, 0, 0] =#
-    @test_int [(c + d*sec(e + f*x))^(1/2)/(a + b*cos(e + f*x)), x, 4, (2*sqrt(c + d)*cot(e + f*x)*EllipticF(asin(sqrt(c + d*sec(e + f*x))/sqrt(c + d)), (c + d)/(c - d))*sqrt((d*(1 - sec(e + f*x)))/(c + d))*sqrt(-((d*(1 + sec(e + f*x)))/(c - d))))/(a*f) + (2*(a*c - b*d)*EllipticPi((2*a)/(a + b), asin(sqrt(1 - sec(e + f*x))/sqrt(2)), (2*d)/(c + d))*sqrt((c + d*sec(e + f*x))/(c + d))*tan(e + f*x))/(a*(a + b)*f*sqrt(c + d*sec(e + f*x))*sqrt(-tan(e + f*x)^2))]
-    @test_int [1/((a + b*cos(e + f*x))*(c + d*sec(e + f*x))^(1/2)), x, 2, (2*EllipticPi((2*a)/(a + b), asin(sqrt(1 - sec(e + f*x))/sqrt(2)), (2*d)/(c + d))*sqrt((c + d*sec(e + f*x))/(c + d))*tan(e + f*x))/((a + b)*f*sqrt(c + d*sec(e + f*x))*sqrt(-tan(e + f*x)^2))]
+    @test_int [(c + d*sec(e + f*x))^(1/2)/(a + b*cos(e + f*x)), x, 4, (2*sqrt(c + d)*cot(e + f*x)*Elliptic.F(asin(sqrt(c + d*sec(e + f*x))/sqrt(c + d)), (c + d)/(c - d))*sqrt((d*(1 - sec(e + f*x)))/(c + d))*sqrt(-((d*(1 + sec(e + f*x)))/(c - d))))/(a*f) + (2*(a*c - b*d)*Elliptic.Pi((2*a)/(a + b), asin(sqrt(1 - sec(e + f*x))/sqrt(2)), (2*d)/(c + d))*sqrt((c + d*sec(e + f*x))/(c + d))*tan(e + f*x))/(a*(a + b)*f*sqrt(c + d*sec(e + f*x))*sqrt(-tan(e + f*x)^2))]
+    @test_int [1/((a + b*cos(e + f*x))*(c + d*sec(e + f*x))^(1/2)), x, 2, (2*Elliptic.Pi((2*a)/(a + b), asin(sqrt(1 - sec(e + f*x))/sqrt(2)), (2*d)/(c + d))*sqrt((c + d*sec(e + f*x))/(c + d))*tan(e + f*x))/((a + b)*f*sqrt(c + d*sec(e + f*x))*sqrt(-tan(e + f*x)^2))]
     #= [1/((a + b*cos(e + f*x))*(c + d*sec(e + f*x))^(3/2)), x, 0, 0] =#
     #= [1/((a + b*cos(e + f*x))*(c + d*sec(e + f*x))^(5/2)), x, 0, 0] =#
 

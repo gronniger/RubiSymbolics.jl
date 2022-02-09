@@ -1,5 +1,5 @@
 @testset "4.1.4.1 (a+b sin)^m (A+B sin+C sin^2)" begin
-    @variables A, B, C, a, b, e, f, m, x
+    (A, B, C, a, b, e, f, m, x, ) = @variables A B C a b e f m x
 
     #= ::Package:: =#
 
@@ -34,7 +34,7 @@
     #=Integrands*of*the*form*(a+a*sin(e+f*x))^m*(A+C*sin(e+f*x)^2)=#
 
 
-    @test_int [(a + a*sin(e + f*x))^m*(A + C*sin(e + f*x)^2), x, 4, If($VersionNumber>=8, (C*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (2^(1/2 + m)*(C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*Hypergeometric2F1(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)), (C*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (2^(1/2 + m)*(C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*Hypergeometric2F1(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)))]
+    @test_int [(a + a*sin(e + f*x))^m*(A + C*sin(e + f*x)^2), x, 4, If(13>=8, (C*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (2^(1/2 + m)*(C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)), (C*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (2^(1/2 + m)*(C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)))]
 
 
     #= ::Section::Closed:: =#
@@ -58,7 +58,7 @@
     #=Integrands*of*the*form*(a+a*sin(e+f*x))^m*(A+B*sin(e+f*x)+C*sin(e+f*x)^2)=#
 
 
-    @test_int [(a + a*sin(e + f*x))^m*(A + B*sin(e + f*x) + C*sin(e + f*x)^2), x, 4, If($VersionNumber>=8, ((C - B*(2 + m))*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (2^(1/2 + m)*(B*m*(2 + m) + C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*Hypergeometric2F1(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)), ((C - B*(2 + m))*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (2^(1/2 + m)*(B*m*(2 + m) + C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*Hypergeometric2F1(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)))]
+    @test_int [(a + a*sin(e + f*x))^m*(A + B*sin(e + f*x) + C*sin(e + f*x)^2), x, 4, If(13>=8, ((C - B*(2 + m))*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (2^(1/2 + m)*(B*m*(2 + m) + C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)), ((C - B*(2 + m))*cos(e + f*x)*(a + a*sin(e + f*x))^m)/(f*(1 + m)*(2 + m)) - (2^(1/2 + m)*(B*m*(2 + m) + C*(1 + m + m^2) + A*(2 + 3*m + m^2))*cos(e + f*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - m, 3/2, (1/2)*(1 - sin(e + f*x)))*(1 + sin(e + f*x))^(-(1/2) - m)*(a + a*sin(e + f*x))^m)/(f*(2 + 3*m + m^2)) - (C*cos(e + f*x)*(a + a*sin(e + f*x))^(1 + m))/(a*f*(2 + m)))]
 
 
     #= ::Section::Closed:: =#

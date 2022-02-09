@@ -1,5 +1,5 @@
 @testset "6.1.3 (e x)^m (a+b sinh(c+d x^n))^p" begin
-    @variables a, b, c, d, e, m, n, p, x
+    (a, b, c, d, e, m, n, p, x, ) = @variables a b c d e m n p x
 
     #= ::Package:: =#
 
@@ -20,29 +20,29 @@
 
 
     @test_int [x^3*sinh(a + b*x^2), x, 3, (x^2*cosh(a + b*x^2))/(2*b) - sinh(a + b*x^2)/(2*b^2)]
-    @test_int [x^2*sinh(a + b*x^2), x, 4, (x*cosh(a + b*x^2))/(2*b) - (sqrt(pi)*Erf(sqrt(b)*x))/(ℯ^a*(8*b^(3/2))) - (ℯ^a*sqrt(pi)*Erfi(sqrt(b)*x))/(8*b^(3/2))]
+    @test_int [x^2*sinh(a + b*x^2), x, 4, (x*cosh(a + b*x^2))/(2*b) - (sqrt(pi)*erf(sqrt(b)*x))/(ℯ^a*(8*b^(3/2))) - (ℯ^a*sqrt(pi)*erfi(sqrt(b)*x))/(8*b^(3/2))]
     @test_int [x*sinh(a + b*x^2), x, 2, cosh(a + b*x^2)/(2*b)]
-    @test_int [sinh(a + b*x^2), x, 3, -((sqrt(pi)*Erf(sqrt(b)*x))/(ℯ^a*(4*sqrt(b)))) + (ℯ^a*sqrt(pi)*Erfi(sqrt(b)*x))/(4*sqrt(b))]
+    @test_int [sinh(a + b*x^2), x, 3, -((sqrt(pi)*erf(sqrt(b)*x))/(ℯ^a*(4*sqrt(b)))) + (ℯ^a*sqrt(pi)*erfi(sqrt(b)*x))/(4*sqrt(b))]
     @test_int [sinh(a + b*x^2)/x, x, 3, (1/2)*CoshIntegral(b*x^2)*sinh(a) + (1/2)*cosh(a)*SinhIntegral(b*x^2)]
-    @test_int [sinh(a + b*x^2)/x^2, x, 4, ((1/2)*sqrt(b)*sqrt(pi)*Erf(sqrt(b)*x))/ℯ^a + (1/2)*sqrt(b)*ℯ^a*sqrt(pi)*Erfi(sqrt(b)*x) - sinh(a + b*x^2)/x]
+    @test_int [sinh(a + b*x^2)/x^2, x, 4, ((1/2)*sqrt(b)*sqrt(pi)*erf(sqrt(b)*x))/ℯ^a + (1/2)*sqrt(b)*ℯ^a*sqrt(pi)*erfi(sqrt(b)*x) - sinh(a + b*x^2)/x]
     @test_int [sinh(a + b*x^2)/x^3, x, 5, (1/2)*b*cosh(a)*CoshIntegral(b*x^2) - sinh(a + b*x^2)/(2*x^2) + (1/2)*b*sinh(a)*SinhIntegral(b*x^2)]
 
 
     @test_int [x^3*sinh(a + b*x^2)^2, x, 3, -(x^4/8) + (x^2*cosh(a + b*x^2)*sinh(a + b*x^2))/(4*b) - sinh(a + b*x^2)^2/(8*b^2)]
-    @test_int [x^2*sinh(a + b*x^2)^2, x, 6, -(x^3/6) + (sqrt(pi/2)*Erf(sqrt(2)*sqrt(b)*x))/(ℯ^(2*a)*(32*b^(3/2))) - (ℯ^(2*a)*sqrt(pi/2)*Erfi(sqrt(2)*sqrt(b)*x))/(32*b^(3/2)) + (x*sinh(2*a + 2*b*x^2))/(8*b)]
+    @test_int [x^2*sinh(a + b*x^2)^2, x, 6, -(x^3/6) + (sqrt(pi/2)*erf(sqrt(2)*sqrt(b)*x))/(ℯ^(2*a)*(32*b^(3/2))) - (ℯ^(2*a)*sqrt(pi/2)*erfi(sqrt(2)*sqrt(b)*x))/(32*b^(3/2)) + (x*sinh(2*a + 2*b*x^2))/(8*b)]
     @test_int [x*sinh(a + b*x^2)^2, x, 3, -(x^2/4) + (cosh(a + b*x^2)*sinh(a + b*x^2))/(4*b)]
-    @test_int [sinh(a + b*x^2)^2, x, 5, -(x/2) + (sqrt(pi/2)*Erf(sqrt(2)*sqrt(b)*x))/(ℯ^(2*a)*(8*sqrt(b))) + (ℯ^(2*a)*sqrt(pi/2)*Erfi(sqrt(2)*sqrt(b)*x))/(8*sqrt(b))]
+    @test_int [sinh(a + b*x^2)^2, x, 5, -(x/2) + (sqrt(pi/2)*erf(sqrt(2)*sqrt(b)*x))/(ℯ^(2*a)*(8*sqrt(b))) + (ℯ^(2*a)*sqrt(pi/2)*erfi(sqrt(2)*sqrt(b)*x))/(8*sqrt(b))]
     @test_int [sinh(a + b*x^2)^2/x, x, 5, (1/4)*cosh(2*a)*CoshIntegral(2*b*x^2) - log(x)/2 + (1/4)*sinh(2*a)*SinhIntegral(2*b*x^2)]
-    @test_int [sinh(a + b*x^2)^2/x^2, x, 6, ((-(1/2))*sqrt(b)*sqrt(pi/2)*Erf(sqrt(2)*sqrt(b)*x))/ℯ^(2*a) + (1/2)*sqrt(b)*ℯ^(2*a)*sqrt(pi/2)*Erfi(sqrt(2)*sqrt(b)*x) - sinh(a + b*x^2)^2/x]
+    @test_int [sinh(a + b*x^2)^2/x^2, x, 6, ((-(1/2))*sqrt(b)*sqrt(pi/2)*erf(sqrt(2)*sqrt(b)*x))/ℯ^(2*a) + (1/2)*sqrt(b)*ℯ^(2*a)*sqrt(pi/2)*erfi(sqrt(2)*sqrt(b)*x) - sinh(a + b*x^2)^2/x]
     @test_int [sinh(a + b*x^2)^2/x^3, x, 7, 1/(4*x^2) - cosh(2*(a + b*x^2))/(4*x^2) + (1/2)*b*CoshIntegral(2*b*x^2)*sinh(2*a) + (1/2)*b*cosh(2*a)*SinhIntegral(2*b*x^2)]
 
 
     @test_int [x^3*sinh(a + b*x^2)^3, x, 4, -((x^2*cosh(a + b*x^2))/(3*b)) + sinh(a + b*x^2)/(3*b^2) + (x^2*cosh(a + b*x^2)*sinh(a + b*x^2)^2)/(6*b) - sinh(a + b*x^2)^3/(18*b^2)]
-    @test_int [x^2*sinh(a + b*x^2)^3, x, 10, -((3*x*cosh(a + b*x^2))/(8*b)) + (x*cosh(3*a + 3*b*x^2))/(24*b) + (3*sqrt(pi)*Erf(sqrt(b)*x))/(ℯ^a*(32*b^(3/2))) - (sqrt(pi/3)*Erf(sqrt(3)*sqrt(b)*x))/(ℯ^(3*a)*(96*b^(3/2))) + (3*ℯ^a*sqrt(pi)*Erfi(sqrt(b)*x))/(32*b^(3/2)) - (ℯ^(3*a)*sqrt(pi/3)*Erfi(sqrt(3)*sqrt(b)*x))/(96*b^(3/2))]
+    @test_int [x^2*sinh(a + b*x^2)^3, x, 10, -((3*x*cosh(a + b*x^2))/(8*b)) + (x*cosh(3*a + 3*b*x^2))/(24*b) + (3*sqrt(pi)*erf(sqrt(b)*x))/(ℯ^a*(32*b^(3/2))) - (sqrt(pi/3)*erf(sqrt(3)*sqrt(b)*x))/(ℯ^(3*a)*(96*b^(3/2))) + (3*ℯ^a*sqrt(pi)*erfi(sqrt(b)*x))/(32*b^(3/2)) - (ℯ^(3*a)*sqrt(pi/3)*erfi(sqrt(3)*sqrt(b)*x))/(96*b^(3/2))]
     @test_int [x*sinh(a + b*x^2)^3, x, 3, -(cosh(a + b*x^2)/(2*b)) + cosh(a + b*x^2)^3/(6*b)]
-    @test_int [sinh(a + b*x^2)^3, x, 8, (3*sqrt(pi)*Erf(sqrt(b)*x))/(ℯ^a*(16*sqrt(b))) - (sqrt(pi/3)*Erf(sqrt(3)*sqrt(b)*x))/(ℯ^(3*a)*(16*sqrt(b))) - (3*ℯ^a*sqrt(pi)*Erfi(sqrt(b)*x))/(16*sqrt(b)) + (ℯ^(3*a)*sqrt(pi/3)*Erfi(sqrt(3)*sqrt(b)*x))/(16*sqrt(b))]
+    @test_int [sinh(a + b*x^2)^3, x, 8, (3*sqrt(pi)*erf(sqrt(b)*x))/(ℯ^a*(16*sqrt(b))) - (sqrt(pi/3)*erf(sqrt(3)*sqrt(b)*x))/(ℯ^(3*a)*(16*sqrt(b))) - (3*ℯ^a*sqrt(pi)*erfi(sqrt(b)*x))/(16*sqrt(b)) + (ℯ^(3*a)*sqrt(pi/3)*erfi(sqrt(3)*sqrt(b)*x))/(16*sqrt(b))]
     @test_int [sinh(a + b*x^2)^3/x, x, 8, (-(3/8))*CoshIntegral(b*x^2)*sinh(a) + (1/8)*CoshIntegral(3*b*x^2)*sinh(3*a) - (3/8)*cosh(a)*SinhIntegral(b*x^2) + (1/8)*cosh(3*a)*SinhIntegral(3*b*x^2)]
-    @test_int [sinh(a + b*x^2)^3/x^2, x, 9, ((-(3/8))*sqrt(b)*sqrt(pi)*Erf(sqrt(b)*x))/ℯ^a + ((1/8)*sqrt(b)*sqrt(3*pi)*Erf(sqrt(3)*sqrt(b)*x))/ℯ^(3*a) - (3/8)*sqrt(b)*ℯ^a*sqrt(pi)*Erfi(sqrt(b)*x) + (1/8)*sqrt(b)*ℯ^(3*a)*sqrt(3*pi)*Erfi(sqrt(3)*sqrt(b)*x) - sinh(a + b*x^2)^3/x]
+    @test_int [sinh(a + b*x^2)^3/x^2, x, 9, ((-(3/8))*sqrt(b)*sqrt(pi)*erf(sqrt(b)*x))/ℯ^a + ((1/8)*sqrt(b)*sqrt(3*pi)*erf(sqrt(3)*sqrt(b)*x))/ℯ^(3*a) - (3/8)*sqrt(b)*ℯ^a*sqrt(pi)*erfi(sqrt(b)*x) + (1/8)*sqrt(b)*ℯ^(3*a)*sqrt(3*pi)*erfi(sqrt(3)*sqrt(b)*x) - sinh(a + b*x^2)^3/x]
     @test_int [sinh(a + b*x^2)^3/x^3, x, 12, (-(3/8))*b*cosh(a)*CoshIntegral(b*x^2) + (3/8)*b*cosh(3*a)*CoshIntegral(3*b*x^2) + (3*sinh(a + b*x^2))/(8*x^2) - sinh(3*(a + b*x^2))/(8*x^2) - (3/8)*b*sinh(a)*SinhIntegral(b*x^2) + (3/8)*b*sinh(3*a)*SinhIntegral(3*b*x^2)]
 
 
@@ -137,17 +137,17 @@
     #=p>0=#
 
 
-    @test_int [sinh(a + b/x^2)*x^4, x, 7, (2/15)*b*x^3*cosh(a + b/x^2) - ((2/15)*b^(5/2)*sqrt(pi)*Erf(sqrt(b)/x))/ℯ^a - (2/15)*b^(5/2)*ℯ^a*sqrt(pi)*Erfi(sqrt(b)/x) + (4/15)*b^2*x*sinh(a + b/x^2) + (1/5)*x^5*sinh(a + b/x^2)]
+    @test_int [sinh(a + b/x^2)*x^4, x, 7, (2/15)*b*x^3*cosh(a + b/x^2) - ((2/15)*b^(5/2)*sqrt(pi)*erf(sqrt(b)/x))/ℯ^a - (2/15)*b^(5/2)*ℯ^a*sqrt(pi)*erfi(sqrt(b)/x) + (4/15)*b^2*x*sinh(a + b/x^2) + (1/5)*x^5*sinh(a + b/x^2)]
     @test_int [sinh(a + b/x^2)*x^3, x, 6, (1/4)*b*x^2*cosh(a + b/x^2) - (1/4)*b^2*CoshIntegral(b/x^2)*sinh(a) + (1/4)*x^4*sinh(a + b/x^2) - (1/4)*b^2*cosh(a)*SinhIntegral(b/x^2)]
-    @test_int [sinh(a + b/x^2)*x^2, x, 6, (2/3)*b*x*cosh(a + b/x^2) + ((1/3)*b^(3/2)*sqrt(pi)*Erf(sqrt(b)/x))/ℯ^a - (1/3)*b^(3/2)*ℯ^a*sqrt(pi)*Erfi(sqrt(b)/x) + (1/3)*x^3*sinh(a + b/x^2)]
+    @test_int [sinh(a + b/x^2)*x^2, x, 6, (2/3)*b*x*cosh(a + b/x^2) + ((1/3)*b^(3/2)*sqrt(pi)*erf(sqrt(b)/x))/ℯ^a - (1/3)*b^(3/2)*ℯ^a*sqrt(pi)*erfi(sqrt(b)/x) + (1/3)*x^3*sinh(a + b/x^2)]
     @test_int [sinh(a + b/x^2)*x^1, x, 5, (-(1/2))*b*cosh(a)*CoshIntegral(b/x^2) + (1/2)*x^2*sinh(a + b/x^2) - (1/2)*b*sinh(a)*SinhIntegral(b/x^2)]
-    @test_int [sinh(a + b/x^2)*x^0, x, 5, ((-(1/2))*sqrt(b)*sqrt(pi)*Erf(sqrt(b)/x))/ℯ^a - (1/2)*sqrt(b)*ℯ^a*sqrt(pi)*Erfi(sqrt(b)/x) + x*sinh(a + b/x^2)]
+    @test_int [sinh(a + b/x^2)*x^0, x, 5, ((-(1/2))*sqrt(b)*sqrt(pi)*erf(sqrt(b)/x))/ℯ^a - (1/2)*sqrt(b)*ℯ^a*sqrt(pi)*erfi(sqrt(b)/x) + x*sinh(a + b/x^2)]
     @test_int [sinh(a + b/x^2)/x^1, x, 3, (-(1/2))*CoshIntegral(b/x^2)*sinh(a) - (1/2)*cosh(a)*SinhIntegral(b/x^2)]
-    @test_int [sinh(a + b/x^2)/x^2, x, 4, (sqrt(pi)*Erf(sqrt(b)/x))/(ℯ^a*(4*sqrt(b))) - (ℯ^a*sqrt(pi)*Erfi(sqrt(b)/x))/(4*sqrt(b))]
+    @test_int [sinh(a + b/x^2)/x^2, x, 4, (sqrt(pi)*erf(sqrt(b)/x))/(ℯ^a*(4*sqrt(b))) - (ℯ^a*sqrt(pi)*erfi(sqrt(b)/x))/(4*sqrt(b))]
     @test_int [sinh(a + b/x^2)/x^3, x, 2, -(cosh(a + b/x^2)/(2*b))]
-    @test_int [sinh(a + b/x^2)/x^4, x, 5, -(cosh(a + b/x^2)/(2*b*x)) + (sqrt(pi)*Erf(sqrt(b)/x))/(ℯ^a*(8*b^(3/2))) + (ℯ^a*sqrt(pi)*Erfi(sqrt(b)/x))/(8*b^(3/2))]
+    @test_int [sinh(a + b/x^2)/x^4, x, 5, -(cosh(a + b/x^2)/(2*b*x)) + (sqrt(pi)*erf(sqrt(b)/x))/(ℯ^a*(8*b^(3/2))) + (ℯ^a*sqrt(pi)*erfi(sqrt(b)/x))/(8*b^(3/2))]
     @test_int [sinh(a + b/x^2)/x^5, x, 3, -(cosh(a + b/x^2)/(2*b*x^2)) + sinh(a + b/x^2)/(2*b^2)]
-    @test_int [sinh(a + b/x^2)/x^6, x, 6, -(cosh(a + b/x^2)/(2*b*x^3)) + (3*sqrt(pi)*Erf(sqrt(b)/x))/(ℯ^a*(16*b^(5/2))) - (3*ℯ^a*sqrt(pi)*Erfi(sqrt(b)/x))/(16*b^(5/2)) + (3*sinh(a + b/x^2))/(4*b^2*x)]
+    @test_int [sinh(a + b/x^2)/x^6, x, 6, -(cosh(a + b/x^2)/(2*b*x^3)) + (3*sqrt(pi)*erf(sqrt(b)/x))/(ℯ^a*(16*b^(5/2))) - (3*ℯ^a*sqrt(pi)*erfi(sqrt(b)/x))/(16*b^(5/2)) + (3*sinh(a + b/x^2))/(4*b^2*x)]
     @test_int [sinh(a + b/x^2)/x^7, x, 4, -(cosh(a + b/x^2)/b^3) - cosh(a + b/x^2)/(2*b*x^4) + sinh(a + b/x^2)/(b^2*x^2)]
 
 
@@ -218,7 +218,7 @@
     @test_int [(e*x)^m*(a + b*sinh(c + d*x^n))^p, x, 0, Unintegrable((e*x)^m*(a + b*sinh(c + d*x^n))^p, x)]
 
 
-    @test_int [(e*x)^(n - 1)*(b*sinh(c + d*x^n))^p, x, 3, ((e*x)^n*cosh(c + d*x^n)*Hypergeometric2F1(1/2, (1 + p)/2, (3 + p)/2, -sinh(c + d*x^n)^2)*(b*sinh(c + d*x^n))^(1 + p))/(x^n*(b*d*e*n*(1 + p)*sqrt(cosh(c + d*x^n)^2)))]
+    @test_int [(e*x)^(n - 1)*(b*sinh(c + d*x^n))^p, x, 3, ((e*x)^n*cosh(c + d*x^n)*HypergeometricFunctions._₂F₁(1/2, (1 + p)/2, (3 + p)/2, -sinh(c + d*x^n)^2)*(b*sinh(c + d*x^n))^(1 + p))/(x^n*(b*d*e*n*(1 + p)*sqrt(cosh(c + d*x^n)^2)))]
     @test_int [(e*x)^(2*n - 1)*(b*sinh(c + d*x^n))^p, x, 1, ((e*x)^(2*n)*Unintegrable(x^(-1 + 2*n)*(b*sinh(c + d*x^n))^p, x))/(x^(2*n)*e)]
 
     @test_int [(e*x)^(n - 1)*(a + b*sinh(c + d*x^n))^p, x, 5, (im*sqrt(2)*(e*x)^n*AppellF1(1/2, 1/2, -p, 3/2, (1/2)*(1 - im*sinh(c + d*x^n)), (b*(1 - im*sinh(c + d*x^n)))/(im*a + b))*cosh(c + d*x^n)*(a + b*sinh(c + d*x^n))^p)/(x^n*((a + b*sinh(c + d*x^n))/(a - im*b))^p*(d*e*n*sqrt(1 + im*sinh(c + d*x^n))))]
@@ -236,7 +236,7 @@
     @test_int [sinh(a + b*x^n)^3/x^(n + 1), x, 12, -((3*b*cosh(a)*CoshIntegral(b*x^n))/(4*n)) + (3*b*cosh(3*a)*CoshIntegral(3*b*x^n))/(4*n) + (3*sinh(a + b*x^n))/(x^n*(4*n)) - sinh(3*(a + b*x^n))/(x^n*(4*n)) - (3*b*sinh(a)*SinhIntegral(b*x^n))/(4*n) + (3*b*sinh(3*a)*SinhIntegral(3*b*x^n))/(4*n)]
 
 
-    @test_int [x^(n/2 - 1)*sinh(a + b*x^n), x, 4, -((sqrt(pi)*Erf(sqrt(b)*x^(n/2)))/(ℯ^a*(2*sqrt(b)*n))) + (ℯ^a*sqrt(pi)*Erfi(sqrt(b)*x^(n/2)))/(2*sqrt(b)*n)]
+    @test_int [x^(n/2 - 1)*sinh(a + b*x^n), x, 4, -((sqrt(pi)*erf(sqrt(b)*x^(n/2)))/(ℯ^a*(2*sqrt(b)*n))) + (ℯ^a*sqrt(pi)*erfi(sqrt(b)*x^(n/2)))/(2*sqrt(b)*n)]
 
 
     #= ::Title:: =#
@@ -247,9 +247,9 @@
     #=Integrands*of*the*form*(e*x)^m*sinh(a+b*(c+d*x)^n)=#
 
 
-    @test_int [x^2*sinh((a + b*x)^2), x, 12, -((a*cosh((a + b*x)^2))/b^3) + ((a + b*x)*cosh((a + b*x)^2))/(2*b^3) - (sqrt(pi)*Erf(a + b*x))/(8*b^3) - (a^2*sqrt(pi)*Erf(a + b*x))/(4*b^3) - (sqrt(pi)*Erfi(a + b*x))/(8*b^3) + (a^2*sqrt(pi)*Erfi(a + b*x))/(4*b^3)]
-    @test_int [x^1*sinh((a + b*x)^2), x, 8, cosh((a + b*x)^2)/(2*b^2) + (a*sqrt(pi)*Erf(a + b*x))/(4*b^2) - (a*sqrt(pi)*Erfi(a + b*x))/(4*b^2)]
-    @test_int [x^0*sinh((a + b*x)^2), x, 4, -((sqrt(pi)*Erf(a + b*x))/(4*b)) + (sqrt(pi)*Erfi(a + b*x))/(4*b)]
+    @test_int [x^2*sinh((a + b*x)^2), x, 12, -((a*cosh((a + b*x)^2))/b^3) + ((a + b*x)*cosh((a + b*x)^2))/(2*b^3) - (sqrt(pi)*erf(a + b*x))/(8*b^3) - (a^2*sqrt(pi)*erf(a + b*x))/(4*b^3) - (sqrt(pi)*erfi(a + b*x))/(8*b^3) + (a^2*sqrt(pi)*erfi(a + b*x))/(4*b^3)]
+    @test_int [x^1*sinh((a + b*x)^2), x, 8, cosh((a + b*x)^2)/(2*b^2) + (a*sqrt(pi)*erf(a + b*x))/(4*b^2) - (a*sqrt(pi)*erfi(a + b*x))/(4*b^2)]
+    @test_int [x^0*sinh((a + b*x)^2), x, 4, -((sqrt(pi)*erf(a + b*x))/(4*b)) + (sqrt(pi)*erfi(a + b*x))/(4*b)]
     @test_int [sinh((a + b*x)^2)/x^1, x, 1, b*CannotIntegrate(sinh((a + b*x)^2)/(b*x), x)]
     @test_int [sinh((a + b*x)^2)/x^2, x, 1, Unintegrable(sinh((a + b*x)^2)/x^2, x), b^2*CannotIntegrate(sinh((a + b*x)^2)/(b^2*x^2), x)]
 

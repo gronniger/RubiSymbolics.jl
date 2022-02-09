@@ -1,5 +1,5 @@
 @testset "Stewart Problems" begin
-    @variables a, b, c, n, t, x, y
+    (a, b, c, n, t, x, y, ) = @variables a b c n t x y
 
     #= ::Package:: =#
 

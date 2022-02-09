@@ -1,5 +1,5 @@
 @testset "4.4.2.1 (a+b cot)^m (c+d cot)^n" begin
-    @variables A, B, a, b, c, d, e, f, m, n, x
+    (A, B, a, b, c, d, e, f, m, n, x, ) = @variables A B a b c d e f m n x
 
     #= ::Package:: =#
 
@@ -15,7 +15,7 @@
     #=Integrands*of*the*form*(a+im*a*cot(e+f*x))^m*(d*cot(e+f*x))^n*with*m*symbolic=#
 
 
-    @test_int [(a + a*im*cot(c + d*x))^n, x, 2, (im*(a + im*a*cot(c + d*x))^n*Hypergeometric2F1(1, n, 1 + n, (1/2)*(1 + im*cot(c + d*x))))/(2*d*n)]
+    @test_int [(a + a*im*cot(c + d*x))^n, x, 2, (im*(a + im*a*cot(c + d*x))^n*HypergeometricFunctions._₂F₁(1, n, 1 + n, (1/2)*(1 + im*cot(c + d*x))))/(2*d*n)]
 
 
     #= ::Section::Closed:: =#
@@ -186,7 +186,7 @@
     #=Integrands*of*the*form*(d*cot(e+f*x))^n*(a+b*cot(e+f*x))^m*with*m*symbolic=#
 
 
-    @test_int [(a + b*cot(c + d*x))^n, x, 5, -((b*(a + b*cot(c + d*x))^(1 + n)*Hypergeometric2F1(1, 1 + n, 2 + n, (a + b*cot(c + d*x))/(a - sqrt(-b^2))))/(2*sqrt(-b^2)*(a - sqrt(-b^2))*d*(1 + n))) + (b*(a + b*cot(c + d*x))^(1 + n)*Hypergeometric2F1(1, 1 + n, 2 + n, (a + b*cot(c + d*x))/(a + sqrt(-b^2))))/(2*sqrt(-b^2)*(a + sqrt(-b^2))*d*(1 + n))]
+    @test_int [(a + b*cot(c + d*x))^n, x, 5, -((b*(a + b*cot(c + d*x))^(1 + n)*HypergeometricFunctions._₂F₁(1, 1 + n, 2 + n, (a + b*cot(c + d*x))/(a - sqrt(-b^2))))/(2*sqrt(-b^2)*(a - sqrt(-b^2))*d*(1 + n))) + (b*(a + b*cot(c + d*x))^(1 + n)*HypergeometricFunctions._₂F₁(1, 1 + n, 2 + n, (a + b*cot(c + d*x))/(a + sqrt(-b^2))))/(2*sqrt(-b^2)*(a + sqrt(-b^2))*d*(1 + n))]
 
 
     #= ::Title::Closed:: =#

@@ -1,5 +1,5 @@
 @testset "Apostol Problems" begin
-    @variables a, a1, b, b1, n, t, x, z
+    (a, a1, b, b1, n, t, x, z, ) = @variables a a1 b b1 n t x z
 
     #= ::Package:: =#
 
@@ -95,7 +95,7 @@
 
     @test_int [(a^2 - x^2)^(5/2), x, 5, (5/16)*a^4*x*sqrt(a^2 - x^2) + (5/24)*a^2*x*(a^2 - x^2)^(3/2) + (1/6)*x*(a^2 - x^2)^(5/2) + (5/16)*a^6*atan(x/sqrt(a^2 - x^2))]
     @test_int [x^5/sqrt(5 + x^2), x, 3, 25*sqrt(5 + x^2) - (10/3)*(5 + x^2)^(3/2) + (1/5)*(5 + x^2)^(5/2)]
-    @test_int [t^3/(4 + t^3)^(1/2), t, 2, (2/5)*t*sqrt(4 + t^3) - (8*2^(2/3)*sqrt(2 + sqrt(3))*(2^(2/3) + t)*sqrt((2*2^(1/3) - 2^(2/3)*t + t^2)/(2^(2/3)*(1 + sqrt(3)) + t)^2)*EllipticF(asin((2^(2/3)*(1 - sqrt(3)) + t)/(2^(2/3)*(1 + sqrt(3)) + t)), -7 - 4*sqrt(3)))/(5*3^(1/4)*sqrt((2^(2/3) + t)/(2^(2/3)*(1 + sqrt(3)) + t)^2)*sqrt(4 + t^3))]
+    @test_int [t^3/(4 + t^3)^(1/2), t, 2, (2/5)*t*sqrt(4 + t^3) - (8*2^(2/3)*sqrt(2 + sqrt(3))*(2^(2/3) + t)*sqrt((2*2^(1/3) - 2^(2/3)*t + t^2)/(2^(2/3)*(1 + sqrt(3)) + t)^2)*Elliptic.F(asin((2^(2/3)*(1 - sqrt(3)) + t)/(2^(2/3)*(1 + sqrt(3)) + t)), -7 - 4*sqrt(3)))/(5*3^(1/4)*sqrt((2^(2/3) + t)/(2^(2/3)*(1 + sqrt(3)) + t)^2)*sqrt(4 + t^3))]
 
 
     #= ::Subsection::Closed:: =#
@@ -469,5 +469,5 @@
     #=Exercise*30=#
 
 
-    @test_int [1/(1 + t^3)^(1/2), t, 1, (2*sqrt(2 + sqrt(3))*(1 + t)*sqrt((1 - t + t^2)/(1 + sqrt(3) + t)^2)*EllipticF(asin((1 - sqrt(3) + t)/(1 + sqrt(3) + t)), -7 - 4*sqrt(3)))/(3^(1/4)*sqrt((1 + t)/(1 + sqrt(3) + t)^2)*sqrt(1 + t^3))]
+    @test_int [1/(1 + t^3)^(1/2), t, 1, (2*sqrt(2 + sqrt(3))*(1 + t)*sqrt((1 - t + t^2)/(1 + sqrt(3) + t)^2)*Elliptic.F(asin((1 - sqrt(3) + t)/(1 + sqrt(3) + t)), -7 - 4*sqrt(3)))/(3^(1/4)*sqrt((1 + t)/(1 + sqrt(3) + t)^2)*sqrt(1 + t^3))]
     end

@@ -1,5 +1,5 @@
 @testset "4.2.1.3 (g tan)^p (a+b cos)^m" begin
-    @variables a, b, c, d, e, f, g, m, p, x
+    (a, b, c, d, e, f, g, m, p, x, ) = @variables a b c d e f g m p x
 
     #= ::Package:: =#
 
@@ -93,7 +93,7 @@
     #=Integrands*of*the*form*(g*tan(e+f*x))^(p/2)*(a+b*cos(e+f*x))^m=#
 
 
-    @test_int [sqrt(e*tan(c + d*x))/(a + b*cos(c + d*x)), x, 9, -((2*sqrt(2)*sqrt(cos(c + d*x))*EllipticPi(-(sqrt(-a + b)/sqrt(a + b)), asin(sqrt(sin(c + d*x))/sqrt(1 + cos(c + d*x))), -1)*sqrt(e*tan(c + d*x)))/(sqrt(-a + b)*sqrt(a + b)*d*sqrt(sin(c + d*x)))) + (2*sqrt(2)*sqrt(cos(c + d*x))*EllipticPi(sqrt(-a + b)/sqrt(a + b), asin(sqrt(sin(c + d*x))/sqrt(1 + cos(c + d*x))), -1)*sqrt(e*tan(c + d*x)))/(sqrt(-a + b)*sqrt(a + b)*d*sqrt(sin(c + d*x)))]
+    @test_int [sqrt(e*tan(c + d*x))/(a + b*cos(c + d*x)), x, 9, -((2*sqrt(2)*sqrt(cos(c + d*x))*Elliptic.Pi(-(sqrt(-a + b)/sqrt(a + b)), asin(sqrt(sin(c + d*x))/sqrt(1 + cos(c + d*x))), -1)*sqrt(e*tan(c + d*x)))/(sqrt(-a + b)*sqrt(a + b)*d*sqrt(sin(c + d*x)))) + (2*sqrt(2)*sqrt(cos(c + d*x))*Elliptic.Pi(sqrt(-a + b)/sqrt(a + b), asin(sqrt(sin(c + d*x))/sqrt(1 + cos(c + d*x))), -1)*sqrt(e*tan(c + d*x)))/(sqrt(-a + b)*sqrt(a + b)*d*sqrt(sin(c + d*x)))]
 
 
     #= ::Subsection:: =#

@@ -1,5 +1,5 @@
 @testset "4.1.11 (e x)^m (a+b x^n)^p sin" begin
-    @variables a, b, c, d, x
+    (a, b, c, d, x, ) = @variables a b c d x
 
     #= ::Package:: =#
 

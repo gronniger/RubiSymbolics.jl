@@ -1,5 +1,5 @@
 @testset "6.4.7 (d hyper)^m (a+b (c coth)^n)^p" begin
-    @variables a, b, c, d, x
+    (a, b, c, d, x, ) = @variables a b c d x
 
     #= ::Package:: =#
 

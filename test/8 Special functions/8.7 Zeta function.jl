@@ -1,5 +1,5 @@
 @testset "8.7 Zeta function" begin
-    @variables a, b, s, x
+    (a, b, s, x, ) = @variables a b s x
 
     #= ::Package:: =#
 
@@ -25,7 +25,7 @@
     #=Integrands*of*the*form*x^m*Zeta(s, a+b*x)=#
 
 
-    @test_int [x^2*Zeta(s, a + b*x), x, 3, If($VersionNumber>=8, (2*Zeta(-3 + s, a + b*x))/(b^3*(1 - s)*(2 - s)*(3 - s)) - (2*x*Zeta(-2 + s, a + b*x))/(b^2*(1 - s)*(2 - s)) + (x^2*Zeta(-1 + s, a + b*x))/(b*(1 - s)), (2*Zeta(-3 + s, a + b*x))/(b^3*(1 - s)*(6 - 5*s + s^2)) - (2*x*Zeta(-2 + s, a + b*x))/(b^2*(1 - s)*(2 - s)) + (x^2*Zeta(-1 + s, a + b*x))/(b*(1 - s)))]
+    @test_int [x^2*Zeta(s, a + b*x), x, 3, If(13>=8, (2*Zeta(-3 + s, a + b*x))/(b^3*(1 - s)*(2 - s)*(3 - s)) - (2*x*Zeta(-2 + s, a + b*x))/(b^2*(1 - s)*(2 - s)) + (x^2*Zeta(-1 + s, a + b*x))/(b*(1 - s)), (2*Zeta(-3 + s, a + b*x))/(b^3*(1 - s)*(6 - 5*s + s^2)) - (2*x*Zeta(-2 + s, a + b*x))/(b^2*(1 - s)*(2 - s)) + (x^2*Zeta(-1 + s, a + b*x))/(b*(1 - s)))]
     @test_int [x^1*Zeta(s, a + b*x), x, 2, -(Zeta(-2 + s, a + b*x)/(b^2*(1 - s)*(2 - s))) + (x*Zeta(-1 + s, a + b*x))/(b*(1 - s))]
     @test_int [x^0*Zeta(s, a + b*x), x, 1, Zeta(-1 + s, a + b*x)/(b*(1 - s))]
     @test_int [Zeta(s, a + b*x)/x^1, x, 0, CannotIntegrate(Zeta(s, a + b*x)/x, x)]

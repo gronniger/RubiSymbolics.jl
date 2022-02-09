@@ -1,5 +1,5 @@
 @testset "4.7.5 x^m trig(a+b log(c x^n))^p" begin
-    @variables a, b, c, d, e, m, n, p, x
+    (a, b, c, d, e, m, n, p, x, ) = @variables a b c d e m n p x
 
     #= ::Package:: =#
 
@@ -107,34 +107,34 @@
     #=p>0=#
 
 
-    @test_int [x^1*sqrt(sin(a + b*log(c*x^n))), x, 3, (2*x^2*Hypergeometric2F1(-(1/2), (1/4)*(-1 - (4*im)/(b*n)), (1/4)*(3 - (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((4 - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
-    @test_int [x^0*sqrt(sin(a + b*log(c*x^n))), x, 3, (2*x*Hypergeometric2F1(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((2 - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
-    @test_int [sqrt(sin(a + b*log(c*x^n)))/x^1, x, 2, (2*EllipticE((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(b*n)]
-    @test_int [sqrt(sin(a + b*log(c*x^n)))/x^2, x, 3, -((2*Hypergeometric2F1(-(1/2), (1/4)*(-1 + (2*im)/(b*n)), (1/4)*(3 + (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((2 + im*b*n)*x*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))))]
-    @test_int [sqrt(sin(a + b*log(c*x^n)))/x^3, x, 3, -((2*Hypergeometric2F1(-(1/2), (1/4)*(-1 + (4*im)/(b*n)), (1/4)*(3 + (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((4 + im*b*n)*x^2*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))))]
+    @test_int [x^1*sqrt(sin(a + b*log(c*x^n))), x, 3, (2*x^2*HypergeometricFunctions._₂F₁(-(1/2), (1/4)*(-1 - (4*im)/(b*n)), (1/4)*(3 - (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((4 - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
+    @test_int [x^0*sqrt(sin(a + b*log(c*x^n))), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((2 - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
+    @test_int [sqrt(sin(a + b*log(c*x^n)))/x^1, x, 2, (2*Elliptic.E((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(b*n)]
+    @test_int [sqrt(sin(a + b*log(c*x^n)))/x^2, x, 3, -((2*HypergeometricFunctions._₂F₁(-(1/2), (1/4)*(-1 + (2*im)/(b*n)), (1/4)*(3 + (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((2 + im*b*n)*x*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))))]
+    @test_int [sqrt(sin(a + b*log(c*x^n)))/x^3, x, 3, -((2*HypergeometricFunctions._₂F₁(-(1/2), (1/4)*(-1 + (4*im)/(b*n)), (1/4)*(3 + (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sin(a + b*log(c*x^n))))/((4 + im*b*n)*x^2*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))))]
 
 
-    @test_int [x^1*sin(a + b*log(c*x^n))^(3/2), x, 3, (2*x^2*Hypergeometric2F1(-(3/2), (1/4)*(-3 - (4*im)/(b*n)), (1/4)*(1 - (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((4 - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
-    @test_int [x^0*sin(a + b*log(c*x^n))^(3/2), x, 3, (2*x*Hypergeometric2F1(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((2 - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
-    @test_int [sin(a + b*log(c*x^n))^(3/2)/x^1, x, 3, (2*EllipticF((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(3*b*n) - (2*cos(a + b*log(c*x^n))*sqrt(sin(a + b*log(c*x^n))))/(3*b*n)]
-    @test_int [sin(a + b*log(c*x^n))^(3/2)/x^2, x, 3, -((2*Hypergeometric2F1(-(3/2), (1/4)*(-3 + (2*im)/(b*n)), (1/4)*(1 + (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((2 + 3*im*b*n)*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)))]
-    @test_int [sin(a + b*log(c*x^n))^(3/2)/x^3, x, 3, -((2*Hypergeometric2F1(-(3/2), (1/4)*(-3 + (4*im)/(b*n)), (1/4)*(1 + (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((4 + 3*im*b*n)*x^2*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)))]
+    @test_int [x^1*sin(a + b*log(c*x^n))^(3/2), x, 3, (2*x^2*HypergeometricFunctions._₂F₁(-(3/2), (1/4)*(-3 - (4*im)/(b*n)), (1/4)*(1 - (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((4 - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
+    @test_int [x^0*sin(a + b*log(c*x^n))^(3/2), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((2 - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
+    @test_int [sin(a + b*log(c*x^n))^(3/2)/x^1, x, 3, (2*Elliptic.F((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(3*b*n) - (2*cos(a + b*log(c*x^n))*sqrt(sin(a + b*log(c*x^n))))/(3*b*n)]
+    @test_int [sin(a + b*log(c*x^n))^(3/2)/x^2, x, 3, -((2*HypergeometricFunctions._₂F₁(-(3/2), (1/4)*(-3 + (2*im)/(b*n)), (1/4)*(1 + (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((2 + 3*im*b*n)*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)))]
+    @test_int [sin(a + b*log(c*x^n))^(3/2)/x^3, x, 3, -((2*HypergeometricFunctions._₂F₁(-(3/2), (1/4)*(-3 + (4*im)/(b*n)), (1/4)*(1 + (4*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^(3/2))/((4 + 3*im*b*n)*x^2*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)))]
 
 
     #= ::Subsubsection::Closed:: =#
     #=p<0=#
 
 
-    @test_int [x^0/sqrt(sin(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*Hypergeometric2F1(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + im*b*n)*sqrt(sin(a + b*log(c*x^n))))]
-    @test_int [1/(x^1*sqrt(sin(a + b*log(c*x^n)))), x, 2, (2*EllipticF((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(b*n)]
+    @test_int [x^0/sqrt(sin(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*HypergeometricFunctions._₂F₁(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + im*b*n)*sqrt(sin(a + b*log(c*x^n))))]
+    @test_int [1/(x^1*sqrt(sin(a + b*log(c*x^n)))), x, 2, (2*Elliptic.F((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(b*n)]
 
 
-    @test_int [x^0/sin(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*Hypergeometric2F1(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 3*im*b*n)*sin(a + b*log(c*x^n))^(3/2))]
-    @test_int [1/(x^1*sin(a + b*log(c*x^n))^(3/2)), x, 3, -((2*EllipticE((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(b*n)) - (2*cos(a + b*log(c*x^n)))/(b*n*sqrt(sin(a + b*log(c*x^n))))]
+    @test_int [x^0/sin(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*HypergeometricFunctions._₂F₁(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 3*im*b*n)*sin(a + b*log(c*x^n))^(3/2))]
+    @test_int [1/(x^1*sin(a + b*log(c*x^n))^(3/2)), x, 3, -((2*Elliptic.E((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(b*n)) - (2*cos(a + b*log(c*x^n)))/(b*n*sqrt(sin(a + b*log(c*x^n))))]
 
 
-    @test_int [x^0/sin(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*Hypergeometric2F1(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 5*im*b*n)*sin(a + b*log(c*x^n))^(5/2))]
-    @test_int [1/(x^1*sin(a + b*log(c*x^n))^(5/2)), x, 3, (2*EllipticF((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(3*b*n) - (2*cos(a + b*log(c*x^n)))/(3*b*n*sin(a + b*log(c*x^n))^(3/2))]
+    @test_int [x^0/sin(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*HypergeometricFunctions._₂F₁(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 5*im*b*n)*sin(a + b*log(c*x^n))^(5/2))]
+    @test_int [1/(x^1*sin(a + b*log(c*x^n))^(5/2)), x, 3, (2*Elliptic.F((1/2)*(a - pi/2 + b*log(c*x^n)), 2))/(3*b*n) - (2*cos(a + b*log(c*x^n)))/(3*b*n*sin(a + b*log(c*x^n))^(3/2))]
 
 
     @test_int [1/sin(a - 2*im*log(c*x))^(3/2), x, 3, (1 - c^4*ℯ^(2*im*a)*x^4)/(ℯ^(2*im*a)*(2*c^4*x^3*sin(a - 2*im*log(c*x))^(3/2)))]
@@ -150,26 +150,26 @@
     @test_int [(e*x)^m*sin(d*(a + b*log(c*x^n)))^1, x, 1, -((b*d*n*(e*x)^(1 + m)*cos(d*(a + b*log(c*x^n))))/(e*((1 + m)^2 + b^2*d^2*n^2))) + ((1 + m)*(e*x)^(1 + m)*sin(d*(a + b*log(c*x^n))))/(e*((1 + m)^2 + b^2*d^2*n^2))]
 
 
-    @test_int [(e*x)^m*sin(d*(a + b*log(c*x^n)))^(3/2), x, 3, (2*(e*x)^(1 + m)*Hypergeometric2F1(-(3/2), -((2*im + 2*im*m + 3*b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*sin(d*(a + b*log(c*x^n)))^(3/2))/(e*(2 + 2*m - 3*im*b*d*n)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^(3/2))]
-    @test_int [(e*x)^m*sin(d*(a + b*log(c*x^n)))^(1/2), x, 3, (2*(e*x)^(1 + m)*Hypergeometric2F1(-(1/2), -((2*im + 2*im*m + b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 3*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*sqrt(sin(d*(a + b*log(c*x^n)))))/(e*(2 + 2*m - im*b*d*n)*sqrt(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))]
-    @test_int [(e*x)^m/sin(d*(a + b*log(c*x^n)))^(1/2), x, 3, (2*(e*x)^(1 + m)*sqrt(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*Hypergeometric2F1(1/2, -((2*im + 2*im*m - b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 5*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(2 + 2*m + im*b*d*n)*sqrt(sin(d*(a + b*log(c*x^n)))))]
-    @test_int [(e*x)^m/sin(d*(a + b*log(c*x^n)))^(3/2), x, 3, (2*(e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^(3/2)*Hypergeometric2F1(3/2, -((2*im + 2*im*m - 3*b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 7*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(2 + 2*m + 3*im*b*d*n)*sin(d*(a + b*log(c*x^n)))^(3/2))]
-    @test_int [(e*x)^m/sin(d*(a + b*log(c*x^n)))^(5/2), x, 3, (2*(e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^(5/2)*Hypergeometric2F1(5/2, -((2*im + 2*im*m - 5*b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 9*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(2 + 2*m + 5*im*b*d*n)*sin(d*(a + b*log(c*x^n)))^(5/2))]
+    @test_int [(e*x)^m*sin(d*(a + b*log(c*x^n)))^(3/2), x, 3, (2*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(-(3/2), -((2*im + 2*im*m + 3*b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*sin(d*(a + b*log(c*x^n)))^(3/2))/(e*(2 + 2*m - 3*im*b*d*n)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^(3/2))]
+    @test_int [(e*x)^m*sin(d*(a + b*log(c*x^n)))^(1/2), x, 3, (2*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + 2*im*m + b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 3*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*sqrt(sin(d*(a + b*log(c*x^n)))))/(e*(2 + 2*m - im*b*d*n)*sqrt(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))]
+    @test_int [(e*x)^m/sin(d*(a + b*log(c*x^n)))^(1/2), x, 3, (2*(e*x)^(1 + m)*sqrt(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*HypergeometricFunctions._₂F₁(1/2, -((2*im + 2*im*m - b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 5*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(2 + 2*m + im*b*d*n)*sqrt(sin(d*(a + b*log(c*x^n)))))]
+    @test_int [(e*x)^m/sin(d*(a + b*log(c*x^n)))^(3/2), x, 3, (2*(e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^(3/2)*HypergeometricFunctions._₂F₁(3/2, -((2*im + 2*im*m - 3*b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 7*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(2 + 2*m + 3*im*b*d*n)*sin(d*(a + b*log(c*x^n)))^(3/2))]
+    @test_int [(e*x)^m/sin(d*(a + b*log(c*x^n)))^(5/2), x, 3, (2*(e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^(5/2)*HypergeometricFunctions._₂F₁(5/2, -((2*im + 2*im*m - 5*b*d*n)/(4*b*d*n)), -((2*im + 2*im*m - 9*b*d*n)/(4*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(2 + 2*m + 5*im*b*d*n)*sin(d*(a + b*log(c*x^n)))^(5/2))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(e*x)^m*sin(d*(a+b*log(c*x^n)))^p*when*p*symbolic=#
 
 
-    @test_int [(e*x)^m*sin(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*Hypergeometric2F1(-p, -((im + im*m + b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) - p), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*sin(d*(a + b*log(c*x^n)))^p)/((1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*(e*(1 + m - im*b*d*n*p)))]
+    @test_int [(e*x)^m*sin(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*HypergeometricFunctions._₂F₁(-p, -((im + im*m + b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) - p), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))*sin(d*(a + b*log(c*x^n)))^p)/((1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*(e*(1 + m - im*b*d*n*p)))]
 
 
-    @test_int [x^2*sin(a + b*log(c*x^n))^p, x, 3, (x^3*Hypergeometric2F1(-p, -((3*im + b*n*p)/(2*b*n)), (1/2)*(2 - (3*im)/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(3 - im*b*n*p))]
-    @test_int [x^1*sin(a + b*log(c*x^n))^p, x, 3, (x^2*Hypergeometric2F1((1/2)*(-((2*im)/(b*n)) - p), -p, (1/2)*(2 - (2*im)/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(2 - im*b*n*p))]
-    @test_int [x^0*sin(a + b*log(c*x^n))^p, x, 3, (x*Hypergeometric2F1(-p, -((im + b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(1 - im*b*n*p))]
-    @test_int [sin(a + b*log(c*x^n))^p/x^1, x, 2, (cos(a + b*log(c*x^n))*Hypergeometric2F1(1/2, (1 + p)/2, (3 + p)/2, sin(a + b*log(c*x^n))^2)*sin(a + b*log(c*x^n))^(1 + p))/(b*n*(1 + p)*sqrt(cos(a + b*log(c*x^n))^2))]
-    @test_int [sin(a + b*log(c*x^n))^p/x^2, x, 3, -((Hypergeometric2F1((1/2)*(im/(b*n) - p), -p, (1/2)*(2 + im/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*((1 + im*b*n*p)*x)))]
-    @test_int [sin(a + b*log(c*x^n))^p/x^3, x, 3, -((Hypergeometric2F1((1/2)*((2*im)/(b*n) - p), -p, (1/2)*(2 + (2*im)/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*((2 + im*b*n*p)*x^2)))]
+    @test_int [x^2*sin(a + b*log(c*x^n))^p, x, 3, (x^3*HypergeometricFunctions._₂F₁(-p, -((3*im + b*n*p)/(2*b*n)), (1/2)*(2 - (3*im)/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(3 - im*b*n*p))]
+    @test_int [x^1*sin(a + b*log(c*x^n))^p, x, 3, (x^2*HypergeometricFunctions._₂F₁((1/2)*(-((2*im)/(b*n)) - p), -p, (1/2)*(2 - (2*im)/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(2 - im*b*n*p))]
+    @test_int [x^0*sin(a + b*log(c*x^n))^p, x, 3, (x*HypergeometricFunctions._₂F₁(-p, -((im + b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(1 - im*b*n*p))]
+    @test_int [sin(a + b*log(c*x^n))^p/x^1, x, 2, (cos(a + b*log(c*x^n))*HypergeometricFunctions._₂F₁(1/2, (1 + p)/2, (3 + p)/2, sin(a + b*log(c*x^n))^2)*sin(a + b*log(c*x^n))^(1 + p))/(b*n*(1 + p)*sqrt(cos(a + b*log(c*x^n))^2))]
+    @test_int [sin(a + b*log(c*x^n))^p/x^2, x, 3, -((HypergeometricFunctions._₂F₁((1/2)*(im/(b*n) - p), -p, (1/2)*(2 + im/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*((1 + im*b*n*p)*x)))]
+    @test_int [sin(a + b*log(c*x^n))^p/x^3, x, 3, -((HypergeometricFunctions._₂F₁((1/2)*((2*im)/(b*n) - p), -p, (1/2)*(2 + (2*im)/(b*n) - p), ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sin(a + b*log(c*x^n))^p)/((1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*((2 + im*b*n*p)*x^2)))]
 
 
     #= ::Section::Closed:: =#
@@ -239,32 +239,32 @@
     #=p>0=#
 
 
-    @test_int [x^0*sqrt(cos(a + b*log(c*x^n))), x, 3, (2*x*sqrt(cos(a + b*log(c*x^n)))*Hypergeometric2F1(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
-    @test_int [sqrt(cos(a + b*log(c*x^n)))/x^1, x, 2, (2*EllipticE((a + b*log(c*x^n))/2, 2))/(b*n)]
+    @test_int [x^0*sqrt(cos(a + b*log(c*x^n))), x, 3, (2*x*sqrt(cos(a + b*log(c*x^n)))*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
+    @test_int [sqrt(cos(a + b*log(c*x^n)))/x^1, x, 2, (2*Elliptic.E((a + b*log(c*x^n))/2, 2))/(b*n)]
 
 
-    @test_int [x^0*cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x*cos(a + b*log(c*x^n))^(3/2)*Hypergeometric2F1(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
-    @test_int [cos(a + b*log(c*x^n))^(3/2)/x^1, x, 3, (2*EllipticF((1/2)*(a + b*log(c*x^n)), 2))/(3*b*n) + (2*sqrt(cos(a + b*log(c*x^n)))*sin(a + b*log(c*x^n)))/(3*b*n)]
+    @test_int [x^0*cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x*cos(a + b*log(c*x^n))^(3/2)*HypergeometricFunctions._₂F₁(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
+    @test_int [cos(a + b*log(c*x^n))^(3/2)/x^1, x, 3, (2*Elliptic.F((1/2)*(a + b*log(c*x^n)), 2))/(3*b*n) + (2*sqrt(cos(a + b*log(c*x^n)))*sin(a + b*log(c*x^n)))/(3*b*n)]
 
 
-    @test_int [x^0*cos(a + b*log(c*x^n))^(5/2), x, 3, (2*x*cos(a + b*log(c*x^n))^(5/2)*Hypergeometric2F1(-(5/2), (1/4)*(-5 - (2*im)/(b*n)), -((2*im + b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 5*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2))]
-    @test_int [cos(a + b*log(c*x^n))^(5/2)/x^1, x, 3, (6*EllipticE((1/2)*(a + b*log(c*x^n)), 2))/(5*b*n) + (2*cos(a + b*log(c*x^n))^(3/2)*sin(a + b*log(c*x^n)))/(5*b*n)]
+    @test_int [x^0*cos(a + b*log(c*x^n))^(5/2), x, 3, (2*x*cos(a + b*log(c*x^n))^(5/2)*HypergeometricFunctions._₂F₁(-(5/2), (1/4)*(-5 - (2*im)/(b*n)), -((2*im + b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 5*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2))]
+    @test_int [cos(a + b*log(c*x^n))^(5/2)/x^1, x, 3, (6*Elliptic.E((1/2)*(a + b*log(c*x^n)), 2))/(5*b*n) + (2*cos(a + b*log(c*x^n))^(3/2)*sin(a + b*log(c*x^n)))/(5*b*n)]
 
 
     #= ::Subsubsection::Closed:: =#
     #=p<0=#
 
 
-    @test_int [x^0/sqrt(cos(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*Hypergeometric2F1(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + im*b*n)*sqrt(cos(a + b*log(c*x^n))))]
-    @test_int [1/(x^1*sqrt(cos(a + b*log(c*x^n)))), x, 2, (2*EllipticF((a + b*log(c*x^n))/2, 2))/(b*n)]
+    @test_int [x^0/sqrt(cos(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*HypergeometricFunctions._₂F₁(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + im*b*n)*sqrt(cos(a + b*log(c*x^n))))]
+    @test_int [1/(x^1*sqrt(cos(a + b*log(c*x^n)))), x, 2, (2*Elliptic.F((a + b*log(c*x^n))/2, 2))/(b*n)]
 
 
-    @test_int [x^0/cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*Hypergeometric2F1(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 3*im*b*n)*cos(a + b*log(c*x^n))^(3/2))]
-    @test_int [1/(x*cos(a + b*log(c*x^n))^(3/2)), x, 3, -((2*EllipticE((1/2)*(a + b*log(c*x^n)), 2))/(b*n)) + (2*sin(a + b*log(c*x^n)))/(b*n*sqrt(cos(a + b*log(c*x^n))))]
+    @test_int [x^0/cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*HypergeometricFunctions._₂F₁(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 3*im*b*n)*cos(a + b*log(c*x^n))^(3/2))]
+    @test_int [1/(x*cos(a + b*log(c*x^n))^(3/2)), x, 3, -((2*Elliptic.E((1/2)*(a + b*log(c*x^n)), 2))/(b*n)) + (2*sin(a + b*log(c*x^n)))/(b*n*sqrt(cos(a + b*log(c*x^n))))]
 
 
-    @test_int [x^0/cos(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*Hypergeometric2F1(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 5*im*b*n)*cos(a + b*log(c*x^n))^(5/2))]
-    @test_int [1/(x*cos(a + b*log(c*x^n))^(5/2)), x, 3, (2*EllipticF((1/2)*(a + b*log(c*x^n)), 2))/(3*b*n) + (2*sin(a + b*log(c*x^n)))/(3*b*n*cos(a + b*log(c*x^n))^(3/2))]
+    @test_int [x^0/cos(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*HypergeometricFunctions._₂F₁(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 5*im*b*n)*cos(a + b*log(c*x^n))^(5/2))]
+    @test_int [1/(x*cos(a + b*log(c*x^n))^(5/2)), x, 3, (2*Elliptic.F((1/2)*(a + b*log(c*x^n)), 2))/(3*b*n) + (2*sin(a + b*log(c*x^n)))/(3*b*n*cos(a + b*log(c*x^n))^(3/2))]
 
 
     @test_int [1/cos(a - 2*im*log(c*x))^(3/2), x, 3, -((1 + c^4*ℯ^(2*im*a)*x^4)/(ℯ^(2*im*a)*(2*c^4*x^3*cos(a - 2*im*log(c*x))^(3/2))))]
@@ -280,22 +280,22 @@
     @test_int [x^m*cos(a + b*log(c*x^n)), x, 1, ((1 + m)*x^(1 + m)*cos(a + b*log(c*x^n)))/((1 + m)^2 + b^2*n^2) + (b*n*x^(1 + m)*sin(a + b*log(c*x^n)))/((1 + m)^2 + b^2*n^2)]
 
 
-    @test_int [x^m*cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*cos(a + b*log(c*x^n))^(3/2)*Hypergeometric2F1(-(3/2), -((2*im + 2*im*m + 3*b*n)/(4*b*n)), -((2*im + 2*im*m - b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
-    @test_int [x^m*cos(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(cos(a + b*log(c*x^n)))*Hypergeometric2F1(-(1/2), -((2*im + 2*im*m + b*n)/(4*b*n)), -((2*im + 2*im*m - 3*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
-    @test_int [x^m/cos(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*Hypergeometric2F1(1/2, -((2*im + 2*im*m - b*n)/(4*b*n)), -((2*im + 2*im*m - 5*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m + im*b*n)*sqrt(cos(a + b*log(c*x^n))))]
-    @test_int [x^m/cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*Hypergeometric2F1(3/2, -((2*im + 2*im*m - 3*b*n)/(4*b*n)), -((2*im + 2*im*m - 7*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m + 3*im*b*n)*cos(a + b*log(c*x^n))^(3/2))]
-    @test_int [x^m/cos(a + b*log(c*x^n))^(5/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*Hypergeometric2F1(5/2, -((2*im + 2*im*m - 5*b*n)/(4*b*n)), -((2*im + 2*im*m - 9*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m + 5*im*b*n)*cos(a + b*log(c*x^n))^(5/2))]
+    @test_int [x^m*cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*cos(a + b*log(c*x^n))^(3/2)*HypergeometricFunctions._₂F₁(-(3/2), -((2*im + 2*im*m + 3*b*n)/(4*b*n)), -((2*im + 2*im*m - b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2))]
+    @test_int [x^m*cos(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(cos(a + b*log(c*x^n)))*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + 2*im*m + b*n)/(4*b*n)), -((2*im + 2*im*m - 3*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b)))]
+    @test_int [x^m/cos(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*HypergeometricFunctions._₂F₁(1/2, -((2*im + 2*im*m - b*n)/(4*b*n)), -((2*im + 2*im*m - 5*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m + im*b*n)*sqrt(cos(a + b*log(c*x^n))))]
+    @test_int [x^m/cos(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*HypergeometricFunctions._₂F₁(3/2, -((2*im + 2*im*m - 3*b*n)/(4*b*n)), -((2*im + 2*im*m - 7*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m + 3*im*b*n)*cos(a + b*log(c*x^n))^(3/2))]
+    @test_int [x^m/cos(a + b*log(c*x^n))^(5/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*HypergeometricFunctions._₂F₁(5/2, -((2*im + 2*im*m - 5*b*n)/(4*b*n)), -((2*im + 2*im*m - 9*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m + 5*im*b*n)*cos(a + b*log(c*x^n))^(5/2))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(e*x)^m*cos(d*(a+b*log(c*x^n)))^p*when*p*symbolic=#
 
 
-    @test_int [(e*x)^m*cos(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*cos(d*(a + b*log(c*x^n)))^p*Hypergeometric2F1(-p, -((im + im*m + b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) - p), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/((1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*(e*(1 + m - im*b*d*n*p)))]
+    @test_int [(e*x)^m*cos(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*cos(d*(a + b*log(c*x^n)))^p*HypergeometricFunctions._₂F₁(-p, -((im + im*m + b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) - p), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/((1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*(e*(1 + m - im*b*d*n*p)))]
 
 
-    @test_int [x^1*cos(a + b*log(c*x^n))^p, x, 3, (x^2*cos(a + b*log(c*x^n))^p*Hypergeometric2F1((1/2)*(-((2*im)/(b*n)) - p), -p, (1/2)*(2 - (2*im)/(b*n) - p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(2 - im*b*n*p))]
-    @test_int [x^0*cos(a + b*log(c*x^n))^p, x, 3, (x*cos(a + b*log(c*x^n))^p*Hypergeometric2F1(-p, -((im + b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) - p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(1 - im*b*n*p))]
+    @test_int [x^1*cos(a + b*log(c*x^n))^p, x, 3, (x^2*cos(a + b*log(c*x^n))^p*HypergeometricFunctions._₂F₁((1/2)*(-((2*im)/(b*n)) - p), -p, (1/2)*(2 - (2*im)/(b*n) - p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(2 - im*b*n*p))]
+    @test_int [x^0*cos(a + b*log(c*x^n))^p, x, 3, (x*cos(a + b*log(c*x^n))^p*HypergeometricFunctions._₂F₁(-p, -((im + b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) - p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*(1 - im*b*n*p))]
 
 
     #= ::Section::Closed:: =#
@@ -329,9 +329,9 @@
     #=Integrands*of*the*form*(e*x)^m*tan(a+b*log(x))^p*with*m*symbolic=#
 
 
-    @test_int [(e*x)^m*tan(a + im*log(x))^1, x, 4, -((im*(e*x)^(1 + m))/(e*(1 + m))) + (2*im*(e*x)^(1 + m)*Hypergeometric2F1(1, (1/2)*(-1 - m), (1 - m)/2, -(ℯ^(2*im*a)/x^2)))/(e*(1 + m))]
-    @test_int [(e*x)^m*tan(a + im*log(x))^2, x, 5, -((x*(e*x)^m)/(1 + m)) + (2*x*(e*x)^m)/(1 + ℯ^(2*im*a)/x^2) - 2*x*(e*x)^m*Hypergeometric2F1(1, (1/2)*(-1 - m), (1 - m)/2, -(ℯ^(2*im*a)/x^2))]
-    @test_int [(e*x)^m*tan(a + im*log(x))^3, x, 6, -((im*(1 - m)*m*x*(e*x)^m)/(2*(1 + m))) + (im*(1 - ℯ^(2*im*a)/x^2)^2*x*(e*x)^m)/(2*(1 + ℯ^(2*im*a)/x^2)^2) + (im*(ℯ^(2*im*a)*(3 + m) + (ℯ^(4*im*a)*(1 - m))/x^2)*x*(e*x)^m)/(ℯ^(2*im*a)*(2*(1 + ℯ^(2*im*a)/x^2))) - (im*(3 + 2*m + m^2)*x*(e*x)^m*Hypergeometric2F1(1, (1/2)*(-1 - m), (1 - m)/2, -(ℯ^(2*im*a)/x^2)))/(1 + m)]
+    @test_int [(e*x)^m*tan(a + im*log(x))^1, x, 4, -((im*(e*x)^(1 + m))/(e*(1 + m))) + (2*im*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, (1/2)*(-1 - m), (1 - m)/2, -(ℯ^(2*im*a)/x^2)))/(e*(1 + m))]
+    @test_int [(e*x)^m*tan(a + im*log(x))^2, x, 5, -((x*(e*x)^m)/(1 + m)) + (2*x*(e*x)^m)/(1 + ℯ^(2*im*a)/x^2) - 2*x*(e*x)^m*HypergeometricFunctions._₂F₁(1, (1/2)*(-1 - m), (1 - m)/2, -(ℯ^(2*im*a)/x^2))]
+    @test_int [(e*x)^m*tan(a + im*log(x))^3, x, 6, -((im*(1 - m)*m*x*(e*x)^m)/(2*(1 + m))) + (im*(1 - ℯ^(2*im*a)/x^2)^2*x*(e*x)^m)/(2*(1 + ℯ^(2*im*a)/x^2)^2) + (im*(ℯ^(2*im*a)*(3 + m) + (ℯ^(4*im*a)*(1 - m))/x^2)*x*(e*x)^m)/(ℯ^(2*im*a)*(2*(1 + ℯ^(2*im*a)/x^2))) - (im*(3 + 2*m + m^2)*x*(e*x)^m*HypergeometricFunctions._₂F₁(1, (1/2)*(-1 - m), (1 - m)/2, -(ℯ^(2*im*a)/x^2)))/(1 + m)]
 
 
     #= ::Subsection::Closed:: =#
@@ -352,22 +352,22 @@
     #=Integrands*of*the*form*x^m*tan(a+b*log(c*x^n))^p=#
 
 
-    @test_int [x^3*tan(d*(a + b*log(c*x^n))), x, 4, (-im/4)*x^4 + (im/2)*x^4*Hypergeometric2F1(1, (-2*im)/(b*d*n), 1 - (2*im)/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
-    @test_int [x^2*tan(d*(a + b*log(c*x^n))), x, 4, (-im/3)*x^3 + ((2*im)/3)*x^3*Hypergeometric2F1(1, ((-3*im)/2)/(b*d*n), 1 - ((3*im)/2)/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
-    @test_int [x^1*tan(d*(a + b*log(c*x^n))), x, 4, (-im/2)*x^2 + im*x^2*Hypergeometric2F1(1, (-im)/(b*d*n), 1 - im/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
-    @test_int [x^0*tan(d*(a + b*log(c*x^n))), x, 4, (-im)*x + (2*im)*x*Hypergeometric2F1(1, (-im/2)/(b*d*n), 1 - (im/2)/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
+    @test_int [x^3*tan(d*(a + b*log(c*x^n))), x, 4, (-im/4)*x^4 + (im/2)*x^4*HypergeometricFunctions._₂F₁(1, (-2*im)/(b*d*n), 1 - (2*im)/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
+    @test_int [x^2*tan(d*(a + b*log(c*x^n))), x, 4, (-im/3)*x^3 + ((2*im)/3)*x^3*HypergeometricFunctions._₂F₁(1, ((-3*im)/2)/(b*d*n), 1 - ((3*im)/2)/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
+    @test_int [x^1*tan(d*(a + b*log(c*x^n))), x, 4, (-im/2)*x^2 + im*x^2*HypergeometricFunctions._₂F₁(1, (-im)/(b*d*n), 1 - im/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
+    @test_int [x^0*tan(d*(a + b*log(c*x^n))), x, 4, (-im)*x + (2*im)*x*HypergeometricFunctions._₂F₁(1, (-im/2)/(b*d*n), 1 - (im/2)/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))]
     @test_int [tan(d*(a + b*log(c*x^n)))/x^1, x, 2, -(log(cos(a*d + b*d*log(c*x^n)))/(b*d*n))]
-    @test_int [tan(d*(a + b*log(c*x^n)))/x^2, x, 4, im/x - (2*im*Hypergeometric2F1(1, im/(2*b*d*n), 1 + im/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/x]
-    @test_int [tan(d*(a + b*log(c*x^n)))/x^3, x, 4, (im/2)/x^2 - (im*Hypergeometric2F1(1, im/(b*d*n), 1 + im/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))))/x^2]
+    @test_int [tan(d*(a + b*log(c*x^n)))/x^2, x, 4, im/x - (2*im*HypergeometricFunctions._₂F₁(1, im/(2*b*d*n), 1 + im/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/x]
+    @test_int [tan(d*(a + b*log(c*x^n)))/x^3, x, 4, (im/2)/x^2 - (im*HypergeometricFunctions._₂F₁(1, im/(b*d*n), 1 + im/(b*d*n), -(ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))))/x^2]
 
 
-    @test_int [x^3*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((4*im - b*d*n)*x^4)/(4*b*d*n) + (im*x^4*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^4*Hypergeometric2F1(1, -((2*im)/(b*d*n)), 1 - (2*im)/(b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
-    @test_int [x^2*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((3*im - b*d*n)*x^3)/(3*b*d*n) + (im*x^3*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^3*Hypergeometric2F1(1, -((3*im)/(2*b*d*n)), 1 - (3*im)/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
-    @test_int [x^1*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((2*im - b*d*n)*x^2)/(2*b*d*n) + (im*x^2*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^2*Hypergeometric2F1(1, -(im/(b*d*n)), 1 - im/(b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
-    @test_int [x^0*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((im - b*d*n)*x)/(b*d*n) + (im*x*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x*Hypergeometric2F1(1, -(im/(2*b*d*n)), 1 - im/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^3*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((4*im - b*d*n)*x^4)/(4*b*d*n) + (im*x^4*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^4*HypergeometricFunctions._₂F₁(1, -((2*im)/(b*d*n)), 1 - (2*im)/(b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^2*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((3*im - b*d*n)*x^3)/(3*b*d*n) + (im*x^3*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^3*HypergeometricFunctions._₂F₁(1, -((3*im)/(2*b*d*n)), 1 - (3*im)/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^1*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((2*im - b*d*n)*x^2)/(2*b*d*n) + (im*x^2*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^2*HypergeometricFunctions._₂F₁(1, -(im/(b*d*n)), 1 - im/(b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^0*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((im - b*d*n)*x)/(b*d*n) + (im*x*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x*HypergeometricFunctions._₂F₁(1, -(im/(2*b*d*n)), 1 - im/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n)]
     @test_int [tan(d*(a + b*log(c*x^n)))^2/x^1, x, 3, -log(x) + tan(a*d + b*d*log(c*x^n))/(b*d*n)]
-    @test_int [tan(d*(a + b*log(c*x^n)))^2/x^2, x, 5, (1 + im/(b*d*n))/x + (im*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*Hypergeometric2F1(1, im/(2*b*d*n), 1 + im/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n*x)]
-    @test_int [tan(d*(a + b*log(c*x^n)))^2/x^3, x, 5, (1 + (2*im)/(b*d*n))/(2*x^2) + (im*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*Hypergeometric2F1(1, im/(b*d*n), 1 + im/(b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2)]
+    @test_int [tan(d*(a + b*log(c*x^n)))^2/x^2, x, 5, (1 + im/(b*d*n))/x + (im*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*HypergeometricFunctions._₂F₁(1, im/(2*b*d*n), 1 + im/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n*x)]
+    @test_int [tan(d*(a + b*log(c*x^n)))^2/x^3, x, 5, (1 + (2*im)/(b*d*n))/(2*x^2) + (im*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*HypergeometricFunctions._₂F₁(1, im/(b*d*n), 1 + im/(b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2)]
 
 
     @test_int [tan(a + b*log(c*x^n))^3/x, x, 3, log(cos(a + b*log(c*x^n)))/(b*n) + tan(a + b*log(c*x^n))^2/(2*b*n)]
@@ -379,9 +379,9 @@
     #=Integrands*of*the*form*(e*x)^m*tan(a+b*log(c*x^n))^p*with*m*symbolic=#
 
 
-    @test_int [(e*x)^m*tan(d*(a + b*log(c*x^n)))^1, x, 4, -((im*(e*x)^(1 + m))/(e*(1 + m))) + (2*im*(e*x)^(1 + m)*Hypergeometric2F1(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(e*(1 + m))]
-    @test_int [(e*x)^m*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((im*(1 + m) - b*d*n)*(e*x)^(1 + m))/(b*d*e*(1 + m)*n) + (im*(e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*e*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*(e*x)^(1 + m)*Hypergeometric2F1(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*e*n)]
-    @test_int [(e*x)^m*tan(d*(a + b*log(c*x^n)))^3, x, 6, -(((im*(1 + m) - b*d*n)*(1 + m + 2*im*b*d*n)*(e*x)^(1 + m))/(2*b^2*d^2*e*(1 + m)*n^2)) - ((e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2)/(2*b*d*e*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2) - (im*(e*x)^(1 + m)*((ℯ^(2*im*a*d)*(1 + m - 2*im*b*d*n))/n - (ℯ^(4*im*a*d)*(1 + m + 2*im*b*d*n)*(c*x^n)^(2*im*b*d))/n))/(ℯ^(2*im*a*d)*(2*b^2*d^2*e*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))) + (im*(1 + 2*m + m^2 - 2*b^2*d^2*n^2)*(e*x)^(1 + m)*Hypergeometric2F1(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b^2*d^2*e*(1 + m)*n^2)]
+    @test_int [(e*x)^m*tan(d*(a + b*log(c*x^n)))^1, x, 4, -((im*(e*x)^(1 + m))/(e*(1 + m))) + (2*im*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(e*(1 + m))]
+    @test_int [(e*x)^m*tan(d*(a + b*log(c*x^n)))^2, x, 5, ((im*(1 + m) - b*d*n)*(e*x)^(1 + m))/(b*d*e*(1 + m)*n) + (im*(e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*e*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b*d*e*n)]
+    @test_int [(e*x)^m*tan(d*(a + b*log(c*x^n)))^3, x, 6, -(((im*(1 + m) - b*d*n)*(1 + m + 2*im*b*d*n)*(e*x)^(1 + m))/(2*b^2*d^2*e*(1 + m)*n^2)) - ((e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2)/(2*b*d*e*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2) - (im*(e*x)^(1 + m)*((ℯ^(2*im*a*d)*(1 + m - 2*im*b*d*n))/n - (ℯ^(4*im*a*d)*(1 + m + 2*im*b*d*n)*(c*x^n)^(2*im*b*d))/n))/(ℯ^(2*im*a*d)*(2*b^2*d^2*e*n*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))) + (im*(1 + 2*m + m^2 - 2*b^2*d^2*n^2)*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d)))/(b^2*d^2*e*(1 + m)*n^2)]
 
 
     #= ::Subsection::Closed:: =#
@@ -435,9 +435,9 @@
     #=Integrands*of*the*form*(e*x)^m*cot(a+b*log(x))^p*with*m*symbolic=#
 
 
-    @test_int [(e*x)^m*cot(a + im*log(x))^1, x, 4, (im*(e*x)^(1 + m))/(e*(1 + m)) - (2*im*(e*x)^(1 + m)*Hypergeometric2F1(1, (1/2)*(-1 - m), (1 - m)/2, ℯ^(2*im*a)/x^2))/(e*(1 + m))]
-    @test_int [(e*x)^m*cot(a + im*log(x))^2, x, 5, -((x*(e*x)^m)/(1 + m)) + (2*x*(e*x)^m)/(1 - ℯ^(2*im*a)/x^2) - 2*x*(e*x)^m*Hypergeometric2F1(1, (1/2)*(-1 - m), (1 - m)/2, ℯ^(2*im*a)/x^2)]
-    @test_int [(e*x)^m*cot(a + im*log(x))^3, x, 6, (im*(1 - m)*m*x*(e*x)^m)/(2*(1 + m)) - (im*(1 + ℯ^(2*im*a)/x^2)^2*x*(e*x)^m)/(2*(1 - ℯ^(2*im*a)/x^2)^2) - (im*(3 + m - (ℯ^(2*im*a)*(1 - m))/x^2)*x*(e*x)^m)/(2*(1 - ℯ^(2*im*a)/x^2)) + (im*(3 + 2*m + m^2)*x*(e*x)^m*Hypergeometric2F1(1, (1/2)*(-1 - m), (1 - m)/2, ℯ^(2*im*a)/x^2))/(1 + m)]
+    @test_int [(e*x)^m*cot(a + im*log(x))^1, x, 4, (im*(e*x)^(1 + m))/(e*(1 + m)) - (2*im*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, (1/2)*(-1 - m), (1 - m)/2, ℯ^(2*im*a)/x^2))/(e*(1 + m))]
+    @test_int [(e*x)^m*cot(a + im*log(x))^2, x, 5, -((x*(e*x)^m)/(1 + m)) + (2*x*(e*x)^m)/(1 - ℯ^(2*im*a)/x^2) - 2*x*(e*x)^m*HypergeometricFunctions._₂F₁(1, (1/2)*(-1 - m), (1 - m)/2, ℯ^(2*im*a)/x^2)]
+    @test_int [(e*x)^m*cot(a + im*log(x))^3, x, 6, (im*(1 - m)*m*x*(e*x)^m)/(2*(1 + m)) - (im*(1 + ℯ^(2*im*a)/x^2)^2*x*(e*x)^m)/(2*(1 - ℯ^(2*im*a)/x^2)^2) - (im*(3 + m - (ℯ^(2*im*a)*(1 - m))/x^2)*x*(e*x)^m)/(2*(1 - ℯ^(2*im*a)/x^2)) + (im*(3 + 2*m + m^2)*x*(e*x)^m*HypergeometricFunctions._₂F₁(1, (1/2)*(-1 - m), (1 - m)/2, ℯ^(2*im*a)/x^2))/(1 + m)]
 
 
     #= ::Subsection::Closed:: =#
@@ -458,22 +458,22 @@
     #=Integrands*of*the*form*x^m*cot(a+b*log(c*x^n))^p=#
 
 
-    @test_int [x^3*cot(d*(a + b*log(c*x^n))), x, 4, (im/4)*x^4 - (im/2)*x^4*Hypergeometric2F1(1, (-2*im)/(b*d*n), 1 - (2*im)/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
-    @test_int [x^2*cot(d*(a + b*log(c*x^n))), x, 4, (im/3)*x^3 - ((2*im)/3)*x^3*Hypergeometric2F1(1, ((-3*im)/2)/(b*d*n), 1 - ((3*im)/2)/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
-    @test_int [x^1*cot(d*(a + b*log(c*x^n))), x, 4, (im/2)*x^2 - im*x^2*Hypergeometric2F1(1, (-im)/(b*d*n), 1 - im/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
-    @test_int [x^0*cot(d*(a + b*log(c*x^n))), x, 4, im*x - (2*im)*x*Hypergeometric2F1(1, (-im/2)/(b*d*n), 1 - (im/2)/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
+    @test_int [x^3*cot(d*(a + b*log(c*x^n))), x, 4, (im/4)*x^4 - (im/2)*x^4*HypergeometricFunctions._₂F₁(1, (-2*im)/(b*d*n), 1 - (2*im)/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
+    @test_int [x^2*cot(d*(a + b*log(c*x^n))), x, 4, (im/3)*x^3 - ((2*im)/3)*x^3*HypergeometricFunctions._₂F₁(1, ((-3*im)/2)/(b*d*n), 1 - ((3*im)/2)/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
+    @test_int [x^1*cot(d*(a + b*log(c*x^n))), x, 4, (im/2)*x^2 - im*x^2*HypergeometricFunctions._₂F₁(1, (-im)/(b*d*n), 1 - im/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
+    @test_int [x^0*cot(d*(a + b*log(c*x^n))), x, 4, im*x - (2*im)*x*HypergeometricFunctions._₂F₁(1, (-im/2)/(b*d*n), 1 - (im/2)/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d))]
     @test_int [cot(d*(a + b*log(c*x^n)))/x^1, x, 2, log(sin(a*d + b*d*log(c*x^n)))/(b*d*n)]
-    @test_int [cot(d*(a + b*log(c*x^n)))/x^2, x, 4, -(im/x) + (2*im*Hypergeometric2F1(1, im/(2*b*d*n), 1 + im/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/x]
-    @test_int [cot(d*(a + b*log(c*x^n)))/x^3, x, 4, (-im/2)/x^2 + (im*Hypergeometric2F1(1, im/(b*d*n), 1 + im/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))/x^2]
+    @test_int [cot(d*(a + b*log(c*x^n)))/x^2, x, 4, -(im/x) + (2*im*HypergeometricFunctions._₂F₁(1, im/(2*b*d*n), 1 + im/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/x]
+    @test_int [cot(d*(a + b*log(c*x^n)))/x^3, x, 4, (-im/2)/x^2 + (im*HypergeometricFunctions._₂F₁(1, im/(b*d*n), 1 + im/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))/x^2]
 
 
-    @test_int [x^3*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((4*im - b*d*n)*x^4)/(4*b*d*n) + (im*x^4*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^4*Hypergeometric2F1(1, -((2*im)/(b*d*n)), 1 - (2*im)/(b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
-    @test_int [x^2*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((3*im - b*d*n)*x^3)/(3*b*d*n) + (im*x^3*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^3*Hypergeometric2F1(1, -((3*im)/(2*b*d*n)), 1 - (3*im)/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
-    @test_int [x^1*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((2*im - b*d*n)*x^2)/(2*b*d*n) + (im*x^2*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^2*Hypergeometric2F1(1, -(im/(b*d*n)), 1 - im/(b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
-    @test_int [x^0*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((im - b*d*n)*x)/(b*d*n) + (im*x*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x*Hypergeometric2F1(1, -(im/(2*b*d*n)), 1 - im/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^3*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((4*im - b*d*n)*x^4)/(4*b*d*n) + (im*x^4*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^4*HypergeometricFunctions._₂F₁(1, -((2*im)/(b*d*n)), 1 - (2*im)/(b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^2*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((3*im - b*d*n)*x^3)/(3*b*d*n) + (im*x^3*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^3*HypergeometricFunctions._₂F₁(1, -((3*im)/(2*b*d*n)), 1 - (3*im)/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^1*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((2*im - b*d*n)*x^2)/(2*b*d*n) + (im*x^2*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x^2*HypergeometricFunctions._₂F₁(1, -(im/(b*d*n)), 1 - im/(b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
+    @test_int [x^0*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((im - b*d*n)*x)/(b*d*n) + (im*x*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*x*HypergeometricFunctions._₂F₁(1, -(im/(2*b*d*n)), 1 - im/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n)]
     @test_int [cot(d*(a + b*log(c*x^n)))^2/x^1, x, 3, -(cot(a*d + b*d*log(c*x^n))/(b*d*n)) - log(x)]
-    @test_int [cot(d*(a + b*log(c*x^n)))^2/x^2, x, 5, (1 + im/(b*d*n))/x + (im*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*Hypergeometric2F1(1, im/(2*b*d*n), 1 + im/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x)]
-    @test_int [cot(d*(a + b*log(c*x^n)))^2/x^3, x, 5, (1 + (2*im)/(b*d*n))/(2*x^2) + (im*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*Hypergeometric2F1(1, im/(b*d*n), 1 + im/(b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2)]
+    @test_int [cot(d*(a + b*log(c*x^n)))^2/x^2, x, 5, (1 + im/(b*d*n))/x + (im*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*HypergeometricFunctions._₂F₁(1, im/(2*b*d*n), 1 + im/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x)]
+    @test_int [cot(d*(a + b*log(c*x^n)))^2/x^3, x, 5, (1 + (2*im)/(b*d*n))/(2*x^2) + (im*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*HypergeometricFunctions._₂F₁(1, im/(b*d*n), 1 + im/(b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*n*x^2)]
 
 
     @test_int [cot(a + b*log(c*x^n))^3/x, x, 3, -(cot(a + b*log(c*x^n))^2/(2*b*n)) - log(sin(a + b*log(c*x^n)))/(b*n)]
@@ -485,9 +485,9 @@
     #=Integrands*of*the*form*(e*x)^m*cot(a+b*log(c*x^n))^p*with*m*symbolic=#
 
 
-    @test_int [(e*x)^m*cot(d*(a + b*log(c*x^n)))^1, x, 4, (im*(e*x)^(1 + m))/(e*(1 + m)) - ((2*im)*(e*x)^(1 + m)*Hypergeometric2F1(1, ((-im/2)*(1 + m))/(b*d*n), 1 - ((im/2)*(1 + m))/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))/(e*(1 + m))]
-    @test_int [(e*x)^m*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((im*(1 + m) - b*d*n)*(e*x)^(1 + m))/(b*d*e*(1 + m)*n) + (im*(e*x)^(1 + m)*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*e*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*(e*x)^(1 + m)*Hypergeometric2F1(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*e*n)]
-    @test_int [(e*x)^m*cot(d*(a + b*log(c*x^n)))^3, x, 6, ((im*(1 + m) - b*d*n)*(1 + m + 2*im*b*d*n)*(e*x)^(1 + m))/(2*b^2*d^2*e*(1 + m)*n^2) + ((e*x)^(1 + m)*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2)/(2*b*d*e*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2) + (im*(e*x)^(1 + m)*((ℯ^(2*im*a*d)*(1 + m - 2*im*b*d*n))/n + (ℯ^(4*im*a*d)*(1 + m + 2*im*b*d*n)*(c*x^n)^(2*im*b*d))/n))/(ℯ^(2*im*a*d)*(2*b^2*d^2*e*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))) - (im*(1 + 2*m + m^2 - 2*b^2*d^2*n^2)*(e*x)^(1 + m)*Hypergeometric2F1(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b^2*d^2*e*(1 + m)*n^2)]
+    @test_int [(e*x)^m*cot(d*(a + b*log(c*x^n)))^1, x, 4, (im*(e*x)^(1 + m))/(e*(1 + m)) - ((2*im)*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, ((-im/2)*(1 + m))/(b*d*n), 1 - ((im/2)*(1 + m))/(b*d*n), ℯ^((2*im)*a*d)*(c*x^n)^((2*im)*b*d)))/(e*(1 + m))]
+    @test_int [(e*x)^m*cot(d*(a + b*log(c*x^n)))^2, x, 5, ((im*(1 + m) - b*d*n)*(e*x)^(1 + m))/(b*d*e*(1 + m)*n) + (im*(e*x)^(1 + m)*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*e*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))) - (2*im*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b*d*e*n)]
+    @test_int [(e*x)^m*cot(d*(a + b*log(c*x^n)))^3, x, 6, ((im*(1 + m) - b*d*n)*(1 + m + 2*im*b*d*n)*(e*x)^(1 + m))/(2*b^2*d^2*e*(1 + m)*n^2) + ((e*x)^(1 + m)*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2)/(2*b*d*e*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^2) + (im*(e*x)^(1 + m)*((ℯ^(2*im*a*d)*(1 + m - 2*im*b*d*n))/n + (ℯ^(4*im*a*d)*(1 + m + 2*im*b*d*n)*(c*x^n)^(2*im*b*d))/n))/(ℯ^(2*im*a*d)*(2*b^2*d^2*e*n*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))) - (im*(1 + 2*m + m^2 - 2*b^2*d^2*n^2)*(e*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, -((im*(1 + m))/(2*b*d*n)), 1 - (im*(1 + m))/(2*b*d*n), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(b^2*d^2*e*(1 + m)*n^2)]
 
 
     #= ::Subsection::Closed:: =#
@@ -518,34 +518,34 @@
     #=Integrands*of*the*form*(e*x)^m*sec(d*(a+b*log(c*x^n)))^p=#
 
 
-    @test_int [x^2*sec(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^3*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 - (3*im)/(b*n)), (3/2)*(1 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(3 + im*b*n)]
-    @test_int [x^1*sec(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^2*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 - (2*im)/(b*n)), (1/2)*(3 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(2 + im*b*n)]
-    @test_int [x^0*sec(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 - im/(b*n)), (1/2)*(3 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + im*b*n)]
+    @test_int [x^2*sec(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^3*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - (3*im)/(b*n)), (3/2)*(1 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(3 + im*b*n)]
+    @test_int [x^1*sec(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^2*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - (2*im)/(b*n)), (1/2)*(3 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(2 + im*b*n)]
+    @test_int [x^0*sec(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - im/(b*n)), (1/2)*(3 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + im*b*n)]
     @test_int [sec(a + b*log(c*x^n))/x^1, x, 2, atanh(sin(a + b*log(c*x^n)))/(b*n)]
-    @test_int [sec(a + b*log(c*x^n))/x^2, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 + im/(b*n)), (1/2)*(3 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - im*b*n)*x))]
-    @test_int [sec(a + b*log(c*x^n))/x^3, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 + (2*im)/(b*n)), (1/2)*(3 + (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - im*b*n)*x^2))]
+    @test_int [sec(a + b*log(c*x^n))/x^2, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 + im/(b*n)), (1/2)*(3 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - im*b*n)*x))]
+    @test_int [sec(a + b*log(c*x^n))/x^3, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 + (2*im)/(b*n)), (1/2)*(3 + (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - im*b*n)*x^2))]
 
 
-    @test_int [x^2*sec(a + b*log(c*x^n))^2, x, 3, (4*ℯ^(2*im*a)*x^3*(c*x^n)^(2*im*b)*Hypergeometric2F1(2, (1/2)*(2 - (3*im)/(b*n)), (1/2)*(4 - (3*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(3 + 2*im*b*n)]
-    @test_int [x^1*sec(a + b*log(c*x^n))^2, x, 3, (2*ℯ^(2*im*a)*x^2*(c*x^n)^(2*im*b)*Hypergeometric2F1(2, 1 - im/(b*n), 2 - im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + im*b*n)]
-    @test_int [x^0*sec(a + b*log(c*x^n))^2, x, 3, (4*ℯ^(2*im*a)*x*(c*x^n)^(2*im*b)*Hypergeometric2F1(2, (1/2)*(2 - im/(b*n)), (1/2)*(4 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 2*im*b*n)]
+    @test_int [x^2*sec(a + b*log(c*x^n))^2, x, 3, (4*ℯ^(2*im*a)*x^3*(c*x^n)^(2*im*b)*HypergeometricFunctions._₂F₁(2, (1/2)*(2 - (3*im)/(b*n)), (1/2)*(4 - (3*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(3 + 2*im*b*n)]
+    @test_int [x^1*sec(a + b*log(c*x^n))^2, x, 3, (2*ℯ^(2*im*a)*x^2*(c*x^n)^(2*im*b)*HypergeometricFunctions._₂F₁(2, 1 - im/(b*n), 2 - im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + im*b*n)]
+    @test_int [x^0*sec(a + b*log(c*x^n))^2, x, 3, (4*ℯ^(2*im*a)*x*(c*x^n)^(2*im*b)*HypergeometricFunctions._₂F₁(2, (1/2)*(2 - im/(b*n)), (1/2)*(4 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 2*im*b*n)]
     @test_int [sec(a + b*log(c*x^n))^2/x^1, x, 3, tan(a + b*log(c*x^n))/(b*n)]
-    @test_int [sec(a + b*log(c*x^n))^2/x^2, x, 3, -((4*ℯ^(2*im*a)*(c*x^n)^(2*im*b)*Hypergeometric2F1(2, (1/2)*(2 + im/(b*n)), (1/2)*(4 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 2*im*b*n)*x))]
-    @test_int [sec(a + b*log(c*x^n))^2/x^3, x, 3, -((2*ℯ^(2*im*a)*(c*x^n)^(2*im*b)*Hypergeometric2F1(2, 1 + im/(b*n), 2 + im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - im*b*n)*x^2))]
+    @test_int [sec(a + b*log(c*x^n))^2/x^2, x, 3, -((4*ℯ^(2*im*a)*(c*x^n)^(2*im*b)*HypergeometricFunctions._₂F₁(2, (1/2)*(2 + im/(b*n)), (1/2)*(4 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 2*im*b*n)*x))]
+    @test_int [sec(a + b*log(c*x^n))^2/x^3, x, 3, -((2*ℯ^(2*im*a)*(c*x^n)^(2*im*b)*HypergeometricFunctions._₂F₁(2, 1 + im/(b*n), 2 + im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - im*b*n)*x^2))]
 
 
-    @test_int [x^1*sec(a + b*log(c*x^n))^3, x, 3, (8*ℯ^(3*im*a)*x^2*(c*x^n)^(3*im*b)*Hypergeometric2F1(3, (1/2)*(3 - (2*im)/(b*n)), (1/2)*(5 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(2 + 3*im*b*n)]
-    @test_int [x^0*sec(a + b*log(c*x^n))^3, x, 3, (8*ℯ^(3*im*a)*x*(c*x^n)^(3*im*b)*Hypergeometric2F1(3, (1/2)*(3 - im/(b*n)), (1/2)*(5 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 3*im*b*n)]
+    @test_int [x^1*sec(a + b*log(c*x^n))^3, x, 3, (8*ℯ^(3*im*a)*x^2*(c*x^n)^(3*im*b)*HypergeometricFunctions._₂F₁(3, (1/2)*(3 - (2*im)/(b*n)), (1/2)*(5 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(2 + 3*im*b*n)]
+    @test_int [x^0*sec(a + b*log(c*x^n))^3, x, 3, (8*ℯ^(3*im*a)*x*(c*x^n)^(3*im*b)*HypergeometricFunctions._₂F₁(3, (1/2)*(3 - im/(b*n)), (1/2)*(5 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 3*im*b*n)]
     @test_int [sec(a + b*log(c*x^n))^3/x^1, x, 3, atanh(sin(a + b*log(c*x^n)))/(2*b*n) + (sec(a + b*log(c*x^n))*tan(a + b*log(c*x^n)))/(2*b*n)]
-    @test_int [sec(a + b*log(c*x^n))^3/x^2, x, 3, -((8*ℯ^(3*im*a)*(c*x^n)^(3*im*b)*Hypergeometric2F1(3, (1/2)*(3 + im/(b*n)), (1/2)*(5 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 3*im*b*n)*x))]
-    @test_int [sec(a + b*log(c*x^n))^3/x^3, x, 3, -((8*ℯ^(3*im*a)*(c*x^n)^(3*im*b)*Hypergeometric2F1(3, (1/2)*(3 + (2*im)/(b*n)), (1/2)*(5 + (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*x^2))]
+    @test_int [sec(a + b*log(c*x^n))^3/x^2, x, 3, -((8*ℯ^(3*im*a)*(c*x^n)^(3*im*b)*HypergeometricFunctions._₂F₁(3, (1/2)*(3 + im/(b*n)), (1/2)*(5 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 3*im*b*n)*x))]
+    @test_int [sec(a + b*log(c*x^n))^3/x^3, x, 3, -((8*ℯ^(3*im*a)*(c*x^n)^(3*im*b)*HypergeometricFunctions._₂F₁(3, (1/2)*(3 + (2*im)/(b*n)), (1/2)*(5 + (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*x^2))]
 
 
-    @test_int [x^1*sec(a + b*log(c*x^n))^4, x, 3, (8*ℯ^(4*im*a)*x^2*(c*x^n)^(4*im*b)*Hypergeometric2F1(4, 2 - im/(b*n), 3 - im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 2*im*b*n)]
-    @test_int [x^0*sec(a + b*log(c*x^n))^4, x, 3, (16*ℯ^(4*im*a)*x*(c*x^n)^(4*im*b)*Hypergeometric2F1(4, (1/2)*(4 - im/(b*n)), (1/2)*(6 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 4*im*b*n)]
+    @test_int [x^1*sec(a + b*log(c*x^n))^4, x, 3, (8*ℯ^(4*im*a)*x^2*(c*x^n)^(4*im*b)*HypergeometricFunctions._₂F₁(4, 2 - im/(b*n), 3 - im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 2*im*b*n)]
+    @test_int [x^0*sec(a + b*log(c*x^n))^4, x, 3, (16*ℯ^(4*im*a)*x*(c*x^n)^(4*im*b)*HypergeometricFunctions._₂F₁(4, (1/2)*(4 - im/(b*n)), (1/2)*(6 - im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + 4*im*b*n)]
     @test_int [sec(a + b*log(c*x^n))^4/x^1, x, 3, tan(a + b*log(c*x^n))/(b*n) + tan(a + b*log(c*x^n))^3/(3*b*n)]
-    @test_int [sec(a + b*log(c*x^n))^4/x^2, x, 3, -((16*ℯ^(4*im*a)*(c*x^n)^(4*im*b)*Hypergeometric2F1(4, (1/2)*(4 + im/(b*n)), (1/2)*(6 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 4*im*b*n)*x))]
-    @test_int [sec(a + b*log(c*x^n))^4/x^3, x, 3, -((8*ℯ^(4*im*a)*(c*x^n)^(4*im*b)*Hypergeometric2F1(4, 2 + im/(b*n), 3 + im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 2*im*b*n)*x^2))]
+    @test_int [sec(a + b*log(c*x^n))^4/x^2, x, 3, -((16*ℯ^(4*im*a)*(c*x^n)^(4*im*b)*HypergeometricFunctions._₂F₁(4, (1/2)*(4 + im/(b*n)), (1/2)*(6 + im/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 4*im*b*n)*x))]
+    @test_int [sec(a + b*log(c*x^n))^4/x^3, x, 3, -((8*ℯ^(4*im*a)*(c*x^n)^(4*im*b)*HypergeometricFunctions._₂F₁(4, 2 + im/(b*n), 3 + im/(b*n), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((1 - 2*im*b*n)*x^2))]
 
 
     @test_int [2*b^2*n^2*sec(a + b*log(c*x^n))^3 - (1 + b^2*n^2)*sec(a + b*log(c*x^n)), x, -7, (-x)*sec(a + b*log(c*x^n)) + b*n*x*sec(a + b*log(c*x^n))*tan(a + b*log(c*x^n))]
@@ -577,59 +577,59 @@
     #=p>0=#
 
 
-    @test_int [x^0*sqrt(sec(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*Hypergeometric2F1(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))/(2 + im*b*n)]
-    @test_int [sqrt(sec(a + b*log(c*x^n)))/x^1, x, 3, (2*sqrt(cos(a + b*log(c*x^n)))*EllipticF((a + b*log(c*x^n))/2, 2)*sqrt(sec(a + b*log(c*x^n))))/(b*n)]
+    @test_int [x^0*sqrt(sec(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*HypergeometricFunctions._₂F₁(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))/(2 + im*b*n)]
+    @test_int [sqrt(sec(a + b*log(c*x^n)))/x^1, x, 3, (2*sqrt(cos(a + b*log(c*x^n)))*Elliptic.F((a + b*log(c*x^n))/2, 2)*sqrt(sec(a + b*log(c*x^n))))/(b*n)]
 
 
-    @test_int [x^0*sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*Hypergeometric2F1(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(3/2))/(2 + 3*im*b*n)]
-    @test_int [sec(a + b*log(c*x^n))^(3/2)/x^1, x, 4, -((2*sqrt(cos(a + b*log(c*x^n)))*EllipticE((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(b*n)) + (2*sqrt(sec(a + b*log(c*x^n)))*sin(a + b*log(c*x^n)))/(b*n)]
+    @test_int [x^0*sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*HypergeometricFunctions._₂F₁(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(3/2))/(2 + 3*im*b*n)]
+    @test_int [sec(a + b*log(c*x^n))^(3/2)/x^1, x, 4, -((2*sqrt(cos(a + b*log(c*x^n)))*Elliptic.E((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(b*n)) + (2*sqrt(sec(a + b*log(c*x^n)))*sin(a + b*log(c*x^n)))/(b*n)]
 
 
-    @test_int [x^0*sec(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*Hypergeometric2F1(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(5/2))/(2 + 5*im*b*n)]
-    @test_int [sec(a + b*log(c*x^n))^(5/2)/x^1, x, 4, (2*sqrt(cos(a + b*log(c*x^n)))*EllipticF((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(3*b*n) + (2*sec(a + b*log(c*x^n))^(3/2)*sin(a + b*log(c*x^n)))/(3*b*n)]
+    @test_int [x^0*sec(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*HypergeometricFunctions._₂F₁(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(5/2))/(2 + 5*im*b*n)]
+    @test_int [sec(a + b*log(c*x^n))^(5/2)/x^1, x, 4, (2*sqrt(cos(a + b*log(c*x^n)))*Elliptic.F((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(3*b*n) + (2*sec(a + b*log(c*x^n))^(3/2)*sin(a + b*log(c*x^n)))/(3*b*n)]
 
 
     #= ::Subsubsection::Closed:: =#
     #=p<0=#
 
 
-    @test_int [x^0/sqrt(sec(a + b*log(c*x^n))), x, 3, (2*x*Hypergeometric2F1(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))]
-    @test_int [1/(x*sqrt(sec(a + b*log(c*x^n)))), x, 3, (2*sqrt(cos(a + b*log(c*x^n)))*EllipticE((a + b*log(c*x^n))/2, 2)*sqrt(sec(a + b*log(c*x^n))))/(b*n)]
+    @test_int [x^0/sqrt(sec(a + b*log(c*x^n))), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))]
+    @test_int [1/(x*sqrt(sec(a + b*log(c*x^n)))), x, 3, (2*sqrt(cos(a + b*log(c*x^n)))*Elliptic.E((a + b*log(c*x^n))/2, 2)*sqrt(sec(a + b*log(c*x^n))))/(b*n)]
 
 
-    @test_int [x^0/sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x*Hypergeometric2F1(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*sec(a + b*log(c*x^n))^(3/2))]
-    @test_int [1/(x*sec(a + b*log(c*x^n))^(3/2)), x, 4, (2*sqrt(cos(a + b*log(c*x^n)))*EllipticF((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(3*b*n) + (2*sin(a + b*log(c*x^n)))/(3*b*n*sqrt(sec(a + b*log(c*x^n))))]
+    @test_int [x^0/sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*sec(a + b*log(c*x^n))^(3/2))]
+    @test_int [1/(x*sec(a + b*log(c*x^n))^(3/2)), x, 4, (2*sqrt(cos(a + b*log(c*x^n)))*Elliptic.F((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(3*b*n) + (2*sin(a + b*log(c*x^n)))/(3*b*n*sqrt(sec(a + b*log(c*x^n))))]
 
 
-    @test_int [x^0/sec(a + b*log(c*x^n))^(5/2), x, 3, (2*x*Hypergeometric2F1(-(5/2), (1/4)*(-5 - (2*im)/(b*n)), -((2*im + b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 5*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*sec(a + b*log(c*x^n))^(5/2))]
-    @test_int [1/(x*sec(a + b*log(c*x^n))^(5/2)), x, 4, (6*sqrt(cos(a + b*log(c*x^n)))*EllipticE((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(5*b*n) + (2*sin(a + b*log(c*x^n)))/(5*b*n*sec(a + b*log(c*x^n))^(3/2))]
+    @test_int [x^0/sec(a + b*log(c*x^n))^(5/2), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(5/2), (1/4)*(-5 - (2*im)/(b*n)), -((2*im + b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 - 5*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*sec(a + b*log(c*x^n))^(5/2))]
+    @test_int [1/(x*sec(a + b*log(c*x^n))^(5/2)), x, 4, (6*sqrt(cos(a + b*log(c*x^n)))*Elliptic.E((1/2)*(a + b*log(c*x^n)), 2)*sqrt(sec(a + b*log(c*x^n))))/(5*b*n) + (2*sin(a + b*log(c*x^n)))/(5*b*n*sec(a + b*log(c*x^n))^(3/2))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(e*x)^m*sec(d*(a+b*log(c*x^n)))^p*when*m*symbolic=#
 
 
-    @test_int [x^m*sec(a + b*log(c*x^n))^3, x, 3, (8*ℯ^(3*im*a)*x^(1 + m)*(c*x^n)^(3*im*b)*Hypergeometric2F1(3, -((im*(1 + m) - 3*b*n)/(2*b*n)), -((im*(1 + m) - 5*b*n)/(2*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + m + 3*im*b*n)]
-    @test_int [x^m*sec(a + b*log(c*x^n))^2, x, 3, (4*ℯ^(2*im*a)*x^(1 + m)*(c*x^n)^(2*im*b)*Hypergeometric2F1(2, -((im*(1 + m) - 2*b*n)/(2*b*n)), -((im*(1 + m) - 4*b*n)/(2*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + m + 2*im*b*n)]
-    @test_int [x^m*sec(a + b*log(c*x^n))^1, x, 3, (2*ℯ^(im*a)*x^(1 + m)*(c*x^n)^(im*b)*Hypergeometric2F1(1, -((im + im*m - b*n)/(2*b*n)), -((im*(1 + m) - 3*b*n)/(2*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + m + im*b*n)]
+    @test_int [x^m*sec(a + b*log(c*x^n))^3, x, 3, (8*ℯ^(3*im*a)*x^(1 + m)*(c*x^n)^(3*im*b)*HypergeometricFunctions._₂F₁(3, -((im*(1 + m) - 3*b*n)/(2*b*n)), -((im*(1 + m) - 5*b*n)/(2*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + m + 3*im*b*n)]
+    @test_int [x^m*sec(a + b*log(c*x^n))^2, x, 3, (4*ℯ^(2*im*a)*x^(1 + m)*(c*x^n)^(2*im*b)*HypergeometricFunctions._₂F₁(2, -((im*(1 + m) - 2*b*n)/(2*b*n)), -((im*(1 + m) - 4*b*n)/(2*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + m + 2*im*b*n)]
+    @test_int [x^m*sec(a + b*log(c*x^n))^1, x, 3, (2*ℯ^(im*a)*x^(1 + m)*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, -((im + im*m - b*n)/(2*b*n)), -((im*(1 + m) - 3*b*n)/(2*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/(1 + m + im*b*n)]
 
 
-    @test_int [x^m*sec(a + b*log(c*x^n))^(5/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*Hypergeometric2F1(5/2, -((2*im + 2*im*m - 5*b*n)/(4*b*n)), -((2*im + 2*im*m - 9*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(5/2))/(2 + 2*m + 5*im*b*n)]
-    @test_int [x^m*sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*Hypergeometric2F1(3/2, -((2*im + 2*im*m - 3*b*n)/(4*b*n)), -((2*im + 2*im*m - 7*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(3/2))/(2 + 2*m + 3*im*b*n)]
-    @test_int [x^m*sec(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*Hypergeometric2F1(1/2, -((2*im + 2*im*m - b*n)/(4*b*n)), -((2*im + 2*im*m - 5*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))/(2 + 2*m + im*b*n)]
-    @test_int [x^m/sec(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*Hypergeometric2F1(-(1/2), -((2*im + 2*im*m + b*n)/(4*b*n)), -((2*im + 2*im*m - 3*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))]
-    @test_int [x^m/sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*Hypergeometric2F1(-(3/2), -((2*im + 2*im*m + 3*b*n)/(4*b*n)), -((2*im + 2*im*m - b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*sec(a + b*log(c*x^n))^(3/2))]
+    @test_int [x^m*sec(a + b*log(c*x^n))^(5/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*HypergeometricFunctions._₂F₁(5/2, -((2*im + 2*im*m - 5*b*n)/(4*b*n)), -((2*im + 2*im*m - 9*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(5/2))/(2 + 2*m + 5*im*b*n)]
+    @test_int [x^m*sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*HypergeometricFunctions._₂F₁(3/2, -((2*im + 2*im*m - 3*b*n)/(4*b*n)), -((2*im + 2*im*m - 7*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^(3/2))/(2 + 2*m + 3*im*b*n)]
+    @test_int [x^m*sec(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*HypergeometricFunctions._₂F₁(1/2, -((2*im + 2*im*m - b*n)/(4*b*n)), -((2*im + 2*im*m - 5*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))/(2 + 2*m + im*b*n)]
+    @test_int [x^m/sec(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + 2*im*m + b*n)/(4*b*n)), -((2*im + 2*im*m - 3*b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - im*b*n)*sqrt(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(sec(a + b*log(c*x^n))))]
+    @test_int [x^m/sec(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*HypergeometricFunctions._₂F₁(-(3/2), -((2*im + 2*im*m + 3*b*n)/(4*b*n)), -((2*im + 2*im*m - b*n)/(4*b*n)), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b)))/((2 + 2*m - 3*im*b*n)*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*sec(a + b*log(c*x^n))^(3/2))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(e*x)^m*sec(d*(a+b*log(c*x^n)))^p*when*p*symbolic=#
 
 
-    @test_int [(e*x)^m*sec(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*Hypergeometric2F1(p, -((im + im*m - b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) + p), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d))*sec(d*(a + b*log(c*x^n)))^p)/(e*(1 + m + im*b*d*n*p))]
+    @test_int [(e*x)^m*sec(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*(1 + ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*HypergeometricFunctions._₂F₁(p, -((im + im*m - b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) + p), (-ℯ^(2*im*a*d))*(c*x^n)^(2*im*b*d))*sec(d*(a + b*log(c*x^n)))^p)/(e*(1 + m + im*b*d*n*p))]
 
 
-    @test_int [x^1*sec(a + b*log(c*x^n))^p, x, 3, (x^2*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*Hypergeometric2F1(p, (1/2)*(-((2*im)/(b*n)) + p), (1/2)*(2 - (2*im)/(b*n) + p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^p)/(2 + im*b*n*p)]
-    @test_int [x^0*sec(a + b*log(c*x^n))^p, x, 3, (x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*Hypergeometric2F1(p, -((im - b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) + p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^p)/(1 + im*b*n*p)]
+    @test_int [x^1*sec(a + b*log(c*x^n))^p, x, 3, (x^2*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*HypergeometricFunctions._₂F₁(p, (1/2)*(-((2*im)/(b*n)) + p), (1/2)*(2 - (2*im)/(b*n) + p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^p)/(2 + im*b*n*p)]
+    @test_int [x^0*sec(a + b*log(c*x^n))^p, x, 3, (x*(1 + ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*HypergeometricFunctions._₂F₁(p, -((im - b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) + p), (-ℯ^(2*im*a))*(c*x^n)^(2*im*b))*sec(a + b*log(c*x^n))^p)/(1 + im*b*n*p)]
 
 
     #= ::Section::Closed:: =#
@@ -640,23 +640,23 @@
     #=Integrands*of*the*form*(e*x)^m*csc(d*(a+b*log(c*x^n)))^p=#
 
 
-    @test_int [x^2*csc(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^3*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 - (3*im)/(b*n)), (3/2)*(1 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(3*im - b*n)]
-    @test_int [x^1*csc(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^2*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 - (2*im)/(b*n)), (1/2)*(3 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2*im - b*n)]
-    @test_int [x^0*csc(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 - im/(b*n)), (1/2)*(3 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(im - b*n)]
+    @test_int [x^2*csc(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^3*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - (3*im)/(b*n)), (3/2)*(1 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(3*im - b*n)]
+    @test_int [x^1*csc(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x^2*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - (2*im)/(b*n)), (1/2)*(3 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2*im - b*n)]
+    @test_int [x^0*csc(a + b*log(c*x^n)), x, 3, (2*ℯ^(im*a)*x*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - im/(b*n)), (1/2)*(3 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(im - b*n)]
     @test_int [csc(a + b*log(c*x^n))/x^1, x, 2, -(atanh(cos(a + b*log(c*x^n)))/(b*n))]
-    @test_int [csc(a + b*log(c*x^n))/x^2, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 + im/(b*n)), (1/2)*(3 + im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((im + b*n)*x))]
-    @test_int [csc(a + b*log(c*x^n))/x^3, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*Hypergeometric2F1(1, (1/2)*(1 + (2*im)/(b*n)), (1/2)*(3 + (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2*im + b*n)*x^2))]
+    @test_int [csc(a + b*log(c*x^n))/x^2, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 + im/(b*n)), (1/2)*(3 + im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((im + b*n)*x))]
+    @test_int [csc(a + b*log(c*x^n))/x^3, x, 3, -((2*ℯ^(im*a)*(c*x^n)^(im*b)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 + (2*im)/(b*n)), (1/2)*(3 + (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2*im + b*n)*x^2))]
 
 
-    @test_int [x^0*csc(a + b*log(c*x^n))^2, x, 3, -((4*ℯ^(2*im*a)*x*(c*x^n)^(2*im*b)*Hypergeometric2F1(2, (1/2)*(2 - im/(b*n)), (1/2)*(4 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(1 + 2*im*b*n))]
+    @test_int [x^0*csc(a + b*log(c*x^n))^2, x, 3, -((4*ℯ^(2*im*a)*x*(c*x^n)^(2*im*b)*HypergeometricFunctions._₂F₁(2, (1/2)*(2 - im/(b*n)), (1/2)*(4 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(1 + 2*im*b*n))]
     @test_int [csc(a + b*log(c*x^n))^2/x^1, x, 3, -(cot(a + b*log(c*x^n))/(b*n))]
 
 
-    @test_int [x^0*csc(a + b*log(c*x^n))^3, x, 3, -((8*ℯ^(3*im*a)*x*(c*x^n)^(3*im*b)*Hypergeometric2F1(3, (1/2)*(3 - im/(b*n)), (1/2)*(5 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(im - 3*b*n))]
+    @test_int [x^0*csc(a + b*log(c*x^n))^3, x, 3, -((8*ℯ^(3*im*a)*x*(c*x^n)^(3*im*b)*HypergeometricFunctions._₂F₁(3, (1/2)*(3 - im/(b*n)), (1/2)*(5 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(im - 3*b*n))]
     @test_int [csc(a + b*log(c*x^n))^3/x^1, x, 3, -(atanh(cos(a + b*log(c*x^n)))/(2*b*n)) - (cot(a + b*log(c*x^n))*csc(a + b*log(c*x^n)))/(2*b*n)]
 
 
-    @test_int [x^0*csc(a + b*log(c*x^n))^4, x, 3, (16*ℯ^(4*im*a)*x*(c*x^n)^(4*im*b)*Hypergeometric2F1(4, (1/2)*(4 - im/(b*n)), (1/2)*(6 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(1 + 4*im*b*n)]
+    @test_int [x^0*csc(a + b*log(c*x^n))^4, x, 3, (16*ℯ^(4*im*a)*x*(c*x^n)^(4*im*b)*HypergeometricFunctions._₂F₁(4, (1/2)*(4 - im/(b*n)), (1/2)*(6 - im/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(1 + 4*im*b*n)]
     @test_int [csc(a + b*log(c*x^n))^4/x^1, x, 3, -(cot(a + b*log(c*x^n))/(b*n)) - cot(a + b*log(c*x^n))^3/(3*b*n)]
 
 
@@ -689,57 +689,57 @@
     #=p>0=#
 
 
-    @test_int [x^0*sqrt(csc(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n)))*Hypergeometric2F1(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + im*b*n)]
-    @test_int [sqrt(csc(a + b*log(c*x^n)))/x, x, 3, (2*sqrt(csc(a + b*log(c*x^n)))*EllipticF((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(b*n)]
+    @test_int [x^0*sqrt(csc(a + b*log(c*x^n))), x, 3, (2*x*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n)))*HypergeometricFunctions._₂F₁(1/2, (1/4)*(1 - (2*im)/(b*n)), (1/4)*(5 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + im*b*n)]
+    @test_int [sqrt(csc(a + b*log(c*x^n)))/x, x, 3, (2*sqrt(csc(a + b*log(c*x^n)))*Elliptic.F((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(b*n)]
 
 
-    @test_int [x^0*csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2)*Hypergeometric2F1(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 3*im*b*n)]
-    @test_int [csc(a + b*log(c*x^n))^(3/2)/x, x, 4, -((2*cos(a + b*log(c*x^n))*sqrt(csc(a + b*log(c*x^n))))/(b*n)) - (2*sqrt(csc(a + b*log(c*x^n)))*EllipticE((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(b*n)]
+    @test_int [x^0*csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2)*HypergeometricFunctions._₂F₁(3/2, (1/4)*(3 - (2*im)/(b*n)), (1/4)*(7 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 3*im*b*n)]
+    @test_int [csc(a + b*log(c*x^n))^(3/2)/x, x, 4, -((2*cos(a + b*log(c*x^n))*sqrt(csc(a + b*log(c*x^n))))/(b*n)) - (2*sqrt(csc(a + b*log(c*x^n)))*Elliptic.E((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(b*n)]
 
 
-    @test_int [x^0*csc(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*csc(a + b*log(c*x^n))^(5/2)*Hypergeometric2F1(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 5*im*b*n)]
-    @test_int [csc(a + b*log(c*x^n))^(5/2)/x, x, 4, -((2*cos(a + b*log(c*x^n))*csc(a + b*log(c*x^n))^(3/2))/(3*b*n)) + (2*sqrt(csc(a + b*log(c*x^n)))*EllipticF((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(3*b*n)]
+    @test_int [x^0*csc(a + b*log(c*x^n))^(5/2), x, 3, (2*x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*csc(a + b*log(c*x^n))^(5/2)*HypergeometricFunctions._₂F₁(5/2, (1/4)*(5 - (2*im)/(b*n)), (1/4)*(9 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 5*im*b*n)]
+    @test_int [csc(a + b*log(c*x^n))^(5/2)/x, x, 4, -((2*cos(a + b*log(c*x^n))*csc(a + b*log(c*x^n))^(3/2))/(3*b*n)) + (2*sqrt(csc(a + b*log(c*x^n)))*Elliptic.F((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(3*b*n)]
 
 
     #= ::Subsubsection::Closed:: =#
     #=p<0=#
 
 
-    @test_int [x^0/sqrt(csc(a + b*log(c*x^n))), x, 3, (2*x*Hypergeometric2F1(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n))))]
-    @test_int [1/(x*sqrt(csc(a + b*log(c*x^n)))), x, 3, (2*sqrt(csc(a + b*log(c*x^n)))*EllipticE((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(b*n)]
+    @test_int [x^0/sqrt(csc(a + b*log(c*x^n))), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + b*n)/(4*b*n)), (1/4)*(3 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n))))]
+    @test_int [1/(x*sqrt(csc(a + b*log(c*x^n)))), x, 3, (2*sqrt(csc(a + b*log(c*x^n)))*Elliptic.E((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(b*n)]
 
 
-    @test_int [x^0/csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x*Hypergeometric2F1(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2))]
-    @test_int [1/(x*csc(a + b*log(c*x^n))^(3/2)), x, 4, -((2*cos(a + b*log(c*x^n)))/(3*b*n*sqrt(csc(a + b*log(c*x^n))))) + (2*sqrt(csc(a + b*log(c*x^n)))*EllipticF((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(3*b*n)]
+    @test_int [x^0/csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(3/2), (1/4)*(-3 - (2*im)/(b*n)), (1/4)*(1 - (2*im)/(b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2))]
+    @test_int [1/(x*csc(a + b*log(c*x^n))^(3/2)), x, 4, -((2*cos(a + b*log(c*x^n)))/(3*b*n*sqrt(csc(a + b*log(c*x^n))))) + (2*sqrt(csc(a + b*log(c*x^n)))*Elliptic.F((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(3*b*n)]
 
 
-    @test_int [x^0/csc(a + b*log(c*x^n))^(5/2), x, 3, (2*x*Hypergeometric2F1(-(5/2), (1/4)*(-5 - (2*im)/(b*n)), -((2*im + b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 - 5*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*csc(a + b*log(c*x^n))^(5/2))]
-    @test_int [1/(x*csc(a + b*log(c*x^n))^(5/2)), x, 4, -((2*cos(a + b*log(c*x^n)))/(5*b*n*csc(a + b*log(c*x^n))^(3/2))) + (6*sqrt(csc(a + b*log(c*x^n)))*EllipticE((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(5*b*n)]
+    @test_int [x^0/csc(a + b*log(c*x^n))^(5/2), x, 3, (2*x*HypergeometricFunctions._₂F₁(-(5/2), (1/4)*(-5 - (2*im)/(b*n)), -((2*im + b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 - 5*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*csc(a + b*log(c*x^n))^(5/2))]
+    @test_int [1/(x*csc(a + b*log(c*x^n))^(5/2)), x, 4, -((2*cos(a + b*log(c*x^n)))/(5*b*n*csc(a + b*log(c*x^n))^(3/2))) + (6*sqrt(csc(a + b*log(c*x^n)))*Elliptic.E((1/2)*(a - pi/2 + b*log(c*x^n)), 2)*sqrt(sin(a + b*log(c*x^n))))/(5*b*n)]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(e*x)^m*csc(d*(a+b*log(c*x^n)))^p*when*m*symbolic=#
 
 
-    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^3, x, 3, -((8*ℯ^(3*im*a*d)*(e*x)^(1 + m)*(c*x^n)^(3*im*b*d)*Hypergeometric2F1(3, -((im*(1 + m) - 3*b*d*n)/(2*b*d*n)), -((im*(1 + m) - 5*b*d*n)/(2*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(im*(1 + m) - 3*b*d*n)))]
-    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^2, x, 3, -((4*ℯ^(2*im*a*d)*(e*x)^(1 + m)*(c*x^n)^(2*im*b*d)*Hypergeometric2F1(2, -((im*(1 + m) - 2*b*d*n)/(2*b*d*n)), -((im*(1 + m) - 4*b*d*n)/(2*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(1 + m + 2*im*b*d*n)))]
-    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^1, x, 3, (2*ℯ^(im*a*d)*(e*x)^(1 + m)*(c*x^n)^(im*b*d)*Hypergeometric2F1(1, -((im + im*m - b*d*n)/(2*b*d*n)), -((im*(1 + m) - 3*b*d*n)/(2*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(im*(1 + m) - b*d*n))]
+    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^3, x, 3, -((8*ℯ^(3*im*a*d)*(e*x)^(1 + m)*(c*x^n)^(3*im*b*d)*HypergeometricFunctions._₂F₁(3, -((im*(1 + m) - 3*b*d*n)/(2*b*d*n)), -((im*(1 + m) - 5*b*d*n)/(2*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(im*(1 + m) - 3*b*d*n)))]
+    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^2, x, 3, -((4*ℯ^(2*im*a*d)*(e*x)^(1 + m)*(c*x^n)^(2*im*b*d)*HypergeometricFunctions._₂F₁(2, -((im*(1 + m) - 2*b*d*n)/(2*b*d*n)), -((im*(1 + m) - 4*b*d*n)/(2*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(1 + m + 2*im*b*d*n)))]
+    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^1, x, 3, (2*ℯ^(im*a*d)*(e*x)^(1 + m)*(c*x^n)^(im*b*d)*HypergeometricFunctions._₂F₁(1, -((im + im*m - b*d*n)/(2*b*d*n)), -((im*(1 + m) - 3*b*d*n)/(2*b*d*n)), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(im*(1 + m) - b*d*n))]
 
 
-    @test_int [x^m*csc(a + b*log(c*x^n))^(5/2), x, 3, (2*x^(1 + m)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*csc(a + b*log(c*x^n))^(5/2)*Hypergeometric2F1(5/2, -((2*im + 2*im*m - 5*b*n)/(4*b*n)), -((2*im + 2*im*m - 9*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 2*m + 5*im*b*n)]
-    @test_int [x^m*csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2)*Hypergeometric2F1(3/2, -((2*im + 2*im*m - 3*b*n)/(4*b*n)), -((2*im + 2*im*m - 7*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 2*m + 3*im*b*n)]
-    @test_int [x^m*csc(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n)))*Hypergeometric2F1(1/2, -((2*im + 2*im*m - b*n)/(4*b*n)), -((2*im + 2*im*m - 5*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 2*m + im*b*n)]
-    @test_int [x^m/csc(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*Hypergeometric2F1(-(1/2), -((2*im + 2*im*m + b*n)/(4*b*n)), -((2*im + 2*im*m - 3*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 2*m - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n))))]
-    @test_int [x^m/csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*Hypergeometric2F1(-(3/2), -((2*im + 2*im*m + 3*b*n)/(4*b*n)), -((2*im + 2*im*m - b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 2*m - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2))]
+    @test_int [x^m*csc(a + b*log(c*x^n))^(5/2), x, 3, (2*x^(1 + m)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(5/2)*csc(a + b*log(c*x^n))^(5/2)*HypergeometricFunctions._₂F₁(5/2, -((2*im + 2*im*m - 5*b*n)/(4*b*n)), -((2*im + 2*im*m - 9*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 2*m + 5*im*b*n)]
+    @test_int [x^m*csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2)*HypergeometricFunctions._₂F₁(3/2, -((2*im + 2*im*m - 3*b*n)/(4*b*n)), -((2*im + 2*im*m - 7*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 2*m + 3*im*b*n)]
+    @test_int [x^m*csc(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n)))*HypergeometricFunctions._₂F₁(1/2, -((2*im + 2*im*m - b*n)/(4*b*n)), -((2*im + 2*im*m - 5*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + 2*m + im*b*n)]
+    @test_int [x^m/csc(a + b*log(c*x^n))^(1/2), x, 3, (2*x^(1 + m)*HypergeometricFunctions._₂F₁(-(1/2), -((2*im + 2*im*m + b*n)/(4*b*n)), -((2*im + 2*im*m - 3*b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 2*m - im*b*n)*sqrt(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))*sqrt(csc(a + b*log(c*x^n))))]
+    @test_int [x^m/csc(a + b*log(c*x^n))^(3/2), x, 3, (2*x^(1 + m)*HypergeometricFunctions._₂F₁(-(3/2), -((2*im + 2*im*m + 3*b*n)/(4*b*n)), -((2*im + 2*im*m - b*n)/(4*b*n)), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/((2 + 2*m - 3*im*b*n)*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^(3/2)*csc(a + b*log(c*x^n))^(3/2))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(e*x)^m*csc(d*(a+b*log(c*x^n)))^p*when*p*symbolic=#
 
 
-    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*csc(d*(a + b*log(c*x^n)))^p*Hypergeometric2F1(p, -((im + im*m - b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) + p), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(1 + m + im*b*d*n*p))]
+    @test_int [(e*x)^m*csc(d*(a + b*log(c*x^n)))^p, x, 3, ((e*x)^(1 + m)*(1 - ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d))^p*csc(d*(a + b*log(c*x^n)))^p*HypergeometricFunctions._₂F₁(p, -((im + im*m - b*d*n*p)/(2*b*d*n)), (1/2)*(2 - (im*(1 + m))/(b*d*n) + p), ℯ^(2*im*a*d)*(c*x^n)^(2*im*b*d)))/(e*(1 + m + im*b*d*n*p))]
 
 
-    @test_int [x^1*csc(a + b*log(c*x^n))^p, x, 3, (x^2*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*csc(a + b*log(c*x^n))^p*Hypergeometric2F1(p, (1/2)*(-((2*im)/(b*n)) + p), (1/2)*(2 - (2*im)/(b*n) + p), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + im*b*n*p)]
-    @test_int [x^0*csc(a + b*log(c*x^n))^p, x, 3, (x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*csc(a + b*log(c*x^n))^p*Hypergeometric2F1(p, -((im - b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) + p), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(1 + im*b*n*p)]
+    @test_int [x^1*csc(a + b*log(c*x^n))^p, x, 3, (x^2*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*csc(a + b*log(c*x^n))^p*HypergeometricFunctions._₂F₁(p, (1/2)*(-((2*im)/(b*n)) + p), (1/2)*(2 - (2*im)/(b*n) + p), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(2 + im*b*n*p)]
+    @test_int [x^0*csc(a + b*log(c*x^n))^p, x, 3, (x*(1 - ℯ^(2*im*a)*(c*x^n)^(2*im*b))^p*csc(a + b*log(c*x^n))^p*HypergeometricFunctions._₂F₁(p, -((im - b*n*p)/(2*b*n)), (1/2)*(2 - im/(b*n) + p), ℯ^(2*im*a)*(c*x^n)^(2*im*b)))/(1 + im*b*n*p)]
     end

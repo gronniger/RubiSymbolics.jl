@@ -1,5 +1,5 @@
 @testset "7.6.2 Inverse hyperbolic cosecant functions" begin
-    @variables a, b, c, d, e, f, m, n, x
+    (a, b, c, d, e, f, m, n, x, ) = @variables a b c d e f m n x
 
     #= ::Package:: =#
 
@@ -64,7 +64,7 @@
     #=Integrands*of*the*form*x^m*ℯ^acsch(a*x^p)=#
 
 
-    @test_int [x^m*ℯ^acsch(a*x), x, 4, x^m/(a*m) + (x^(1 + m)*Hypergeometric2F1(-(1/2), (1/2)*(-1 - m), (1 - m)/2, -(1/(a^2*x^2))))/(1 + m)]
+    @test_int [x^m*ℯ^acsch(a*x), x, 4, x^m/(a*m) + (x^(1 + m)*HypergeometricFunctions._₂F₁(-(1/2), (1/2)*(-1 - m), (1 - m)/2, -(1/(a^2*x^2))))/(1 + m)]
 
     @test_int [x^4*ℯ^acsch(a*x), x, 4, -((2*(1 + 1/(a^2*x^2))^(3/2)*x^3)/(15*a^2)) + x^4/(4*a) + (1/5)*(1 + 1/(a^2*x^2))^(3/2)*x^5]
     @test_int [x^3*ℯ^acsch(a*x), x, 7, (sqrt(1 + 1/(a^2*x^2))*x^2)/(8*a^2) + x^3/(3*a) + (1/4)*sqrt(1 + 1/(a^2*x^2))*x^4 - atanh(sqrt(1 + 1/(a^2*x^2)))/(8*a^4)]
@@ -78,17 +78,17 @@
     @test_int [ℯ^acsch(a*x)/x^5, x, 5, (1/3)*a^4*(1 + 1/(a^2*x^2))^(3/2) - (1/5)*a^4*(1 + 1/(a^2*x^2))^(5/2) - 1/(5*a*x^5)]
 
 
-    @test_int [x^m*ℯ^acsch(a*x^2), x, 4, -(x^(-1 + m)/(a*(1 - m))) + (x^(1 + m)*Hypergeometric2F1(-(1/2), (1/4)*(-1 - m), (3 - m)/4, -(1/(a^2*x^4))))/(1 + m)]
+    @test_int [x^m*ℯ^acsch(a*x^2), x, 4, -(x^(-1 + m)/(a*(1 - m))) + (x^(1 + m)*HypergeometricFunctions._₂F₁(-(1/2), (1/4)*(-1 - m), (3 - m)/4, -(1/(a^2*x^4))))/(1 + m)]
 
-    @test_int [x^4*ℯ^acsch(a*x^2), x, 8, -((2*sqrt(1 + 1/(a^2*x^4)))/(5*a^2*(a + 1/x^2)*x)) + (2*sqrt(1 + 1/(a^2*x^4))*x)/(5*a^2) + x^3/(3*a) + (1/5)*sqrt(1 + 1/(a^2*x^4))*x^5 + (2*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticE(2*acot(sqrt(a)*x), 1/2))/(5*a^(7/2)*sqrt(1 + 1/(a^2*x^4))) - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticF(2*acot(sqrt(a)*x), 1/2))/(5*a^(7/2)*sqrt(1 + 1/(a^2*x^4)))]
+    @test_int [x^4*ℯ^acsch(a*x^2), x, 8, -((2*sqrt(1 + 1/(a^2*x^4)))/(5*a^2*(a + 1/x^2)*x)) + (2*sqrt(1 + 1/(a^2*x^4))*x)/(5*a^2) + x^3/(3*a) + (1/5)*sqrt(1 + 1/(a^2*x^4))*x^5 + (2*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.E(2*acot(sqrt(a)*x), 1/2))/(5*a^(7/2)*sqrt(1 + 1/(a^2*x^4))) - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.F(2*acot(sqrt(a)*x), 1/2))/(5*a^(7/2)*sqrt(1 + 1/(a^2*x^4)))]
     @test_int [x^3*ℯ^acsch(a*x^2), x, 6, x^2/(2*a) + (1/4)*sqrt(1 + 1/(a^2*x^4))*x^4 + atanh(sqrt(1 + 1/(a^2*x^4)))/(4*a^2)]
-    @test_int [x^2*ℯ^acsch(a*x^2), x, 5, x/a + (1/3)*sqrt(1 + 1/(a^2*x^4))*x^3 - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticF(2*acot(sqrt(a)*x), 1/2))/(3*a^(5/2)*sqrt(1 + 1/(a^2*x^4)))]
+    @test_int [x^2*ℯ^acsch(a*x^2), x, 5, x/a + (1/3)*sqrt(1 + 1/(a^2*x^4))*x^3 - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.F(2*acot(sqrt(a)*x), 1/2))/(3*a^(5/2)*sqrt(1 + 1/(a^2*x^4)))]
     @test_int [x^1*ℯ^acsch(a*x^2), x, 6, (1/2)*sqrt(1 + 1/(a^2*x^4))*x^2 - acsch(a*x^2)/(2*a) + log(x)/a]
-    @test_int [x^0*ℯ^acsch(a*x^2), x, 7, -(1/(a*x)) - (2*sqrt(1 + 1/(a^2*x^4)))/((a + 1/x^2)*x) + sqrt(1 + 1/(a^2*x^4))*x + (2*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticE(2*acot(sqrt(a)*x), 1/2))/(a^(3/2)*sqrt(1 + 1/(a^2*x^4))) - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticF(2*acot(sqrt(a)*x), 1/2))/(a^(3/2)*sqrt(1 + 1/(a^2*x^4)))]
+    @test_int [x^0*ℯ^acsch(a*x^2), x, 7, -(1/(a*x)) - (2*sqrt(1 + 1/(a^2*x^4)))/((a + 1/x^2)*x) + sqrt(1 + 1/(a^2*x^4))*x + (2*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.E(2*acot(sqrt(a)*x), 1/2))/(a^(3/2)*sqrt(1 + 1/(a^2*x^4))) - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.F(2*acot(sqrt(a)*x), 1/2))/(a^(3/2)*sqrt(1 + 1/(a^2*x^4)))]
     @test_int [ℯ^acsch(a*x^2)/x^1, x, 6, (-(1/2))*sqrt(1 + 1/(a^2*x^4)) - 1/(2*a*x^2) + (1/2)*atanh(sqrt(1 + 1/(a^2*x^4)))]
-    @test_int [ℯ^acsch(a*x^2)/x^2, x, 5, -(1/(3*a*x^3)) - sqrt(1 + 1/(a^2*x^4))/(3*x) - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticF(2*acot(sqrt(a)*x), 1/2))/(3*sqrt(a)*sqrt(1 + 1/(a^2*x^4)))]
+    @test_int [ℯ^acsch(a*x^2)/x^2, x, 5, -(1/(3*a*x^3)) - sqrt(1 + 1/(a^2*x^4))/(3*x) - (sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.F(2*acot(sqrt(a)*x), 1/2))/(3*sqrt(a)*sqrt(1 + 1/(a^2*x^4)))]
     @test_int [ℯ^acsch(a*x^2)/x^3, x, 6, -(1/(4*a*x^4)) - sqrt(1 + 1/(a^2*x^4))/(4*x^2) - (1/4)*a*acsch(a*x^2)]
-    @test_int [ℯ^acsch(a*x^2)/x^4, x, 7, -(1/(5*a*x^5)) - sqrt(1 + 1/(a^2*x^4))/(5*x^3) - (2*a^2*sqrt(1 + 1/(a^2*x^4)))/(5*(a + 1/x^2)*x) + (2*sqrt(a)*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticE(2*acot(sqrt(a)*x), 1/2))/(5*sqrt(1 + 1/(a^2*x^4))) - (sqrt(a)*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*EllipticF(2*acot(sqrt(a)*x), 1/2))/(5*sqrt(1 + 1/(a^2*x^4)))]
+    @test_int [ℯ^acsch(a*x^2)/x^4, x, 7, -(1/(5*a*x^5)) - sqrt(1 + 1/(a^2*x^4))/(5*x^3) - (2*a^2*sqrt(1 + 1/(a^2*x^4)))/(5*(a + 1/x^2)*x) + (2*sqrt(a)*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.E(2*acot(sqrt(a)*x), 1/2))/(5*sqrt(1 + 1/(a^2*x^4))) - (sqrt(a)*sqrt((a^2 + 1/x^4)/(a + 1/x^2)^2)*(a + 1/x^2)*Elliptic.F(2*acot(sqrt(a)*x), 1/2))/(5*sqrt(1 + 1/(a^2*x^4)))]
     @test_int [ℯ^acsch(a*x^2)/x^5, x, 3, (-(1/6))*a^2*(1 + 1/(a^2*x^4))^(3/2) - 1/(6*a*x^6)]
 
 
@@ -100,7 +100,7 @@
     #=n>0=#
 
 
-    @test_int [x^m*ℯ^(2*acsch(a*x)), x, 5, -((2*x^(-1 + m))/(a^2*(1 - m))) + x^(1 + m)/(1 + m) + (2*x^m*Hypergeometric2F1(-(1/2), -(m/2), 1 - m/2, -(1/(a^2*x^2))))/(a*m)]
+    @test_int [x^m*ℯ^(2*acsch(a*x)), x, 5, -((2*x^(-1 + m))/(a^2*(1 - m))) + x^(1 + m)/(1 + m) + (2*x^m*HypergeometricFunctions._₂F₁(-(1/2), -(m/2), 1 - m/2, -(1/(a^2*x^2))))/(a*m)]
 
     @test_int [x^4*ℯ^(2*acsch(a*x)), x, 8, (sqrt(1 + 1/(a^2*x^2))*x^2)/(4*a^3) + (2*x^3)/(3*a^2) + (sqrt(1 + 1/(a^2*x^2))*x^4)/(2*a) + x^5/5 - atanh(sqrt(1 + 1/(a^2*x^2)))/(4*a^5)]
     @test_int [x^3*ℯ^(2*acsch(a*x)), x, 4, x^2/a^2 + (2*(1 + 1/(a^2*x^2))^(3/2)*x^3)/(3*a) + x^4/4]
@@ -122,7 +122,7 @@
     #=Integrands*of*the*form*x^m*ℯ^(n*acsch(a*x)) / (1-a^2*x^2)=#
 
 
-    @test_int [(d*x)^m*ℯ^acsch(c*x)/(1 + c^2*x^2), x, 4, -((d*(d*x)^(-1 + m)*Hypergeometric2F1(1/2, (1 - m)/2, (3 - m)/2, -(1/(c^2*x^2))))/(c^2*(1 - m))) + ((d*x)^m*Hypergeometric2F1(1, m/2, (2 + m)/2, (-c^2)*x^2))/(c*m)]
+    @test_int [(d*x)^m*ℯ^acsch(c*x)/(1 + c^2*x^2), x, 4, -((d*(d*x)^(-1 + m)*HypergeometricFunctions._₂F₁(1/2, (1 - m)/2, (3 - m)/2, -(1/(c^2*x^2))))/(c^2*(1 - m))) + ((d*x)^m*HypergeometricFunctions._₂F₁(1, m/2, (2 + m)/2, (-c^2)*x^2))/(c*m)]
 
 
     @test_int [x^5*ℯ^acsch(c*x)/(1 + c^2*x^2), x, 9, -(x/c^5) - (3*sqrt(1 + 1/(c^2*x^2))*x^2)/(8*c^4) + x^3/(3*c^3) + (sqrt(1 + 1/(c^2*x^2))*x^4)/(4*c^2) + atan(c*x)/c^6 + (3*atanh(sqrt(1 + 1/(c^2*x^2))))/(8*c^6)]

@@ -1,5 +1,5 @@
 @testset "Bronstein Problems" begin
-    @variables x
+    (x, ) = @variables x
 
     #= ::Package:: =#
 
@@ -14,7 +14,7 @@
     @test_int [(2*x^8 + 1)*(sqrt(x^8 + 1)/(x^17 + 2*x^9 + x)), x, 6, -(1/(4*sqrt(1 + x^8))) - (1/4)*atanh(sqrt(1 + x^8))]
     @test_int [1/(1 + x^2), x, 1, atan(x)]
     @test_int [sqrt(x^8 + 1)/(x*(x^8 + 1)), x, 3, (-(1/4))*atanh(sqrt(1 + x^8))]
-    @test_int [x/sqrt(1 - x^3), x, 3, (2*sqrt(1 - x^3))/(1 + sqrt(3) - x) - (3^(1/4)*sqrt(2 - sqrt(3))*(1 - x)*sqrt((1 + x + x^2)/(1 + sqrt(3) - x)^2)*EllipticE(asin((1 - sqrt(3) - x)/(1 + sqrt(3) - x)), -7 - 4*sqrt(3)))/(sqrt((1 - x)/(1 + sqrt(3) - x)^2)*sqrt(1 - x^3)) + (2*sqrt(2)*(1 - x)*sqrt((1 + x + x^2)/(1 + sqrt(3) - x)^2)*EllipticF(asin((1 - sqrt(3) - x)/(1 + sqrt(3) - x)), -7 - 4*sqrt(3)))/(3^(1/4)*sqrt((1 - x)/(1 + sqrt(3) - x)^2)*sqrt(1 - x^3))]
+    @test_int [x/sqrt(1 - x^3), x, 3, (2*sqrt(1 - x^3))/(1 + sqrt(3) - x) - (3^(1/4)*sqrt(2 - sqrt(3))*(1 - x)*sqrt((1 + x + x^2)/(1 + sqrt(3) - x)^2)*Elliptic.E(asin((1 - sqrt(3) - x)/(1 + sqrt(3) - x)), -7 - 4*sqrt(3)))/(sqrt((1 - x)/(1 + sqrt(3) - x)^2)*sqrt(1 - x^3)) + (2*sqrt(2)*(1 - x)*sqrt((1 + x + x^2)/(1 + sqrt(3) - x)^2)*Elliptic.F(asin((1 - sqrt(3) - x)/(1 + sqrt(3) - x)), -7 - 4*sqrt(3)))/(3^(1/4)*sqrt((1 - x)/(1 + sqrt(3) - x)^2)*sqrt(1 - x^3))]
     @test_int [1/(x*sqrt(1 - x^3)), x, 3, (-(2/3))*atanh(sqrt(1 - x^3))]
     @test_int [x/sqrt(x^4 + 10*x^2 - 96*x - 71), x, 1, (1/8)*log(10001 + 3124*x^2 - 1408*x^3 + 54*x^4 - 128*x^5 + 20*x^6 + x^8 + sqrt(-71 - 96*x + 10*x^2 + x^4)*(781 - 528*x + 27*x^2 - 80*x^3 + 15*x^4 + x^6))]
 

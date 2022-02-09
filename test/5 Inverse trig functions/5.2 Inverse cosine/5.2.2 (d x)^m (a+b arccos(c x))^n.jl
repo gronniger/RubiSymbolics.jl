@@ -1,5 +1,5 @@
 @testset "5.2.2 (d x)^m (a+b arccos(c x))^n" begin
-    @variables a, b, c, d, m, n, x
+    (a, b, c, d, m, n, x, ) = @variables a b c d m n x
 
     #= ::Package:: =#
 
@@ -197,8 +197,8 @@
 
     @test_int [(b*x)^m*acos(a*x)^4, x, 1, ((b*x)^(1 + m)*acos(a*x)^4)/(b*(1 + m)) + (4*a*Unintegrable(((b*x)^(1 + m)*acos(a*x)^3)/sqrt(1 - a^2*x^2), x))/(b*(1 + m))]
     @test_int [(b*x)^m*acos(a*x)^3, x, 1, ((b*x)^(1 + m)*acos(a*x)^3)/(b*(1 + m)) + (3*a*Unintegrable(((b*x)^(1 + m)*acos(a*x)^2)/sqrt(1 - a^2*x^2), x))/(b*(1 + m))]
-    @test_int [(b*x)^m*acos(a*x)^2, x, 2, If($VersionNumber>=8, ((b*x)^(1 + m)*acos(a*x)^2)/(b*(1 + m)) + (2*a*(b*x)^(2 + m)*acos(a*x)*Hypergeometric2F1(1/2, (2 + m)/2, (4 + m)/2, a^2*x^2))/(b^2*(1 + m)*(2 + m)) + (2*a^2*(b*x)^(3 + m)*HypergeometricPFQ([1, 3/2 + m/2, 3/2 + m/2], [2 + m/2, 5/2 + m/2], a^2*x^2))/(b^3*(1 + m)*(2 + m)*(3 + m)), ((b*x)^(1 + m)*acos(a*x)^2)/(b*(1 + m)) + (2*a*(b*x)^(2 + m)*acos(a*x)*Hypergeometric2F1(1/2, (2 + m)/2, (4 + m)/2, a^2*x^2))/(b^2*(1 + m)*(2 + m)) + (2*a^2*(b*x)^(3 + m)*HypergeometricPFQ([1, 3/2 + m/2, 3/2 + m/2], [2 + m/2, 5/2 + m/2], a^2*x^2))/(b^3*(3 + m)*(2 + 3*m + m^2)))]
-    @test_int [(b*x)^m*acos(a*x), x, 2, ((b*x)^(1 + m)*acos(a*x))/(b*(1 + m)) + (a*(b*x)^(2 + m)*Hypergeometric2F1(1/2, (2 + m)/2, (4 + m)/2, a^2*x^2))/(b^2*(1 + m)*(2 + m))]
+    @test_int [(b*x)^m*acos(a*x)^2, x, 2, If(13>=8, ((b*x)^(1 + m)*acos(a*x)^2)/(b*(1 + m)) + (2*a*(b*x)^(2 + m)*acos(a*x)*HypergeometricFunctions._₂F₁(1/2, (2 + m)/2, (4 + m)/2, a^2*x^2))/(b^2*(1 + m)*(2 + m)) + (2*a^2*(b*x)^(3 + m)*HypergeometricPFQ([1, 3/2 + m/2, 3/2 + m/2], [2 + m/2, 5/2 + m/2], a^2*x^2))/(b^3*(1 + m)*(2 + m)*(3 + m)), ((b*x)^(1 + m)*acos(a*x)^2)/(b*(1 + m)) + (2*a*(b*x)^(2 + m)*acos(a*x)*HypergeometricFunctions._₂F₁(1/2, (2 + m)/2, (4 + m)/2, a^2*x^2))/(b^2*(1 + m)*(2 + m)) + (2*a^2*(b*x)^(3 + m)*HypergeometricPFQ([1, 3/2 + m/2, 3/2 + m/2], [2 + m/2, 5/2 + m/2], a^2*x^2))/(b^3*(3 + m)*(2 + 3*m + m^2)))]
+    @test_int [(b*x)^m*acos(a*x), x, 2, ((b*x)^(1 + m)*acos(a*x))/(b*(1 + m)) + (a*(b*x)^(2 + m)*HypergeometricFunctions._₂F₁(1/2, (2 + m)/2, (4 + m)/2, a^2*x^2))/(b^2*(1 + m)*(2 + m))]
     @test_int [(b*x)^m/acos(a*x), x, 0, Unintegrable((b*x)^m/acos(a*x), x)]
     @test_int [(b*x)^m/acos(a*x)^2, x, 0, Unintegrable((b*x)^m/acos(a*x)^2, x)]
 
@@ -353,20 +353,20 @@
     #=n>0=#
 
 
-    @test_int [(d*x)^(5/2)*(a + b*acos(c*x)), x, 5, (-20*b*d^2*sqrt(d*x)*sqrt(1 - c^2*x^2))/(147*c^3) - (4*b*(d*x)^(5/2)*sqrt(1 - c^2*x^2))/(49*c) + (2*(d*x)^(7/2)*(a + b*acos(c*x)))/(7*d) + (20*b*d^(5/2)*EllipticF(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(147*c^(7/2))]
-    @test_int [(d*x)^(3/2)*(a + b*acos(c*x)), x, 7, -((4*b*(d*x)^(3/2)*sqrt(1 - c^2*x^2))/(25*c)) + (2*(d*x)^(5/2)*(a + b*acos(c*x)))/(5*d) + (12*b*d^(3/2)*EllipticE(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(25*c^(5/2)) - (12*b*d^(3/2)*EllipticF(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(25*c^(5/2))]
-    @test_int [sqrt(d*x)*(a + b*acos(c*x)), x, 4, (-4*b*sqrt(d*x)*sqrt(1 - c^2*x^2))/(9*c) + (2*(d*x)^(3/2)*(a + b*acos(c*x)))/(3*d) + (4*b*sqrt(d)*EllipticF(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(9*c^(3/2))]
-    @test_int [(a + b*acos(c*x))/sqrt(d*x), x, 6, (2*sqrt(d*x)*(a + b*acos(c*x)))/d + (4*b*EllipticE(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(sqrt(c)*sqrt(d)) - (4*b*EllipticF(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(sqrt(c)*sqrt(d))]
-    @test_int [(a + b*acos(c*x))/(d*x)^(3/2), x, 3, (-2*(a + b*acos(c*x)))/(d*sqrt(d*x)) - (4*b*sqrt(c)*EllipticF(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/d^(3/2)]
-    @test_int [(a + b*acos(c*x))/(d*x)^(5/2), x, 7, (4*b*c*sqrt(1 - c^2*x^2))/(3*d^2*sqrt(d*x)) - (2*(a + b*acos(c*x)))/(3*d*(d*x)^(3/2)) + (4*b*c^(3/2)*EllipticE(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(3*d^(5/2)) - (4*b*c^(3/2)*EllipticF(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(3*d^(5/2))]
+    @test_int [(d*x)^(5/2)*(a + b*acos(c*x)), x, 5, (-20*b*d^2*sqrt(d*x)*sqrt(1 - c^2*x^2))/(147*c^3) - (4*b*(d*x)^(5/2)*sqrt(1 - c^2*x^2))/(49*c) + (2*(d*x)^(7/2)*(a + b*acos(c*x)))/(7*d) + (20*b*d^(5/2)*Elliptic.F(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(147*c^(7/2))]
+    @test_int [(d*x)^(3/2)*(a + b*acos(c*x)), x, 7, -((4*b*(d*x)^(3/2)*sqrt(1 - c^2*x^2))/(25*c)) + (2*(d*x)^(5/2)*(a + b*acos(c*x)))/(5*d) + (12*b*d^(3/2)*Elliptic.E(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(25*c^(5/2)) - (12*b*d^(3/2)*Elliptic.F(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(25*c^(5/2))]
+    @test_int [sqrt(d*x)*(a + b*acos(c*x)), x, 4, (-4*b*sqrt(d*x)*sqrt(1 - c^2*x^2))/(9*c) + (2*(d*x)^(3/2)*(a + b*acos(c*x)))/(3*d) + (4*b*sqrt(d)*Elliptic.F(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(9*c^(3/2))]
+    @test_int [(a + b*acos(c*x))/sqrt(d*x), x, 6, (2*sqrt(d*x)*(a + b*acos(c*x)))/d + (4*b*Elliptic.E(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(sqrt(c)*sqrt(d)) - (4*b*Elliptic.F(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(sqrt(c)*sqrt(d))]
+    @test_int [(a + b*acos(c*x))/(d*x)^(3/2), x, 3, (-2*(a + b*acos(c*x)))/(d*sqrt(d*x)) - (4*b*sqrt(c)*Elliptic.F(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/d^(3/2)]
+    @test_int [(a + b*acos(c*x))/(d*x)^(5/2), x, 7, (4*b*c*sqrt(1 - c^2*x^2))/(3*d^2*sqrt(d*x)) - (2*(a + b*acos(c*x)))/(3*d*(d*x)^(3/2)) + (4*b*c^(3/2)*Elliptic.E(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(3*d^(5/2)) - (4*b*c^(3/2)*Elliptic.F(asin((sqrt(c)*sqrt(d*x))/sqrt(d)), -1))/(3*d^(5/2))]
 
 
-    @test_int [(d*x)^(5/2)*(a + b*acos(c*x))^2, x, 2, (2*(d*x)^(7/2)*(a + b*acos(c*x))^2)/(7*d) + (8*b*c*(d*x)^(9/2)*(a + b*acos(c*x))*Hypergeometric2F1(1/2, 9/4, 13/4, c^2*x^2))/(63*d^2) + (16*b^2*c^2*(d*x)^(11/2)*HypergeometricPFQ([1, 11/4, 11/4], [13/4, 15/4], c^2*x^2))/(693*d^3)]
-    @test_int [(d*x)^(3/2)*(a + b*acos(c*x))^2, x, 2, (2*(d*x)^(5/2)*(a + b*acos(c*x))^2)/(5*d) + (8*b*c*(d*x)^(7/2)*(a + b*acos(c*x))*Hypergeometric2F1(1/2, 7/4, 11/4, c^2*x^2))/(35*d^2) + (16*b^2*c^2*(d*x)^(9/2)*HypergeometricPFQ([1, 9/4, 9/4], [11/4, 13/4], c^2*x^2))/(315*d^3)]
-    @test_int [sqrt(d*x)*(a + b*acos(c*x))^2, x, 2, (2*(d*x)^(3/2)*(a + b*acos(c*x))^2)/(3*d) + (8*b*c*(d*x)^(5/2)*(a + b*acos(c*x))*Hypergeometric2F1(1/2, 5/4, 9/4, c^2*x^2))/(15*d^2) + (16*b^2*c^2*(d*x)^(7/2)*HypergeometricPFQ([1, 7/4, 7/4], [9/4, 11/4], c^2*x^2))/(105*d^3)]
-    @test_int [(a + b*acos(c*x))^2/sqrt(d*x), x, 2, (2*sqrt(d*x)*(a + b*acos(c*x))^2)/d + (8*b*c*(d*x)^(3/2)*(a + b*acos(c*x))*Hypergeometric2F1(1/2, 3/4, 7/4, c^2*x^2))/(3*d^2) + (16*b^2*c^2*(d*x)^(5/2)*HypergeometricPFQ([1, 5/4, 5/4], [7/4, 9/4], c^2*x^2))/(15*d^3)]
-    @test_int [(a + b*acos(c*x))^2/(d*x)^(3/2), x, 2, (-2*(a + b*acos(c*x))^2)/(d*sqrt(d*x)) - (8*b*c*sqrt(d*x)*(a + b*acos(c*x))*Hypergeometric2F1(1/4, 1/2, 5/4, c^2*x^2))/d^2 - (16*b^2*c^2*(d*x)^(3/2)*HypergeometricPFQ([3/4, 3/4, 1], [5/4, 7/4], c^2*x^2))/(3*d^3)]
-    @test_int [(a + b*acos(c*x))^2/(d*x)^(5/2), x, 2, (-2*(a + b*acos(c*x))^2)/(3*d*(d*x)^(3/2)) + (8*b*c*(a + b*acos(c*x))*Hypergeometric2F1(-1/4, 1/2, 3/4, c^2*x^2))/(3*d^2*sqrt(d*x)) + (16*b^2*c^2*sqrt(d*x)*HypergeometricPFQ([1/4, 1/4, 1], [3/4, 5/4], c^2*x^2))/(3*d^3)]
+    @test_int [(d*x)^(5/2)*(a + b*acos(c*x))^2, x, 2, (2*(d*x)^(7/2)*(a + b*acos(c*x))^2)/(7*d) + (8*b*c*(d*x)^(9/2)*(a + b*acos(c*x))*HypergeometricFunctions._₂F₁(1/2, 9/4, 13/4, c^2*x^2))/(63*d^2) + (16*b^2*c^2*(d*x)^(11/2)*HypergeometricPFQ([1, 11/4, 11/4], [13/4, 15/4], c^2*x^2))/(693*d^3)]
+    @test_int [(d*x)^(3/2)*(a + b*acos(c*x))^2, x, 2, (2*(d*x)^(5/2)*(a + b*acos(c*x))^2)/(5*d) + (8*b*c*(d*x)^(7/2)*(a + b*acos(c*x))*HypergeometricFunctions._₂F₁(1/2, 7/4, 11/4, c^2*x^2))/(35*d^2) + (16*b^2*c^2*(d*x)^(9/2)*HypergeometricPFQ([1, 9/4, 9/4], [11/4, 13/4], c^2*x^2))/(315*d^3)]
+    @test_int [sqrt(d*x)*(a + b*acos(c*x))^2, x, 2, (2*(d*x)^(3/2)*(a + b*acos(c*x))^2)/(3*d) + (8*b*c*(d*x)^(5/2)*(a + b*acos(c*x))*HypergeometricFunctions._₂F₁(1/2, 5/4, 9/4, c^2*x^2))/(15*d^2) + (16*b^2*c^2*(d*x)^(7/2)*HypergeometricPFQ([1, 7/4, 7/4], [9/4, 11/4], c^2*x^2))/(105*d^3)]
+    @test_int [(a + b*acos(c*x))^2/sqrt(d*x), x, 2, (2*sqrt(d*x)*(a + b*acos(c*x))^2)/d + (8*b*c*(d*x)^(3/2)*(a + b*acos(c*x))*HypergeometricFunctions._₂F₁(1/2, 3/4, 7/4, c^2*x^2))/(3*d^2) + (16*b^2*c^2*(d*x)^(5/2)*HypergeometricPFQ([1, 5/4, 5/4], [7/4, 9/4], c^2*x^2))/(15*d^3)]
+    @test_int [(a + b*acos(c*x))^2/(d*x)^(3/2), x, 2, (-2*(a + b*acos(c*x))^2)/(d*sqrt(d*x)) - (8*b*c*sqrt(d*x)*(a + b*acos(c*x))*HypergeometricFunctions._₂F₁(1/4, 1/2, 5/4, c^2*x^2))/d^2 - (16*b^2*c^2*(d*x)^(3/2)*HypergeometricPFQ([3/4, 3/4, 1], [5/4, 7/4], c^2*x^2))/(3*d^3)]
+    @test_int [(a + b*acos(c*x))^2/(d*x)^(5/2), x, 2, (-2*(a + b*acos(c*x))^2)/(3*d*(d*x)^(3/2)) + (8*b*c*(a + b*acos(c*x))*HypergeometricFunctions._₂F₁(-1/4, 1/2, 3/4, c^2*x^2))/(3*d^2*sqrt(d*x)) + (16*b^2*c^2*sqrt(d*x)*HypergeometricPFQ([1/4, 1/4, 1], [3/4, 5/4], c^2*x^2))/(3*d^3)]
 
 
     @test_int [(d*x)^(3/2)*(a + b*acos(c*x))^3, x, 1, (2*(d*x)^(5/2)*(a + b*acos(c*x))^3)/(5*d) + (6*b*c*Unintegrable(((d*x)^(5/2)*(a + b*acos(c*x))^2)/sqrt(1 - c^2*x^2), x))/(5*d)]

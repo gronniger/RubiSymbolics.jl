@@ -1,5 +1,5 @@
 @testset "8.4 Trig integral functions" begin
-    @variables a, b, c, d, e, m, n, x
+    (a, b, c, d, e, m, n, x, ) = @variables a b c d e m n x
 
     #= ::Package:: =#
 

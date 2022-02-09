@@ -1,5 +1,5 @@
 @testset "6.6.1 (c+d x)^m (a+b csch)^n" begin
-    @variables a, b, c, d, e, f, x
+    (a, b, c, d, e, f, x, ) = @variables a b c d e f x
 
     #= ::Package:: =#
 
@@ -40,7 +40,7 @@
     @test_int [x/csch(x)^(3/2) + x*sqrt(csch(x))/3, x, 4, -(4/(9*csch(x)^(3/2))) + (2*x*cosh(x))/(3*sqrt(csch(x)))]
     @test_int [x/csch(x)^(5/2) + 3*x/(5*sqrt(csch(x))), x, 4, -(4/(25*csch(x)^(5/2))) + (2*x*cosh(x))/(5*csch(x)^(3/2))]
     @test_int [x/csch(x)^(7/2) - (5/21)*x*sqrt(csch(x)), x, 5, -(4/(49*csch(x)^(7/2))) + (2*x*cosh(x))/(7*csch(x)^(5/2)) + 20/(63*csch(x)^(3/2)) - (10*x*cosh(x))/(21*sqrt(csch(x)))]
-    @test_int [x^2/csch(x)^(3/2) + (1/3)*x^2*sqrt(csch(x)), x, 7, -((8*x)/(9*csch(x)^(3/2))) + (16*cosh(x))/(27*sqrt(csch(x))) + (2*x^2*cosh(x))/(3*sqrt(csch(x))) - (16/27)*im*sqrt(csch(x))*EllipticF(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x))]
+    @test_int [x^2/csch(x)^(3/2) + (1/3)*x^2*sqrt(csch(x)), x, 7, -((8*x)/(9*csch(x)^(3/2))) + (16*cosh(x))/(27*sqrt(csch(x))) + (2*x^2*cosh(x))/(3*sqrt(csch(x))) - (16/27)*im*sqrt(csch(x))*Elliptic.F(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x))]
 
 
     #= ::Title::Closed:: =#

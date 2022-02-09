@@ -1,5 +1,5 @@
 @testset "5.6.2 Inverse cosecant functions" begin
-    @variables a, b, c, d, n, x
+    (a, b, c, d, n, x, ) = @variables a b c d n x
 
     #= ::Package:: =#
 
@@ -115,10 +115,10 @@
     #=Integrands*involving*exponentials*of*inverse*cosecant*functions=#
 
 
-    @test_int [ℯ^acsc(a*x)*x^2, x, 6, ((4/5 - (12*im)/5)*ℯ^((1 + 3*im)*acsc(a*x))*Hypergeometric2F1(3/2 - im/2, 3, 5/2 - im/2, ℯ^(2*im*acsc(a*x))))/a^3 - ((8/5 - (24*im)/5)*ℯ^((1 + 3*im)*acsc(a*x))*Hypergeometric2F1(3/2 - im/2, 4, 5/2 - im/2, ℯ^(2*im*acsc(a*x))))/a^3]
-    @test_int [ℯ^acsc(a*x)*x^1, x, 6, ((8/5 + (4*im)/5)*ℯ^((1 + 2*im)*acsc(a*x))*Hypergeometric2F1(1 - im/2, 2, 2 - im/2, ℯ^(2*im*acsc(a*x))))/a^2 - ((16/5 + (8*im)/5)*ℯ^((1 + 2*im)*acsc(a*x))*Hypergeometric2F1(1 - im/2, 3, 2 - im/2, ℯ^(2*im*acsc(a*x))))/a^2]
-    @test_int [ℯ^acsc(a*x)*x^0, x, 5, -(((1 - im)*ℯ^((1 + im)*acsc(a*x))*Hypergeometric2F1(1/2 - im/2, 1, 3/2 - im/2, ℯ^(2*im*acsc(a*x))))/a) + ((2 - 2*im)*ℯ^((1 + im)*acsc(a*x))*Hypergeometric2F1(1/2 - im/2, 2, 3/2 - im/2, ℯ^(2*im*acsc(a*x))))/a]
-    @test_int [ℯ^acsc(a*x)/x^1, x, 6, (-im)*ℯ^acsc(a*x) + 2*im*ℯ^acsc(a*x)*Hypergeometric2F1(-(im/2), 1, 1 - im/2, ℯ^(2*im*acsc(a*x)))]
+    @test_int [ℯ^acsc(a*x)*x^2, x, 6, ((4/5 - (12*im)/5)*ℯ^((1 + 3*im)*acsc(a*x))*HypergeometricFunctions._₂F₁(3/2 - im/2, 3, 5/2 - im/2, ℯ^(2*im*acsc(a*x))))/a^3 - ((8/5 - (24*im)/5)*ℯ^((1 + 3*im)*acsc(a*x))*HypergeometricFunctions._₂F₁(3/2 - im/2, 4, 5/2 - im/2, ℯ^(2*im*acsc(a*x))))/a^3]
+    @test_int [ℯ^acsc(a*x)*x^1, x, 6, ((8/5 + (4*im)/5)*ℯ^((1 + 2*im)*acsc(a*x))*HypergeometricFunctions._₂F₁(1 - im/2, 2, 2 - im/2, ℯ^(2*im*acsc(a*x))))/a^2 - ((16/5 + (8*im)/5)*ℯ^((1 + 2*im)*acsc(a*x))*HypergeometricFunctions._₂F₁(1 - im/2, 3, 2 - im/2, ℯ^(2*im*acsc(a*x))))/a^2]
+    @test_int [ℯ^acsc(a*x)*x^0, x, 5, -(((1 - im)*ℯ^((1 + im)*acsc(a*x))*HypergeometricFunctions._₂F₁(1/2 - im/2, 1, 3/2 - im/2, ℯ^(2*im*acsc(a*x))))/a) + ((2 - 2*im)*ℯ^((1 + im)*acsc(a*x))*HypergeometricFunctions._₂F₁(1/2 - im/2, 2, 3/2 - im/2, ℯ^(2*im*acsc(a*x))))/a]
+    @test_int [ℯ^acsc(a*x)/x^1, x, 6, (-im)*ℯ^acsc(a*x) + 2*im*ℯ^acsc(a*x)*HypergeometricFunctions._₂F₁(-(im/2), 1, 1 - im/2, ℯ^(2*im*acsc(a*x)))]
     @test_int [ℯ^acsc(a*x)/x^2, x, 3, (-(1/2))*a*ℯ^acsc(a*x)*sqrt(1 - 1/(a^2*x^2)) - ℯ^acsc(a*x)/(2*x)]
     @test_int [ℯ^acsc(a*x)/x^3, x, 5, (1/5)*a^2*ℯ^acsc(a*x)*cos(2*acsc(a*x)) - (1/10)*a^2*ℯ^acsc(a*x)*sin(2*acsc(a*x))]
     @test_int [ℯ^acsc(a*x)/x^4, x, 6, (-(1/8))*a^3*ℯ^acsc(a*x)*sqrt(1 - 1/(a^2*x^2)) - (a^2*ℯ^acsc(a*x))/(8*x) + (1/40)*a^3*ℯ^acsc(a*x)*cos(3*acsc(a*x)) + (3/40)*a^3*ℯ^acsc(a*x)*sin(3*acsc(a*x))]

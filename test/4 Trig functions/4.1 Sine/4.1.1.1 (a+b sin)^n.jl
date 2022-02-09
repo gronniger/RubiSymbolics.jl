@@ -1,5 +1,5 @@
 @testset "4.1.1.1 (a+b sin)^n" begin
-    @variables a, b, c, d, n, x
+    (a, b, c, d, n, x, ) = @variables a b c d n x
 
     #= ::Package:: =#
 
@@ -32,24 +32,24 @@
     #=Integrands*of*the*form*(a+a*sin(c+d*x))^(n/3)=#
 
 
-    @test_int [(a + a*sin(c + d*x))^(4/3), x, 2, -((2*2^(5/6)*a*cos(c + d*x)*Hypergeometric2F1(-(5/6), 1/2, 3/2, (1/2)*(1 - sin(c + d*x)))*(a + a*sin(c + d*x))^(1/3))/(d*(1 + sin(c + d*x))^(5/6)))]
-    @test_int [(a + a*sin(c + d*x))^(2/3), x, 2, -((2*2^(1/6)*cos(c + d*x)*Hypergeometric2F1(-(1/6), 1/2, 3/2, (1/2)*(1 - sin(c + d*x)))*(a + a*sin(c + d*x))^(2/3))/(d*(1 + sin(c + d*x))^(7/6)))]
-    @test_int [(a + a*sin(c + d*x))^(1/3), x, 2, -((2^(5/6)*cos(c + d*x)*Hypergeometric2F1(1/6, 1/2, 3/2, (1/2)*(1 - sin(c + d*x)))*(a + a*sin(c + d*x))^(1/3))/(d*(1 + sin(c + d*x))^(5/6)))]
-    @test_int [1/(a + a*sin(c + d*x))^(1/3), x, 2, -((2^(1/6)*cos(c + d*x)*Hypergeometric2F1(1/2, 5/6, 3/2, (1/2)*(1 - sin(c + d*x))))/(d*(1 + sin(c + d*x))^(1/6)*(a + a*sin(c + d*x))^(1/3)))]
-    @test_int [1/(a + a*sin(c + d*x))^(2/3), x, 2, -((cos(c + d*x)*Hypergeometric2F1(1/2, 7/6, 3/2, (1/2)*(1 - sin(c + d*x)))*(1 + sin(c + d*x))^(1/6))/(2^(1/6)*d*(a + a*sin(c + d*x))^(2/3)))]
-    @test_int [1/(a + a*sin(c + d*x))^(4/3), x, 2, -((cos(c + d*x)*Hypergeometric2F1(1/2, 11/6, 3/2, (1/2)*(1 - sin(c + d*x))))/(2^(5/6)*a*d*(1 + sin(c + d*x))^(1/6)*(a + a*sin(c + d*x))^(1/3)))]
+    @test_int [(a + a*sin(c + d*x))^(4/3), x, 2, -((2*2^(5/6)*a*cos(c + d*x)*HypergeometricFunctions._₂F₁(-(5/6), 1/2, 3/2, (1/2)*(1 - sin(c + d*x)))*(a + a*sin(c + d*x))^(1/3))/(d*(1 + sin(c + d*x))^(5/6)))]
+    @test_int [(a + a*sin(c + d*x))^(2/3), x, 2, -((2*2^(1/6)*cos(c + d*x)*HypergeometricFunctions._₂F₁(-(1/6), 1/2, 3/2, (1/2)*(1 - sin(c + d*x)))*(a + a*sin(c + d*x))^(2/3))/(d*(1 + sin(c + d*x))^(7/6)))]
+    @test_int [(a + a*sin(c + d*x))^(1/3), x, 2, -((2^(5/6)*cos(c + d*x)*HypergeometricFunctions._₂F₁(1/6, 1/2, 3/2, (1/2)*(1 - sin(c + d*x)))*(a + a*sin(c + d*x))^(1/3))/(d*(1 + sin(c + d*x))^(5/6)))]
+    @test_int [1/(a + a*sin(c + d*x))^(1/3), x, 2, -((2^(1/6)*cos(c + d*x)*HypergeometricFunctions._₂F₁(1/2, 5/6, 3/2, (1/2)*(1 - sin(c + d*x))))/(d*(1 + sin(c + d*x))^(1/6)*(a + a*sin(c + d*x))^(1/3)))]
+    @test_int [1/(a + a*sin(c + d*x))^(2/3), x, 2, -((cos(c + d*x)*HypergeometricFunctions._₂F₁(1/2, 7/6, 3/2, (1/2)*(1 - sin(c + d*x)))*(1 + sin(c + d*x))^(1/6))/(2^(1/6)*d*(a + a*sin(c + d*x))^(2/3)))]
+    @test_int [1/(a + a*sin(c + d*x))^(4/3), x, 2, -((cos(c + d*x)*HypergeometricFunctions._₂F₁(1/2, 11/6, 3/2, (1/2)*(1 - sin(c + d*x))))/(2^(5/6)*a*d*(1 + sin(c + d*x))^(1/6)*(a + a*sin(c + d*x))^(1/3)))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(a+a*sin(c+d*x))^n*with*n*symbolic=#
 
 
-    @test_int [(a + a*sin(c + d*x))^n, x, 2, -((2^(1/2 + n)*cos(c + d*x)*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 - sin(c + d*x)))*(1 + sin(c + d*x))^(-(1/2) - n)*(a + a*sin(c + d*x))^n)/d)]
-    @test_int [(a - a*sin(c + d*x))^n, x, 2, (2^(1/2 + n)*cos(c + d*x)*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 + sin(c + d*x)))*(1 - sin(c + d*x))^(-(1/2) - n)*(a - a*sin(c + d*x))^n)/d]
+    @test_int [(a + a*sin(c + d*x))^n, x, 2, -((2^(1/2 + n)*cos(c + d*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 - sin(c + d*x)))*(1 + sin(c + d*x))^(-(1/2) - n)*(a + a*sin(c + d*x))^n)/d)]
+    @test_int [(a - a*sin(c + d*x))^n, x, 2, (2^(1/2 + n)*cos(c + d*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 + sin(c + d*x)))*(1 - sin(c + d*x))^(-(1/2) - n)*(a - a*sin(c + d*x))^n)/d]
 
 
-    @test_int [(2 + 2*sin(c + d*x))^n, x, 1, -((2^(1/2 + 2*n)*cos(c + d*x)*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 - sin(c + d*x))))/(d*sqrt(1 + sin(c + d*x))))]
-    @test_int [(2 - 2*sin(c + d*x))^n, x, 1, (2^(1/2 + 2*n)*cos(c + d*x)*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 + sin(c + d*x))))/(d*sqrt(1 - sin(c + d*x)))]
+    @test_int [(2 + 2*sin(c + d*x))^n, x, 1, -((2^(1/2 + 2*n)*cos(c + d*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 - sin(c + d*x))))/(d*sqrt(1 + sin(c + d*x))))]
+    @test_int [(2 - 2*sin(c + d*x))^n, x, 1, (2^(1/2 + 2*n)*cos(c + d*x)*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 + sin(c + d*x))))/(d*sqrt(1 - sin(c + d*x)))]
 
 
     #= ::Section::Closed:: =#
@@ -112,14 +112,14 @@
     #=Integrands*of*the*form*(a+b*sin(c+d*x))^(n/2)=#
 
 
-    @test_int [(a + b*sin(c + d*x))^(7/2), x, 8, -((2*b*(71*a^2 + 25*b^2)*cos(c + d*x)*sqrt(a + b*sin(c + d*x)))/(105*d)) - (24*a*b*cos(c + d*x)*(a + b*sin(c + d*x))^(3/2))/(35*d) - (2*b*cos(c + d*x)*(a + b*sin(c + d*x))^(5/2))/(7*d) + (32*a*(11*a^2 + 13*b^2)*EllipticE((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(105*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (2*(71*a^4 - 46*a^2*b^2 - 25*b^4)*EllipticF((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(105*d*sqrt(a + b*sin(c + d*x)))]
-    @test_int [(a + b*sin(c + d*x))^(5/2), x, 7, -((16*a*b*cos(c + d*x)*sqrt(a + b*sin(c + d*x)))/(15*d)) - (2*b*cos(c + d*x)*(a + b*sin(c + d*x))^(3/2))/(5*d) + (2*(23*a^2 + 9*b^2)*EllipticE((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(15*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (16*a*(a^2 - b^2)*EllipticF((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(15*d*sqrt(a + b*sin(c + d*x)))]
-    @test_int [(a + b*sin(c + d*x))^(3/2), x, 6, -((2*b*cos(c + d*x)*sqrt(a + b*sin(c + d*x)))/(3*d)) + (8*a*EllipticE((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(3*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (2*(a^2 - b^2)*EllipticF((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(3*d*sqrt(a + b*sin(c + d*x)))]
-    @test_int [(a + b*sin(c + d*x))^(1/2), x, 2, (2*EllipticE((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(d*sqrt((a + b*sin(c + d*x))/(a + b)))]
-    @test_int [1/(a + b*sin(c + d*x))^(1/2), x, 2, (2*EllipticF((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(d*sqrt(a + b*sin(c + d*x)))]
-    @test_int [1/(a + b*sin(c + d*x))^(3/2), x, 4, (2*b*cos(c + d*x))/((a^2 - b^2)*d*sqrt(a + b*sin(c + d*x))) + (2*EllipticE((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/((a^2 - b^2)*d*sqrt((a + b*sin(c + d*x))/(a + b)))]
-    @test_int [1/(a + b*sin(c + d*x))^(5/2), x, 7, (2*b*cos(c + d*x))/(3*(a^2 - b^2)*d*(a + b*sin(c + d*x))^(3/2)) + (8*a*b*cos(c + d*x))/(3*(a^2 - b^2)^2*d*sqrt(a + b*sin(c + d*x))) + (8*a*EllipticE((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(3*(a^2 - b^2)^2*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (2*EllipticF((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(3*(a^2 - b^2)*d*sqrt(a + b*sin(c + d*x)))]
-    @test_int [1/(a + b*sin(c + d*x))^(7/2), x, 8, (2*b*cos(c + d*x))/(5*(a^2 - b^2)*d*(a + b*sin(c + d*x))^(5/2)) + (16*a*b*cos(c + d*x))/(15*(a^2 - b^2)^2*d*(a + b*sin(c + d*x))^(3/2)) + (2*b*(23*a^2 + 9*b^2)*cos(c + d*x))/(15*(a^2 - b^2)^3*d*sqrt(a + b*sin(c + d*x))) + (2*(23*a^2 + 9*b^2)*EllipticE((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(15*(a^2 - b^2)^3*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (16*a*EllipticF((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(15*(a^2 - b^2)^2*d*sqrt(a + b*sin(c + d*x)))]
+    @test_int [(a + b*sin(c + d*x))^(7/2), x, 8, -((2*b*(71*a^2 + 25*b^2)*cos(c + d*x)*sqrt(a + b*sin(c + d*x)))/(105*d)) - (24*a*b*cos(c + d*x)*(a + b*sin(c + d*x))^(3/2))/(35*d) - (2*b*cos(c + d*x)*(a + b*sin(c + d*x))^(5/2))/(7*d) + (32*a*(11*a^2 + 13*b^2)*Elliptic.E((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(105*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (2*(71*a^4 - 46*a^2*b^2 - 25*b^4)*Elliptic.F((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(105*d*sqrt(a + b*sin(c + d*x)))]
+    @test_int [(a + b*sin(c + d*x))^(5/2), x, 7, -((16*a*b*cos(c + d*x)*sqrt(a + b*sin(c + d*x)))/(15*d)) - (2*b*cos(c + d*x)*(a + b*sin(c + d*x))^(3/2))/(5*d) + (2*(23*a^2 + 9*b^2)*Elliptic.E((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(15*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (16*a*(a^2 - b^2)*Elliptic.F((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(15*d*sqrt(a + b*sin(c + d*x)))]
+    @test_int [(a + b*sin(c + d*x))^(3/2), x, 6, -((2*b*cos(c + d*x)*sqrt(a + b*sin(c + d*x)))/(3*d)) + (8*a*Elliptic.E((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(3*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (2*(a^2 - b^2)*Elliptic.F((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(3*d*sqrt(a + b*sin(c + d*x)))]
+    @test_int [(a + b*sin(c + d*x))^(1/2), x, 2, (2*Elliptic.E((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(d*sqrt((a + b*sin(c + d*x))/(a + b)))]
+    @test_int [1/(a + b*sin(c + d*x))^(1/2), x, 2, (2*Elliptic.F((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(d*sqrt(a + b*sin(c + d*x)))]
+    @test_int [1/(a + b*sin(c + d*x))^(3/2), x, 4, (2*b*cos(c + d*x))/((a^2 - b^2)*d*sqrt(a + b*sin(c + d*x))) + (2*Elliptic.E((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/((a^2 - b^2)*d*sqrt((a + b*sin(c + d*x))/(a + b)))]
+    @test_int [1/(a + b*sin(c + d*x))^(5/2), x, 7, (2*b*cos(c + d*x))/(3*(a^2 - b^2)*d*(a + b*sin(c + d*x))^(3/2)) + (8*a*b*cos(c + d*x))/(3*(a^2 - b^2)^2*d*sqrt(a + b*sin(c + d*x))) + (8*a*Elliptic.E((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(3*(a^2 - b^2)^2*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (2*Elliptic.F((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(3*(a^2 - b^2)*d*sqrt(a + b*sin(c + d*x)))]
+    @test_int [1/(a + b*sin(c + d*x))^(7/2), x, 8, (2*b*cos(c + d*x))/(5*(a^2 - b^2)*d*(a + b*sin(c + d*x))^(5/2)) + (16*a*b*cos(c + d*x))/(15*(a^2 - b^2)^2*d*(a + b*sin(c + d*x))^(3/2)) + (2*b*(23*a^2 + 9*b^2)*cos(c + d*x))/(15*(a^2 - b^2)^3*d*sqrt(a + b*sin(c + d*x))) + (2*(23*a^2 + 9*b^2)*Elliptic.E((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt(a + b*sin(c + d*x)))/(15*(a^2 - b^2)^3*d*sqrt((a + b*sin(c + d*x))/(a + b))) - (16*a*Elliptic.F((1/2)*(c - pi/2 + d*x), (2*b)/(a + b))*sqrt((a + b*sin(c + d*x))/(a + b)))/(15*(a^2 - b^2)^2*d*sqrt(a + b*sin(c + d*x)))]
 
 
     #= ::Subsection::Closed:: =#

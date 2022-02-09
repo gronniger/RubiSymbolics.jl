@@ -1,5 +1,5 @@
 @testset "1.1.2.8 P(x) (c x)^m (a+b x^2)^p" begin
-    @variables A, B, C, D, F, a, b, c, d, e, f, m, x
+    (A, B, C, D, F, a, b, c, d, e, f, m, x, ) = @variables A B C D F a b c d e f m x
 
     #= ::Package:: =#
 
@@ -146,10 +146,10 @@
     #=p<0=#
 
 
-    @test_int [(c*x)^m*(A + 0*x + 0*x^2)/(a + b*x^2), x, 2, (A*(c*x)^(1 + m)*Hypergeometric2F1(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*c*(1 + m))]
-    @test_int [(c*x)^m*(A + B*x + 0*x^2)/(a + b*x^2), x, 3, (A*(c*x)^(1 + m)*Hypergeometric2F1(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*c*(1 + m)) + (B*(c*x)^(2 + m)*Hypergeometric2F1(1, (2 + m)/2, (4 + m)/2, -((b*x^2)/a)))/(a*c^2*(2 + m))]
-    @test_int [(c*x)^m*(A + 0*x + C*x^2)/(a + b*x^2), x, 2, (C*(c*x)^(1 + m))/(b*c*(1 + m)) + ((A*b - a*C)*(c*x)^(1 + m)*Hypergeometric2F1(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*b*c*(1 + m))]
-    @test_int [(c*x)^m*(A + B*x + C*x^2)/(a + b*x^2), x, 5, (C*(c*x)^(1 + m))/(b*c*(1 + m)) + ((A*b - a*C)*(c*x)^(1 + m)*Hypergeometric2F1(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*b*c*(1 + m)) + (B*(c*x)^(2 + m)*Hypergeometric2F1(1, (2 + m)/2, (4 + m)/2, -((b*x^2)/a)))/(a*c^2*(2 + m))]
+    @test_int [(c*x)^m*(A + 0*x + 0*x^2)/(a + b*x^2), x, 2, (A*(c*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*c*(1 + m))]
+    @test_int [(c*x)^m*(A + B*x + 0*x^2)/(a + b*x^2), x, 3, (A*(c*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*c*(1 + m)) + (B*(c*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, (2 + m)/2, (4 + m)/2, -((b*x^2)/a)))/(a*c^2*(2 + m))]
+    @test_int [(c*x)^m*(A + 0*x + C*x^2)/(a + b*x^2), x, 2, (C*(c*x)^(1 + m))/(b*c*(1 + m)) + ((A*b - a*C)*(c*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*b*c*(1 + m))]
+    @test_int [(c*x)^m*(A + B*x + C*x^2)/(a + b*x^2), x, 5, (C*(c*x)^(1 + m))/(b*c*(1 + m)) + ((A*b - a*C)*(c*x)^(1 + m)*HypergeometricFunctions._₂F₁(1, (1 + m)/2, (3 + m)/2, -((b*x^2)/a)))/(a*b*c*(1 + m)) + (B*(c*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, (2 + m)/2, (4 + m)/2, -((b*x^2)/a)))/(a*c^2*(2 + m))]
 
 
     #= ::Section::Closed:: =#

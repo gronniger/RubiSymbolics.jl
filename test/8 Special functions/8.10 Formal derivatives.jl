@@ -1,5 +1,5 @@
 @testset "8.10 Formal derivatives" begin
-    @variables F, a, b, m, n, x
+    (F, a, b, m, n, x, ) = @variables F a b m n x
 
     #= ::Package:: =#
 
@@ -71,7 +71,7 @@
     @test_int [(g(x)*Derivative(1)(f)(x) + f(x)*g'(x))/(a + b*(f(x)*g(x))^(3/2)), x, 8, -((2*atan((a^(1/3) - 2*b^(1/3)*sqrt(f(x)*g(x)))/(sqrt(3)*a^(1/3))))/(sqrt(3)*a^(1/3)*b^(2/3))) - (2*log(a^(1/3) + b^(1/3)*sqrt(f(x)*g(x))))/(3*a^(1/3)*b^(2/3)) + log(a^(2/3) + b^(2/3)*f(x)*g(x) - a^(1/3)*b^(1/3)*sqrt(f(x)*g(x)))/(3*a^(1/3)*b^(2/3))]
     @test_int [(g(x)*Derivative(1)(f)(x) + f(x)*g'(x))/(a + b*(f(x)*g(x))^(5/2)), x, 8, -((sqrt(2*(5 - sqrt(5)))*atan(sqrt((1/5)*(5 - 2*sqrt(5))) + (2*sqrt(2/(5 + sqrt(5)))*b^(1/5)*sqrt(f(x)*g(x)))/a^(1/5)))/(5*a^(3/5)*b^(2/5))) - (sqrt(2*(5 + sqrt(5)))*atan(sqrt((1/5)*(5 + 2*sqrt(5))) - (sqrt((2/5)*(5 + sqrt(5)))*b^(1/5)*sqrt(f(x)*g(x)))/a^(1/5)))/(5*a^(3/5)*b^(2/5)) - (2*log(a^(1/5) + b^(1/5)*sqrt(f(x)*g(x))))/(5*a^(3/5)*b^(2/5)) + ((1 - sqrt(5))*log(2*a^(2/5) + 2*b^(2/5)*f(x)*g(x) - a^(1/5)*b^(1/5)*sqrt(f(x)*g(x)) - sqrt(5)*a^(1/5)*b^(1/5)*sqrt(f(x)*g(x))))/(10*a^(3/5)*b^(2/5)) + ((1 + sqrt(5))*log(2*a^(2/5) + 2*b^(2/5)*f(x)*g(x) - a^(1/5)*b^(1/5)*sqrt(f(x)*g(x)) + sqrt(5)*a^(1/5)*b^(1/5)*sqrt(f(x)*g(x))))/(10*a^(3/5)*b^(2/5))]
 
-    @test_int [(g(x)*Derivative(1)(f)(x) + f(x)*g'(x))/(a + b*(f(x)*g(x))^n), x, 2, (f(x)*g(x)*Hypergeometric2F1(1, 1/n, 1 + 1/n, -((b*(f(x)*g(x))^n)/a)))/a]
+    @test_int [(g(x)*Derivative(1)(f)(x) + f(x)*g'(x))/(a + b*(f(x)*g(x))^n), x, 2, (f(x)*g(x)*HypergeometricFunctions._₂F₁(1, 1/n, 1 + 1/n, -((b*(f(x)*g(x))^n)/a)))/a]
     @test_int [(g(x)*Derivative(1)(f)(x) + f(x)*g'(x))/(a + b*f(x)^n*g(x)^n), x, 2, CannotIntegrate((g(x)*Derivative(1)(f)(x))/(a + b*f(x)^n*g(x)^n), x) + CannotIntegrate((f(x)*g'(x))/(a + b*f(x)^n*g(x)^n), x)]
 
 

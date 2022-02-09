@@ -1,5 +1,5 @@
 @testset "4.2.7 (d trig)^m (a+b (c cos)^n)^p" begin
-    @variables a, b, n, x
+    (a, b, n, x, ) = @variables a b n x
 
     #= ::Package:: =#
 
@@ -191,28 +191,28 @@
     #=p>0=#
 
 
-    @test_int [sqrt(1 + cos(x)^2), x, 1, EllipticE(pi/2 + x, -1)]
-    @test_int [sqrt(-1 - cos(x)^2), x, 2, (sqrt(-1 - cos(x)^2)*EllipticE(pi/2 + x, -1))/sqrt(1 + cos(x)^2)]
-    @test_int [sqrt(a + b*cos(x)^2), x, 2, (sqrt(a + b*cos(x)^2)*EllipticE(pi/2 + x, -(b/a)))/sqrt(1 + (b*cos(x)^2)/a)]
+    @test_int [sqrt(1 + cos(x)^2), x, 1, Elliptic.E(pi/2 + x, -1)]
+    @test_int [sqrt(-1 - cos(x)^2), x, 2, (sqrt(-1 - cos(x)^2)*Elliptic.E(pi/2 + x, -1))/sqrt(1 + cos(x)^2)]
+    @test_int [sqrt(a + b*cos(x)^2), x, 2, (sqrt(a + b*cos(x)^2)*Elliptic.E(pi/2 + x, -(b/a)))/sqrt(1 + (b*cos(x)^2)/a)]
 
 
-    @test_int [(1 + cos(x)^2)^(3/2), x, 4, 2*EllipticE(pi/2 + x, -1) - (2/3)*EllipticF(pi/2 + x, -1) + (1/3)*cos(x)*sqrt(1 + cos(x)^2)*sin(x)]
-    @test_int [(-1 - cos(x)^2)^(3/2), x, 6, -((2*sqrt(-1 - cos(x)^2)*EllipticE(pi/2 + x, -1))/sqrt(1 + cos(x)^2)) - (2*sqrt(1 + cos(x)^2)*EllipticF(pi/2 + x, -1))/(3*sqrt(-1 - cos(x)^2)) - (1/3)*cos(x)*sqrt(-1 - cos(x)^2)*sin(x)]
-    @test_int [(a + b*cos(x)^2)^(3/2), x, 6, (2*(2*a + b)*sqrt(a + b*cos(x)^2)*EllipticE(pi/2 + x, -(b/a)))/(3*sqrt(1 + (b*cos(x)^2)/a)) - (a*(a + b)*sqrt(1 + (b*cos(x)^2)/a)*EllipticF(pi/2 + x, -(b/a)))/(3*sqrt(a + b*cos(x)^2)) + (1/3)*b*cos(x)*sqrt(a + b*cos(x)^2)*sin(x)]
+    @test_int [(1 + cos(x)^2)^(3/2), x, 4, 2*Elliptic.E(pi/2 + x, -1) - (2/3)*Elliptic.F(pi/2 + x, -1) + (1/3)*cos(x)*sqrt(1 + cos(x)^2)*sin(x)]
+    @test_int [(-1 - cos(x)^2)^(3/2), x, 6, -((2*sqrt(-1 - cos(x)^2)*Elliptic.E(pi/2 + x, -1))/sqrt(1 + cos(x)^2)) - (2*sqrt(1 + cos(x)^2)*Elliptic.F(pi/2 + x, -1))/(3*sqrt(-1 - cos(x)^2)) - (1/3)*cos(x)*sqrt(-1 - cos(x)^2)*sin(x)]
+    @test_int [(a + b*cos(x)^2)^(3/2), x, 6, (2*(2*a + b)*sqrt(a + b*cos(x)^2)*Elliptic.E(pi/2 + x, -(b/a)))/(3*sqrt(1 + (b*cos(x)^2)/a)) - (a*(a + b)*sqrt(1 + (b*cos(x)^2)/a)*Elliptic.F(pi/2 + x, -(b/a)))/(3*sqrt(a + b*cos(x)^2)) + (1/3)*b*cos(x)*sqrt(a + b*cos(x)^2)*sin(x)]
 
 
     #= ::Subsubsection::Closed:: =#
     #=p<0=#
 
 
-    @test_int [1/sqrt(1 + cos(x)^2), x, 1, EllipticF(pi/2 + x, -1)]
-    @test_int [1/sqrt(-1 - cos(x)^2), x, 2, (sqrt(1 + cos(x)^2)*EllipticF(pi/2 + x, -1))/sqrt(-1 - cos(x)^2)]
-    @test_int [1/sqrt(a + b*cos(x)^2), x, 2, (sqrt(1 + (b*cos(x)^2)/a)*EllipticF(pi/2 + x, -(b/a)))/sqrt(a + b*cos(x)^2)]
+    @test_int [1/sqrt(1 + cos(x)^2), x, 1, Elliptic.F(pi/2 + x, -1)]
+    @test_int [1/sqrt(-1 - cos(x)^2), x, 2, (sqrt(1 + cos(x)^2)*Elliptic.F(pi/2 + x, -1))/sqrt(-1 - cos(x)^2)]
+    @test_int [1/sqrt(a + b*cos(x)^2), x, 2, (sqrt(1 + (b*cos(x)^2)/a)*Elliptic.F(pi/2 + x, -(b/a)))/sqrt(a + b*cos(x)^2)]
 
 
-    @test_int [1/(1 + cos(x)^2)^(3/2), x, 3, (1/2)*EllipticE(pi/2 + x, -1) - (cos(x)*sin(x))/(2*sqrt(1 + cos(x)^2))]
-    @test_int [1/(-1 - cos(x)^2)^(3/2), x, 4, (sqrt(-1 - cos(x)^2)*EllipticE(pi/2 + x, -1))/(2*sqrt(1 + cos(x)^2)) + (cos(x)*sin(x))/(2*sqrt(-1 - cos(x)^2))]
-    @test_int [1/(a + b*cos(x)^2)^(3/2), x, 4, (sqrt(a + b*cos(x)^2)*EllipticE(pi/2 + x, -(b/a)))/(a*(a + b)*sqrt(1 + (b*cos(x)^2)/a)) - (b*cos(x)*sin(x))/(a*(a + b)*sqrt(a + b*cos(x)^2))]
+    @test_int [1/(1 + cos(x)^2)^(3/2), x, 3, (1/2)*Elliptic.E(pi/2 + x, -1) - (cos(x)*sin(x))/(2*sqrt(1 + cos(x)^2))]
+    @test_int [1/(-1 - cos(x)^2)^(3/2), x, 4, (sqrt(-1 - cos(x)^2)*Elliptic.E(pi/2 + x, -1))/(2*sqrt(1 + cos(x)^2)) + (cos(x)*sin(x))/(2*sqrt(-1 - cos(x)^2))]
+    @test_int [1/(a + b*cos(x)^2)^(3/2), x, 4, (sqrt(a + b*cos(x)^2)*Elliptic.E(pi/2 + x, -(b/a)))/(a*(a + b)*sqrt(1 + (b*cos(x)^2)/a)) - (b*cos(x)*sin(x))/(a*(a + b)*sqrt(a + b*cos(x)^2))]
 
 
     @test_int [cos(x)/sqrt(1 + cos(x)^2), x, 2, asin(sin(x)/sqrt(2))]

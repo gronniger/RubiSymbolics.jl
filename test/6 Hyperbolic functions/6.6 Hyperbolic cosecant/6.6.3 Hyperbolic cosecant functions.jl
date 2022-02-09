@@ -1,5 +1,5 @@
 @testset "6.6.3 Hyperbolic cosecant functions" begin
-    @variables a, b, c, d, n, p, x
+    (a, b, c, d, n, p, x, ) = @variables a b c d n p x
 
     #= ::Package:: =#
 
@@ -27,29 +27,29 @@
     #=Integrands*of*the*form*(c*csch(a+b*x))^(n/2)=#
 
 
-    @test_int [csch(a + b*x)^(5/2), x, 3, -((2*cosh(a + b*x)*csch(a + b*x)^(3/2))/(3*b)) + (2*im*sqrt(csch(a + b*x))*EllipticF((1/2)*(im*a - pi/2 + im*b*x), 2)*sqrt(im*sinh(a + b*x)))/(3*b)]
-    @test_int [csch(a + b*x)^(3/2), x, 3, -((2*cosh(a + b*x)*sqrt(csch(a + b*x)))/b) - (2*im*EllipticE((1/2)*(im*a - pi/2 + im*b*x), 2))/(b*sqrt(csch(a + b*x))*sqrt(im*sinh(a + b*x)))]
-    @test_int [csch(a + b*x)^(1/2), x, 2, -((2*im*sqrt(csch(a + b*x))*EllipticF((1/2)*(im*a - pi/2 + im*b*x), 2)*sqrt(im*sinh(a + b*x)))/b)]
-    @test_int [1/csch(a + b*x)^(1/2), x, 2, -((2*im*EllipticE((1/2)*(im*a - pi/2 + im*b*x), 2))/(b*sqrt(csch(a + b*x))*sqrt(im*sinh(a + b*x))))]
-    @test_int [1/csch(a + b*x)^(3/2), x, 3, (2*cosh(a + b*x))/(3*b*sqrt(csch(a + b*x))) + (2*im*sqrt(csch(a + b*x))*EllipticF((1/2)*(im*a - pi/2 + im*b*x), 2)*sqrt(im*sinh(a + b*x)))/(3*b)]
-    @test_int [1/csch(a + b*x)^(5/2), x, 3, (2*cosh(a + b*x))/(5*b*csch(a + b*x)^(3/2)) + (6*im*EllipticE((1/2)*(im*a - pi/2 + im*b*x), 2))/(5*b*sqrt(csch(a + b*x))*sqrt(im*sinh(a + b*x)))]
+    @test_int [csch(a + b*x)^(5/2), x, 3, -((2*cosh(a + b*x)*csch(a + b*x)^(3/2))/(3*b)) + (2*im*sqrt(csch(a + b*x))*Elliptic.F((1/2)*(im*a - pi/2 + im*b*x), 2)*sqrt(im*sinh(a + b*x)))/(3*b)]
+    @test_int [csch(a + b*x)^(3/2), x, 3, -((2*cosh(a + b*x)*sqrt(csch(a + b*x)))/b) - (2*im*Elliptic.E((1/2)*(im*a - pi/2 + im*b*x), 2))/(b*sqrt(csch(a + b*x))*sqrt(im*sinh(a + b*x)))]
+    @test_int [csch(a + b*x)^(1/2), x, 2, -((2*im*sqrt(csch(a + b*x))*Elliptic.F((1/2)*(im*a - pi/2 + im*b*x), 2)*sqrt(im*sinh(a + b*x)))/b)]
+    @test_int [1/csch(a + b*x)^(1/2), x, 2, -((2*im*Elliptic.E((1/2)*(im*a - pi/2 + im*b*x), 2))/(b*sqrt(csch(a + b*x))*sqrt(im*sinh(a + b*x))))]
+    @test_int [1/csch(a + b*x)^(3/2), x, 3, (2*cosh(a + b*x))/(3*b*sqrt(csch(a + b*x))) + (2*im*sqrt(csch(a + b*x))*Elliptic.F((1/2)*(im*a - pi/2 + im*b*x), 2)*sqrt(im*sinh(a + b*x)))/(3*b)]
+    @test_int [1/csch(a + b*x)^(5/2), x, 3, (2*cosh(a + b*x))/(5*b*csch(a + b*x)^(3/2)) + (6*im*Elliptic.E((1/2)*(im*a - pi/2 + im*b*x), 2))/(5*b*sqrt(csch(a + b*x))*sqrt(im*sinh(a + b*x)))]
 
 
-    @test_int [(b*csch(c + d*x))^(7/2), x, 4, (6*b^3*cosh(c + d*x)*sqrt(b*csch(c + d*x)))/(5*d) - (2*b*cosh(c + d*x)*(b*csch(c + d*x))^(5/2))/(5*d) + (6*im*b^4*EllipticE((1/2)*(im*c - pi/2 + im*d*x), 2))/(5*d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x)))]
-    @test_int [(b*csch(c + d*x))^(5/2), x, 3, -((2*b*cosh(c + d*x)*(b*csch(c + d*x))^(3/2))/(3*d)) + (2*im*b^2*sqrt(b*csch(c + d*x))*EllipticF((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/(3*d)]
-    @test_int [(b*csch(c + d*x))^(3/2), x, 3, -((2*b*cosh(c + d*x)*sqrt(b*csch(c + d*x)))/d) - (2*im*b^2*EllipticE((1/2)*(im*c - pi/2 + im*d*x), 2))/(d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x)))]
-    @test_int [(b*csch(c + d*x))^(1/2), x, 2, -((2*im*sqrt(b*csch(c + d*x))*EllipticF((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/d)]
-    @test_int [1/(b*csch(c + d*x))^(1/2), x, 2, -((2*im*EllipticE((1/2)*(im*c - pi/2 + im*d*x), 2))/(d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x))))]
-    @test_int [1/(b*csch(c + d*x))^(3/2), x, 3, (2*cosh(c + d*x))/(3*b*d*sqrt(b*csch(c + d*x))) + (2*im*sqrt(b*csch(c + d*x))*EllipticF((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/(3*b^2*d)]
-    @test_int [1/(b*csch(c + d*x))^(5/2), x, 3, (2*cosh(c + d*x))/(5*b*d*(b*csch(c + d*x))^(3/2)) + (6*im*EllipticE((1/2)*(im*c - pi/2 + im*d*x), 2))/(5*b^2*d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x)))]
-    @test_int [1/(b*csch(c + d*x))^(7/2), x, 4, (2*cosh(c + d*x))/(7*b*d*(b*csch(c + d*x))^(5/2)) - (10*cosh(c + d*x))/(21*b^3*d*sqrt(b*csch(c + d*x))) - (10*im*sqrt(b*csch(c + d*x))*EllipticF((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/(21*b^4*d)]
+    @test_int [(b*csch(c + d*x))^(7/2), x, 4, (6*b^3*cosh(c + d*x)*sqrt(b*csch(c + d*x)))/(5*d) - (2*b*cosh(c + d*x)*(b*csch(c + d*x))^(5/2))/(5*d) + (6*im*b^4*Elliptic.E((1/2)*(im*c - pi/2 + im*d*x), 2))/(5*d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x)))]
+    @test_int [(b*csch(c + d*x))^(5/2), x, 3, -((2*b*cosh(c + d*x)*(b*csch(c + d*x))^(3/2))/(3*d)) + (2*im*b^2*sqrt(b*csch(c + d*x))*Elliptic.F((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/(3*d)]
+    @test_int [(b*csch(c + d*x))^(3/2), x, 3, -((2*b*cosh(c + d*x)*sqrt(b*csch(c + d*x)))/d) - (2*im*b^2*Elliptic.E((1/2)*(im*c - pi/2 + im*d*x), 2))/(d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x)))]
+    @test_int [(b*csch(c + d*x))^(1/2), x, 2, -((2*im*sqrt(b*csch(c + d*x))*Elliptic.F((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/d)]
+    @test_int [1/(b*csch(c + d*x))^(1/2), x, 2, -((2*im*Elliptic.E((1/2)*(im*c - pi/2 + im*d*x), 2))/(d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x))))]
+    @test_int [1/(b*csch(c + d*x))^(3/2), x, 3, (2*cosh(c + d*x))/(3*b*d*sqrt(b*csch(c + d*x))) + (2*im*sqrt(b*csch(c + d*x))*Elliptic.F((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/(3*b^2*d)]
+    @test_int [1/(b*csch(c + d*x))^(5/2), x, 3, (2*cosh(c + d*x))/(5*b*d*(b*csch(c + d*x))^(3/2)) + (6*im*Elliptic.E((1/2)*(im*c - pi/2 + im*d*x), 2))/(5*b^2*d*sqrt(b*csch(c + d*x))*sqrt(im*sinh(c + d*x)))]
+    @test_int [1/(b*csch(c + d*x))^(7/2), x, 4, (2*cosh(c + d*x))/(7*b*d*(b*csch(c + d*x))^(5/2)) - (10*cosh(c + d*x))/(21*b^3*d*sqrt(b*csch(c + d*x))) - (10*im*sqrt(b*csch(c + d*x))*Elliptic.F((1/2)*(im*c - pi/2 + im*d*x), 2)*sqrt(im*sinh(c + d*x)))/(21*b^4*d)]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(c*csch(a+b*x))^n*with*n*symbolic=#
 
 
-    @test_int [(b*csch(c + d*x))^n, x, 2, (b*cosh(c + d*x)*(b*csch(c + d*x))^(-1 + n)*Hypergeometric2F1(1/2, (1 - n)/2, (3 - n)/2, -sinh(c + d*x)^2))/(d*(1 - n)*sqrt(cosh(c + d*x)^2))]
+    @test_int [(b*csch(c + d*x))^n, x, 2, (b*cosh(c + d*x)*(b*csch(c + d*x))^(-1 + n)*HypergeometricFunctions._₂F₁(1/2, (1 - n)/2, (3 - n)/2, -sinh(c + d*x)^2))/(d*(1 - n)*sqrt(cosh(c + d*x)^2))]
 
 
     #= ::Section::Closed:: =#
@@ -82,12 +82,12 @@
     #=Integrands*of*the*form*(c*csch(a+b*x)^3)^n=#
 
 
-    @test_int [(a*csch(x)^3)^(5/2), x, 7, (-(154/585))*a^2*coth(x)*sqrt(a*csch(x)^3) + (22/117)*a^2*coth(x)*csch(x)^2*sqrt(a*csch(x)^3) - (2/13)*a^2*coth(x)*csch(x)^4*sqrt(a*csch(x)^3) + (154/195)*a^2*cosh(x)*sqrt(a*csch(x)^3)*sinh(x) - (154*im*a^2*sqrt(a*csch(x)^3)*EllipticE(pi/4 - (im*x)/2, 2)*sinh(x)^2)/(195*sqrt(im*sinh(x)))]
-    @test_int [(a*csch(x)^3)^(3/2), x, 5, (10/21)*a*cosh(x)*sqrt(a*csch(x)^3) - (2/7)*a*coth(x)*csch(x)*sqrt(a*csch(x)^3) + (10/21)*im*a*sqrt(a*csch(x)^3)*EllipticF(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x))*sinh(x)]
-    @test_int [(a*csch(x)^3)^(1/2), x, 4, -2*im*sqrt(a*csch(x)^3)*EllipticE(pi/4 - (im*x)/2, 2)*(im*sinh(x))^(3/2) - 2*cosh(x)*sqrt(a*csch(x)^3)*sinh(x), -2*cosh(x)*sqrt(a*csch(x)^3)*sinh(x) + (2*im*sqrt(a*csch(x)^3)*EllipticE(pi/4 - (im*x)/2, 2)*sinh(x)^2)/sqrt(im*sinh(x))]
-    @test_int [1/(a*csch(x)^3)^(1/2), x, 4, (2*coth(x))/(3*sqrt(a*csch(x)^3)) - (2*im*csch(x)^2*EllipticF(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x)))/(3*sqrt(a*csch(x)^3))]
-    @test_int [1/(a*csch(x)^3)^(3/2), x, 5, -((14*cosh(x))/(45*a*sqrt(a*csch(x)^3))) + (14*im*csch(x)*EllipticE(pi/4 - (im*x)/2, 2))/(15*a*sqrt(a*csch(x)^3)*sqrt(im*sinh(x))) + (2*cosh(x)*sinh(x)^2)/(9*a*sqrt(a*csch(x)^3))]
-    @test_int [1/(a*csch(x)^3)^(5/2), x, 7, -((26*coth(x))/(77*a^2*sqrt(a*csch(x)^3))) + (26*im*csch(x)^2*EllipticF(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x)))/(77*a^2*sqrt(a*csch(x)^3)) + (78*cosh(x)*sinh(x))/(385*a^2*sqrt(a*csch(x)^3)) - (26*cosh(x)*sinh(x)^3)/(165*a^2*sqrt(a*csch(x)^3)) + (2*cosh(x)*sinh(x)^5)/(15*a^2*sqrt(a*csch(x)^3))]
+    @test_int [(a*csch(x)^3)^(5/2), x, 7, (-(154/585))*a^2*coth(x)*sqrt(a*csch(x)^3) + (22/117)*a^2*coth(x)*csch(x)^2*sqrt(a*csch(x)^3) - (2/13)*a^2*coth(x)*csch(x)^4*sqrt(a*csch(x)^3) + (154/195)*a^2*cosh(x)*sqrt(a*csch(x)^3)*sinh(x) - (154*im*a^2*sqrt(a*csch(x)^3)*Elliptic.E(pi/4 - (im*x)/2, 2)*sinh(x)^2)/(195*sqrt(im*sinh(x)))]
+    @test_int [(a*csch(x)^3)^(3/2), x, 5, (10/21)*a*cosh(x)*sqrt(a*csch(x)^3) - (2/7)*a*coth(x)*csch(x)*sqrt(a*csch(x)^3) + (10/21)*im*a*sqrt(a*csch(x)^3)*Elliptic.F(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x))*sinh(x)]
+    @test_int [(a*csch(x)^3)^(1/2), x, 4, -2*im*sqrt(a*csch(x)^3)*Elliptic.E(pi/4 - (im*x)/2, 2)*(im*sinh(x))^(3/2) - 2*cosh(x)*sqrt(a*csch(x)^3)*sinh(x), -2*cosh(x)*sqrt(a*csch(x)^3)*sinh(x) + (2*im*sqrt(a*csch(x)^3)*Elliptic.E(pi/4 - (im*x)/2, 2)*sinh(x)^2)/sqrt(im*sinh(x))]
+    @test_int [1/(a*csch(x)^3)^(1/2), x, 4, (2*coth(x))/(3*sqrt(a*csch(x)^3)) - (2*im*csch(x)^2*Elliptic.F(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x)))/(3*sqrt(a*csch(x)^3))]
+    @test_int [1/(a*csch(x)^3)^(3/2), x, 5, -((14*cosh(x))/(45*a*sqrt(a*csch(x)^3))) + (14*im*csch(x)*Elliptic.E(pi/4 - (im*x)/2, 2))/(15*a*sqrt(a*csch(x)^3)*sqrt(im*sinh(x))) + (2*cosh(x)*sinh(x)^2)/(9*a*sqrt(a*csch(x)^3))]
+    @test_int [1/(a*csch(x)^3)^(5/2), x, 7, -((26*coth(x))/(77*a^2*sqrt(a*csch(x)^3))) + (26*im*csch(x)^2*Elliptic.F(pi/4 - (im*x)/2, 2)*sqrt(im*sinh(x)))/(77*a^2*sqrt(a*csch(x)^3)) + (78*cosh(x)*sinh(x))/(385*a^2*sqrt(a*csch(x)^3)) - (26*cosh(x)*sinh(x)^3)/(165*a^2*sqrt(a*csch(x)^3)) + (2*cosh(x)*sinh(x)^5)/(15*a^2*sqrt(a*csch(x)^3))]
 
 
     #= ::Subsection::Closed:: =#
@@ -271,31 +271,31 @@
     #=Integrands*of*the*form*x^m*csch(b*log(c*x^n))^(p/2)=#
 
 
-    @test_int [x^5/csch(2*log(c*x))^(1/2), x, 6, -((2*x^2)/(21*c^4*sqrt(csch(2*log(c*x))))) + x^6/(7*sqrt(csch(2*log(c*x)))) + (2*EllipticF(acsc(c*x), -1))/(21*c^7*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
+    @test_int [x^5/csch(2*log(c*x))^(1/2), x, 6, -((2*x^2)/(21*c^4*sqrt(csch(2*log(c*x))))) + x^6/(7*sqrt(csch(2*log(c*x)))) + (2*Elliptic.F(acsc(c*x), -1))/(21*c^7*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
     @test_int [x^4/csch(2*log(c*x))^(1/2), x, 3, ((c^4 - 1/x^4)*x^5)/(6*c^4*sqrt(csch(2*log(c*x))))]
-    @test_int [x^3/csch(2*log(c*x))^(1/2), x, 9, -(2/(5*c^4*sqrt(csch(2*log(c*x))))) + x^4/(5*sqrt(csch(2*log(c*x)))) - (2*EllipticE(acsc(c*x), -1))/(5*c^5*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))) + (2*EllipticF(acsc(c*x), -1))/(5*c^5*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
+    @test_int [x^3/csch(2*log(c*x))^(1/2), x, 9, -(2/(5*c^4*sqrt(csch(2*log(c*x))))) + x^4/(5*sqrt(csch(2*log(c*x)))) - (2*Elliptic.E(acsc(c*x), -1))/(5*c^5*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))) + (2*Elliptic.F(acsc(c*x), -1))/(5*c^5*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
     @test_int [x^2/csch(2*log(c*x))^(1/2), x, 6, x^3/(4*sqrt(csch(2*log(c*x)))) - atanh(sqrt(1 - 1/(c^4*x^4)))/(4*c^4*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
-    @test_int [x^1/csch(2*log(c*x))^(1/2), x, 5, x^2/(3*sqrt(csch(2*log(c*x)))) + (2*EllipticF(acsc(c*x), -1))/(3*c^3*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
+    @test_int [x^1/csch(2*log(c*x))^(1/2), x, 5, x^2/(3*sqrt(csch(2*log(c*x)))) + (2*Elliptic.F(acsc(c*x), -1))/(3*c^3*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
     @test_int [x^0/csch(2*log(c*x))^(1/2), x, 6, x/(2*sqrt(csch(2*log(c*x)))) + acsc(c^2*x^2)/(2*c^2*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x))))]
-    @test_int [csch(2*log(c*x))^(1/2)/x^1, x, 3, im*sqrt(csch(2*log(c*x)))*EllipticF(pi/4 - im*log(c*x), 2)*sqrt(im*sinh(2*log(c*x)))]
+    @test_int [csch(2*log(c*x))^(1/2)/x^1, x, 3, im*sqrt(csch(2*log(c*x)))*Elliptic.F(pi/4 - im*log(c*x), 2)*sqrt(im*sinh(2*log(c*x)))]
     @test_int [csch(2*log(c*x))^(1/2)/x^2, x, 5, (-(1/2))*c^2*sqrt(1 - 1/(c^4*x^4))*x*acsc(c^2*x^2)*sqrt(csch(2*log(c*x)))]
-    @test_int [csch(2*log(c*x))^(1/2)/x^3, x, 7, (-c^3)*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))*EllipticE(acsc(c*x), -1) + c^3*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))*EllipticF(acsc(c*x), -1)]
+    @test_int [csch(2*log(c*x))^(1/2)/x^3, x, 7, (-c^3)*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))*Elliptic.E(acsc(c*x), -1) + c^3*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))*Elliptic.F(acsc(c*x), -1)]
     @test_int [csch(2*log(c*x))^(1/2)/x^4, x, 3, (1/2)*(c^4 - 1/x^4)*x*sqrt(csch(2*log(c*x)))]
-    @test_int [csch(2*log(c*x))^(1/2)/x^5, x, 5, (1/3)*(c^4 - 1/x^4)*sqrt(csch(2*log(c*x))) - (1/3)*c^5*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))*EllipticF(acsc(c*x), -1)]
+    @test_int [csch(2*log(c*x))^(1/2)/x^5, x, 5, (1/3)*(c^4 - 1/x^4)*sqrt(csch(2*log(c*x))) - (1/3)*c^5*sqrt(1 - 1/(c^4*x^4))*x*sqrt(csch(2*log(c*x)))*Elliptic.F(acsc(c*x), -1)]
 
 
     @test_int [x^8/csch(2*log(c*x))^(3/2), x, 8, x/(32*c^4*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) - x^5/(16*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) + x^9/(12*csch(2*log(c*x))^(3/2)) + atanh(sqrt(1 - 1/(c^4*x^4)))/(32*c^12*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
-    @test_int [x^7/csch(2*log(c*x))^(3/2), x, 7, 4/(77*c^4*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) - (6*x^4)/(77*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) + x^8/(11*csch(2*log(c*x))^(3/2)) - (4*EllipticF(acsc(c*x), -1))/(77*c^11*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
+    @test_int [x^7/csch(2*log(c*x))^(3/2), x, 7, 4/(77*c^4*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) - (6*x^4)/(77*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) + x^8/(11*csch(2*log(c*x))^(3/2)) - (4*Elliptic.F(acsc(c*x), -1))/(77*c^11*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
     @test_int [x^6/csch(2*log(c*x))^(3/2), x, 3, ((c^4 - 1/x^4)*x^7)/(10*c^4*csch(2*log(c*x))^(3/2))]
-    @test_int [x^5/csch(2*log(c*x))^(3/2), x, 10, 4/(15*c^4*(c^4 - 1/x^4)*x^2*csch(2*log(c*x))^(3/2)) - (2*x^2)/(15*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) + x^6/(9*csch(2*log(c*x))^(3/2)) + (4*EllipticE(acsc(c*x), -1))/(15*c^9*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2)) - (4*EllipticF(acsc(c*x), -1))/(15*c^9*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
+    @test_int [x^5/csch(2*log(c*x))^(3/2), x, 10, 4/(15*c^4*(c^4 - 1/x^4)*x^2*csch(2*log(c*x))^(3/2)) - (2*x^2)/(15*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2)) + x^6/(9*csch(2*log(c*x))^(3/2)) + (4*Elliptic.E(acsc(c*x), -1))/(15*c^9*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2)) - (4*Elliptic.F(acsc(c*x), -1))/(15*c^9*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
     @test_int [x^4/csch(2*log(c*x))^(3/2), x, 7, -((3*x)/(16*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2))) + x^5/(8*csch(2*log(c*x))^(3/2)) + (3*atanh(sqrt(1 - 1/(c^4*x^4))))/(16*c^8*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
-    @test_int [x^3/csch(2*log(c*x))^(3/2), x, 6, -(2/(7*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2))) + x^4/(7*csch(2*log(c*x))^(3/2)) - (4*EllipticF(acsc(c*x), -1))/(7*c^7*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
+    @test_int [x^3/csch(2*log(c*x))^(3/2), x, 6, -(2/(7*(c^4 - 1/x^4)*csch(2*log(c*x))^(3/2))) + x^4/(7*csch(2*log(c*x))^(3/2)) - (4*Elliptic.F(acsc(c*x), -1))/(7*c^7*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
     @test_int [x^2/csch(2*log(c*x))^(3/2), x, 7, -(1/(2*(c^4 - 1/x^4)*x*csch(2*log(c*x))^(3/2))) + x^3/(6*csch(2*log(c*x))^(3/2)) - acsc(c^2*x^2)/(2*c^6*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
-    @test_int [x^1/csch(2*log(c*x))^(3/2), x, 9, -(6/(5*(c^4 - 1/x^4)*x^2*csch(2*log(c*x))^(3/2))) + x^2/(5*csch(2*log(c*x))^(3/2)) - (12*EllipticE(acsc(c*x), -1))/(5*c^5*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2)) + (12*EllipticF(acsc(c*x), -1))/(5*c^5*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
+    @test_int [x^1/csch(2*log(c*x))^(3/2), x, 9, -(6/(5*(c^4 - 1/x^4)*x^2*csch(2*log(c*x))^(3/2))) + x^2/(5*csch(2*log(c*x))^(3/2)) - (12*Elliptic.E(acsc(c*x), -1))/(5*c^5*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2)) + (12*Elliptic.F(acsc(c*x), -1))/(5*c^5*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
     @test_int [x^0/csch(2*log(c*x))^(3/2), x, 7, 3/(4*(c^4 - 1/x^4)*x^3*csch(2*log(c*x))^(3/2)) + x/(4*csch(2*log(c*x))^(3/2)) - (3*atanh(sqrt(1 - 1/(c^4*x^4))))/(4*c^4*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2))]
-    @test_int [csch(2*log(c*x))^(3/2)/x^1, x, 4, (-cosh(2*log(c*x)))*sqrt(csch(2*log(c*x))) + (im*EllipticE(pi/4 - im*log(c*x), 2))/(sqrt(csch(2*log(c*x)))*sqrt(im*sinh(2*log(c*x))))]
+    @test_int [csch(2*log(c*x))^(3/2)/x^1, x, 4, (-cosh(2*log(c*x)))*sqrt(csch(2*log(c*x))) + (im*Elliptic.E(pi/4 - im*log(c*x), 2))/(sqrt(csch(2*log(c*x)))*sqrt(im*sinh(2*log(c*x))))]
     @test_int [csch(2*log(c*x))^(3/2)/x^2, x, 3, (-(1/2))*(c^4 - 1/x^4)*x^3*csch(2*log(c*x))^(3/2)]
-    @test_int [csch(2*log(c*x))^(3/2)/x^3, x, 5, (-(1/2))*(c^4 - 1/x^4)*x^2*csch(2*log(c*x))^(3/2) + (1/2)*c^5*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2)*EllipticF(acsc(c*x), -1)]
+    @test_int [csch(2*log(c*x))^(3/2)/x^3, x, 5, (-(1/2))*(c^4 - 1/x^4)*x^2*csch(2*log(c*x))^(3/2) + (1/2)*c^5*(1 - 1/(c^4*x^4))^(3/2)*x^3*csch(2*log(c*x))^(3/2)*Elliptic.F(acsc(c*x), -1)]
     @test_int [csch(2*log(c*x))^(3/2)/x^4, x, 6, (-(1/2))*(c^4 - 1/x^4)*x*csch(2*log(c*x))^(3/2) + (1/2)*c^6*(1 - 1/(c^4*x^4))^(3/2)*x^3*acsc(c^2*x^2)*csch(2*log(c*x))^(3/2)]
 
 
@@ -303,10 +303,10 @@
     #=Integrands*of*the*form*x^m*csch(a+b*log(c*x^n))^p=#
 
 
-    @test_int [csch(a + b*log(c*x^n))^1, x, 4, -((2*ℯ^a*x*(c*x^n)^b*Hypergeometric2F1(1, (b + 1/n)/(2*b), (1/2)*(3 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + b*n))]
-    @test_int [csch(a + b*log(c*x^n))^2, x, 4, (4*ℯ^(2*a)*x*(c*x^n)^(2*b)*Hypergeometric2F1(2, (1/2)*(2 + 1/(b*n)), (1/2)*(4 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + 2*b*n)]
-    @test_int [csch(a + b*log(c*x^n))^3, x, 4, -((8*ℯ^(3*a)*x*(c*x^n)^(3*b)*Hypergeometric2F1(3, (3*b + 1/n)/(2*b), (1/2)*(5 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + 3*b*n))]
-    @test_int [csch(a + b*log(c*x^n))^4, x, 4, (16*ℯ^(4*a)*x*(c*x^n)^(4*b)*Hypergeometric2F1(4, (1/2)*(4 + 1/(b*n)), (1/2)*(6 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + 4*b*n)]
+    @test_int [csch(a + b*log(c*x^n))^1, x, 4, -((2*ℯ^a*x*(c*x^n)^b*HypergeometricFunctions._₂F₁(1, (b + 1/n)/(2*b), (1/2)*(3 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + b*n))]
+    @test_int [csch(a + b*log(c*x^n))^2, x, 4, (4*ℯ^(2*a)*x*(c*x^n)^(2*b)*HypergeometricFunctions._₂F₁(2, (1/2)*(2 + 1/(b*n)), (1/2)*(4 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + 2*b*n)]
+    @test_int [csch(a + b*log(c*x^n))^3, x, 4, -((8*ℯ^(3*a)*x*(c*x^n)^(3*b)*HypergeometricFunctions._₂F₁(3, (3*b + 1/n)/(2*b), (1/2)*(5 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + 3*b*n))]
+    @test_int [csch(a + b*log(c*x^n))^4, x, 4, (16*ℯ^(4*a)*x*(c*x^n)^(4*b)*HypergeometricFunctions._₂F₁(4, (1/2)*(4 + 1/(b*n)), (1/2)*(6 + 1/(b*n)), ℯ^(2*a)*(c*x^n)^(2*b)))/(1 + 4*b*n)]
 
     @test_int [2*b^2*n^2*csch(a + b*log(c*x^n))^3 - (1 - b^2*n^2)*csch(a + b*log(c*x^n)), x, -9, (-x)*csch(a + b*log(c*x^n)) - b*n*x*coth(a + b*log(c*x^n))*csch(a + b*log(c*x^n))]
 
@@ -328,10 +328,10 @@
     #=Integrands*of*the*form*x^m*csch(a+b*log(c*x^n))^(p/2)=#
 
 
-    @test_int [csch(a + b*log(c*x^n))^(5/2)/x, x, 4, -((2*cosh(a + b*log(c*x^n))*csch(a + b*log(c*x^n))^(3/2))/(3*b*n)) + (2*im*sqrt(csch(a + b*log(c*x^n)))*EllipticF((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2)*sqrt(im*sinh(a + b*log(c*x^n))))/(3*b*n)]
-    @test_int [csch(a + b*log(c*x^n))^(3/2)/x, x, 4, -((2*cosh(a + b*log(c*x^n))*sqrt(csch(a + b*log(c*x^n))))/(b*n)) - (2*im*EllipticE((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2))/(b*n*sqrt(csch(a + b*log(c*x^n)))*sqrt(im*sinh(a + b*log(c*x^n))))]
-    @test_int [sqrt(csch(a + b*log(c*x^n)))/x, x, 3, -((2*im*sqrt(csch(a + b*log(c*x^n)))*EllipticF((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2)*sqrt(im*sinh(a + b*log(c*x^n))))/(b*n))]
-    @test_int [1/(x*sqrt(csch(a + b*log(c*x^n)))), x, 3, -((2*im*EllipticE((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2))/(b*n*sqrt(csch(a + b*log(c*x^n)))*sqrt(im*sinh(a + b*log(c*x^n)))))]
-    @test_int [1/(x*csch(a + b*log(c*x^n))^(3/2)), x, 4, (2*cosh(a + b*log(c*x^n)))/(3*b*n*sqrt(csch(a + b*log(c*x^n)))) + (2*im*sqrt(csch(a + b*log(c*x^n)))*EllipticF((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2)*sqrt(im*sinh(a + b*log(c*x^n))))/(3*b*n)]
-    @test_int [1/(x*csch(a + b*log(c*x^n))^(5/2)), x, 4, (2*cosh(a + b*log(c*x^n)))/(5*b*n*csch(a + b*log(c*x^n))^(3/2)) + (6*im*EllipticE((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2))/(5*b*n*sqrt(csch(a + b*log(c*x^n)))*sqrt(im*sinh(a + b*log(c*x^n))))]
+    @test_int [csch(a + b*log(c*x^n))^(5/2)/x, x, 4, -((2*cosh(a + b*log(c*x^n))*csch(a + b*log(c*x^n))^(3/2))/(3*b*n)) + (2*im*sqrt(csch(a + b*log(c*x^n)))*Elliptic.F((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2)*sqrt(im*sinh(a + b*log(c*x^n))))/(3*b*n)]
+    @test_int [csch(a + b*log(c*x^n))^(3/2)/x, x, 4, -((2*cosh(a + b*log(c*x^n))*sqrt(csch(a + b*log(c*x^n))))/(b*n)) - (2*im*Elliptic.E((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2))/(b*n*sqrt(csch(a + b*log(c*x^n)))*sqrt(im*sinh(a + b*log(c*x^n))))]
+    @test_int [sqrt(csch(a + b*log(c*x^n)))/x, x, 3, -((2*im*sqrt(csch(a + b*log(c*x^n)))*Elliptic.F((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2)*sqrt(im*sinh(a + b*log(c*x^n))))/(b*n))]
+    @test_int [1/(x*sqrt(csch(a + b*log(c*x^n)))), x, 3, -((2*im*Elliptic.E((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2))/(b*n*sqrt(csch(a + b*log(c*x^n)))*sqrt(im*sinh(a + b*log(c*x^n)))))]
+    @test_int [1/(x*csch(a + b*log(c*x^n))^(3/2)), x, 4, (2*cosh(a + b*log(c*x^n)))/(3*b*n*sqrt(csch(a + b*log(c*x^n)))) + (2*im*sqrt(csch(a + b*log(c*x^n)))*Elliptic.F((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2)*sqrt(im*sinh(a + b*log(c*x^n))))/(3*b*n)]
+    @test_int [1/(x*csch(a + b*log(c*x^n))^(5/2)), x, 4, (2*cosh(a + b*log(c*x^n)))/(5*b*n*csch(a + b*log(c*x^n))^(3/2)) + (6*im*Elliptic.E((1/2)*(im*a - pi/2 + im*b*log(c*x^n)), 2))/(5*b*n*sqrt(csch(a + b*log(c*x^n)))*sqrt(im*sinh(a + b*log(c*x^n))))]
     end

@@ -1,5 +1,5 @@
 @testset "8.8 Polylogarithm function" begin
-    @variables F, a, b, c, d, e, f, g, h, m, n, p, q, x
+    (F, a, b, c, d, e, f, g, h, m, n, p, q, x, ) = @variables F a b c d e f g h m n p q x
 
     #= ::Package:: =#
 
@@ -81,22 +81,22 @@
     #=q*symbolic=#
 
 
-    @test_int [x^2*PolyLog(2, a*x^q), x, 3, (a*q^2*x^(3 + q)*Hypergeometric2F1(1, (3 + q)/q, 2 + 3/q, a*x^q))/(9*(3 + q)) + (1/9)*q*x^3*log(1 - a*x^q) + (1/3)*x^3*PolyLog(2, a*x^q)]
-    @test_int [x^1*PolyLog(2, a*x^q), x, 3, (a*q^2*x^(2 + q)*Hypergeometric2F1(1, (2 + q)/q, 2*(1 + 1/q), a*x^q))/(4*(2 + q)) + (1/4)*q*x^2*log(1 - a*x^q) + (1/2)*x^2*PolyLog(2, a*x^q)]
-    @test_int [x^0*PolyLog(2, a*x^q), x, 3, (a*q^2*x^(1 + q)*Hypergeometric2F1(1, 1 + 1/q, 2 + 1/q, a*x^q))/(1 + q) + q*x*log(1 - a*x^q) + x*PolyLog(2, a*x^q)]
+    @test_int [x^2*PolyLog(2, a*x^q), x, 3, (a*q^2*x^(3 + q)*HypergeometricFunctions._₂F₁(1, (3 + q)/q, 2 + 3/q, a*x^q))/(9*(3 + q)) + (1/9)*q*x^3*log(1 - a*x^q) + (1/3)*x^3*PolyLog(2, a*x^q)]
+    @test_int [x^1*PolyLog(2, a*x^q), x, 3, (a*q^2*x^(2 + q)*HypergeometricFunctions._₂F₁(1, (2 + q)/q, 2*(1 + 1/q), a*x^q))/(4*(2 + q)) + (1/4)*q*x^2*log(1 - a*x^q) + (1/2)*x^2*PolyLog(2, a*x^q)]
+    @test_int [x^0*PolyLog(2, a*x^q), x, 3, (a*q^2*x^(1 + q)*HypergeometricFunctions._₂F₁(1, 1 + 1/q, 2 + 1/q, a*x^q))/(1 + q) + q*x*log(1 - a*x^q) + x*PolyLog(2, a*x^q)]
     @test_int [PolyLog(2, a*x^q)/x^1, x, 1, PolyLog(3, a*x^q)/q]
-    @test_int [PolyLog(2, a*x^q)/x^2, x, 3, -((a*q^2*x^(-1 + q)*Hypergeometric2F1(1, -((1 - q)/q), 2 - 1/q, a*x^q))/(1 - q)) + (q*log(1 - a*x^q))/x - PolyLog(2, a*x^q)/x]
-    @test_int [PolyLog(2, a*x^q)/x^3, x, 3, -((a*q^2*x^(-2 + q)*Hypergeometric2F1(1, -((2 - q)/q), 2*(1 - 1/q), a*x^q))/(4*(2 - q))) + (q*log(1 - a*x^q))/(4*x^2) - PolyLog(2, a*x^q)/(2*x^2)]
-    @test_int [PolyLog(2, a*x^q)/x^4, x, 3, -((a*q^2*x^(-3 + q)*Hypergeometric2F1(1, -((3 - q)/q), 2 - 3/q, a*x^q))/(9*(3 - q))) + (q*log(1 - a*x^q))/(9*x^3) - PolyLog(2, a*x^q)/(3*x^3)]
+    @test_int [PolyLog(2, a*x^q)/x^2, x, 3, -((a*q^2*x^(-1 + q)*HypergeometricFunctions._₂F₁(1, -((1 - q)/q), 2 - 1/q, a*x^q))/(1 - q)) + (q*log(1 - a*x^q))/x - PolyLog(2, a*x^q)/x]
+    @test_int [PolyLog(2, a*x^q)/x^3, x, 3, -((a*q^2*x^(-2 + q)*HypergeometricFunctions._₂F₁(1, -((2 - q)/q), 2*(1 - 1/q), a*x^q))/(4*(2 - q))) + (q*log(1 - a*x^q))/(4*x^2) - PolyLog(2, a*x^q)/(2*x^2)]
+    @test_int [PolyLog(2, a*x^q)/x^4, x, 3, -((a*q^2*x^(-3 + q)*HypergeometricFunctions._₂F₁(1, -((3 - q)/q), 2 - 3/q, a*x^q))/(9*(3 - q))) + (q*log(1 - a*x^q))/(9*x^3) - PolyLog(2, a*x^q)/(3*x^3)]
 
 
-    @test_int [x^2*PolyLog(3, a*x^q), x, 4, -((a*q^3*x^(3 + q)*Hypergeometric2F1(1, (3 + q)/q, 2 + 3/q, a*x^q))/(27*(3 + q))) - (1/27)*q^2*x^3*log(1 - a*x^q) - (1/9)*q*x^3*PolyLog(2, a*x^q) + (1/3)*x^3*PolyLog(3, a*x^q)]
-    @test_int [x^1*PolyLog(3, a*x^q), x, 4, -((a*q^3*x^(2 + q)*Hypergeometric2F1(1, (2 + q)/q, 2*(1 + 1/q), a*x^q))/(8*(2 + q))) - (1/8)*q^2*x^2*log(1 - a*x^q) - (1/4)*q*x^2*PolyLog(2, a*x^q) + (1/2)*x^2*PolyLog(3, a*x^q)]
-    @test_int [x^0*PolyLog(3, a*x^q), x, 4, -((a*q^3*x^(1 + q)*Hypergeometric2F1(1, 1 + 1/q, 2 + 1/q, a*x^q))/(1 + q)) - q^2*x*log(1 - a*x^q) - q*x*PolyLog(2, a*x^q) + x*PolyLog(3, a*x^q)]
+    @test_int [x^2*PolyLog(3, a*x^q), x, 4, -((a*q^3*x^(3 + q)*HypergeometricFunctions._₂F₁(1, (3 + q)/q, 2 + 3/q, a*x^q))/(27*(3 + q))) - (1/27)*q^2*x^3*log(1 - a*x^q) - (1/9)*q*x^3*PolyLog(2, a*x^q) + (1/3)*x^3*PolyLog(3, a*x^q)]
+    @test_int [x^1*PolyLog(3, a*x^q), x, 4, -((a*q^3*x^(2 + q)*HypergeometricFunctions._₂F₁(1, (2 + q)/q, 2*(1 + 1/q), a*x^q))/(8*(2 + q))) - (1/8)*q^2*x^2*log(1 - a*x^q) - (1/4)*q*x^2*PolyLog(2, a*x^q) + (1/2)*x^2*PolyLog(3, a*x^q)]
+    @test_int [x^0*PolyLog(3, a*x^q), x, 4, -((a*q^3*x^(1 + q)*HypergeometricFunctions._₂F₁(1, 1 + 1/q, 2 + 1/q, a*x^q))/(1 + q)) - q^2*x*log(1 - a*x^q) - q*x*PolyLog(2, a*x^q) + x*PolyLog(3, a*x^q)]
     @test_int [PolyLog(3, a*x^q)/x^1, x, 1, PolyLog(4, a*x^q)/q]
-    @test_int [PolyLog(3, a*x^q)/x^2, x, 4, -((a*q^3*x^(-1 + q)*Hypergeometric2F1(1, -((1 - q)/q), 2 - 1/q, a*x^q))/(1 - q)) + (q^2*log(1 - a*x^q))/x - (q*PolyLog(2, a*x^q))/x - PolyLog(3, a*x^q)/x]
-    @test_int [PolyLog(3, a*x^q)/x^3, x, 4, -((a*q^3*x^(-2 + q)*Hypergeometric2F1(1, -((2 - q)/q), 2*(1 - 1/q), a*x^q))/(8*(2 - q))) + (q^2*log(1 - a*x^q))/(8*x^2) - (q*PolyLog(2, a*x^q))/(4*x^2) - PolyLog(3, a*x^q)/(2*x^2)]
-    @test_int [PolyLog(3, a*x^q)/x^4, x, 4, -((a*q^3*x^(-3 + q)*Hypergeometric2F1(1, -((3 - q)/q), 2 - 3/q, a*x^q))/(27*(3 - q))) + (q^2*log(1 - a*x^q))/(27*x^3) - (q*PolyLog(2, a*x^q))/(9*x^3) - PolyLog(3, a*x^q)/(3*x^3)]
+    @test_int [PolyLog(3, a*x^q)/x^2, x, 4, -((a*q^3*x^(-1 + q)*HypergeometricFunctions._₂F₁(1, -((1 - q)/q), 2 - 1/q, a*x^q))/(1 - q)) + (q^2*log(1 - a*x^q))/x - (q*PolyLog(2, a*x^q))/x - PolyLog(3, a*x^q)/x]
+    @test_int [PolyLog(3, a*x^q)/x^3, x, 4, -((a*q^3*x^(-2 + q)*HypergeometricFunctions._₂F₁(1, -((2 - q)/q), 2*(1 - 1/q), a*x^q))/(8*(2 - q))) + (q^2*log(1 - a*x^q))/(8*x^2) - (q*PolyLog(2, a*x^q))/(4*x^2) - PolyLog(3, a*x^q)/(2*x^2)]
+    @test_int [PolyLog(3, a*x^q)/x^4, x, 4, -((a*q^3*x^(-3 + q)*HypergeometricFunctions._₂F₁(1, -((3 - q)/q), 2 - 3/q, a*x^q))/(27*(3 - q))) + (q^2*log(1 - a*x^q))/(27*x^3) - (q*PolyLog(2, a*x^q))/(9*x^3) - PolyLog(3, a*x^q)/(3*x^3)]
 
 
     #= ::Subsection::Closed:: =#
@@ -150,18 +150,18 @@
     #=q*symbolic=#
 
 
-    @test_int [(d*x)^(3/2)*PolyLog(2, a*x^q), x, 4, (8*a*d*q^2*x^(2 + q)*sqrt(d*x)*Hypergeometric2F1(1, (5/2 + q)/q, (1/2)*(4 + 5/q), a*x^q))/(25*(5 + 2*q)) + (4*q*(d*x)^(5/2)*log(1 - a*x^q))/(25*d) + (2*(d*x)^(5/2)*PolyLog(2, a*x^q))/(5*d)]
-    @test_int [(d*x)^(1/2)*PolyLog(2, a*x^q), x, 4, (8*a*q^2*x^(1 + q)*sqrt(d*x)*Hypergeometric2F1(1, (3/2 + q)/q, (1/2)*(4 + 3/q), a*x^q))/(9*(3 + 2*q)) + (4*q*(d*x)^(3/2)*log(1 - a*x^q))/(9*d) + (2*(d*x)^(3/2)*PolyLog(2, a*x^q))/(3*d)]
-    @test_int [PolyLog(2, a*x^q)/(d*x)^(1/2), x, 4, (8*a*q^2*x^q*sqrt(d*x)*Hypergeometric2F1(1, (1/2 + q)/q, (1/2)*(4 + 1/q), a*x^q))/(d*(1 + 2*q)) + (4*q*sqrt(d*x)*log(1 - a*x^q))/d + (2*sqrt(d*x)*PolyLog(2, a*x^q))/d]
-    @test_int [PolyLog(2, a*x^q)/(d*x)^(3/2), x, 4, -((8*a*q^2*x^q*Hypergeometric2F1(1, (1/2)*(2 - 1/q), (1/2)*(4 - 1/q), a*x^q))/(d*(1 - 2*q)*sqrt(d*x))) + (4*q*log(1 - a*x^q))/(d*sqrt(d*x)) - (2*PolyLog(2, a*x^q))/(d*sqrt(d*x))]
-    @test_int [PolyLog(2, a*x^q)/(d*x)^(5/2), x, 4, -((8*a*q^2*x^(-1 + q)*Hypergeometric2F1(1, (1/2)*(2 - 3/q), (1/2)*(4 - 3/q), a*x^q))/(9*d^2*(3 - 2*q)*sqrt(d*x))) + (4*q*log(1 - a*x^q))/(9*d*(d*x)^(3/2)) - (2*PolyLog(2, a*x^q))/(3*d*(d*x)^(3/2))]
+    @test_int [(d*x)^(3/2)*PolyLog(2, a*x^q), x, 4, (8*a*d*q^2*x^(2 + q)*sqrt(d*x)*HypergeometricFunctions._₂F₁(1, (5/2 + q)/q, (1/2)*(4 + 5/q), a*x^q))/(25*(5 + 2*q)) + (4*q*(d*x)^(5/2)*log(1 - a*x^q))/(25*d) + (2*(d*x)^(5/2)*PolyLog(2, a*x^q))/(5*d)]
+    @test_int [(d*x)^(1/2)*PolyLog(2, a*x^q), x, 4, (8*a*q^2*x^(1 + q)*sqrt(d*x)*HypergeometricFunctions._₂F₁(1, (3/2 + q)/q, (1/2)*(4 + 3/q), a*x^q))/(9*(3 + 2*q)) + (4*q*(d*x)^(3/2)*log(1 - a*x^q))/(9*d) + (2*(d*x)^(3/2)*PolyLog(2, a*x^q))/(3*d)]
+    @test_int [PolyLog(2, a*x^q)/(d*x)^(1/2), x, 4, (8*a*q^2*x^q*sqrt(d*x)*HypergeometricFunctions._₂F₁(1, (1/2 + q)/q, (1/2)*(4 + 1/q), a*x^q))/(d*(1 + 2*q)) + (4*q*sqrt(d*x)*log(1 - a*x^q))/d + (2*sqrt(d*x)*PolyLog(2, a*x^q))/d]
+    @test_int [PolyLog(2, a*x^q)/(d*x)^(3/2), x, 4, -((8*a*q^2*x^q*HypergeometricFunctions._₂F₁(1, (1/2)*(2 - 1/q), (1/2)*(4 - 1/q), a*x^q))/(d*(1 - 2*q)*sqrt(d*x))) + (4*q*log(1 - a*x^q))/(d*sqrt(d*x)) - (2*PolyLog(2, a*x^q))/(d*sqrt(d*x))]
+    @test_int [PolyLog(2, a*x^q)/(d*x)^(5/2), x, 4, -((8*a*q^2*x^(-1 + q)*HypergeometricFunctions._₂F₁(1, (1/2)*(2 - 3/q), (1/2)*(4 - 3/q), a*x^q))/(9*d^2*(3 - 2*q)*sqrt(d*x))) + (4*q*log(1 - a*x^q))/(9*d*(d*x)^(3/2)) - (2*PolyLog(2, a*x^q))/(3*d*(d*x)^(3/2))]
 
 
-    @test_int [(d*x)^(3/2)*PolyLog(3, a*x^q), x, 5, -((16*a*d*q^3*x^(2 + q)*sqrt(d*x)*Hypergeometric2F1(1, (5/2 + q)/q, (1/2)*(4 + 5/q), a*x^q))/(125*(5 + 2*q))) - (8*q^2*(d*x)^(5/2)*log(1 - a*x^q))/(125*d) - (4*q*(d*x)^(5/2)*PolyLog(2, a*x^q))/(25*d) + (2*(d*x)^(5/2)*PolyLog(3, a*x^q))/(5*d)]
-    @test_int [(d*x)^(1/2)*PolyLog(3, a*x^q), x, 5, -((16*a*q^3*x^(1 + q)*sqrt(d*x)*Hypergeometric2F1(1, (3/2 + q)/q, (1/2)*(4 + 3/q), a*x^q))/(27*(3 + 2*q))) - (8*q^2*(d*x)^(3/2)*log(1 - a*x^q))/(27*d) - (4*q*(d*x)^(3/2)*PolyLog(2, a*x^q))/(9*d) + (2*(d*x)^(3/2)*PolyLog(3, a*x^q))/(3*d)]
-    @test_int [PolyLog(3, a*x^q)/(d*x)^(1/2), x, 5, -((16*a*q^3*x^q*sqrt(d*x)*Hypergeometric2F1(1, (1/2 + q)/q, (1/2)*(4 + 1/q), a*x^q))/(d*(1 + 2*q))) - (8*q^2*sqrt(d*x)*log(1 - a*x^q))/d - (4*q*sqrt(d*x)*PolyLog(2, a*x^q))/d + (2*sqrt(d*x)*PolyLog(3, a*x^q))/d]
-    @test_int [PolyLog(3, a*x^q)/(d*x)^(3/2), x, 5, -((16*a*q^3*x^q*Hypergeometric2F1(1, (1/2)*(2 - 1/q), (1/2)*(4 - 1/q), a*x^q))/(d*(1 - 2*q)*sqrt(d*x))) + (8*q^2*log(1 - a*x^q))/(d*sqrt(d*x)) - (4*q*PolyLog(2, a*x^q))/(d*sqrt(d*x)) - (2*PolyLog(3, a*x^q))/(d*sqrt(d*x))]
-    @test_int [PolyLog(3, a*x^q)/(d*x)^(5/2), x, 5, -((16*a*q^3*x^(-1 + q)*Hypergeometric2F1(1, (1/2)*(2 - 3/q), (1/2)*(4 - 3/q), a*x^q))/(27*d^2*(3 - 2*q)*sqrt(d*x))) + (8*q^2*log(1 - a*x^q))/(27*d*(d*x)^(3/2)) - (4*q*PolyLog(2, a*x^q))/(9*d*(d*x)^(3/2)) - (2*PolyLog(3, a*x^q))/(3*d*(d*x)^(3/2))]
+    @test_int [(d*x)^(3/2)*PolyLog(3, a*x^q), x, 5, -((16*a*d*q^3*x^(2 + q)*sqrt(d*x)*HypergeometricFunctions._₂F₁(1, (5/2 + q)/q, (1/2)*(4 + 5/q), a*x^q))/(125*(5 + 2*q))) - (8*q^2*(d*x)^(5/2)*log(1 - a*x^q))/(125*d) - (4*q*(d*x)^(5/2)*PolyLog(2, a*x^q))/(25*d) + (2*(d*x)^(5/2)*PolyLog(3, a*x^q))/(5*d)]
+    @test_int [(d*x)^(1/2)*PolyLog(3, a*x^q), x, 5, -((16*a*q^3*x^(1 + q)*sqrt(d*x)*HypergeometricFunctions._₂F₁(1, (3/2 + q)/q, (1/2)*(4 + 3/q), a*x^q))/(27*(3 + 2*q))) - (8*q^2*(d*x)^(3/2)*log(1 - a*x^q))/(27*d) - (4*q*(d*x)^(3/2)*PolyLog(2, a*x^q))/(9*d) + (2*(d*x)^(3/2)*PolyLog(3, a*x^q))/(3*d)]
+    @test_int [PolyLog(3, a*x^q)/(d*x)^(1/2), x, 5, -((16*a*q^3*x^q*sqrt(d*x)*HypergeometricFunctions._₂F₁(1, (1/2 + q)/q, (1/2)*(4 + 1/q), a*x^q))/(d*(1 + 2*q))) - (8*q^2*sqrt(d*x)*log(1 - a*x^q))/d - (4*q*sqrt(d*x)*PolyLog(2, a*x^q))/d + (2*sqrt(d*x)*PolyLog(3, a*x^q))/d]
+    @test_int [PolyLog(3, a*x^q)/(d*x)^(3/2), x, 5, -((16*a*q^3*x^q*HypergeometricFunctions._₂F₁(1, (1/2)*(2 - 1/q), (1/2)*(4 - 1/q), a*x^q))/(d*(1 - 2*q)*sqrt(d*x))) + (8*q^2*log(1 - a*x^q))/(d*sqrt(d*x)) - (4*q*PolyLog(2, a*x^q))/(d*sqrt(d*x)) - (2*PolyLog(3, a*x^q))/(d*sqrt(d*x))]
+    @test_int [PolyLog(3, a*x^q)/(d*x)^(5/2), x, 5, -((16*a*q^3*x^(-1 + q)*HypergeometricFunctions._₂F₁(1, (1/2)*(2 - 3/q), (1/2)*(4 - 3/q), a*x^q))/(27*d^2*(3 - 2*q)*sqrt(d*x))) + (8*q^2*log(1 - a*x^q))/(27*d*(d*x)^(3/2)) - (4*q*PolyLog(2, a*x^q))/(9*d*(d*x)^(3/2)) - (2*PolyLog(3, a*x^q))/(3*d*(d*x)^(3/2))]
 
 
     #= ::Subsection::Closed:: =#
@@ -182,24 +182,24 @@
     #=Integrands*of*the*form*(d*x)^m*PolyLog(n, a*x^q)*with*m*symbolic=#
 
 
-    @test_int [(d*x)^m*PolyLog(2, a*x), x, 3, (a*(d*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, a*x))/(d^2*(1 + m)^2*(2 + m)) + ((d*x)^(1 + m)*log(1 - a*x))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(3, a*x), x, 4, -((a*(d*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, a*x))/(d^2*(1 + m)^3*(2 + m))) - ((d*x)^(1 + m)*log(1 - a*x))/(d*(1 + m)^3) - ((d*x)^(1 + m)*PolyLog(2, a*x))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(4, a*x), x, 5, (a*(d*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, a*x))/(d^2*(1 + m)^4*(2 + m)) + ((d*x)^(1 + m)*log(1 - a*x))/(d*(1 + m)^4) + ((d*x)^(1 + m)*PolyLog(2, a*x))/(d*(1 + m)^3) - ((d*x)^(1 + m)*PolyLog(3, a*x))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(2, a*x), x, 3, (a*(d*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, a*x))/(d^2*(1 + m)^2*(2 + m)) + ((d*x)^(1 + m)*log(1 - a*x))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(3, a*x), x, 4, -((a*(d*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, a*x))/(d^2*(1 + m)^3*(2 + m))) - ((d*x)^(1 + m)*log(1 - a*x))/(d*(1 + m)^3) - ((d*x)^(1 + m)*PolyLog(2, a*x))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(4, a*x), x, 5, (a*(d*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, a*x))/(d^2*(1 + m)^4*(2 + m)) + ((d*x)^(1 + m)*log(1 - a*x))/(d*(1 + m)^4) + ((d*x)^(1 + m)*PolyLog(2, a*x))/(d*(1 + m)^3) - ((d*x)^(1 + m)*PolyLog(3, a*x))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x))/(d*(1 + m))]
 
 
-    @test_int [(d*x)^m*PolyLog(2, a*x^2), x, 4, (4*a*(d*x)^(3 + m)*Hypergeometric2F1(1, (3 + m)/2, (5 + m)/2, a*x^2))/(d^3*(1 + m)^2*(3 + m)) + (2*(d*x)^(1 + m)*log(1 - a*x^2))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x^2))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(3, a*x^2), x, 5, -((8*a*(d*x)^(3 + m)*Hypergeometric2F1(1, (3 + m)/2, (5 + m)/2, a*x^2))/(d^3*(1 + m)^3*(3 + m))) - (4*(d*x)^(1 + m)*log(1 - a*x^2))/(d*(1 + m)^3) - (2*(d*x)^(1 + m)*PolyLog(2, a*x^2))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x^2))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(4, a*x^2), x, 6, (16*a*(d*x)^(3 + m)*Hypergeometric2F1(1, (3 + m)/2, (5 + m)/2, a*x^2))/(d^3*(1 + m)^4*(3 + m)) + (8*(d*x)^(1 + m)*log(1 - a*x^2))/(d*(1 + m)^4) + (4*(d*x)^(1 + m)*PolyLog(2, a*x^2))/(d*(1 + m)^3) - (2*(d*x)^(1 + m)*PolyLog(3, a*x^2))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x^2))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(2, a*x^2), x, 4, (4*a*(d*x)^(3 + m)*HypergeometricFunctions._₂F₁(1, (3 + m)/2, (5 + m)/2, a*x^2))/(d^3*(1 + m)^2*(3 + m)) + (2*(d*x)^(1 + m)*log(1 - a*x^2))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x^2))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(3, a*x^2), x, 5, -((8*a*(d*x)^(3 + m)*HypergeometricFunctions._₂F₁(1, (3 + m)/2, (5 + m)/2, a*x^2))/(d^3*(1 + m)^3*(3 + m))) - (4*(d*x)^(1 + m)*log(1 - a*x^2))/(d*(1 + m)^3) - (2*(d*x)^(1 + m)*PolyLog(2, a*x^2))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x^2))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(4, a*x^2), x, 6, (16*a*(d*x)^(3 + m)*HypergeometricFunctions._₂F₁(1, (3 + m)/2, (5 + m)/2, a*x^2))/(d^3*(1 + m)^4*(3 + m)) + (8*(d*x)^(1 + m)*log(1 - a*x^2))/(d*(1 + m)^4) + (4*(d*x)^(1 + m)*PolyLog(2, a*x^2))/(d*(1 + m)^3) - (2*(d*x)^(1 + m)*PolyLog(3, a*x^2))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x^2))/(d*(1 + m))]
 
 
-    @test_int [(d*x)^m*PolyLog(2, a*x^3), x, 4, (9*a*(d*x)^(4 + m)*Hypergeometric2F1(1, (4 + m)/3, (7 + m)/3, a*x^3))/(d^4*(1 + m)^2*(4 + m)) + (3*(d*x)^(1 + m)*log(1 - a*x^3))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x^3))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(3, a*x^3), x, 5, -((27*a*(d*x)^(4 + m)*Hypergeometric2F1(1, (4 + m)/3, (7 + m)/3, a*x^3))/(d^4*(1 + m)^3*(4 + m))) - (9*(d*x)^(1 + m)*log(1 - a*x^3))/(d*(1 + m)^3) - (3*(d*x)^(1 + m)*PolyLog(2, a*x^3))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x^3))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(4, a*x^3), x, 6, (81*a*(d*x)^(4 + m)*Hypergeometric2F1(1, (4 + m)/3, (7 + m)/3, a*x^3))/(d^4*(1 + m)^4*(4 + m)) + (27*(d*x)^(1 + m)*log(1 - a*x^3))/(d*(1 + m)^4) + (9*(d*x)^(1 + m)*PolyLog(2, a*x^3))/(d*(1 + m)^3) - (3*(d*x)^(1 + m)*PolyLog(3, a*x^3))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x^3))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(2, a*x^3), x, 4, (9*a*(d*x)^(4 + m)*HypergeometricFunctions._₂F₁(1, (4 + m)/3, (7 + m)/3, a*x^3))/(d^4*(1 + m)^2*(4 + m)) + (3*(d*x)^(1 + m)*log(1 - a*x^3))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x^3))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(3, a*x^3), x, 5, -((27*a*(d*x)^(4 + m)*HypergeometricFunctions._₂F₁(1, (4 + m)/3, (7 + m)/3, a*x^3))/(d^4*(1 + m)^3*(4 + m))) - (9*(d*x)^(1 + m)*log(1 - a*x^3))/(d*(1 + m)^3) - (3*(d*x)^(1 + m)*PolyLog(2, a*x^3))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x^3))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(4, a*x^3), x, 6, (81*a*(d*x)^(4 + m)*HypergeometricFunctions._₂F₁(1, (4 + m)/3, (7 + m)/3, a*x^3))/(d^4*(1 + m)^4*(4 + m)) + (27*(d*x)^(1 + m)*log(1 - a*x^3))/(d*(1 + m)^4) + (9*(d*x)^(1 + m)*PolyLog(2, a*x^3))/(d*(1 + m)^3) - (3*(d*x)^(1 + m)*PolyLog(3, a*x^3))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x^3))/(d*(1 + m))]
 
 
-    @test_int [(d*x)^m*PolyLog(2, a*x^q), x, 4, (a*q^2*x^(1 + q)*(d*x)^m*Hypergeometric2F1(1, (1 + m + q)/q, (1 + m + 2*q)/q, a*x^q))/((1 + m)^2*(1 + m + q)) + (q*(d*x)^(1 + m)*log(1 - a*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x^q))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(3, a*x^q), x, 5, -((a*q^3*x^(1 + q)*(d*x)^m*Hypergeometric2F1(1, (1 + m + q)/q, (1 + m + 2*q)/q, a*x^q))/((1 + m)^3*(1 + m + q))) - (q^2*(d*x)^(1 + m)*log(1 - a*x^q))/(d*(1 + m)^3) - (q*(d*x)^(1 + m)*PolyLog(2, a*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x^q))/(d*(1 + m))]
-    @test_int [(d*x)^m*PolyLog(4, a*x^q), x, 6, (a*q^4*x^(1 + q)*(d*x)^m*Hypergeometric2F1(1, (1 + m + q)/q, (1 + m + 2*q)/q, a*x^q))/((1 + m)^4*(1 + m + q)) + (q^3*(d*x)^(1 + m)*log(1 - a*x^q))/(d*(1 + m)^4) + (q^2*(d*x)^(1 + m)*PolyLog(2, a*x^q))/(d*(1 + m)^3) - (q*(d*x)^(1 + m)*PolyLog(3, a*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x^q))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(2, a*x^q), x, 4, (a*q^2*x^(1 + q)*(d*x)^m*HypergeometricFunctions._₂F₁(1, (1 + m + q)/q, (1 + m + 2*q)/q, a*x^q))/((1 + m)^2*(1 + m + q)) + (q*(d*x)^(1 + m)*log(1 - a*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(2, a*x^q))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(3, a*x^q), x, 5, -((a*q^3*x^(1 + q)*(d*x)^m*HypergeometricFunctions._₂F₁(1, (1 + m + q)/q, (1 + m + 2*q)/q, a*x^q))/((1 + m)^3*(1 + m + q))) - (q^2*(d*x)^(1 + m)*log(1 - a*x^q))/(d*(1 + m)^3) - (q*(d*x)^(1 + m)*PolyLog(2, a*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(3, a*x^q))/(d*(1 + m))]
+    @test_int [(d*x)^m*PolyLog(4, a*x^q), x, 6, (a*q^4*x^(1 + q)*(d*x)^m*HypergeometricFunctions._₂F₁(1, (1 + m + q)/q, (1 + m + 2*q)/q, a*x^q))/((1 + m)^4*(1 + m + q)) + (q^3*(d*x)^(1 + m)*log(1 - a*x^q))/(d*(1 + m)^4) + (q^2*(d*x)^(1 + m)*PolyLog(2, a*x^q))/(d*(1 + m)^3) - (q*(d*x)^(1 + m)*PolyLog(3, a*x^q))/(d*(1 + m)^2) + ((d*x)^(1 + m)*PolyLog(4, a*x^q))/(d*(1 + m))]
 
 
     #= ::Subsection::Closed:: =#

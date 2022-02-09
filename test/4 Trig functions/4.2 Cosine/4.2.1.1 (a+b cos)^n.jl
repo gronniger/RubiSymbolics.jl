@@ -1,5 +1,5 @@
 @testset "4.2.1.1 (a+b cos)^n" begin
-    @variables a, b, c, d, n, x
+    (a, b, c, d, n, x, ) = @variables a b c d n x
 
     #= ::Package:: =#
 
@@ -32,24 +32,24 @@
     #=Integrands*of*the*form*(a+a*cos(c+d*x))^(n/3)=#
 
 
-    @test_int [(a + a*cos(c + d*x))^(4/3), x, 2, (2*2^(5/6)*a*(a + a*cos(c + d*x))^(1/3)*Hypergeometric2F1(-(5/6), 1/2, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(5/6))]
-    @test_int [(a + a*cos(c + d*x))^(2/3), x, 2, (2*2^(1/6)*(a + a*cos(c + d*x))^(2/3)*Hypergeometric2F1(-(1/6), 1/2, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(7/6))]
-    @test_int [(a + a*cos(c + d*x))^(1/3), x, 2, (2^(5/6)*(a + a*cos(c + d*x))^(1/3)*Hypergeometric2F1(1/6, 1/2, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(5/6))]
-    @test_int [1/(a + a*cos(c + d*x))^(1/3), x, 2, (2^(1/6)*Hypergeometric2F1(1/2, 5/6, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(1/6)*(a + a*cos(c + d*x))^(1/3))]
-    @test_int [1/(a + a*cos(c + d*x))^(2/3), x, 2, ((1 + cos(c + d*x))^(1/6)*Hypergeometric2F1(1/2, 7/6, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(2^(1/6)*d*(a + a*cos(c + d*x))^(2/3))]
-    @test_int [1/(a + a*cos(c + d*x))^(4/3), x, 2, (Hypergeometric2F1(1/2, 11/6, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(2^(5/6)*a*d*(1 + cos(c + d*x))^(1/6)*(a + a*cos(c + d*x))^(1/3))]
+    @test_int [(a + a*cos(c + d*x))^(4/3), x, 2, (2*2^(5/6)*a*(a + a*cos(c + d*x))^(1/3)*HypergeometricFunctions._₂F₁(-(5/6), 1/2, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(5/6))]
+    @test_int [(a + a*cos(c + d*x))^(2/3), x, 2, (2*2^(1/6)*(a + a*cos(c + d*x))^(2/3)*HypergeometricFunctions._₂F₁(-(1/6), 1/2, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(7/6))]
+    @test_int [(a + a*cos(c + d*x))^(1/3), x, 2, (2^(5/6)*(a + a*cos(c + d*x))^(1/3)*HypergeometricFunctions._₂F₁(1/6, 1/2, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(5/6))]
+    @test_int [1/(a + a*cos(c + d*x))^(1/3), x, 2, (2^(1/6)*HypergeometricFunctions._₂F₁(1/2, 5/6, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*(1 + cos(c + d*x))^(1/6)*(a + a*cos(c + d*x))^(1/3))]
+    @test_int [1/(a + a*cos(c + d*x))^(2/3), x, 2, ((1 + cos(c + d*x))^(1/6)*HypergeometricFunctions._₂F₁(1/2, 7/6, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(2^(1/6)*d*(a + a*cos(c + d*x))^(2/3))]
+    @test_int [1/(a + a*cos(c + d*x))^(4/3), x, 2, (HypergeometricFunctions._₂F₁(1/2, 11/6, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(2^(5/6)*a*d*(1 + cos(c + d*x))^(1/6)*(a + a*cos(c + d*x))^(1/3))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(a+a*cos(c+d*x))^n*with*n*symbolic=#
 
 
-    @test_int [(a + a*cos(c + d*x))^n, x, 2, (2^(1/2 + n)*(1 + cos(c + d*x))^(-(1/2) - n)*(a + a*cos(c + d*x))^n*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/d]
-    @test_int [(a - a*cos(c + d*x))^n, x, 2, -((2^(1/2 + n)*(1 - cos(c + d*x))^(-(1/2) - n)*(a - a*cos(c + d*x))^n*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 + cos(c + d*x)))*sin(c + d*x))/d)]
+    @test_int [(a + a*cos(c + d*x))^n, x, 2, (2^(1/2 + n)*(1 + cos(c + d*x))^(-(1/2) - n)*(a + a*cos(c + d*x))^n*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/d]
+    @test_int [(a - a*cos(c + d*x))^n, x, 2, -((2^(1/2 + n)*(1 - cos(c + d*x))^(-(1/2) - n)*(a - a*cos(c + d*x))^n*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 + cos(c + d*x)))*sin(c + d*x))/d)]
 
 
-    @test_int [(2 + 2*cos(c + d*x))^n, x, 1, (2^(1/2 + 2*n)*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*sqrt(1 + cos(c + d*x)))]
-    @test_int [(2 - 2*cos(c + d*x))^n, x, 1, -((2^(1/2 + 2*n)*Hypergeometric2F1(1/2, 1/2 - n, 3/2, (1/2)*(1 + cos(c + d*x)))*sin(c + d*x))/(d*sqrt(1 - cos(c + d*x))))]
+    @test_int [(2 + 2*cos(c + d*x))^n, x, 1, (2^(1/2 + 2*n)*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 - cos(c + d*x)))*sin(c + d*x))/(d*sqrt(1 + cos(c + d*x)))]
+    @test_int [(2 - 2*cos(c + d*x))^n, x, 1, -((2^(1/2 + 2*n)*HypergeometricFunctions._₂F₁(1/2, 1/2 - n, 3/2, (1/2)*(1 + cos(c + d*x)))*sin(c + d*x))/(d*sqrt(1 - cos(c + d*x))))]
 
 
     #= ::Section::Closed:: =#
@@ -112,12 +112,12 @@
     #=Integrands*of*the*form*(a+b*cos(c+d*x))^(n/2)=#
 
 
-    @test_int [(a + b*cos(c + d*x))^(5/2), x, 7, (2*(23*a^2 + 9*b^2)*sqrt(a + b*cos(c + d*x))*EllipticE((1/2)*(c + d*x), (2*b)/(a + b)))/(15*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (16*a*(a^2 - b^2)*sqrt((a + b*cos(c + d*x))/(a + b))*EllipticF((1/2)*(c + d*x), (2*b)/(a + b)))/(15*d*sqrt(a + b*cos(c + d*x))) + (16*a*b*sqrt(a + b*cos(c + d*x))*sin(c + d*x))/(15*d) + (2*b*(a + b*cos(c + d*x))^(3/2)*sin(c + d*x))/(5*d)]
-    @test_int [(a + b*cos(c + d*x))^(3/2), x, 6, (8*a*sqrt(a + b*cos(c + d*x))*EllipticE((1/2)*(c + d*x), (2*b)/(a + b)))/(3*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (2*(a^2 - b^2)*sqrt((a + b*cos(c + d*x))/(a + b))*EllipticF((1/2)*(c + d*x), (2*b)/(a + b)))/(3*d*sqrt(a + b*cos(c + d*x))) + (2*b*sqrt(a + b*cos(c + d*x))*sin(c + d*x))/(3*d)]
-    @test_int [(a + b*cos(c + d*x))^(1/2), x, 2, (2*sqrt(a + b*cos(c + d*x))*EllipticE((1/2)*(c + d*x), (2*b)/(a + b)))/(d*sqrt((a + b*cos(c + d*x))/(a + b)))]
-    @test_int [1/(a + b*cos(c + d*x))^(1/2), x, 2, (2*sqrt((a + b*cos(c + d*x))/(a + b))*EllipticF((1/2)*(c + d*x), (2*b)/(a + b)))/(d*sqrt(a + b*cos(c + d*x)))]
-    @test_int [1/(a + b*cos(c + d*x))^(3/2), x, 4, (2*sqrt(a + b*cos(c + d*x))*EllipticE((1/2)*(c + d*x), (2*b)/(a + b)))/((a^2 - b^2)*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (2*b*sin(c + d*x))/((a^2 - b^2)*d*sqrt(a + b*cos(c + d*x)))]
-    @test_int [1/(a + b*cos(c + d*x))^(5/2), x, 7, (8*a*sqrt(a + b*cos(c + d*x))*EllipticE((1/2)*(c + d*x), (2*b)/(a + b)))/(3*(a^2 - b^2)^2*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (2*sqrt((a + b*cos(c + d*x))/(a + b))*EllipticF((1/2)*(c + d*x), (2*b)/(a + b)))/(3*(a^2 - b^2)*d*sqrt(a + b*cos(c + d*x))) - (2*b*sin(c + d*x))/(3*(a^2 - b^2)*d*(a + b*cos(c + d*x))^(3/2)) - (8*a*b*sin(c + d*x))/(3*(a^2 - b^2)^2*d*sqrt(a + b*cos(c + d*x)))]
+    @test_int [(a + b*cos(c + d*x))^(5/2), x, 7, (2*(23*a^2 + 9*b^2)*sqrt(a + b*cos(c + d*x))*Elliptic.E((1/2)*(c + d*x), (2*b)/(a + b)))/(15*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (16*a*(a^2 - b^2)*sqrt((a + b*cos(c + d*x))/(a + b))*Elliptic.F((1/2)*(c + d*x), (2*b)/(a + b)))/(15*d*sqrt(a + b*cos(c + d*x))) + (16*a*b*sqrt(a + b*cos(c + d*x))*sin(c + d*x))/(15*d) + (2*b*(a + b*cos(c + d*x))^(3/2)*sin(c + d*x))/(5*d)]
+    @test_int [(a + b*cos(c + d*x))^(3/2), x, 6, (8*a*sqrt(a + b*cos(c + d*x))*Elliptic.E((1/2)*(c + d*x), (2*b)/(a + b)))/(3*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (2*(a^2 - b^2)*sqrt((a + b*cos(c + d*x))/(a + b))*Elliptic.F((1/2)*(c + d*x), (2*b)/(a + b)))/(3*d*sqrt(a + b*cos(c + d*x))) + (2*b*sqrt(a + b*cos(c + d*x))*sin(c + d*x))/(3*d)]
+    @test_int [(a + b*cos(c + d*x))^(1/2), x, 2, (2*sqrt(a + b*cos(c + d*x))*Elliptic.E((1/2)*(c + d*x), (2*b)/(a + b)))/(d*sqrt((a + b*cos(c + d*x))/(a + b)))]
+    @test_int [1/(a + b*cos(c + d*x))^(1/2), x, 2, (2*sqrt((a + b*cos(c + d*x))/(a + b))*Elliptic.F((1/2)*(c + d*x), (2*b)/(a + b)))/(d*sqrt(a + b*cos(c + d*x)))]
+    @test_int [1/(a + b*cos(c + d*x))^(3/2), x, 4, (2*sqrt(a + b*cos(c + d*x))*Elliptic.E((1/2)*(c + d*x), (2*b)/(a + b)))/((a^2 - b^2)*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (2*b*sin(c + d*x))/((a^2 - b^2)*d*sqrt(a + b*cos(c + d*x)))]
+    @test_int [1/(a + b*cos(c + d*x))^(5/2), x, 7, (8*a*sqrt(a + b*cos(c + d*x))*Elliptic.E((1/2)*(c + d*x), (2*b)/(a + b)))/(3*(a^2 - b^2)^2*d*sqrt((a + b*cos(c + d*x))/(a + b))) - (2*sqrt((a + b*cos(c + d*x))/(a + b))*Elliptic.F((1/2)*(c + d*x), (2*b)/(a + b)))/(3*(a^2 - b^2)*d*sqrt(a + b*cos(c + d*x))) - (2*b*sin(c + d*x))/(3*(a^2 - b^2)*d*(a + b*cos(c + d*x))^(3/2)) - (8*a*b*sin(c + d*x))/(3*(a^2 - b^2)^2*d*sqrt(a + b*cos(c + d*x)))]
 
 
     #= ::Subsection::Closed:: =#

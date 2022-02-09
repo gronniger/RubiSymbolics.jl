@@ -1,5 +1,5 @@
 @testset "4.1.9 trig^m (a+b sin^n+c sin^(2 n))^p" begin
-    @variables a, b, c, x
+    (a, b, c, x, ) = @variables a b c x
 
     #= ::Package:: =#
 

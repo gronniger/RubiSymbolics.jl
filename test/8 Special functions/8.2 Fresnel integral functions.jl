@@ -1,5 +1,5 @@
 @testset "8.2 Fresnel integral functions" begin
-    @variables a, b, c, d, e, m, n, x
+    (a, b, c, d, e, m, n, x, ) = @variables a b c d e m n x
 
     #= ::Package:: =#
 
@@ -98,15 +98,15 @@
     #=Integrands*of*the*form*(e*x)^m*FresnelS(d*(a+b*log(c*x^n)))=#
 
 
-    @test_int [x^2*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/12 - im/12)*ℯ^((-3*a)/(b*n) + ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*Erf(((1/2 + im/2)*(3/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) + ((1/12 - im/12)*ℯ^((-3*a)/(b*n) - ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*Erfi(((1/2 + im/2)*(3/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) + (x^3*FresnelS(d*(a + b*log(c*x^n))))/3]
-    @test_int [x^1*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/8 - im/8)*ℯ^((2*im - 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*x^2*Erf(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(2/n) + ((1/8 - im/8)*x^2*Erfi(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im + a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)) + (x^2*FresnelS(d*(a + b*log(c*x^n))))/2]
-    @test_int [x^0*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/4 - im/4)*x*Erf(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) + ((1/4 - im/4)*x*Erfi(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) + x*FresnelS(d*(a + b*log(c*x^n)))]
+    @test_int [x^2*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/12 - im/12)*ℯ^((-3*a)/(b*n) + ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*erf(((1/2 + im/2)*(3/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) + ((1/12 - im/12)*ℯ^((-3*a)/(b*n) - ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*erfi(((1/2 + im/2)*(3/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) + (x^3*FresnelS(d*(a + b*log(c*x^n))))/3]
+    @test_int [x^1*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/8 - im/8)*ℯ^((2*im - 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*x^2*erf(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(2/n) + ((1/8 - im/8)*x^2*erfi(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im + a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)) + (x^2*FresnelS(d*(a + b*log(c*x^n))))/2]
+    @test_int [x^0*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/4 - im/4)*x*erf(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) + ((1/4 - im/4)*x*erfi(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) + x*FresnelS(d*(a + b*log(c*x^n)))]
     @test_int [FresnelS(d*(a + b*log(c*x^n)))/x^1, x, 3, cos((d^2*pi*(a + b*log(c*x^n))^2)/2)/(b*d*n*pi) + (FresnelS(d*(a + b*log(c*x^n)))*(a + b*log(c*x^n)))/(b*n)]
-    @test_int [FresnelS(d*(a + b*log(c*x^n)))/x^2, x, 10, ((1/4 - im/4)*ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*Erf(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x + ((1/4 - im/4)*ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*Erfi(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x - FresnelS(d*(a + b*log(c*x^n)))/x]
-    @test_int [FresnelS(d*(a + b*log(c*x^n)))/x^3, x, 10, ((1/8 - im/8)*ℯ^((2*im + 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)*Erf(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x^2 + ((1/8 - im/8)*(c*x^n)^(2/n)*Erfi(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im - a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x^2) - FresnelS(d*(a + b*log(c*x^n)))/(2*x^2)]
+    @test_int [FresnelS(d*(a + b*log(c*x^n)))/x^2, x, 10, ((1/4 - im/4)*ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*erf(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x + ((1/4 - im/4)*ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*erfi(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x - FresnelS(d*(a + b*log(c*x^n)))/x]
+    @test_int [FresnelS(d*(a + b*log(c*x^n)))/x^3, x, 10, ((1/8 - im/8)*ℯ^((2*im + 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)*erf(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x^2 + ((1/8 - im/8)*(c*x^n)^(2/n)*erfi(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im - a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x^2) - FresnelS(d*(a + b*log(c*x^n)))/(2*x^2)]
 
 
-    @test_int [(e*x)^m*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/4 - im/4)*ℯ^(((im/2)*(1 + m)*(1 + m + (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x*(e*x)^m*Erf(((1/2 + im/2)*(1 + m + im*a*b*d^2*n*pi + im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/((1 + m)*(c*x^n)^((1 + m)/n)) + ((1/4 - im/4)*x*(e*x)^m*Erfi(((1/2 + im/2)*(1 + m - im*a*b*d^2*n*pi - im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/(ℯ^(((im/2)*(1 + m)*(1 + m - (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(1 + m)*(c*x^n)^((1 + m)/n)) + ((e*x)^(1 + m)*FresnelS(d*(a + b*log(c*x^n))))/(e*(1 + m))]
+    @test_int [(e*x)^m*FresnelS(d*(a + b*log(c*x^n))), x, 10, ((1/4 - im/4)*ℯ^(((im/2)*(1 + m)*(1 + m + (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x*(e*x)^m*erf(((1/2 + im/2)*(1 + m + im*a*b*d^2*n*pi + im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/((1 + m)*(c*x^n)^((1 + m)/n)) + ((1/4 - im/4)*x*(e*x)^m*erfi(((1/2 + im/2)*(1 + m - im*a*b*d^2*n*pi - im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/(ℯ^(((im/2)*(1 + m)*(1 + m - (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(1 + m)*(c*x^n)^((1 + m)/n)) + ((e*x)^(1 + m)*FresnelS(d*(a + b*log(c*x^n))))/(e*(1 + m))]
 
 
     #= ::Section::Closed:: =#
@@ -117,8 +117,8 @@
     #=Integrands*of*the*form*ℯ^(c+d*x^2)*FresnelS(b*x)*when*d^2=pi^2/4*b^4=#
 
 
-    @test_int [ℯ^(c + pi/2*im*b^2*x^2)*FresnelS(b*x), x, 4, If($VersionNumber>=8, -((ℯ^c*Erfi((1/2 + im/2)*b*sqrt(pi)*x)^2)/(8*b)) + (1/4)*im*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (1/2)*im*b^2*pi*x^2), (ℯ^c*Erf((1/2 - im/2)*b*sqrt(pi)*x)^2)/(8*b) + (1/4)*im*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (1/2)*im*b^2*pi*x^2))]
-    @test_int [ℯ^(c - pi/2*im*b^2*x^2)*FresnelS(b*x), x, 4, (ℯ^c*Erf((1/2 + im/2)*b*sqrt(pi)*x)^2)/(8*b) - (1/4)*im*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (-(1/2))*im*b^2*pi*x^2)]
+    @test_int [ℯ^(c + pi/2*im*b^2*x^2)*FresnelS(b*x), x, 4, If(13>=8, -((ℯ^c*erfi((1/2 + im/2)*b*sqrt(pi)*x)^2)/(8*b)) + (1/4)*im*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (1/2)*im*b^2*pi*x^2), (ℯ^c*erf((1/2 - im/2)*b*sqrt(pi)*x)^2)/(8*b) + (1/4)*im*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (1/2)*im*b^2*pi*x^2))]
+    @test_int [ℯ^(c - pi/2*im*b^2*x^2)*FresnelS(b*x), x, 4, (ℯ^c*erf((1/2 + im/2)*b*sqrt(pi)*x)^2)/(8*b) - (1/4)*im*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (-(1/2))*im*b^2*pi*x^2)]
 
 
     #= ::Section::Closed:: =#
@@ -307,15 +307,15 @@
     #=Integrands*of*the*form*(e*x)^m*FresnelC(d*(a+b*log(c*x^n)))=#
 
 
-    @test_int [x^2*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/12 + im/12)*ℯ^((-3*a)/(b*n) + ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*Erf(((1/2 + im/2)*(3/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) - ((1/12 + im/12)*ℯ^((-3*a)/(b*n) - ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*Erfi(((1/2 + im/2)*(3/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) + (x^3*FresnelC(d*(a + b*log(c*x^n))))/3]
-    @test_int [x^1*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/8 + im/8)*ℯ^((2*im - 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*x^2*Erf(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(2/n) - ((1/8 + im/8)*x^2*Erfi(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im + a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)) + (x^2*FresnelC(d*(a + b*log(c*x^n))))/2]
-    @test_int [x^0*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/4 + im/4)*x*Erf(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) - ((1/4 + im/4)*x*Erfi(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) + x*FresnelC(d*(a + b*log(c*x^n)))]
+    @test_int [x^2*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/12 + im/12)*ℯ^((-3*a)/(b*n) + ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*erf(((1/2 + im/2)*(3/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) - ((1/12 + im/12)*ℯ^((-3*a)/(b*n) - ((9*im)/2)/(b^2*d^2*n^2*pi))*x^3*erfi(((1/2 + im/2)*(3/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(3/n) + (x^3*FresnelC(d*(a + b*log(c*x^n))))/3]
+    @test_int [x^1*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/8 + im/8)*ℯ^((2*im - 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*x^2*erf(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(c*x^n)^(2/n) - ((1/8 + im/8)*x^2*erfi(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im + a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)) + (x^2*FresnelC(d*(a + b*log(c*x^n))))/2]
+    @test_int [x^0*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/4 + im/4)*x*erf(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) - ((1/4 + im/4)*x*erfi(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)) + x*FresnelC(d*(a + b*log(c*x^n)))]
     @test_int [FresnelC(d*(a + b*log(c*x^n)))/x^1, x, 3, (FresnelC(d*(a + b*log(c*x^n)))*(a + b*log(c*x^n)))/(b*n) - sin((d^2*pi*(a + b*log(c*x^n))^2)/2)/(b*d*n*pi)]
-    @test_int [FresnelC(d*(a + b*log(c*x^n)))/x^2, x, 10, ((1/4 + im/4)*ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*Erf(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x - ((1/4 + im/4)*ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*Erfi(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x - FresnelC(d*(a + b*log(c*x^n)))/x]
-    @test_int [FresnelC(d*(a + b*log(c*x^n)))/x^3, x, 10, ((1/8 + im/8)*ℯ^((2*im + 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)*Erf(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x^2 - ((1/8 + im/8)*(c*x^n)^(2/n)*Erfi(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im - a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x^2) - FresnelC(d*(a + b*log(c*x^n)))/(2*x^2)]
+    @test_int [FresnelC(d*(a + b*log(c*x^n)))/x^2, x, 10, ((1/4 + im/4)*ℯ^((2*a*b*n + im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*erf(((1/2 + im/2)*(n^(-1) - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x - ((1/4 + im/4)*ℯ^((2*a*b*n - im/(d^2*pi))/(2*b^2*n^2))*(c*x^n)^n^(-1)*erfi(((1/2 + im/2)*(n^(-1) + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x - FresnelC(d*(a + b*log(c*x^n)))/x]
+    @test_int [FresnelC(d*(a + b*log(c*x^n)))/x^3, x, 10, ((1/8 + im/8)*ℯ^((2*im + 2*a*b*d^2*n*pi)/(b^2*d^2*n^2*pi))*(c*x^n)^(2/n)*erf(((1/2 + im/2)*(2/n - im*a*b*d^2*pi - im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/x^2 - ((1/8 + im/8)*(c*x^n)^(2/n)*erfi(((1/2 + im/2)*(2/n + im*a*b*d^2*pi + im*b^2*d^2*pi*log(c*x^n)))/(b*d*sqrt(pi))))/(ℯ^((2*(im - a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x^2) - FresnelC(d*(a + b*log(c*x^n)))/(2*x^2)]
 
 
-    @test_int [(e*x)^m*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/4 + im/4)*ℯ^(((im/2)*(1 + m)*(1 + m + (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x*(e*x)^m*Erf(((1/2 + im/2)*(1 + m + im*a*b*d^2*n*pi + im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/((1 + m)*(c*x^n)^((1 + m)/n)) - ((1/4 + im/4)*x*(e*x)^m*Erfi(((1/2 + im/2)*(1 + m - im*a*b*d^2*n*pi - im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/(ℯ^(((im/2)*(1 + m)*(1 + m - (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(1 + m)*(c*x^n)^((1 + m)/n)) + ((e*x)^(1 + m)*FresnelC(d*(a + b*log(c*x^n))))/(e*(1 + m))]
+    @test_int [(e*x)^m*FresnelC(d*(a + b*log(c*x^n))), x, 10, ((1/4 + im/4)*ℯ^(((im/2)*(1 + m)*(1 + m + (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*x*(e*x)^m*erf(((1/2 + im/2)*(1 + m + im*a*b*d^2*n*pi + im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/((1 + m)*(c*x^n)^((1 + m)/n)) - ((1/4 + im/4)*x*(e*x)^m*erfi(((1/2 + im/2)*(1 + m - im*a*b*d^2*n*pi - im*b^2*d^2*n*pi*log(c*x^n)))/(b*d*n*sqrt(pi))))/(ℯ^(((im/2)*(1 + m)*(1 + m - (2*im)*a*b*d^2*n*pi))/(b^2*d^2*n^2*pi))*(1 + m)*(c*x^n)^((1 + m)/n)) + ((e*x)^(1 + m)*FresnelC(d*(a + b*log(c*x^n))))/(e*(1 + m))]
 
 
     #= ::Section::Closed:: =#
@@ -326,8 +326,8 @@
     #=Integrands*of*the*form*ℯ^(c+d*x^2)*FresnelC(b*x)*when*d^2=pi^2/4*b^4=#
 
 
-    @test_int [ℯ^(c + (im/2)*b^2*pi*x^2)*FresnelC(b*x), x, 4, If($VersionNumber>=8, ((-im/8)*ℯ^c*Erfi((1/2 + im/2)*b*sqrt(pi)*x)^2)/b + (b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (im/2)*b^2*pi*x^2))/4, (im*ℯ^c*Erf((1/2 - im/2)*b*sqrt(pi)*x)^2)/(8*b) + (1/4)*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (1/2)*im*b^2*pi*x^2))]
-    @test_int [ℯ^(c - (im/2)*b^2*pi*x^2)*FresnelC(b*x), x, 4, ((-im/8)*ℯ^c*Erf((1/2 + im/2)*b*sqrt(pi)*x)^2)/b + (b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (-im/2)*b^2*pi*x^2))/4]
+    @test_int [ℯ^(c + (im/2)*b^2*pi*x^2)*FresnelC(b*x), x, 4, If(13>=8, ((-im/8)*ℯ^c*erfi((1/2 + im/2)*b*sqrt(pi)*x)^2)/b + (b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (im/2)*b^2*pi*x^2))/4, (im*ℯ^c*erf((1/2 - im/2)*b*sqrt(pi)*x)^2)/(8*b) + (1/4)*b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (1/2)*im*b^2*pi*x^2))]
+    @test_int [ℯ^(c - (im/2)*b^2*pi*x^2)*FresnelC(b*x), x, 4, ((-im/8)*ℯ^c*erf((1/2 + im/2)*b*sqrt(pi)*x)^2)/b + (b*ℯ^c*x^2*HypergeometricPFQ([1, 1], [3/2, 2], (-im/2)*b^2*pi*x^2))/4]
 
 
     #= ::Section::Closed:: =#

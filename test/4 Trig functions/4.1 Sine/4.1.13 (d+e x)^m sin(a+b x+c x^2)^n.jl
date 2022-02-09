@@ -1,5 +1,5 @@
 @testset "4.1.13 (d+e x)^m sin(a+b x+c x^2)^n" begin
-    @variables a, b, c, d, e, x
+    (a, b, c, d, e, x, ) = @variables a b c d e x
 
     #= ::Package:: =#
 

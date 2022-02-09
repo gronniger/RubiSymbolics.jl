@@ -1,5 +1,5 @@
 @testset "6.5.2 (e x)^m (a+b sech(c+d x^n))^p" begin
-    @variables a, b, c, d, e, m, n, p, x
+    (a, b, c, d, e, m, n, p, x, ) = @variables a b c d e m n p x
 
     #= ::Package:: =#
 

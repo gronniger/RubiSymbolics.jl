@@ -1,5 +1,5 @@
 @testset "5.2.4 (f x)^m (d+e x^2)^p (a+b arccos(c x))^n" begin
-    @variables a, b, c, d, e, x
+    (a, b, c, d, e, x, ) = @variables a b c d e x
 
     #= ::Package:: =#
 

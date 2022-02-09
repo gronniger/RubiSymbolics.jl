@@ -1,5 +1,5 @@
 @testset "Jeffrey Problems" begin
-    @variables p, q, r, x
+    (p, q, r, x, ) = @variables p q r x
 
     #= ::Package:: =#
 

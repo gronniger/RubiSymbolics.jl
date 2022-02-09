@@ -1,5 +1,5 @@
 @testset "Bondarenko Problems" begin
-    @variables x, z
+    (x, z, ) = @variables x z
 
     #= ::Package:: =#
 
@@ -43,8 +43,8 @@
     @test_int [sqrt(1/x + sqrt(1 + 1/x)), x, 7, sqrt(sqrt(1 + 1/x) + 1/x)*x + (1/4)*atan((3 + sqrt(1 + 1/x))/(2*sqrt(sqrt(1 + 1/x) + 1/x))) - (3/4)*atanh((1 - 3*sqrt(1 + 1/x))/(2*sqrt(sqrt(1 + 1/x) + 1/x)))]
 
 
-    @test_int [sqrt(1 + Exp(-x))/(Exp(x) - Exp(-x)), x, 6, (-sqrt(2))*atanh(sqrt(1 + ℯ^(-x))/sqrt(2))]
-    @test_int [sqrt(1 + Exp(-x))/sinh(x), x, 7, -2*sqrt(2)*atanh(sqrt(1 + ℯ^(-x))/sqrt(2))]
+    @test_int [sqrt(1 + exp(-x))/(exp(x) - exp(-x)), x, 6, (-sqrt(2))*atanh(sqrt(1 + ℯ^(-x))/sqrt(2))]
+    @test_int [sqrt(1 + exp(-x))/sinh(x), x, 7, -2*sqrt(2)*atanh(sqrt(1 + ℯ^(-x))/sqrt(2))]
 
 
     @test_int [1/(cos(x) + cos(3*x))^5, x, -45, (-(523/256))*atanh(sin(x)) + (1483*atanh(sqrt(2)*sin(x)))/(512*sqrt(2)) + sin(x)/(32*(1 - 2*sin(x)^2)^4) - (17*sin(x))/(192*(1 - 2*sin(x)^2)^3) + (203*sin(x))/(768*(1 - 2*sin(x)^2)^2) - (437*sin(x))/(512*(1 - 2*sin(x)^2)) - (43/256)*sec(x)*tan(x) - (1/128)*sec(x)^3*tan(x)]
@@ -52,12 +52,12 @@
 
 
     @test_int [sqrt(1 + tanh(4*x)), x, 2, atanh(sqrt(1 + tanh(4*x))/sqrt(2))/(2*sqrt(2))]
-    @test_int [tanh(x)/sqrt(Exp(2*x) + Exp(x)), x, -11, (2*sqrt(ℯ^x + ℯ^(2*x)))/ℯ^x - atan((im - (1 - 2*im)*ℯ^x)/(2*sqrt(1 + im)*sqrt(ℯ^x + ℯ^(2*x))))/sqrt(1 + im) + atan((im + (1 + 2*im)*ℯ^x)/(2*sqrt(1 - im)*sqrt(ℯ^x + ℯ^(2*x))))/sqrt(1 - im)]
-    @test_int [sqrt(sinh(2*x)/cosh(x)), x, 5, (2*im*sqrt(2)*EllipticE(pi/4 - (im*x)/2, 2)*sqrt(sinh(x)))/sqrt(im*sinh(x)), (2*im*EllipticE(pi/4 - (im*x)/2, 2)*sqrt(sech(x)*sinh(2*x)))/sqrt(im*sinh(x))]
+    @test_int [tanh(x)/sqrt(exp(2*x) + exp(x)), x, -11, (2*sqrt(ℯ^x + ℯ^(2*x)))/ℯ^x - atan((im - (1 - 2*im)*ℯ^x)/(2*sqrt(1 + im)*sqrt(ℯ^x + ℯ^(2*x))))/sqrt(1 + im) + atan((im + (1 + 2*im)*ℯ^x)/(2*sqrt(1 - im)*sqrt(ℯ^x + ℯ^(2*x))))/sqrt(1 - im)]
+    @test_int [sqrt(sinh(2*x)/cosh(x)), x, 5, (2*im*sqrt(2)*Elliptic.E(pi/4 - (im*x)/2, 2)*sqrt(sinh(x)))/sqrt(im*sinh(x)), (2*im*Elliptic.E(pi/4 - (im*x)/2, 2)*sqrt(sech(x)*sinh(2*x)))/sqrt(im*sinh(x))]
 
 
     @test_int [log(x^2 + sqrt(1 - x^2)), x, -31, -2*x - asin(x) + sqrt((1/2)*(1 + sqrt(5)))*atan(sqrt(2/(1 + sqrt(5)))*x) + sqrt((1/2)*(1 + sqrt(5)))*atan((sqrt((1/2)*(1 + sqrt(5)))*x)/sqrt(1 - x^2)) + sqrt((1/2)*(-1 + sqrt(5)))*atanh(sqrt(2/(-1 + sqrt(5)))*x) - sqrt((1/2)*(-1 + sqrt(5)))*atanh((sqrt((1/2)*(-1 + sqrt(5)))*x)/sqrt(1 - x^2)) + x*log(x^2 + sqrt(1 - x^2))]
-    @test_int [log(1 + Exp(x))/(1 + Exp(2*x)), x, 12, (-(1/2))*log((1/2 - im/2)*(im - ℯ^x))*log(1 + ℯ^x) - (1/2)*log((-(1/2) - im/2)*(im + ℯ^x))*log(1 + ℯ^x) - PolyLog(2, -ℯ^x) - (1/2)*PolyLog(2, (1/2 - im/2)*(1 + ℯ^x)) - (1/2)*PolyLog(2, (1/2 + im/2)*(1 + ℯ^x))]
+    @test_int [log(1 + exp(x))/(1 + exp(2*x)), x, 12, (-(1/2))*log((1/2 - im/2)*(im - ℯ^x))*log(1 + ℯ^x) - (1/2)*log((-(1/2) - im/2)*(im + ℯ^x))*log(1 + ℯ^x) - PolyLog(2, -ℯ^x) - (1/2)*PolyLog(2, (1/2 - im/2)*(1 + ℯ^x)) - (1/2)*PolyLog(2, (1/2 + im/2)*(1 + ℯ^x))]
     @test_int [log(1 + cosh(x)^2)^2*cosh(x), x, 13, -8*sqrt(2)*atan(sinh(x)/sqrt(2)) + 4*im*sqrt(2)*atan(sinh(x)/sqrt(2))^2 + 8*sqrt(2)*atan(sinh(x)/sqrt(2))*log((2*sqrt(2))/(sqrt(2) + im*sinh(x))) + 4*sqrt(2)*atan(sinh(x)/sqrt(2))*log(2 + sinh(x)^2) + 4*im*sqrt(2)*PolyLog(2, 1 - (2*sqrt(2))/(sqrt(2) + im*sinh(x))) + 8*sinh(x) - 4*log(2 + sinh(x)^2)*sinh(x) + log(2 + sinh(x)^2)^2*sinh(x)]
     @test_int [log(sinh(x) + cosh(x)^2)^2*cosh(x), x, 28, -4*sqrt(3)*atan((1 + 2*sinh(x))/sqrt(3)) - (1/2)*(1 - im*sqrt(3))*log(1 - im*sqrt(3) + 2*sinh(x))^2 - (1 + im*sqrt(3))*log((im*(1 - im*sqrt(3) + 2*sinh(x)))/(2*sqrt(3)))*log(1 + im*sqrt(3) + 2*sinh(x)) - (1/2)*(1 + im*sqrt(3))*log(1 + im*sqrt(3) + 2*sinh(x))^2 - (1 - im*sqrt(3))*log(1 - im*sqrt(3) + 2*sinh(x))*log(-((im*(1 + im*sqrt(3) + 2*sinh(x)))/(2*sqrt(3)))) - 2*log(1 + sinh(x) + sinh(x)^2) + (1 - im*sqrt(3))*log(1 - im*sqrt(3) + 2*sinh(x))*log(1 + sinh(x) + sinh(x)^2) + (1 + im*sqrt(3))*log(1 + im*sqrt(3) + 2*sinh(x))*log(1 + sinh(x) + sinh(x)^2) - (1 + im*sqrt(3))*PolyLog(2, -((im - sqrt(3) + 2*im*sinh(x))/(2*sqrt(3)))) - (1 - im*sqrt(3))*PolyLog(2, (im + sqrt(3) + 2*im*sinh(x))/(2*sqrt(3))) + 8*sinh(x) - 4*log(1 + sinh(x) + sinh(x)^2)*sinh(x) + log(1 + sinh(x) + sinh(x)^2)^2*sinh(x)]
     @test_int [log(x + sqrt(1 + x))/(1 + x^2), x, 44, (1/2)*im*log(sqrt(1 - im) - sqrt(1 + x))*log(x + sqrt(1 + x)) - (1/2)*im*log(sqrt(1 + im) - sqrt(1 + x))*log(x + sqrt(1 + x)) + (1/2)*im*log(sqrt(1 - im) + sqrt(1 + x))*log(x + sqrt(1 + x)) - (1/2)*im*log(sqrt(1 + im) + sqrt(1 + x))*log(x + sqrt(1 + x)) - (1/2)*im*log(sqrt(1 - im) + sqrt(1 + x))*log((1 - sqrt(5) + 2*sqrt(1 + x))/(1 - 2*sqrt(1 - im) - sqrt(5))) - (1/2)*im*log(sqrt(1 - im) - sqrt(1 + x))*log((1 - sqrt(5) + 2*sqrt(1 + x))/(1 + 2*sqrt(1 - im) - sqrt(5))) + (1/2)*im*log(sqrt(1 + im) + sqrt(1 + x))*log((1 - sqrt(5) + 2*sqrt(1 + x))/(1 - 2*sqrt(1 + im) - sqrt(5))) + (1/2)*im*log(sqrt(1 + im) - sqrt(1 + x))*log((1 - sqrt(5) + 2*sqrt(1 + x))/(1 + 2*sqrt(1 + im) - sqrt(5))) - (1/2)*im*log(sqrt(1 - im) + sqrt(1 + x))*log((1 + sqrt(5) + 2*sqrt(1 + x))/(1 - 2*sqrt(1 - im) + sqrt(5))) - (1/2)*im*log(sqrt(1 - im) - sqrt(1 + x))*log((1 + sqrt(5) + 2*sqrt(1 + x))/(1 + 2*sqrt(1 - im) + sqrt(5))) + (1/2)*im*log(sqrt(1 + im) + sqrt(1 + x))*log((1 + sqrt(5) + 2*sqrt(1 + x))/(1 - 2*sqrt(1 + im) + sqrt(5))) + (1/2)*im*log(sqrt(1 + im) - sqrt(1 + x))*log((1 + sqrt(5) + 2*sqrt(1 + x))/(1 + 2*sqrt(1 + im) + sqrt(5))) - (1/2)*im*PolyLog(2, (2*(sqrt(1 - im) - sqrt(1 + x)))/(1 + 2*sqrt(1 - im) - sqrt(5))) - (1/2)*im*PolyLog(2, (2*(sqrt(1 - im) - sqrt(1 + x)))/(1 + 2*sqrt(1 - im) + sqrt(5))) + (1/2)*im*PolyLog(2, (2*(sqrt(1 + im) - sqrt(1 + x)))/(1 + 2*sqrt(1 + im) - sqrt(5))) + (1/2)*im*PolyLog(2, (2*(sqrt(1 + im) - sqrt(1 + x)))/(1 + 2*sqrt(1 + im) + sqrt(5))) - (1/2)*im*PolyLog(2, -((2*(sqrt(1 - im) + sqrt(1 + x)))/(1 - 2*sqrt(1 - im) - sqrt(5)))) - (1/2)*im*PolyLog(2, -((2*(sqrt(1 - im) + sqrt(1 + x)))/(1 - 2*sqrt(1 - im) + sqrt(5)))) + (1/2)*im*PolyLog(2, -((2*(sqrt(1 + im) + sqrt(1 + x)))/(1 - 2*sqrt(1 + im) - sqrt(5)))) + (1/2)*im*PolyLog(2, -((2*(sqrt(1 + im) + sqrt(1 + x)))/(1 - 2*sqrt(1 + im) + sqrt(5))))]

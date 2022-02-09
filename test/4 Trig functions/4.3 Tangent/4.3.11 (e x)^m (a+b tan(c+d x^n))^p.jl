@@ -1,5 +1,5 @@
 @testset "4.3.11 (e x)^m (a+b tan(c+d x^n))^p" begin
-    @variables a, b, c, d, x
+    (a, b, c, d, x, ) = @variables a b c d x
 
     #= ::Package:: =#
 

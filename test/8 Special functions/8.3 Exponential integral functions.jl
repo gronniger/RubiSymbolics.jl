@@ -1,5 +1,5 @@
 @testset "8.3 Exponential integral functions" begin
-    @variables a, b, c, d, e, m, n, x
+    (a, b, c, d, e, m, n, x, ) = @variables a b c d e m n x
 
     #= ::Package:: =#
 
@@ -207,7 +207,7 @@
     #=Integrands*of*the*form*(c+d*x)^m*ExpIntegralE(n, a+b*x)*when*m*symbolic=#
 
 
-    @test_int [(c + d*x)^m*ExpIntegralE(3, a + b*x), x, 3, If($VersionNumber>=8, (b^2*(c + d*x)^(3 + m)*ExpIntegralE(1, a + b*x))/(d^3*(1 + m)*(2 + m)*(3 + m)) + (b*(c + d*x)^(2 + m)*ExpIntegralE(2, a + b*x))/(d^2*(1 + m)*(2 + m)) + ((c + d*x)^(1 + m)*ExpIntegralE(3, a + b*x))/(d*(1 + m)) + (b^3*CannotIntegrate((ℯ^(-a - b*x)*(c + d*x)^(3 + m))/(a + b*x), x))/(d^3*(1 + m)*(2 + m)*(3 + m)), (b^2*(c + d*x)^(3 + m)*ExpIntegralE(1, a + b*x))/(d^3*(3 + m)*(2 + 3*m + m^2)) + (b*(c + d*x)^(2 + m)*ExpIntegralE(2, a + b*x))/(d^2*(1 + m)*(2 + m)) + ((c + d*x)^(1 + m)*ExpIntegralE(3, a + b*x))/(d*(1 + m)) + (b^3*Int((ℯ^(-a - b*x)*(c + d*x)^(3 + m))/(a + b*x), x))/(d^3*(3 + m)*(2 + 3*m + m^2)))]
+    @test_int [(c + d*x)^m*ExpIntegralE(3, a + b*x), x, 3, If(13>=8, (b^2*(c + d*x)^(3 + m)*ExpIntegralE(1, a + b*x))/(d^3*(1 + m)*(2 + m)*(3 + m)) + (b*(c + d*x)^(2 + m)*ExpIntegralE(2, a + b*x))/(d^2*(1 + m)*(2 + m)) + ((c + d*x)^(1 + m)*ExpIntegralE(3, a + b*x))/(d*(1 + m)) + (b^3*CannotIntegrate((ℯ^(-a - b*x)*(c + d*x)^(3 + m))/(a + b*x), x))/(d^3*(1 + m)*(2 + m)*(3 + m)), (b^2*(c + d*x)^(3 + m)*ExpIntegralE(1, a + b*x))/(d^3*(3 + m)*(2 + 3*m + m^2)) + (b*(c + d*x)^(2 + m)*ExpIntegralE(2, a + b*x))/(d^2*(1 + m)*(2 + m)) + ((c + d*x)^(1 + m)*ExpIntegralE(3, a + b*x))/(d*(1 + m)) + (b^3*Int((ℯ^(-a - b*x)*(c + d*x)^(3 + m))/(a + b*x), x))/(d^3*(3 + m)*(2 + 3*m + m^2)))]
     @test_int [(c + d*x)^m*ExpIntegralE(2, a + b*x), x, 2, (b*(c + d*x)^(2 + m)*ExpIntegralE(1, a + b*x))/(d^2*(1 + m)*(2 + m)) + ((c + d*x)^(1 + m)*ExpIntegralE(2, a + b*x))/(d*(1 + m)) + (b^2*CannotIntegrate((ℯ^(-a - b*x)*(c + d*x)^(2 + m))/(a + b*x), x))/(d^2*(1 + m)*(2 + m))]
     @test_int [(c + d*x)^m*ExpIntegralE(1, a + b*x), x, 1, ((c + d*x)^(1 + m)*ExpIntegralE(1, a + b*x))/(d*(1 + m)) + (b*CannotIntegrate((ℯ^(-a - b*x)*(c + d*x)^(1 + m))/(a + b*x), x))/(d*(1 + m))]
     @test_int [(c + d*x)^m*ExpIntegralE(-1, a + b*x), x, 1, -((ℯ^(-a - b*x)*(c + d*x)^m)/(b*(a + b*x))) + (d*m*CannotIntegrate((ℯ^(-a - b*x)*(c + d*x)^(-1 + m))/(a + b*x), x))/b]

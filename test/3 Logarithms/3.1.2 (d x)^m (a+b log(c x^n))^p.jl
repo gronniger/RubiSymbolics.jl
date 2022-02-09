@@ -1,5 +1,5 @@
 @testset "3.1.2 (d x)^m (a+b log(c x^n))^p" begin
-    @variables a, b, c, d, d1, d2, m, m1, m2, n, p, q, q1, q2, x
+    (a, b, c, d, d1, d2, m, m1, m2, n, p, q, q1, q2, x, ) = @variables a b c d d1 d2 m m1 m2 n p q q1 q2 x
 
     #= ::Package:: =#
 
@@ -195,56 +195,56 @@
     #=p>0=#
 
 
-    @test_int [(a + b*log(c*x^n))^(1/2), x, 4, ((-(1/2))*sqrt(b)*sqrt(n)*sqrt(pi)*x*Erfi(sqrt(a + b*log(c*x^n))/(sqrt(b)*sqrt(n))))/(ℯ^(a/(b*n))*(c*x^n)^n^(-1)) + x*sqrt(a + b*log(c*x^n))]
+    @test_int [(a + b*log(c*x^n))^(1/2), x, 4, ((-(1/2))*sqrt(b)*sqrt(n)*sqrt(pi)*x*erfi(sqrt(a + b*log(c*x^n))/(sqrt(b)*sqrt(n))))/(ℯ^(a/(b*n))*(c*x^n)^n^(-1)) + x*sqrt(a + b*log(c*x^n))]
 
 
-    @test_int [x^3*sqrt(log(a*x^n)), x, 4, ((-(1/16))*sqrt(n)*sqrt(pi)*x^4*Erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(4/n) + (1/4)*x^4*sqrt(log(a*x^n))]
-    @test_int [x^2*sqrt(log(a*x^n)), x, 4, ((-(1/6))*sqrt(n)*sqrt(pi/3)*x^3*Erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(3/n) + (1/3)*x^3*sqrt(log(a*x^n))]
-    @test_int [x^1*sqrt(log(a*x^n)), x, 4, ((-(1/4))*sqrt(n)*sqrt(pi/2)*x^2*Erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(2/n) + (1/2)*x^2*sqrt(log(a*x^n))]
-    @test_int [x^0*sqrt(log(a*x^n)), x, 4, ((-(1/2))*sqrt(n)*sqrt(pi)*x*Erfi(sqrt(log(a*x^n))/sqrt(n)))/(a*x^n)^n^(-1) + x*sqrt(log(a*x^n))]
+    @test_int [x^3*sqrt(log(a*x^n)), x, 4, ((-(1/16))*sqrt(n)*sqrt(pi)*x^4*erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(4/n) + (1/4)*x^4*sqrt(log(a*x^n))]
+    @test_int [x^2*sqrt(log(a*x^n)), x, 4, ((-(1/6))*sqrt(n)*sqrt(pi/3)*x^3*erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(3/n) + (1/3)*x^3*sqrt(log(a*x^n))]
+    @test_int [x^1*sqrt(log(a*x^n)), x, 4, ((-(1/4))*sqrt(n)*sqrt(pi/2)*x^2*erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(2/n) + (1/2)*x^2*sqrt(log(a*x^n))]
+    @test_int [x^0*sqrt(log(a*x^n)), x, 4, ((-(1/2))*sqrt(n)*sqrt(pi)*x*erfi(sqrt(log(a*x^n))/sqrt(n)))/(a*x^n)^n^(-1) + x*sqrt(log(a*x^n))]
     @test_int [sqrt(log(a*x^n))/x^1, x, 2, (2*log(a*x^n)^(3/2))/(3*n)]
-    @test_int [sqrt(log(a*x^n))/x^2, x, 4, (sqrt(n)*sqrt(pi)*(a*x^n)^(1/n)*Erf(sqrt(log(a*x^n))/sqrt(n)))/(2*x) - sqrt(log(a*x^n))/x]
-    @test_int [sqrt(log(a*x^n))/x^3, x, 4, (sqrt(n)*sqrt(pi/2)*(a*x^n)^(2/n)*Erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(4*x^2) - sqrt(log(a*x^n))/(2*x^2)]
+    @test_int [sqrt(log(a*x^n))/x^2, x, 4, (sqrt(n)*sqrt(pi)*(a*x^n)^(1/n)*erf(sqrt(log(a*x^n))/sqrt(n)))/(2*x) - sqrt(log(a*x^n))/x]
+    @test_int [sqrt(log(a*x^n))/x^3, x, 4, (sqrt(n)*sqrt(pi/2)*(a*x^n)^(2/n)*erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(4*x^2) - sqrt(log(a*x^n))/(2*x^2)]
 
 
-    @test_int [x^3*log(a*x^n)^(3/2), x, 5, ((3/128)*n^(3/2)*sqrt(pi)*x^4*Erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(4/n) - (3/32)*n*x^4*sqrt(log(a*x^n)) + (1/4)*x^4*log(a*x^n)^(3/2)]
-    @test_int [x^2*log(a*x^n)^(3/2), x, 5, ((1/12)*n^(3/2)*sqrt(pi/3)*x^3*Erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(3/n) - (1/6)*n*x^3*sqrt(log(a*x^n)) + (1/3)*x^3*log(a*x^n)^(3/2)]
-    @test_int [x^1*log(a*x^n)^(3/2), x, 5, ((3/16)*n^(3/2)*sqrt(pi/2)*x^2*Erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(2/n) - (3/8)*n*x^2*sqrt(log(a*x^n)) + (1/2)*x^2*log(a*x^n)^(3/2)]
-    @test_int [x^0*log(a*x^n)^(3/2), x, 5, ((3/4)*n^(3/2)*sqrt(pi)*x*Erfi(sqrt(log(a*x^n))/sqrt(n)))/(a*x^n)^n^(-1) - (3/2)*n*x*sqrt(log(a*x^n)) + x*log(a*x^n)^(3/2)]
+    @test_int [x^3*log(a*x^n)^(3/2), x, 5, ((3/128)*n^(3/2)*sqrt(pi)*x^4*erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(4/n) - (3/32)*n*x^4*sqrt(log(a*x^n)) + (1/4)*x^4*log(a*x^n)^(3/2)]
+    @test_int [x^2*log(a*x^n)^(3/2), x, 5, ((1/12)*n^(3/2)*sqrt(pi/3)*x^3*erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(3/n) - (1/6)*n*x^3*sqrt(log(a*x^n)) + (1/3)*x^3*log(a*x^n)^(3/2)]
+    @test_int [x^1*log(a*x^n)^(3/2), x, 5, ((3/16)*n^(3/2)*sqrt(pi/2)*x^2*erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(a*x^n)^(2/n) - (3/8)*n*x^2*sqrt(log(a*x^n)) + (1/2)*x^2*log(a*x^n)^(3/2)]
+    @test_int [x^0*log(a*x^n)^(3/2), x, 5, ((3/4)*n^(3/2)*sqrt(pi)*x*erfi(sqrt(log(a*x^n))/sqrt(n)))/(a*x^n)^n^(-1) - (3/2)*n*x*sqrt(log(a*x^n)) + x*log(a*x^n)^(3/2)]
     @test_int [log(a*x^n)^(3/2)/x^1, x, 2, (2*log(a*x^n)^(5/2))/(5*n)]
-    @test_int [log(a*x^n)^(3/2)/x^2, x, 5, (3*n^(3/2)*sqrt(pi)*(a*x^n)^(1/n)*Erf(sqrt(log(a*x^n))/sqrt(n)))/(4*x) - (3*n*sqrt(log(a*x^n)))/(2*x) - log(a*x^n)^(3/2)/x]
-    @test_int [log(a*x^n)^(3/2)/x^3, x, 5, (3*n^(3/2)*sqrt(pi/2)*(a*x^n)^(2/n)*Erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(16*x^2) - (3*n*sqrt(log(a*x^n)))/(8*x^2) - log(a*x^n)^(3/2)/(2*x^2)]
+    @test_int [log(a*x^n)^(3/2)/x^2, x, 5, (3*n^(3/2)*sqrt(pi)*(a*x^n)^(1/n)*erf(sqrt(log(a*x^n))/sqrt(n)))/(4*x) - (3*n*sqrt(log(a*x^n)))/(2*x) - log(a*x^n)^(3/2)/x]
+    @test_int [log(a*x^n)^(3/2)/x^3, x, 5, (3*n^(3/2)*sqrt(pi/2)*(a*x^n)^(2/n)*erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(16*x^2) - (3*n*sqrt(log(a*x^n)))/(8*x^2) - log(a*x^n)^(3/2)/(2*x^2)]
 
 
     #= ::Subsubsection::Closed:: =#
     #=p<0=#
 
 
-    @test_int [x^3/sqrt(log(a*x^n)), x, 3, (sqrt(pi)*x^4*Erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(2*sqrt(n)*(a*x^n)^(4/n))]
-    @test_int [x^2/sqrt(log(a*x^n)), x, 3, (sqrt(pi/3)*x^3*Erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/(sqrt(n)*(a*x^n)^(3/n))]
-    @test_int [x^1/sqrt(log(a*x^n)), x, 3, (sqrt(pi/2)*x^2*Erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(sqrt(n)*(a*x^n)^(2/n))]
-    @test_int [x^0/sqrt(log(a*x^n)), x, 3, (sqrt(pi)*x*Erfi(sqrt(log(a*x^n))/sqrt(n)))/(sqrt(n)*(a*x^n)^n^(-1))]
+    @test_int [x^3/sqrt(log(a*x^n)), x, 3, (sqrt(pi)*x^4*erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(2*sqrt(n)*(a*x^n)^(4/n))]
+    @test_int [x^2/sqrt(log(a*x^n)), x, 3, (sqrt(pi/3)*x^3*erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/(sqrt(n)*(a*x^n)^(3/n))]
+    @test_int [x^1/sqrt(log(a*x^n)), x, 3, (sqrt(pi/2)*x^2*erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(sqrt(n)*(a*x^n)^(2/n))]
+    @test_int [x^0/sqrt(log(a*x^n)), x, 3, (sqrt(pi)*x*erfi(sqrt(log(a*x^n))/sqrt(n)))/(sqrt(n)*(a*x^n)^n^(-1))]
     @test_int [1/(x^1*sqrt(log(a*x^n))), x, 2, (2*sqrt(log(a*x^n)))/n]
-    @test_int [1/(x^2*sqrt(log(a*x^n))), x, 3, (sqrt(pi)*(a*x^n)^n^(-1)*Erf(sqrt(log(a*x^n))/sqrt(n)))/(sqrt(n)*x)]
-    @test_int [1/(x^3*sqrt(log(a*x^n))), x, 3, (sqrt(pi/2)*(a*x^n)^(2/n)*Erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(sqrt(n)*x^2)]
+    @test_int [1/(x^2*sqrt(log(a*x^n))), x, 3, (sqrt(pi)*(a*x^n)^n^(-1)*erf(sqrt(log(a*x^n))/sqrt(n)))/(sqrt(n)*x)]
+    @test_int [1/(x^3*sqrt(log(a*x^n))), x, 3, (sqrt(pi/2)*(a*x^n)^(2/n)*erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(sqrt(n)*x^2)]
 
 
-    @test_int [x^3/log(a*x^n)^(3/2), x, 4, (4*sqrt(pi)*x^4*Erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(n^(3/2)*(a*x^n)^(4/n)) - (2*x^4)/(n*sqrt(log(a*x^n)))]
-    @test_int [x^2/log(a*x^n)^(3/2), x, 4, (2*sqrt(3*pi)*x^3*Erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(3/n)*n^(3/2)) - (2*x^3)/(n*sqrt(log(a*x^n)))]
-    @test_int [x^1/log(a*x^n)^(3/2), x, 4, (2*sqrt(2*pi)*x^2*Erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(2/n)*n^(3/2)) - (2*x^2)/(n*sqrt(log(a*x^n)))]
-    @test_int [x^0/log(a*x^n)^(3/2), x, 4, (2*sqrt(pi)*x*Erfi(sqrt(log(a*x^n))/sqrt(n)))/(n^(3/2)*(a*x^n)^n^(-1)) - (2*x)/(n*sqrt(log(a*x^n)))]
+    @test_int [x^3/log(a*x^n)^(3/2), x, 4, (4*sqrt(pi)*x^4*erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/(n^(3/2)*(a*x^n)^(4/n)) - (2*x^4)/(n*sqrt(log(a*x^n)))]
+    @test_int [x^2/log(a*x^n)^(3/2), x, 4, (2*sqrt(3*pi)*x^3*erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(3/n)*n^(3/2)) - (2*x^3)/(n*sqrt(log(a*x^n)))]
+    @test_int [x^1/log(a*x^n)^(3/2), x, 4, (2*sqrt(2*pi)*x^2*erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(2/n)*n^(3/2)) - (2*x^2)/(n*sqrt(log(a*x^n)))]
+    @test_int [x^0/log(a*x^n)^(3/2), x, 4, (2*sqrt(pi)*x*erfi(sqrt(log(a*x^n))/sqrt(n)))/(n^(3/2)*(a*x^n)^n^(-1)) - (2*x)/(n*sqrt(log(a*x^n)))]
     @test_int [1/(x^1*log(a*x^n)^(3/2)), x, 2, -2/(n*sqrt(log(a*x^n)))]
-    @test_int [1/(x^2*log(a*x^n)^(3/2)), x, 4, -((2*sqrt(pi)*(a*x^n)^(1/n)*Erf(sqrt(log(a*x^n))/sqrt(n)))/(n^(3/2)*x)) - 2/(n*x*sqrt(log(a*x^n)))]
-    @test_int [1/(x^3*log(a*x^n)^(3/2)), x, 4, -((2*sqrt(2*pi)*(a*x^n)^(2/n)*Erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(n^(3/2)*x^2)) - 2/(n*x^2*sqrt(log(a*x^n)))]
+    @test_int [1/(x^2*log(a*x^n)^(3/2)), x, 4, -((2*sqrt(pi)*(a*x^n)^(1/n)*erf(sqrt(log(a*x^n))/sqrt(n)))/(n^(3/2)*x)) - 2/(n*x*sqrt(log(a*x^n)))]
+    @test_int [1/(x^3*log(a*x^n)^(3/2)), x, 4, -((2*sqrt(2*pi)*(a*x^n)^(2/n)*erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(n^(3/2)*x^2)) - 2/(n*x^2*sqrt(log(a*x^n)))]
 
 
-    @test_int [x^3/log(a*x^n)^(5/2), x, 5, (32*sqrt(pi)*x^4*Erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(4/n)*(3*n^(5/2))) - (2*x^4)/(3*n*log(a*x^n)^(3/2)) - (16*x^4)/(3*n^2*sqrt(log(a*x^n)))]
-    @test_int [x^2/log(a*x^n)^(5/2), x, 5, (4*sqrt(3*pi)*x^3*Erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(3/n)*n^(5/2)) - (2*x^3)/(3*n*log(a*x^n)^(3/2)) - (4*x^3)/(n^2*sqrt(log(a*x^n)))]
-    @test_int [x^1/log(a*x^n)^(5/2), x, 5, (8*sqrt(2*pi)*x^2*Erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(2/n)*(3*n^(5/2))) - (2*x^2)/(3*n*log(a*x^n)^(3/2)) - (8*x^2)/(3*n^2*sqrt(log(a*x^n)))]
-    @test_int [x^0/log(a*x^n)^(5/2), x, 5, (4*sqrt(pi)*x*Erfi(sqrt(log(a*x^n))/sqrt(n)))/((a*x^n)^n^(-1)*(3*n^(5/2))) - (2*x)/(3*n*log(a*x^n)^(3/2)) - (4*x)/(3*n^2*sqrt(log(a*x^n)))]
+    @test_int [x^3/log(a*x^n)^(5/2), x, 5, (32*sqrt(pi)*x^4*erfi((2*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(4/n)*(3*n^(5/2))) - (2*x^4)/(3*n*log(a*x^n)^(3/2)) - (16*x^4)/(3*n^2*sqrt(log(a*x^n)))]
+    @test_int [x^2/log(a*x^n)^(5/2), x, 5, (4*sqrt(3*pi)*x^3*erfi((sqrt(3)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(3/n)*n^(5/2)) - (2*x^3)/(3*n*log(a*x^n)^(3/2)) - (4*x^3)/(n^2*sqrt(log(a*x^n)))]
+    @test_int [x^1/log(a*x^n)^(5/2), x, 5, (8*sqrt(2*pi)*x^2*erfi((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^(2/n)*(3*n^(5/2))) - (2*x^2)/(3*n*log(a*x^n)^(3/2)) - (8*x^2)/(3*n^2*sqrt(log(a*x^n)))]
+    @test_int [x^0/log(a*x^n)^(5/2), x, 5, (4*sqrt(pi)*x*erfi(sqrt(log(a*x^n))/sqrt(n)))/((a*x^n)^n^(-1)*(3*n^(5/2))) - (2*x)/(3*n*log(a*x^n)^(3/2)) - (4*x)/(3*n^2*sqrt(log(a*x^n)))]
     @test_int [1/(x^1*log(a*x^n)^(5/2)), x, 2, -(2/(3*n*log(a*x^n)^(3/2)))]
-    @test_int [1/(x^2*log(a*x^n)^(5/2)), x, 5, (4*sqrt(pi)*(a*x^n)^(1/n)*Erf(sqrt(log(a*x^n))/sqrt(n)))/(3*n^(5/2)*x) - 2/(3*n*x*log(a*x^n)^(3/2)) + 4/(3*n^2*x*sqrt(log(a*x^n)))]
-    @test_int [1/(x^3*log(a*x^n)^(5/2)), x, 5, (8*sqrt(2*pi)*(a*x^n)^(2/n)*Erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(3*n^(5/2)*x^2) - 2/(3*n*x^2*log(a*x^n)^(3/2)) + 8/(3*n^2*x^2*sqrt(log(a*x^n)))]
+    @test_int [1/(x^2*log(a*x^n)^(5/2)), x, 5, (4*sqrt(pi)*(a*x^n)^(1/n)*erf(sqrt(log(a*x^n))/sqrt(n)))/(3*n^(5/2)*x) - 2/(3*n*x*log(a*x^n)^(3/2)) + 4/(3*n^2*x*sqrt(log(a*x^n)))]
+    @test_int [1/(x^3*log(a*x^n)^(5/2)), x, 5, (8*sqrt(2*pi)*(a*x^n)^(2/n)*erf((sqrt(2)*sqrt(log(a*x^n)))/sqrt(n)))/(3*n^(5/2)*x^2) - 2/(3*n*x^2*log(a*x^n)^(3/2)) + 8/(3*n^2*x^2*sqrt(log(a*x^n)))]
 
 
     #= ::Section::Closed:: =#
@@ -270,11 +270,11 @@
     @test_int [(d*x)^(n - 1)/log(c*x^n)^3, x, 5, -((d*x)^n/(2*d*n*log(c*x^n)^2)) - (d*x)^n/(2*d*n*log(c*x^n)) + (x^(1 - n)*(d*x)^(-1 + n)*LogIntegral(c*x^n))/(2*c*n)]
 
 
-    @test_int [x^m*log(a*x^n)^(3/2), x, 5, (3*n^(3/2)*sqrt(pi)*x^(1 + m)*Erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(4*(1 + m)^(5/2))) - (3*n*x^(1 + m)*sqrt(log(a*x^n)))/(2*(1 + m)^2) + (x^(1 + m)*log(a*x^n)^(3/2))/(1 + m)]
-    @test_int [x^m*log(a*x^n)^(1/2), x, 4, -((sqrt(n)*sqrt(pi)*x^(1 + m)*Erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(2*(1 + m)^(3/2)))) + (x^(1 + m)*sqrt(log(a*x^n)))/(1 + m)]
-    @test_int [x^m/log(a*x^n)^(1/2), x, 3, (sqrt(pi)*x^(1 + m)*Erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(sqrt(1 + m)*sqrt(n)))]
-    @test_int [x^m/log(a*x^n)^(3/2), x, 4, (2*sqrt(1 + m)*sqrt(pi)*x^(1 + m)*Erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*n^(3/2)) - (2*x^(1 + m))/(n*sqrt(log(a*x^n)))]
-    @test_int [x^m/log(a*x^n)^(5/2), x, 5, (4*(1 + m)^(3/2)*sqrt(pi)*x^(1 + m)*Erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(3*n^(5/2))) - (2*x^(1 + m))/(3*n*log(a*x^n)^(3/2)) - (4*(1 + m)*x^(1 + m))/(3*n^2*sqrt(log(a*x^n)))]
+    @test_int [x^m*log(a*x^n)^(3/2), x, 5, (3*n^(3/2)*sqrt(pi)*x^(1 + m)*erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(4*(1 + m)^(5/2))) - (3*n*x^(1 + m)*sqrt(log(a*x^n)))/(2*(1 + m)^2) + (x^(1 + m)*log(a*x^n)^(3/2))/(1 + m)]
+    @test_int [x^m*log(a*x^n)^(1/2), x, 4, -((sqrt(n)*sqrt(pi)*x^(1 + m)*erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(2*(1 + m)^(3/2)))) + (x^(1 + m)*sqrt(log(a*x^n)))/(1 + m)]
+    @test_int [x^m/log(a*x^n)^(1/2), x, 3, (sqrt(pi)*x^(1 + m)*erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(sqrt(1 + m)*sqrt(n)))]
+    @test_int [x^m/log(a*x^n)^(3/2), x, 4, (2*sqrt(1 + m)*sqrt(pi)*x^(1 + m)*erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*n^(3/2)) - (2*x^(1 + m))/(n*sqrt(log(a*x^n)))]
+    @test_int [x^m/log(a*x^n)^(5/2), x, 5, (4*(1 + m)^(3/2)*sqrt(pi)*x^(1 + m)*erfi((sqrt(1 + m)*sqrt(log(a*x^n)))/sqrt(n)))/((a*x^n)^((1 + m)/n)*(3*n^(5/2))) - (2*x^(1 + m))/(3*n*log(a*x^n)^(3/2)) - (4*(1 + m)*x^(1 + m))/(3*n^2*sqrt(log(a*x^n)))]
 
 
     #= ::Section::Closed:: =#

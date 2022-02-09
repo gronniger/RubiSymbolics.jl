@@ -1,5 +1,5 @@
 @testset "3.2.2 (f+g x)^m (h+i x)^q (A+B log(e ((a+b x) over (c+d x))^n))^p" begin
-    @variables A, B, a, b, c, d, e, f, g, h, i, m, n, p, x
+    (A, B, a, b, c, d, e, f, g, h, i, m, n, p, x, ) = @variables A B a b c d e f g h i m n p x
 
     #= ::Package:: =#
 

@@ -1,5 +1,5 @@
 @testset "4.2.10 (c+d x)^m (a+b cos)^n" begin
-    @variables a, b, c, d, e, f, m, n, x
+    (a, b, c, d, e, f, m, n, x, ) = @variables a b c d e f m n x
 
     #= ::Package:: =#
 
@@ -150,12 +150,12 @@
 
 
     @test_int [x^1*cos(a + b*x)^(1/2), x, 0, Unintegrable(x*sqrt(cos(a + b*x)), x)]
-    @test_int [x^0*cos(a + b*x)^(1/2), x, 1, (2*EllipticE((1/2)*(a + b*x), 2))/b]
+    @test_int [x^0*cos(a + b*x)^(1/2), x, 1, (2*Elliptic.E((1/2)*(a + b*x), 2))/b]
     @test_int [cos(a + b*x)^(1/2)/x^1, x, 0, Unintegrable(sqrt(cos(a + b*x))/x, x)]
 
 
     @test_int [x^1*cos(a + b*x)^(3/2), x, 1, (4*cos(a + b*x)^(3/2))/(9*b^2) + (1/3)*Unintegrable(x/sqrt(cos(a + b*x)), x) + (2*x*sqrt(cos(a + b*x))*sin(a + b*x))/(3*b)]
-    @test_int [x^0*cos(a + b*x)^(3/2), x, 2, (2*EllipticF((1/2)*(a + b*x), 2))/(3*b) + (2*sqrt(cos(a + b*x))*sin(a + b*x))/(3*b)]
+    @test_int [x^0*cos(a + b*x)^(3/2), x, 2, (2*Elliptic.F((1/2)*(a + b*x), 2))/(3*b) + (2*sqrt(cos(a + b*x))*sin(a + b*x))/(3*b)]
     @test_int [cos(a + b*x)^(3/2)/x^1, x, 0, Unintegrable(cos(a + b*x)^(3/2)/x, x)]
 
     @test_int [x^1*cos(a + b*x)^(3/2) - x/(3*sqrt(cos(a + b*x))), x, 2, (4*cos(a + b*x)^(3/2))/(9*b^2) + (2*x*sqrt(cos(a + b*x))*sin(a + b*x))/(3*b)]
@@ -165,12 +165,12 @@
 
 
     @test_int [x^1/cos(a + b*x)^(1/2), x, 0, Unintegrable(x/sqrt(cos(a + b*x)), x)]
-    @test_int [x^0/cos(a + b*x)^(1/2), x, 1, (2*EllipticF((1/2)*(a + b*x), 2))/b]
+    @test_int [x^0/cos(a + b*x)^(1/2), x, 1, (2*Elliptic.F((1/2)*(a + b*x), 2))/b]
     @test_int [1/(x^1*cos(a + b*x)^(1/2)), x, 0, Unintegrable(1/(x*sqrt(cos(a + b*x))), x)]
 
 
     @test_int [x^1/cos(a + b*x)^(3/2), x, 1, (4*sqrt(cos(a + b*x)))/b^2 + (2*x*sin(a + b*x))/(b*sqrt(cos(a + b*x))) - Unintegrable(x*sqrt(cos(a + b*x)), x)]
-    @test_int [x^0/cos(a + b*x)^(3/2), x, 2, -((2*EllipticE((1/2)*(a + b*x), 2))/b) + (2*sin(a + b*x))/(b*sqrt(cos(a + b*x)))]
+    @test_int [x^0/cos(a + b*x)^(3/2), x, 2, -((2*Elliptic.E((1/2)*(a + b*x), 2))/b) + (2*sin(a + b*x))/(b*sqrt(cos(a + b*x)))]
     @test_int [1/(x^1*cos(a + b*x)^(3/2)), x, 0, Unintegrable(1/(x*cos(a + b*x)^(3/2)), x)]
 
     @test_int [x^1/cos(a + b*x)^(3/2) + x*sqrt(cos(a + b*x)), x, 2, (4*sqrt(cos(a + b*x)))/b^2 + (2*x*sin(a + b*x))/(b*sqrt(cos(a + b*x)))]
@@ -179,7 +179,7 @@
     @test_int [x/cos(x)^(3/2) + x*sqrt(cos(x)), x, 2, 4*sqrt(cos(x)) + (2*x*sin(x))/sqrt(cos(x))]
     @test_int [x/cos(x)^(5/2) - x/(3*sqrt(cos(x))), x, 2, -(4/(3*sqrt(cos(x)))) + (2*x*sin(x))/(3*cos(x)^(3/2))]
     @test_int [x/cos(x)^(7/2) + (3/5)*x*sqrt(cos(x)), x, 3, -(4/(15*cos(x)^(3/2))) + (12*sqrt(cos(x)))/5 + (2*x*sin(x))/(5*cos(x)^(5/2)) + (6*x*sin(x))/(5*sqrt(cos(x)))]
-    @test_int [x^2/cos(x)^(3/2) + x^2*sqrt(cos(x)), x, 3, 8*x*sqrt(cos(x)) - 16*EllipticE(x/2, 2) + (2*x^2*sin(x))/sqrt(cos(x))]
+    @test_int [x^2/cos(x)^(3/2) + x^2*sqrt(cos(x)), x, 3, 8*x*sqrt(cos(x)) - 16*Elliptic.E(x/2, 2) + (2*x^2*sin(x))/sqrt(cos(x))]
 
 
     #= ::Subsection::Closed:: =#
@@ -189,7 +189,7 @@
     @test_int [x/sec(x)^(3/2) - (1/3)*x*sqrt(sec(x)), x, 4, 4/(9*sec(x)^(3/2)) + (2*x*sin(x))/(3*sqrt(sec(x)))]
     @test_int [x/sec(x)^(5/2) - (3/5)*x/sqrt(sec(x)), x, 4, 4/(25*sec(x)^(5/2)) + (2*x*sin(x))/(5*sec(x)^(3/2))]
     @test_int [x/sec(x)^(7/2) - (5/21)*x*sqrt(sec(x)), x, 5, 4/(49*sec(x)^(7/2)) + 20/(63*sec(x)^(3/2)) + (2*x*sin(x))/(7*sec(x)^(5/2)) + (10*x*sin(x))/(21*sqrt(sec(x)))]
-    @test_int [x^2/sec(x)^(3/2) - (1/3)*x^2*sqrt(sec(x)), x, 7, (8*x)/(9*sec(x)^(3/2)) - (16/27)*sqrt(cos(x))*EllipticF(x/2, 2)*sqrt(sec(x)) - (16*sin(x))/(27*sqrt(sec(x))) + (2*x^2*sin(x))/(3*sqrt(sec(x)))]
+    @test_int [x^2/sec(x)^(3/2) - (1/3)*x^2*sqrt(sec(x)), x, 7, (8*x)/(9*sec(x)^(3/2)) - (16/27)*sqrt(cos(x))*Elliptic.F(x/2, 2)*sqrt(sec(x)) - (16*sin(x))/(27*sqrt(sec(x))) + (2*x^2*sin(x))/(3*sqrt(sec(x)))]
 
 
     #= ::Subsection::Closed:: =#

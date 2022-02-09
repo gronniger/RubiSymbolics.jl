@@ -1,5 +1,5 @@
 @testset "6.2.7 hyper^m (a+b cosh^n)^p" begin
-    @variables a, b, n, x
+    (a, b, n, x, ) = @variables a b n x
 
     #= ::Package:: =#
 
@@ -131,32 +131,32 @@
     #=p>0=#
 
 
-    @test_int [sqrt(a + b*cosh(x)^2), x, 2, -((im*sqrt(a + b*cosh(x)^2)*EllipticE(pi/2 + im*x, -(b/a)))/sqrt(1 + (b*cosh(x)^2)/a))]
+    @test_int [sqrt(a + b*cosh(x)^2), x, 2, -((im*sqrt(a + b*cosh(x)^2)*Elliptic.E(pi/2 + im*x, -(b/a)))/sqrt(1 + (b*cosh(x)^2)/a))]
 
-    @test_int [sqrt(1 + cosh(x)^2), x, 1, (-im)*EllipticE(pi/2 + im*x, -1)]
+    @test_int [sqrt(1 + cosh(x)^2), x, 1, (-im)*Elliptic.E(pi/2 + im*x, -1)]
     @test_int [sqrt(1 - cosh(x)^2), x, 3, coth(x)*sqrt(-sinh(x)^2)]
     @test_int [sqrt(-1 + cosh(x)^2), x, 3, coth(x)*sqrt(sinh(x)^2)]
-    @test_int [sqrt(-1 - cosh(x)^2), x, 2, -((im*sqrt(-1 - cosh(x)^2)*EllipticE(pi/2 + im*x, -1))/sqrt(1 + cosh(x)^2))]
+    @test_int [sqrt(-1 - cosh(x)^2), x, 2, -((im*sqrt(-1 - cosh(x)^2)*Elliptic.E(pi/2 + im*x, -1))/sqrt(1 + cosh(x)^2))]
 
 
-    @test_int [(a + b*cosh(x)^2)^(3/2), x, 6, -((2*im*(2*a + b)*sqrt(a + b*cosh(x)^2)*EllipticE(pi/2 + im*x, -(b/a)))/(3*sqrt(1 + (b*cosh(x)^2)/a))) + (im*a*(a + b)*sqrt(1 + (b*cosh(x)^2)/a)*EllipticF(pi/2 + im*x, -(b/a)))/(3*sqrt(a + b*cosh(x)^2)) + (1/3)*b*cosh(x)*sqrt(a + b*cosh(x)^2)*sinh(x)]
+    @test_int [(a + b*cosh(x)^2)^(3/2), x, 6, -((2*im*(2*a + b)*sqrt(a + b*cosh(x)^2)*Elliptic.E(pi/2 + im*x, -(b/a)))/(3*sqrt(1 + (b*cosh(x)^2)/a))) + (im*a*(a + b)*sqrt(1 + (b*cosh(x)^2)/a)*Elliptic.F(pi/2 + im*x, -(b/a)))/(3*sqrt(a + b*cosh(x)^2)) + (1/3)*b*cosh(x)*sqrt(a + b*cosh(x)^2)*sinh(x)]
 
-    @test_int [(1 + cosh(x)^2)^(3/2), x, 4, -2*im*EllipticE(pi/2 + im*x, -1) + (2/3)*im*EllipticF(pi/2 + im*x, -1) + (1/3)*cosh(x)*sqrt(1 + cosh(x)^2)*sinh(x)]
+    @test_int [(1 + cosh(x)^2)^(3/2), x, 4, -2*im*Elliptic.E(pi/2 + im*x, -1) + (2/3)*im*Elliptic.F(pi/2 + im*x, -1) + (1/3)*cosh(x)*sqrt(1 + cosh(x)^2)*sinh(x)]
     @test_int [(1 - cosh(x)^2)^(3/2), x, 4, (2/3)*coth(x)*sqrt(-sinh(x)^2) + (1/3)*coth(x)*(-sinh(x)^2)^(3/2)]
     @test_int [(-1 + cosh(x)^2)^(3/2), x, 4, (-(2/3))*coth(x)*sqrt(sinh(x)^2) + (1/3)*coth(x)*(sinh(x)^2)^(3/2)]
-    @test_int [(-1 - cosh(x)^2)^(3/2), x, 6, (2*im*sqrt(-1 - cosh(x)^2)*EllipticE(pi/2 + im*x, -1))/sqrt(1 + cosh(x)^2) + (2*im*sqrt(1 + cosh(x)^2)*EllipticF(pi/2 + im*x, -1))/(3*sqrt(-1 - cosh(x)^2)) - (1/3)*cosh(x)*sqrt(-1 - cosh(x)^2)*sinh(x)]
+    @test_int [(-1 - cosh(x)^2)^(3/2), x, 6, (2*im*sqrt(-1 - cosh(x)^2)*Elliptic.E(pi/2 + im*x, -1))/sqrt(1 + cosh(x)^2) + (2*im*sqrt(1 + cosh(x)^2)*Elliptic.F(pi/2 + im*x, -1))/(3*sqrt(-1 - cosh(x)^2)) - (1/3)*cosh(x)*sqrt(-1 - cosh(x)^2)*sinh(x)]
 
 
     #= ::Subsubsection::Closed:: =#
     #=p<0=#
 
 
-    @test_int [1/sqrt(a + b*cosh(x)^2), x, 2, -((im*sqrt(1 + (b*cosh(x)^2)/a)*EllipticF(pi/2 + im*x, -(b/a)))/sqrt(a + b*cosh(x)^2))]
+    @test_int [1/sqrt(a + b*cosh(x)^2), x, 2, -((im*sqrt(1 + (b*cosh(x)^2)/a)*Elliptic.F(pi/2 + im*x, -(b/a)))/sqrt(a + b*cosh(x)^2))]
 
-    @test_int [1/sqrt(1 + cosh(x)^2), x, 1, (-im)*EllipticF(pi/2 + im*x, -1)]
+    @test_int [1/sqrt(1 + cosh(x)^2), x, 1, (-im)*Elliptic.F(pi/2 + im*x, -1)]
     @test_int [1/sqrt(1 - cosh(x)^2), x, 3, -((atanh(cosh(x))*sinh(x))/sqrt(-sinh(x)^2))]
     @test_int [1/sqrt(-1 + cosh(x)^2), x, 3, -((atanh(cosh(x))*sinh(x))/sqrt(sinh(x)^2))]
-    @test_int [1/sqrt(-1 - cosh(x)^2), x, 2, -((im*sqrt(1 + cosh(x)^2)*EllipticF(pi/2 + im*x, -1))/sqrt(-1 - cosh(x)^2))]
+    @test_int [1/sqrt(-1 - cosh(x)^2), x, 2, -((im*sqrt(1 + cosh(x)^2)*Elliptic.F(pi/2 + im*x, -1))/sqrt(-1 - cosh(x)^2))]
 
 
     #= ::Section::Closed:: =#

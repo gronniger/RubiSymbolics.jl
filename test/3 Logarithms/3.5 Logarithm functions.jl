@@ -1,5 +1,5 @@
 @testset "3.5 Logarithm functions" begin
-    @variables A, B, F, a, b, c, d, e, f, g, m, n, p, q, x
+    (A, B, F, a, b, c, d, e, f, g, m, n, p, q, x, ) = @variables A B F a b c d e f g m n p q x
 
     #= ::Package:: =#
 
@@ -138,7 +138,7 @@
     #=Integrands*of*the*form*x^m*log(d*(a+b*x+c*x^2)^p)=#
 
 
-    @test_int [x^m*log(d*(b*x + c*x^2)^n), x, 3, -((2*n*x^(1 + m))/(1 + m)^2) + (n*x^(1 + m)*Hypergeometric2F1(1, 1 + m, 2 + m, -((c*x)/b)))/(1 + m)^2 + (x^(1 + m)*log(d*(b*x + c*x^2)^n))/(1 + m)]
+    @test_int [x^m*log(d*(b*x + c*x^2)^n), x, 3, -((2*n*x^(1 + m))/(1 + m)^2) + (n*x^(1 + m)*HypergeometricFunctions._₂F₁(1, 1 + m, 2 + m, -((c*x)/b)))/(1 + m)^2 + (x^(1 + m)*log(d*(b*x + c*x^2)^n))/(1 + m)]
 
     @test_int [x^4*log(d*(b*x + c*x^2)^n), x, 3, -((b^4*n*x)/(5*c^4)) + (b^3*n*x^2)/(10*c^3) - (b^2*n*x^3)/(15*c^2) + (b*n*x^4)/(20*c) - (2*n*x^5)/25 + (b^5*n*log(b + c*x))/(5*c^5) + (1/5)*x^5*log(d*(b*x + c*x^2)^n)]
     @test_int [x^3*log(d*(b*x + c*x^2)^n), x, 3, (b^3*n*x)/(4*c^3) - (b^2*n*x^2)/(8*c^2) + (b*n*x^3)/(12*c) - (n*x^4)/8 - (b^4*n*log(b + c*x))/(4*c^4) + (1/4)*x^4*log(d*(b*x + c*x^2)^n)]
@@ -152,7 +152,7 @@
     @test_int [log(d*(b*x + c*x^2)^n)/x^5, x, 3, -(n/(16*x^4)) - (c*n)/(12*b*x^3) + (c^2*n)/(8*b^2*x^2) - (c^3*n)/(4*b^3*x) - (c^4*n*log(x))/(4*b^4) + (c^4*n*log(b + c*x))/(4*b^4) - log(d*(b*x + c*x^2)^n)/(4*x^4)]
 
 
-    @test_int [x^m*log(d*(a + b*x + c*x^2)^n), x, 5, -((2*c*n*x^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, -((2*c*x)/(b - sqrt(b^2 - 4*a*c)))))/((b - sqrt(b^2 - 4*a*c))*(1 + m)*(2 + m))) - (2*c*n*x^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, -((2*c*x)/(b + sqrt(b^2 - 4*a*c)))))/((b + sqrt(b^2 - 4*a*c))*(1 + m)*(2 + m)) + (x^(1 + m)*log(d*(a + b*x + c*x^2)^n))/(1 + m)]
+    @test_int [x^m*log(d*(a + b*x + c*x^2)^n), x, 5, -((2*c*n*x^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, -((2*c*x)/(b - sqrt(b^2 - 4*a*c)))))/((b - sqrt(b^2 - 4*a*c))*(1 + m)*(2 + m))) - (2*c*n*x^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, -((2*c*x)/(b + sqrt(b^2 - 4*a*c)))))/((b + sqrt(b^2 - 4*a*c))*(1 + m)*(2 + m)) + (x^(1 + m)*log(d*(a + b*x + c*x^2)^n))/(1 + m)]
 
     @test_int [x^4*log(d*(a + b*x + c*x^2)^n), x, 7, -(((b^4 - 4*a*b^2*c + 2*a^2*c^2)*n*x)/(5*c^4)) + (b*(b^2 - 3*a*c)*n*x^2)/(10*c^3) - ((b^2 - 2*a*c)*n*x^3)/(15*c^2) + (b*n*x^4)/(20*c) - (2*n*x^5)/25 + (sqrt(b^2 - 4*a*c)*(b^4 - 3*a*b^2*c + a^2*c^2)*n*atanh((b + 2*c*x)/sqrt(b^2 - 4*a*c)))/(5*c^5) + (b*(b^4 - 5*a*b^2*c + 5*a^2*c^2)*n*log(a + b*x + c*x^2))/(10*c^5) + (1/5)*x^5*log(d*(a + b*x + c*x^2)^n)]
     @test_int [x^3*log(d*(a + b*x + c*x^2)^n), x, 7, (b*(b^2 - 3*a*c)*n*x)/(4*c^3) - ((b^2 - 2*a*c)*n*x^2)/(8*c^2) + (b*n*x^3)/(12*c) - (n*x^4)/8 - (b*sqrt(b^2 - 4*a*c)*(b^2 - 2*a*c)*n*atanh((b + 2*c*x)/sqrt(b^2 - 4*a*c)))/(4*c^4) - ((b^4 - 4*a*b^2*c + 2*a^2*c^2)*n*log(a + b*x + c*x^2))/(8*c^4) + (1/4)*x^4*log(d*(a + b*x + c*x^2)^n)]
@@ -520,9 +520,9 @@
 
     @test_int [log(1/x)^2/x^5, x, 2, -(1/(32*x^4)) + log(1/x)/(8*x^4) - log(1/x)^2/(4*x^4)]
 
-    @test_int [1/sqrt(-log(a*x^2)), x, 3, -((sqrt(pi/2)*x*Erf(sqrt(-log(a*x^2))/sqrt(2)))/sqrt(a*x^2))]
-    @test_int [1/sqrt(-log(a/x^2)), x, 3, sqrt(pi/2)*sqrt(a/x^2)*x*Erfi(sqrt(-log(a/x^2))/sqrt(2))]
-    @test_int [1/sqrt(-log(a*x^n)), x, 3, -((sqrt(pi)*x*Erf(sqrt(-log(a*x^n))/sqrt(n)))/(sqrt(n)*(a*x^n)^n^(-1)))]
+    @test_int [1/sqrt(-log(a*x^2)), x, 3, -((sqrt(pi/2)*x*erf(sqrt(-log(a*x^2))/sqrt(2)))/sqrt(a*x^2))]
+    @test_int [1/sqrt(-log(a/x^2)), x, 3, sqrt(pi/2)*sqrt(a/x^2)*x*erfi(sqrt(-log(a/x^2))/sqrt(2))]
+    @test_int [1/sqrt(-log(a*x^n)), x, 3, -((sqrt(pi)*x*erf(sqrt(-log(a*x^n))/sqrt(n)))/(sqrt(n)*(a*x^n)^n^(-1)))]
 
     @test_int [log(1 + sqrt(x) - x)/x, x, 8, -2*log((1/2)*(1 + sqrt(5)))*log(1 + sqrt(5) - 2*sqrt(x)) - 2*log(1 - (2*sqrt(x))/(1 - sqrt(5)))*log(sqrt(x)) + 2*log(1 + sqrt(x) - x)*log(sqrt(x)) + 2*PolyLog(2, 1 - (2*sqrt(x))/(1 + sqrt(5))) - 2*PolyLog(2, (2*sqrt(x))/(1 - sqrt(5)))]
 
@@ -578,7 +578,7 @@
     @test_int [log(sqrt((x + 1)/x) + 1), x, 6, -(1/(2*(1 + sqrt(1 + 1/x)))) + (1/2)*atanh(sqrt((1 + x)/x)) + x*log(1 + sqrt((1 + x)/x))]
     @test_int [log(sqrt((x + 1)/x) + 0), x, 4, x*log(sqrt(1 + 1/x)) + (1/2)*log(1 + x)]
     @test_int [log(sqrt((x + 1)/x) - 1), x, 5, -(1/(2*(1 - sqrt(1 + 1/x)))) - (1/2)*atanh(sqrt(1 + 1/x)) + x*log(-1 + sqrt((1 + x)/x))]
-    @test_int [log(sqrt((x + 1)/x) - 2), x, If($VersionNumber>=8, 7, 4), (1/2)*log(1 - sqrt(1 + 1/x)) - (1/3)*log(2 - sqrt(1 + 1/x)) - (1/6)*log(1 + sqrt(1 + 1/x)) + x*log(-2 + sqrt((1 + x)/x))]
+    @test_int [log(sqrt((x + 1)/x) - 2), x, If(13>=8, 7, 4), (1/2)*log(1 - sqrt(1 + 1/x)) - (1/3)*log(2 - sqrt(1 + 1/x)) - (1/6)*log(1 + sqrt(1 + 1/x)) + x*log(-2 + sqrt((1 + x)/x))]
 
 
     #= Contributed*by*Oleg*Marichev*of*Wolfram*Research*Inc. =#
@@ -591,11 +591,11 @@
     #= [log(a + b*x + c*sqrt(d + e*x))/(f + g*x^2), x, 44, (log((g^(1/4)*(c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) + (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))*log(sqrt((-e)*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) + (log((g^(1/4)*(c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) + (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))*log(sqrt((-e)*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) - (log(a + b*x + c*sqrt(d + e*x))*log(sqrt((-e)*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) - (log((g^(1/4)*(c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) + (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))*log(sqrt(e*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) - (log((g^(1/4)*(c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) + (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))*log(sqrt(e*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) + (log(a + b*x + c*sqrt(d + e*x))*log(sqrt(e*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) + (log(-((g^(1/4)*(c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) - (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4))))*log(sqrt((-e)*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) + (log(-((g^(1/4)*(c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) - (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4))))*log(sqrt((-e)*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) - (log(a + b*x + c*sqrt(d + e*x))*log(sqrt((-e)*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) - (log(-((g^(1/4)*(c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) - (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4))))*log(sqrt(e*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) - (log(-((g^(1/4)*(c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2) + 2*b*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) - (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4))))*log(sqrt(e*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) + (log(a + b*x + c*sqrt(d + e*x))*log(sqrt(e*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*sqrt(-f)*sqrt(g)) + PolyLog(2, (2*b*(sqrt((-e)*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) + (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g)) + PolyLog(2, (2*b*(sqrt((-e)*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) + (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g)) - PolyLog(2, (2*b*(sqrt(e*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) + (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g)) - PolyLog(2, (2*b*(sqrt(e*sqrt(-f) + d*sqrt(g)) - g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) + (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g)) + PolyLog(2, (2*b*(sqrt((-e)*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) - (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g)) + PolyLog(2, (2*b*(sqrt((-e)*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt((-e)*sqrt(-f) + d*sqrt(g)) - (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g)) - PolyLog(2, (2*b*(sqrt(e*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) - (c*e - sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g)) - PolyLog(2, (2*b*(sqrt(e*sqrt(-f) + d*sqrt(g)) + g^(1/4)*sqrt(d + e*x)))/(2*b*sqrt(e*sqrt(-f) + d*sqrt(g)) - (c*e + sqrt(4*b^2*d - 4*a*b*e + c^2*e^2))*g^(1/4)))/(2*sqrt(-f)*sqrt(g))] =#
 
 
-    @test_int [log(x)/sqrt(a + b*log(x)), x, 4, -(((2*a + b)*sqrt(pi)*Erfi(sqrt(a + b*log(x))/sqrt(b)))/(ℯ^(a/b)*(2*b^(3/2)))) + (x*sqrt(a + b*log(x)))/b]
-    @test_int [log(x)/sqrt(a - b*log(x)), x, 4, -(((2*a - b)*ℯ^(a/b)*sqrt(pi)*Erf(sqrt(a - b*log(x))/sqrt(b)))/(2*b^(3/2))) - (x*sqrt(a - b*log(x)))/b]
+    @test_int [log(x)/sqrt(a + b*log(x)), x, 4, -(((2*a + b)*sqrt(pi)*erfi(sqrt(a + b*log(x))/sqrt(b)))/(ℯ^(a/b)*(2*b^(3/2)))) + (x*sqrt(a + b*log(x)))/b]
+    @test_int [log(x)/sqrt(a - b*log(x)), x, 4, -(((2*a - b)*ℯ^(a/b)*sqrt(pi)*erf(sqrt(a - b*log(x))/sqrt(b)))/(2*b^(3/2))) - (x*sqrt(a - b*log(x)))/b]
 
-    @test_int [(A + B*log(x))/sqrt(a + b*log(x)), x, 4, ((2*A*b - (2*a + b)*B)*sqrt(pi)*Erfi(sqrt(a + b*log(x))/sqrt(b)))/(ℯ^(a/b)*(2*b^(3/2))) + (B*x*sqrt(a + b*log(x)))/b]
-    @test_int [(A + B*log(x))/sqrt(a - b*log(x)), x, 4, -(((2*A*b + 2*a*B - b*B)*ℯ^(a/b)*sqrt(pi)*Erf(sqrt(a - b*log(x))/sqrt(b)))/(2*b^(3/2))) - (B*x*sqrt(a - b*log(x)))/b]
+    @test_int [(A + B*log(x))/sqrt(a + b*log(x)), x, 4, ((2*A*b - (2*a + b)*B)*sqrt(pi)*erfi(sqrt(a + b*log(x))/sqrt(b)))/(ℯ^(a/b)*(2*b^(3/2))) + (B*x*sqrt(a + b*log(x)))/b]
+    @test_int [(A + B*log(x))/sqrt(a - b*log(x)), x, 4, -(((2*A*b + 2*a*B - b*B)*ℯ^(a/b)*sqrt(pi)*erf(sqrt(a - b*log(x))/sqrt(b)))/(2*b^(3/2))) - (B*x*sqrt(a - b*log(x)))/b]
 
 
     @test_int [x^2*log(log(x)*sin(x)), x, 13, (im*x^4)/12 - (1/3)*ExpIntegralEi(3*log(x)) - (1/3)*x^3*log(1 - ℯ^(2*im*x)) + (1/3)*x^3*log(log(x)*sin(x)) + (1/2)*im*x^2*PolyLog(2, ℯ^(2*im*x)) - (1/2)*x*PolyLog(3, ℯ^(2*im*x)) - (1/4)*im*PolyLog(4, ℯ^(2*im*x))]

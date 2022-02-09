@@ -1,5 +1,5 @@
 @testset "Charlwood Problems" begin
-    @variables x
+    (x, ) = @variables x
 
     #= ::Package:: =#
 

@@ -1,5 +1,5 @@
 @testset "4.4.7 (d trig)^m (a+b (c cot)^n)^p" begin
-    @variables A, C, a, b, c, d, x
+    (A, C, a, b, c, d, x, ) = @variables A C a b c d x
 
     #= ::Package:: =#
 

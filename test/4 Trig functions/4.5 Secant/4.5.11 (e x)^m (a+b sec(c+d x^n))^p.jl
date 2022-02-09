@@ -1,5 +1,5 @@
 @testset "4.5.11 (e x)^m (a+b sec(c+d x^n))^p" begin
-    @variables a, b, c, d, e, m, n, p, x
+    (a, b, c, d, e, m, n, p, x, ) = @variables a b c d e m n p x
 
     #= ::Package:: =#
 

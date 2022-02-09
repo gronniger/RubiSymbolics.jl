@@ -1,5 +1,5 @@
 @testset "4.7.2 trig^m (a trig+b trig)^n" begin
-    @variables a, b, c, d, m, n, x
+    (a, b, c, d, m, n, x, ) = @variables a b c d m n x
 
     #= ::Package:: =#
 
@@ -75,7 +75,7 @@
     #=n*symbolic=#
 
 
-    @test_int [(a*cos(c + d*x) + im*a*sin(c + d*x))^n/sin(c + d*x)^n, x, 1, -((im*Hypergeometric2F1(1, n, 1 + n, (-(1/2))*im*(im + cot(c + d*x)))*(a*cos(c + d*x) + im*a*sin(c + d*x))^n)/(sin(c + d*x)^n*(2*d*n)))]
+    @test_int [(a*cos(c + d*x) + im*a*sin(c + d*x))^n/sin(c + d*x)^n, x, 1, -((im*HypergeometricFunctions._₂F₁(1, n, 1 + n, (-(1/2))*im*(im + cot(c + d*x)))*(a*cos(c + d*x) + im*a*sin(c + d*x))^n)/(sin(c + d*x)^n*(2*d*n)))]
 
 
     #= ::Section::Closed:: =#
@@ -291,7 +291,7 @@
     #=n*symbolic=#
 
 
-    @test_int [(a*cos(c + d*x) + im*a*sin(c + d*x))^n/cos(c + d*x)^n, x, 1, -((im*Hypergeometric2F1(1, n, 1 + n, (1/2)*(1 + im*tan(c + d*x)))*(a*cos(c + d*x) + im*a*sin(c + d*x))^n)/(cos(c + d*x)^n*(2*d*n)))]
+    @test_int [(a*cos(c + d*x) + im*a*sin(c + d*x))^n/cos(c + d*x)^n, x, 1, -((im*HypergeometricFunctions._₂F₁(1, n, 1 + n, (1/2)*(1 + im*tan(c + d*x)))*(a*cos(c + d*x) + im*a*sin(c + d*x))^n)/(cos(c + d*x)^n*(2*d*n)))]
 
 
     #= ::Section::Closed:: =#
@@ -444,9 +444,9 @@
 
 
     @test_int [cos(c + d*x)^m*(a*sin(c + d*x) + b*tan(c + d*x))^3, x, 4, (b^3*cos(c + d*x)^(-2 + m))/(d*(2 - m)) + (3*a*b^2*cos(c + d*x)^(-1 + m))/(d*(1 - m)) - (b*(3*a^2 - b^2)*cos(c + d*x)^m)/(d*m) - (a*(a^2 - 3*b^2)*cos(c + d*x)^(1 + m))/(d*(1 + m)) + (3*a^2*b*cos(c + d*x)^(2 + m))/(d*(2 + m)) + (a^3*cos(c + d*x)^(3 + m))/(d*(3 + m))]
-    @test_int [cos(c + d*x)^m*(a*sin(c + d*x) + b*tan(c + d*x))^2, x, 8, ((a^2 - 2*b^2)*cos(c + d*x)^(-1 + m)*sin(c + d*x))/(d*m*(2 + m)) - (2*a*b*cos(c + d*x)^m*sin(c + d*x))/(d*(2 + 3*m + m^2)) - (cos(c + d*x)^(-1 + m)*(b + a*cos(c + d*x))^2*sin(c + d*x))/(d*(2 + m)) - ((a^2*(1 - m) - b^2*(2 + m))*cos(c + d*x)^(-1 + m)*Hypergeometric2F1(1/2, (1/2)*(-1 + m), (1 + m)/2, cos(c + d*x)^2)*sin(c + d*x))/(d*(1 - m)*m*(2 + m)*sqrt(sin(c + d*x)^2)) - (2*a*b*cos(c + d*x)^m*Hypergeometric2F1(1/2, m/2, (2 + m)/2, cos(c + d*x)^2)*sin(c + d*x))/(d*m*(1 + m)*sqrt(sin(c + d*x)^2))]
+    @test_int [cos(c + d*x)^m*(a*sin(c + d*x) + b*tan(c + d*x))^2, x, 8, ((a^2 - 2*b^2)*cos(c + d*x)^(-1 + m)*sin(c + d*x))/(d*m*(2 + m)) - (2*a*b*cos(c + d*x)^m*sin(c + d*x))/(d*(2 + 3*m + m^2)) - (cos(c + d*x)^(-1 + m)*(b + a*cos(c + d*x))^2*sin(c + d*x))/(d*(2 + m)) - ((a^2*(1 - m) - b^2*(2 + m))*cos(c + d*x)^(-1 + m)*HypergeometricFunctions._₂F₁(1/2, (1/2)*(-1 + m), (1 + m)/2, cos(c + d*x)^2)*sin(c + d*x))/(d*(1 - m)*m*(2 + m)*sqrt(sin(c + d*x)^2)) - (2*a*b*cos(c + d*x)^m*HypergeometricFunctions._₂F₁(1/2, m/2, (2 + m)/2, cos(c + d*x)^2)*sin(c + d*x))/(d*m*(1 + m)*sqrt(sin(c + d*x)^2))]
     @test_int [cos(c + d*x)^m*(a*sin(c + d*x) + b*tan(c + d*x))^1, x, 6, -((b*cos(c + d*x)^m)/(d*m)) - (a*cos(c + d*x)^(1 + m))/(d*(1 + m))]
-    @test_int [cos(c + d*x)^m/(a*sin(c + d*x) + b*tan(c + d*x))^1, x, 7, (cos(c + d*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, -cos(c + d*x)))/(2*(a - b)*d*(2 + m)) - (cos(c + d*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, cos(c + d*x)))/(2*(a + b)*d*(2 + m)) - (a^2*cos(c + d*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, -((a*cos(c + d*x))/b)))/(b*(a^2 - b^2)*d*(2 + m))]
+    @test_int [cos(c + d*x)^m/(a*sin(c + d*x) + b*tan(c + d*x))^1, x, 7, (cos(c + d*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, -cos(c + d*x)))/(2*(a - b)*d*(2 + m)) - (cos(c + d*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, cos(c + d*x)))/(2*(a + b)*d*(2 + m)) - (a^2*cos(c + d*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, -((a*cos(c + d*x))/b)))/(b*(a^2 - b^2)*d*(2 + m))]
 
 
     #= ::Section::Closed:: =#

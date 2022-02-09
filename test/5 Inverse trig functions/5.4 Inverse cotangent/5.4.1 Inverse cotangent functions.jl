@@ -1,5 +1,5 @@
 @testset "5.4.1 Inverse cotangent functions" begin
-    @variables a, b, c, d, e, f, m, n, x
+    (a, b, c, d, e, f, m, n, x, ) = @variables a b c d e f m n x
 
     #= ::Package:: =#
 
@@ -68,7 +68,7 @@
 
     @test_int [x^m*acot(a*x)^3, x, 0, Unintegrable(x^m*acot(a*x)^3, x)]
     @test_int [x^m*acot(a*x)^2, x, 0, Unintegrable(x^m*acot(a*x)^2, x)]
-    @test_int [x^m*acot(a*x), x, 2, (x^(1 + m)*acot(a*x))/(1 + m) + (a*x^(2 + m)*Hypergeometric2F1(1, (2 + m)/2, (4 + m)/2, (-a^2)*x^2))/(2 + 3*m + m^2)]
+    @test_int [x^m*acot(a*x), x, 2, (x^(1 + m)*acot(a*x))/(1 + m) + (a*x^(2 + m)*HypergeometricFunctions._₂F₁(1, (2 + m)/2, (4 + m)/2, (-a^2)*x^2))/(2 + 3*m + m^2)]
 
 
     #= ::Subsection::Closed:: =#
@@ -335,7 +335,7 @@
     #=Integrands*of*the*form*(e+f*x)^m*(a+b*acot(c+d*x))^p*with*m*symbolic=#
 
 
-    @test_int [(e + f*x)^m*(a + b*acot(c + d*x)), x, 6, ((e + f*x)^(1 + m)*(a + b*acot(c + d*x)))/(f*(1 + m)) + (im*b*d*(e + f*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e + im*f - c*f)))/(2*f*(d*e + (im - c)*f)*(1 + m)*(2 + m)) - (im*b*d*(e + f*x)^(2 + m)*Hypergeometric2F1(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e - (im + c)*f)))/(2*f*(d*e - (im + c)*f)*(1 + m)*(2 + m))]
+    @test_int [(e + f*x)^m*(a + b*acot(c + d*x)), x, 6, ((e + f*x)^(1 + m)*(a + b*acot(c + d*x)))/(f*(1 + m)) + (im*b*d*(e + f*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e + im*f - c*f)))/(2*f*(d*e + (im - c)*f)*(1 + m)*(2 + m)) - (im*b*d*(e + f*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, 2 + m, 3 + m, (d*(e + f*x))/(d*e - (im + c)*f)))/(2*f*(d*e - (im + c)*f)*(1 + m)*(2 + m))]
     @test_int [(e + f*x)^m*(a + b*acot(c + d*x))^2, x, 1, Unintegrable((e + f*x)^m*(a + b*acot(c + d*x))^2, x)]
     @test_int [(e + f*x)^m*(a + b*acot(c + d*x))^3, x, 1, Unintegrable((e + f*x)^m*(a + b*acot(c + d*x))^3, x)]
 

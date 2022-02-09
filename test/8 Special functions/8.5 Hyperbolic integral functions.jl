@@ -1,5 +1,5 @@
 @testset "8.5 Hyperbolic integral functions" begin
-    @variables a, b, c, d, e, m, n, x
+    (a, b, c, d, e, m, n, x, ) = @variables a b c d e m n x
 
     #= ::Package:: =#
 

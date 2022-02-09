@@ -1,5 +1,5 @@
 @testset "4.1.8 (a+b sin)^m (c+d trig)^n" begin
-    @variables A, B, a, b, c, x
+    (A, B, a, b, c, x, ) = @variables A B a b c x
 
     #= ::Package:: =#
 

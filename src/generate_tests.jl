@@ -1,11 +1,11 @@
 using RubiSymbolics: syntax_repl_dict, function_repl_dict
-#------------
+#--- global variables
 testsuite_path = joinpath(@__DIR__, "../RubiTestSuite")
 tests_root_path = joinpath(@__DIR__, "../test")
 vars = Set{Symbol}()
-#------------
+#--- utility functions
 stem(path) = splitext(path)[1]
-
+# function to get all leaf arguments (symbols) of expression
 function get_syms(expr::Expr, vars)
     if expr.head == :call
         for a in expr.args[2:end]
@@ -17,7 +17,11 @@ function get_syms(expr::Expr, vars)
 end
 get_syms(s::Symbol, vars) = push!(vars, s);vars
 get_syms(x, vars) = vars
-
+#--- recursively visit folders in /RubiTestSuite and generate respective
+#    structure in /test
+#    For each folder create .jl file to include contents of folders
+#    For each file translate content into respective *.jl file and remember
+#    symbols to be used as variables
 for (root, dirs, files) in walkdir(testsuite_path)
     test_re = r"(?<=\n)\[.*,.*,.*,.*\]"
     function test_subs(m)
@@ -51,15 +55,17 @@ for (root, dirs, files) in walkdir(testsuite_path)
                 read(rf, String)
             end
             out_file_content = replace(orig_file_content,
-                # r"\R+" => "\n",     # delete empty lines
+                "\r" => "",  # remove windows line end
+                # r"\n+" => "\n",     # delete empty lines
                 syntax_repl_dict...,
                 function_repl_dict...
             )
             empty!(vars)
             out_file_content = replace(out_file_content, test_re => test_subs)
-            out_file_content = replace(out_file_content, r"^|(\R(?!\R))" => "\n"*" "^4) #indent
+            out_file_content = replace(out_file_content, r"^|(\n(?!\n))" => "\n"*" "^4) #indent
             write(f, "@testset \"$(stem(file))\" begin\n")
-            write(f, "    @variables "*join(sort([x for x in setdiff(vars, [:im, :ℯ, :pi])]), ", ")*"\n")
+            symbol_list = sort([x for x in setdiff(vars, [:im, :ℯ, :pi])])
+            write(f, "    ($(join(symbol_list, ", ")), ) = @variables "*join(symbol_list, " ")*"\n")
             write(f, out_file_content)
             write(f, "end\n")
         end

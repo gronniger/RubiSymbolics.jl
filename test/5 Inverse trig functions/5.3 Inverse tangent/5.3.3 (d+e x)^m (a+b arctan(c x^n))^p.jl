@@ -1,5 +1,5 @@
 @testset "5.3.3 (d+e x)^m (a+b arctan(c x^n))^p" begin
-    @variables a, b, c, d, e, x
+    (a, b, c, d, e, x, ) = @variables a b c d e x
 
     #= ::Package:: =#
 

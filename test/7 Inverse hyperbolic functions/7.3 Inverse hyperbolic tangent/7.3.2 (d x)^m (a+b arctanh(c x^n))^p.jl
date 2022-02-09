@@ -1,5 +1,5 @@
 @testset "7.3.2 (d x)^m (a+b arctanh(c x^n))^p" begin
-    @variables a, b, c, d, m, n, p, x
+    (a, b, c, d, m, n, p, x, ) = @variables a b c d m n p x
 
     #= ::Package:: =#
 
@@ -75,7 +75,7 @@
 
     @test_int [(d*x)^m*(a + b*atanh(c*x))^3, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x))^3, x)]
     @test_int [(d*x)^m*(a + b*atanh(c*x))^2, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x))^2, x)]
-    @test_int [(d*x)^m*(a + b*atanh(c*x))^1, x, 2, ((d*x)^(1 + m)*(a + b*atanh(c*x)))/(d*(1 + m)) - (b*c*(d*x)^(2 + m)*Hypergeometric2F1(1, (2 + m)/2, (4 + m)/2, c^2*x^2))/(d^2*(1 + m)*(2 + m))]
+    @test_int [(d*x)^m*(a + b*atanh(c*x))^1, x, 2, ((d*x)^(1 + m)*(a + b*atanh(c*x)))/(d*(1 + m)) - (b*c*(d*x)^(2 + m)*HypergeometricFunctions._₂F₁(1, (2 + m)/2, (4 + m)/2, c^2*x^2))/(d^2*(1 + m)*(2 + m))]
     @test_int [(d*x)^m/(a + b*atanh(c*x))^1, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x)), x)]
     @test_int [(d*x)^m/(a + b*atanh(c*x))^2, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x))^2, x)]
 
@@ -170,7 +170,7 @@
 
     @test_int [(d*x)^m*(a + b*atanh(c*x^2))^3, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x^2))^3, x)]
     @test_int [(d*x)^m*(a + b*atanh(c*x^2))^2, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x^2))^2, x)]
-    @test_int [(d*x)^m*(a + b*atanh(c*x^2))^1, x, 2, ((d*x)^(1 + m)*(a + b*atanh(c*x^2)))/(d*(1 + m)) - (2*b*c*(d*x)^(3 + m)*Hypergeometric2F1(1, (3 + m)/4, (7 + m)/4, c^2*x^4))/(d^3*(1 + m)*(3 + m))]
+    @test_int [(d*x)^m*(a + b*atanh(c*x^2))^1, x, 2, ((d*x)^(1 + m)*(a + b*atanh(c*x^2)))/(d*(1 + m)) - (2*b*c*(d*x)^(3 + m)*HypergeometricFunctions._₂F₁(1, (3 + m)/4, (7 + m)/4, c^2*x^4))/(d^3*(1 + m)*(3 + m))]
     @test_int [(d*x)^m/(a + b*atanh(c*x^2))^1, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x^2)), x)]
     @test_int [(d*x)^m/(a + b*atanh(c*x^2))^2, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x^2))^2, x)]
 
@@ -246,7 +246,7 @@
 
     @test_int [(d*x)^m*(a + b*atanh(c*x^3))^3, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x^3))^3, x)]
     @test_int [(d*x)^m*(a + b*atanh(c*x^3))^2, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x^3))^2, x)]
-    @test_int [(d*x)^m*(a + b*atanh(c*x^3))^1, x, 2, ((d*x)^(1 + m)*(a + b*atanh(c*x^3)))/(d*(1 + m)) - (3*b*c*(d*x)^(4 + m)*Hypergeometric2F1(1, (4 + m)/6, (10 + m)/6, c^2*x^6))/(d^4*(1 + m)*(4 + m))]
+    @test_int [(d*x)^m*(a + b*atanh(c*x^3))^1, x, 2, ((d*x)^(1 + m)*(a + b*atanh(c*x^3)))/(d*(1 + m)) - (3*b*c*(d*x)^(4 + m)*HypergeometricFunctions._₂F₁(1, (4 + m)/6, (10 + m)/6, c^2*x^6))/(d^4*(1 + m)*(4 + m))]
     @test_int [(d*x)^m/(a + b*atanh(c*x^3))^1, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x^3)), x)]
     @test_int [(d*x)^m/(a + b*atanh(c*x^3))^2, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x^3))^2, x)]
 
@@ -336,7 +336,7 @@
 
     @test_int [(d*x)^m*(a + b*atanh(c/x^2))^3, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c/x^2))^3, x)]
     @test_int [(d*x)^m*(a + b*atanh(c/x^2))^2, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c/x^2))^2, x)]
-    @test_int [(d*x)^m*(a + b*atanh(c/x^2))^1, x, 3, ((d*x)^(1 + m)*(a + b*atanh(c/x^2)))/(d*(1 + m)) - (2*b*c*d*(d*x)^(-1 + m)*Hypergeometric2F1(1, (1 - m)/4, (5 - m)/4, c^2/x^4))/(1 - m^2)]
+    @test_int [(d*x)^m*(a + b*atanh(c/x^2))^1, x, 3, ((d*x)^(1 + m)*(a + b*atanh(c/x^2)))/(d*(1 + m)) - (2*b*c*d*(d*x)^(-1 + m)*HypergeometricFunctions._₂F₁(1, (1 - m)/4, (5 - m)/4, c^2/x^4))/(1 - m^2)]
     @test_int [(d*x)^m/(a + b*atanh(c/x^2))^1, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c/x^2)), x)]
     @test_int [(d*x)^m/(a + b*atanh(c/x^2))^2, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c/x^2))^2, x)]
 
@@ -427,13 +427,13 @@
     #=Integrands*of*the*form*x^m*(a+b*atanh(c*x^n))^p=#
 
 
-    @test_int [x^2*(a + b*atanh(c*x^n)), x, 2, (1/3)*x^3*(a + b*atanh(c*x^n)) - (b*c*n*x^(3 + n)*Hypergeometric2F1(1, (3 + n)/(2*n), (3*(1 + n))/(2*n), c^2*x^(2*n)))/(3*(3 + n))]
-    @test_int [x^1*(a + b*atanh(c*x^n)), x, 2, (1/2)*x^2*(a + b*atanh(c*x^n)) - (b*c*n*x^(2 + n)*Hypergeometric2F1(1, (2 + n)/(2*n), (1/2)*(3 + 2/n), c^2*x^(2*n)))/(2*(2 + n))]
-    @test_int [x^0*(a + b*atanh(c*x^n)), x, 3, a*x + b*x*atanh(c*x^n) - (b*c*n*x^(1 + n)*Hypergeometric2F1(1, (1 + n)/(2*n), (1/2)*(3 + 1/n), c^2*x^(2*n)))/(1 + n)]
+    @test_int [x^2*(a + b*atanh(c*x^n)), x, 2, (1/3)*x^3*(a + b*atanh(c*x^n)) - (b*c*n*x^(3 + n)*HypergeometricFunctions._₂F₁(1, (3 + n)/(2*n), (3*(1 + n))/(2*n), c^2*x^(2*n)))/(3*(3 + n))]
+    @test_int [x^1*(a + b*atanh(c*x^n)), x, 2, (1/2)*x^2*(a + b*atanh(c*x^n)) - (b*c*n*x^(2 + n)*HypergeometricFunctions._₂F₁(1, (2 + n)/(2*n), (1/2)*(3 + 2/n), c^2*x^(2*n)))/(2*(2 + n))]
+    @test_int [x^0*(a + b*atanh(c*x^n)), x, 3, a*x + b*x*atanh(c*x^n) - (b*c*n*x^(1 + n)*HypergeometricFunctions._₂F₁(1, (1 + n)/(2*n), (1/2)*(3 + 1/n), c^2*x^(2*n)))/(1 + n)]
     @test_int [(a + b*atanh(c*x^n))/x^1, x, 2, a*log(x) - (b*PolyLog(2, (-c)*x^n))/(2*n) + (b*PolyLog(2, c*x^n))/(2*n)]
-    @test_int [(a + b*atanh(c*x^n))/x^2, x, 2, -((a + b*atanh(c*x^n))/x) - (b*c*n*x^(-1 + n)*Hypergeometric2F1(1, -((1 - n)/(2*n)), (1/2)*(3 - 1/n), c^2*x^(2*n)))/(1 - n)]
-    @test_int [(a + b*atanh(c*x^n))/x^3, x, 2, -((a + b*atanh(c*x^n))/(2*x^2)) - (b*c*n*x^(-2 + n)*Hypergeometric2F1(1, (1/2)*(1 - 2/n), (1/2)*(3 - 2/n), c^2*x^(2*n)))/(2*(2 - n))]
-    @test_int [(a + b*atanh(c*x^n))/x^4, x, 2, -((a + b*atanh(c*x^n))/(3*x^3)) - (b*c*n*x^(-3 + n)*Hypergeometric2F1(1, -((3 - n)/(2*n)), -((3*(1 - n))/(2*n)), c^2*x^(2*n)))/(3*(3 - n))]
+    @test_int [(a + b*atanh(c*x^n))/x^2, x, 2, -((a + b*atanh(c*x^n))/x) - (b*c*n*x^(-1 + n)*HypergeometricFunctions._₂F₁(1, -((1 - n)/(2*n)), (1/2)*(3 - 1/n), c^2*x^(2*n)))/(1 - n)]
+    @test_int [(a + b*atanh(c*x^n))/x^3, x, 2, -((a + b*atanh(c*x^n))/(2*x^2)) - (b*c*n*x^(-2 + n)*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - 2/n), (1/2)*(3 - 2/n), c^2*x^(2*n)))/(2*(2 - n))]
+    @test_int [(a + b*atanh(c*x^n))/x^4, x, 2, -((a + b*atanh(c*x^n))/(3*x^3)) - (b*c*n*x^(-3 + n)*HypergeometricFunctions._₂F₁(1, -((3 - n)/(2*n)), -((3*(1 - n))/(2*n)), c^2*x^(2*n)))/(3*(3 - n))]
 
 
     @test_int [x^1*(a + b*atanh(c*x^n))^2, x, 0, Unintegrable(x*(a + b*atanh(c*x^n))^2, x)]
@@ -462,7 +462,7 @@
 
     @test_int [(d*x)^m*(a + b*atanh(c*x^n))^3, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x^n))^3, x)]
     @test_int [(d*x)^m*(a + b*atanh(c*x^n))^2, x, 0, Unintegrable((d*x)^m*(a + b*atanh(c*x^n))^2, x)]
-    @test_int [(d*x)^m*(a + b*atanh(c*x^n))^1, x, 3, (x*(d*x)^m*(a + b*atanh(c*x^n)))/(1 + m) - (b*c*n*x^(1 + n)*(d*x)^m*Hypergeometric2F1(1, (1 + m + n)/(2*n), (1 + m + 3*n)/(2*n), c^2*x^(2*n)))/((1 + m)*(1 + m + n))]
+    @test_int [(d*x)^m*(a + b*atanh(c*x^n))^1, x, 3, (x*(d*x)^m*(a + b*atanh(c*x^n)))/(1 + m) - (b*c*n*x^(1 + n)*(d*x)^m*HypergeometricFunctions._₂F₁(1, (1 + m + n)/(2*n), (1 + m + 3*n)/(2*n), c^2*x^(2*n)))/((1 + m)*(1 + m + n))]
     @test_int [(d*x)^m/(a + b*atanh(c*x^n))^1, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x^n)), x)]
     @test_int [(d*x)^m/(a + b*atanh(c*x^n))^2, x, 0, Unintegrable((d*x)^m/(a + b*atanh(c*x^n))^2, x)]
     end

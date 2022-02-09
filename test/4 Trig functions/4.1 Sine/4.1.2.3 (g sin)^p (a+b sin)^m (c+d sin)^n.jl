@@ -1,5 +1,5 @@
 @testset "4.1.2.3 (g sin)^p (a+b sin)^m (c+d sin)^n" begin
-    @variables A, B, a, b, c, d, e, f, g, m, n, p, x
+    (A, B, a, b, c, d, e, f, g, m, n, p, x, ) = @variables A B a b c d e f g m n p x
 
     #= ::Package:: =#
 
@@ -159,14 +159,14 @@
     #=m>0=#
 
 
-    @test_int [sqrt(a + b*sin(e + f*x))/(sin(e + f*x)*(c + c*sin(e + f*x))), x, 9, (EllipticE((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt(a + b*sin(e + f*x)))/(c*f*sqrt((a + b*sin(e + f*x))/(a + b))) - ((a - b)*EllipticF((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (2*a*EllipticPi(2, (1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (cos(e + f*x)*sqrt(a + b*sin(e + f*x)))/(f*(c + c*sin(e + f*x)))]
+    @test_int [sqrt(a + b*sin(e + f*x))/(sin(e + f*x)*(c + c*sin(e + f*x))), x, 9, (Elliptic.E((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt(a + b*sin(e + f*x)))/(c*f*sqrt((a + b*sin(e + f*x))/(a + b))) - ((a - b)*Elliptic.F((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (2*a*Elliptic.Pi(2, (1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (cos(e + f*x)*sqrt(a + b*sin(e + f*x)))/(f*(c + c*sin(e + f*x)))]
 
 
     #= ::Subsubsection::Closed:: =#
     #=m<0=#
 
 
-    @test_int [1/(sin(e + f*x)*sqrt(a + b*sin(e + f*x))*(c + c*sin(e + f*x))), x, 9, (EllipticE((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt(a + b*sin(e + f*x)))/((a - b)*c*f*sqrt((a + b*sin(e + f*x))/(a + b))) - (EllipticF((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (2*EllipticPi(2, (1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (cos(e + f*x)*sqrt(a + b*sin(e + f*x)))/((a - b)*f*(c + c*sin(e + f*x)))]
+    @test_int [1/(sin(e + f*x)*sqrt(a + b*sin(e + f*x))*(c + c*sin(e + f*x))), x, 9, (Elliptic.E((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt(a + b*sin(e + f*x)))/((a - b)*c*f*sqrt((a + b*sin(e + f*x))/(a + b))) - (Elliptic.F((1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (2*Elliptic.Pi(2, (1/2)*(e - pi/2 + f*x), (2*b)/(a + b))*sqrt((a + b*sin(e + f*x))/(a + b)))/(c*f*sqrt(a + b*sin(e + f*x))) + (cos(e + f*x)*sqrt(a + b*sin(e + f*x)))/((a - b)*f*(c + c*sin(e + f*x)))]
 
 
     #= ::Subsection::Closed:: =#
@@ -177,16 +177,16 @@
     #=m>0=#
 
 
-    @test_int [sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))/(c + c*sin(e + f*x)), x, 3, (2*sqrt(g)*EllipticPi(b/(a + b), asin((sqrt(a + b)*sqrt(g*sin(e + f*x)))/(sqrt(g)*sqrt(a + b*sin(e + f*x)))), -((a - b)/(a + b)))*sec(e + f*x)*sqrt((a*(1 - sin(e + f*x)))/(a + b*sin(e + f*x)))*sqrt((a*(1 + sin(e + f*x)))/(a + b*sin(e + f*x)))*(a + b*sin(e + f*x)))/(sqrt(a + b)*c*f) + (g*EllipticE(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/(c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x)))))]
-    @test_int [sqrt(a + b*sin(e + f*x))/(sqrt(g*sin(e + f*x))*(c + c*sin(e + f*x))), x, 1, -((EllipticE(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/(c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x))))))]
+    @test_int [sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))/(c + c*sin(e + f*x)), x, 3, (2*sqrt(g)*Elliptic.Pi(b/(a + b), asin((sqrt(a + b)*sqrt(g*sin(e + f*x)))/(sqrt(g)*sqrt(a + b*sin(e + f*x)))), -((a - b)/(a + b)))*sec(e + f*x)*sqrt((a*(1 - sin(e + f*x)))/(a + b*sin(e + f*x)))*sqrt((a*(1 + sin(e + f*x)))/(a + b*sin(e + f*x)))*(a + b*sin(e + f*x)))/(sqrt(a + b)*c*f) + (g*Elliptic.E(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/(c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x)))))]
+    @test_int [sqrt(a + b*sin(e + f*x))/(sqrt(g*sin(e + f*x))*(c + c*sin(e + f*x))), x, 1, -((Elliptic.E(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/(c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x))))))]
 
 
     #= ::Subsubsection::Closed:: =#
     #=m<0=#
 
 
-    @test_int [sqrt(g*sin(e + f*x))/(sqrt(a + b*sin(e + f*x))*(c + c*sin(e + f*x))), x, 3, (g*EllipticE(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/((a - b)*c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x))))) - (2*sqrt(a + b)*sqrt(g)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*EllipticF(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/((a - b)*c*f)]
-    @test_int [1/(sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))*(c + c*sin(e + f*x))), x, 3, -((EllipticE(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/((a - b)*c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x)))))) + (2*b*sqrt(a + b)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*EllipticF(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(a*(a - b)*c*f*sqrt(g))]
+    @test_int [sqrt(g*sin(e + f*x))/(sqrt(a + b*sin(e + f*x))*(c + c*sin(e + f*x))), x, 3, (g*Elliptic.E(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/((a - b)*c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x))))) - (2*sqrt(a + b)*sqrt(g)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*Elliptic.F(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/((a - b)*c*f)]
+    @test_int [1/(sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))*(c + c*sin(e + f*x))), x, 3, -((Elliptic.E(asin(cos(e + f*x)/(1 + sin(e + f*x))), -((a - b)/(a + b)))*sqrt(sin(e + f*x)/(1 + sin(e + f*x)))*sqrt(a + b*sin(e + f*x)))/((a - b)*c*f*sqrt(g*sin(e + f*x))*sqrt((a + b*sin(e + f*x))/((a + b)*(1 + sin(e + f*x)))))) + (2*b*sqrt(a + b)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*Elliptic.F(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(a*(a - b)*c*f*sqrt(g))]
 
 
     #= ::Section::Closed:: =#
@@ -244,18 +244,18 @@
     #=m>0=#
 
 
-    #= [(c + d*sin(e + f*x))^(5/2)/(sin(e + f*x)*(a + b*sin(e + f*x))), x, 0, -((2*d^2*EllipticE((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt(c + d*sin(e + f*x)))/(b*f*sqrt((c + d*sin(e + f*x))/(c + d)))) + (2*d^2*(-2*b*c + a*d)*EllipticF((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(b^2*f*sqrt(c + d*sin(e + f*x))) + (2*c^3*EllipticPi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*(b*c - a*d)^3*EllipticPi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*b^2*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
-    @test_int [(c + d*sin(e + f*x))^(3/2)/(sin(e + f*x)*(a + b*sin(e + f*x))), x, 0, -((2*d^2*EllipticF((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(b*f*sqrt(c + d*sin(e + f*x)))) + (2*c^2*EllipticPi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*(b*c - a*d)^2*EllipticPi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*b*(a + b)*f*sqrt(c + d*sin(e + f*x)))] =#
-    @test_int [(c + d*sin(e + f*x))^(1/2)/(sin(e + f*x)*(a + b*sin(e + f*x))), x, 5, (2*c*EllipticPi(2, (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*(b*c - a*d)*EllipticPi((2*b)/(a + b), (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
+    #= [(c + d*sin(e + f*x))^(5/2)/(sin(e + f*x)*(a + b*sin(e + f*x))), x, 0, -((2*d^2*Elliptic.E((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt(c + d*sin(e + f*x)))/(b*f*sqrt((c + d*sin(e + f*x))/(c + d)))) + (2*d^2*(-2*b*c + a*d)*Elliptic.F((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(b^2*f*sqrt(c + d*sin(e + f*x))) + (2*c^3*Elliptic.Pi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*(b*c - a*d)^3*Elliptic.Pi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*b^2*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
+    @test_int [(c + d*sin(e + f*x))^(3/2)/(sin(e + f*x)*(a + b*sin(e + f*x))), x, 0, -((2*d^2*Elliptic.F((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(b*f*sqrt(c + d*sin(e + f*x)))) + (2*c^2*Elliptic.Pi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*(b*c - a*d)^2*Elliptic.Pi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*b*(a + b)*f*sqrt(c + d*sin(e + f*x)))] =#
+    @test_int [(c + d*sin(e + f*x))^(1/2)/(sin(e + f*x)*(a + b*sin(e + f*x))), x, 5, (2*c*Elliptic.Pi(2, (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*(b*c - a*d)*Elliptic.Pi((2*b)/(a + b), (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
 
 
     #= ::Subsubsection::Closed:: =#
     #=m<0=#
 
 
-    @test_int [1/(sin(e + f*x)*(c + d*sin(e + f*x))^(1/2)*(a + b*sin(e + f*x))), x, 5, (2*EllipticPi(2, (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*b*EllipticPi((2*b)/(a + b), (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
-    #= [1/(sin(e + f*x)*(c + d*sin(e + f*x))^(3/2)*(a + b*sin(e + f*x))), x, 0, (2*d^3*cos(e + f*x))/(c*(b*c - a*d)*(c^2 - d^2)*f*sqrt(c + d*sin(e + f*x))) - (2*d^2*EllipticE((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt(c + d*sin(e + f*x)))/(c*(b*c - a*d)*(c^2 - d^2)*f*sqrt((c + d*sin(e + f*x))/(c + d))) + (2*EllipticPi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*c*f*sqrt(c + d*sin(e + f*x))) - (2*b^2*EllipticPi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*(b*c - a*d)*f*sqrt(c + d*sin(e + f*x)))]
-    @test_int [1/(sin(e + f*x)*(c + d*sin(e + f*x))^(5/2)*(a + b*sin(e + f*x))), x, 0, sdx((2*d^3*cos(e + f*x))/(3*c*(b*c - a*d)*(c^2 - d^2)*f*(c + d*sin(e + f*x))^(3/2)) + (2*d^3*(10*b*c^3 - 7*a*c^2*d - 6*b*c*d^2 + 3*a*d^3)*cos(e + f*x))/(3*c^2*(b*c - a*d)^2*(c^2 - d^2)^2*f*sqrt(c + d*sin(e + f*x))) - (2*d^2*(10*b*c^3 - 7*a*c^2*d - 6*b*c*d^2 + 3*a*d^3)*EllipticE((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt(c + d*sin(e + f*x)))/(3*c^2*(b*c - a*d)^2*(c^2 - d^2)^2*f*sqrt((c + d*sin(e + f*x))/(c + d))) + (2*d^2*EllipticF((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(3*c*(b*c - a*d)*(c^2 - d^2)*f*sqrt(c + d*sin(e + f*x))) + (2*EllipticPi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*c^2*f*sqrt(c + d*sin(e + f*x))) - (2*b^3*EllipticPi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*(b*c - a*d)^2*f*sqrt(c + d*sin(e + f*x))))] =#
+    @test_int [1/(sin(e + f*x)*(c + d*sin(e + f*x))^(1/2)*(a + b*sin(e + f*x))), x, 5, (2*Elliptic.Pi(2, (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*f*sqrt(c + d*sin(e + f*x))) - (2*b*Elliptic.Pi((2*b)/(a + b), (1/2)*(e - pi/2 + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
+    #= [1/(sin(e + f*x)*(c + d*sin(e + f*x))^(3/2)*(a + b*sin(e + f*x))), x, 0, (2*d^3*cos(e + f*x))/(c*(b*c - a*d)*(c^2 - d^2)*f*sqrt(c + d*sin(e + f*x))) - (2*d^2*Elliptic.E((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt(c + d*sin(e + f*x)))/(c*(b*c - a*d)*(c^2 - d^2)*f*sqrt((c + d*sin(e + f*x))/(c + d))) + (2*Elliptic.Pi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*c*f*sqrt(c + d*sin(e + f*x))) - (2*b^2*Elliptic.Pi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*(b*c - a*d)*f*sqrt(c + d*sin(e + f*x)))]
+    @test_int [1/(sin(e + f*x)*(c + d*sin(e + f*x))^(5/2)*(a + b*sin(e + f*x))), x, 0, sdx((2*d^3*cos(e + f*x))/(3*c*(b*c - a*d)*(c^2 - d^2)*f*(c + d*sin(e + f*x))^(3/2)) + (2*d^3*(10*b*c^3 - 7*a*c^2*d - 6*b*c*d^2 + 3*a*d^3)*cos(e + f*x))/(3*c^2*(b*c - a*d)^2*(c^2 - d^2)^2*f*sqrt(c + d*sin(e + f*x))) - (2*d^2*(10*b*c^3 - 7*a*c^2*d - 6*b*c*d^2 + 3*a*d^3)*Elliptic.E((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt(c + d*sin(e + f*x)))/(3*c^2*(b*c - a*d)^2*(c^2 - d^2)^2*f*sqrt((c + d*sin(e + f*x))/(c + d))) + (2*d^2*Elliptic.F((1/4)*(-2*e + pi - 2*f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(3*c*(b*c - a*d)*(c^2 - d^2)*f*sqrt(c + d*sin(e + f*x))) + (2*Elliptic.Pi(2, -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*c^2*f*sqrt(c + d*sin(e + f*x))) - (2*b^3*Elliptic.Pi((2*b)/(a + b), -(pi/4) + (1/2)*(e + f*x), (2*d)/(c + d))*sqrt((c + d*sin(e + f*x))/(c + d)))/(a*(a + b)*(b*c - a*d)^2*f*sqrt(c + d*sin(e + f*x))))] =#
 
 
     #= ::Subsection::Closed:: =#
@@ -266,16 +266,16 @@
     #=m>0=#
 
 
-    @test_int [sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))/(c + d*sin(e + f*x)), x, 3, (2*sqrt(a + b)*sqrt(g)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*EllipticPi((a + b)/b, asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(d*f) - (2*(b*c - a*d)*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*EllipticPi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(d*(c + d)*f*sqrt(a + b*sin(e + f*x)))]
-    @test_int [sqrt(a + b*sin(e + f*x))/(sqrt(g*sin(e + f*x))*(c + d*sin(e + f*x))), x, 3, -((2*sqrt(a + b)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*EllipticF(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(c*f*sqrt(g))) + (2*(b*c - a*d)*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*EllipticPi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(c*(c + d)*f*g*sqrt(a + b*sin(e + f*x)))]
+    @test_int [sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))/(c + d*sin(e + f*x)), x, 3, (2*sqrt(a + b)*sqrt(g)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*Elliptic.Pi((a + b)/b, asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(d*f) - (2*(b*c - a*d)*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*Elliptic.Pi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(d*(c + d)*f*sqrt(a + b*sin(e + f*x)))]
+    @test_int [sqrt(a + b*sin(e + f*x))/(sqrt(g*sin(e + f*x))*(c + d*sin(e + f*x))), x, 3, -((2*sqrt(a + b)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*Elliptic.F(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(c*f*sqrt(g))) + (2*(b*c - a*d)*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*Elliptic.Pi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(c*(c + d)*f*g*sqrt(a + b*sin(e + f*x)))]
 
 
     #= ::Subsubsection::Closed:: =#
     #=m<0=#
 
 
-    @test_int [sqrt(g*sin(e + f*x))/(sqrt(a + b*sin(e + f*x))*(c + d*sin(e + f*x))), x, 1, (2*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*EllipticPi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/((c + d)*f*sqrt(a + b*sin(e + f*x)))]
-    @test_int [1/(sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))*(c + d*sin(e + f*x))), x, 3, -((2*sqrt(a + b)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*EllipticF(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(a*c*f*sqrt(g))) - (2*d*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*EllipticPi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(c*(c + d)*f*g*sqrt(a + b*sin(e + f*x)))]
+    @test_int [sqrt(g*sin(e + f*x))/(sqrt(a + b*sin(e + f*x))*(c + d*sin(e + f*x))), x, 1, (2*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*Elliptic.Pi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/((c + d)*f*sqrt(a + b*sin(e + f*x)))]
+    @test_int [1/(sqrt(g*sin(e + f*x))*sqrt(a + b*sin(e + f*x))*(c + d*sin(e + f*x))), x, 3, -((2*sqrt(a + b)*sqrt((a*(1 - csc(e + f*x)))/(a + b))*sqrt((a*(1 + csc(e + f*x)))/(a - b))*Elliptic.F(asin((sqrt(g)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(g*sin(e + f*x)))), -((a + b)/(a - b)))*tan(e + f*x))/(a*c*f*sqrt(g))) - (2*d*sqrt(-cot(e + f*x)^2)*sqrt((b + a*csc(e + f*x))/(a + b))*Elliptic.Pi((2*c)/(c + d), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*a)/(a + b))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(c*(c + d)*f*g*sqrt(a + b*sin(e + f*x)))]
 
 
     #= ::Section::Closed:: =#
@@ -292,14 +292,14 @@
 
     #= [sqrt(g*sin(e + f*x))*(c + d*sin(e + f*x))^(5/2)/(a + b*sin(e + f*x)), x, 0, 0]
     @test_int [sqrt(g*sin(e + f*x))*(c + d*sin(e + f*x))^(3/2)/(a + b*sin(e + f*x)), x, 0, 0] =#
-    @test_int [sqrt(g*sin(e + f*x))*(c + d*sin(e + f*x))^(1/2)/(a + b*sin(e + f*x)), x, 3, (2*sqrt(c + d)*sqrt(g)*sqrt((c*(1 - csc(e + f*x)))/(c + d))*sqrt((c*(1 + csc(e + f*x)))/(c - d))*EllipticPi((c + d)/d, asin((sqrt(g)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(g*sin(e + f*x)))), -((c + d)/(c - d)))*tan(e + f*x))/(b*f) + (2*(b*c - a*d)*sqrt(-cot(e + f*x)^2)*sqrt((d + c*csc(e + f*x))/(c + d))*EllipticPi((2*a)/(a + b), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*c)/(c + d))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(b*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
+    @test_int [sqrt(g*sin(e + f*x))*(c + d*sin(e + f*x))^(1/2)/(a + b*sin(e + f*x)), x, 3, (2*sqrt(c + d)*sqrt(g)*sqrt((c*(1 - csc(e + f*x)))/(c + d))*sqrt((c*(1 + csc(e + f*x)))/(c - d))*Elliptic.Pi((c + d)/d, asin((sqrt(g)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(g*sin(e + f*x)))), -((c + d)/(c - d)))*tan(e + f*x))/(b*f) + (2*(b*c - a*d)*sqrt(-cot(e + f*x)^2)*sqrt((d + c*csc(e + f*x))/(c + d))*Elliptic.Pi((2*a)/(a + b), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*c)/(c + d))*sqrt(g*sin(e + f*x))*tan(e + f*x))/(b*(a + b)*f*sqrt(c + d*sin(e + f*x)))]
 
 
     #= ::Subsubsection::Closed:: =#
     #=m<0=#
 
 
-    @test_int [sqrt(g*sin(e + f*x))/((c + d*sin(e + f*x))^(1/2)*(a + b*sin(e + f*x))), x, 1, (2*sqrt(-cot(e + f*x)^2)*sqrt((d + c*csc(e + f*x))/(c + d))*EllipticPi((2*a)/(a + b), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*c)/(c + d))*sqrt(g*sin(e + f*x))*tan(e + f*x))/((a + b)*f*sqrt(c + d*sin(e + f*x)))]
+    @test_int [sqrt(g*sin(e + f*x))/((c + d*sin(e + f*x))^(1/2)*(a + b*sin(e + f*x))), x, 1, (2*sqrt(-cot(e + f*x)^2)*sqrt((d + c*csc(e + f*x))/(c + d))*Elliptic.Pi((2*a)/(a + b), asin(sqrt(1 - csc(e + f*x))/sqrt(2)), (2*c)/(c + d))*sqrt(g*sin(e + f*x))*tan(e + f*x))/((a + b)*f*sqrt(c + d*sin(e + f*x)))]
     #= [sqrt(g*sin(e + f*x))/((c + d*sin(e + f*x))^(3/2)*(a + b*sin(e + f*x))), x, 0, 0]
     @test_int [sqrt(g*sin(e + f*x))/((c + d*sin(e + f*x))^(5/2)*(a + b*sin(e + f*x))), x, 0, 0] =#
 
@@ -316,8 +316,8 @@
     #=m>0=#
 
 
-    @test_int [sqrt(a + b*sin(e + f*x))*sqrt(c + d*sin(e + f*x))/sin(e + f*x), x, 3, -((2*sqrt(c + d)*EllipticPi((a*(c + d))/((a + b)*c), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(sqrt(a + b)*f)) + (2*sqrt(c + d)*EllipticPi((b*(c + d))/((a + b)*d), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(sqrt(a + b)*f)]
-    @test_int [sqrt(a + b*sin(e + f*x))/(sin(e + f*x)*sqrt(c + d*sin(e + f*x))), x, 1, -((2*sqrt(c + d)*EllipticPi((a*(c + d))/((a + b)*c), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(sqrt(a + b)*c*f))]
+    @test_int [sqrt(a + b*sin(e + f*x))*sqrt(c + d*sin(e + f*x))/sin(e + f*x), x, 3, -((2*sqrt(c + d)*Elliptic.Pi((a*(c + d))/((a + b)*c), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(sqrt(a + b)*f)) + (2*sqrt(c + d)*Elliptic.Pi((b*(c + d))/((a + b)*d), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(sqrt(a + b)*f)]
+    @test_int [sqrt(a + b*sin(e + f*x))/(sin(e + f*x)*sqrt(c + d*sin(e + f*x))), x, 1, -((2*sqrt(c + d)*Elliptic.Pi((a*(c + d))/((a + b)*c), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(sqrt(a + b)*c*f))]
 
 
     #= [(c + d*sin(e + f*x))^(5/2)/(sin(e + f*x)*sqrt(a + b*sin(e + f*x))), x, 0, 0]
@@ -328,7 +328,7 @@
     #=m<0=#
 
 
-    @test_int [1/(sin(e + f*x)*sqrt(a + b*sin(e + f*x))*sqrt(c + d*sin(e + f*x))), x, 3, -((2*sqrt(c + d)*EllipticPi((a*(c + d))/((a + b)*c), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(a*sqrt(a + b)*c*f)) - (2*b*sqrt(a + b)*EllipticF(asin((sqrt(c + d)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(c + d*sin(e + f*x)))), ((a + b)*(c - d))/((a - b)*(c + d)))*sec(e + f*x)*sqrt(((b*c - a*d)*(1 - sin(e + f*x)))/((a + b)*(c + d*sin(e + f*x))))*sqrt(-(((b*c - a*d)*(1 + sin(e + f*x)))/((a - b)*(c + d*sin(e + f*x)))))*(c + d*sin(e + f*x)))/(a*sqrt(c + d)*(b*c - a*d)*f)]
+    @test_int [1/(sin(e + f*x)*sqrt(a + b*sin(e + f*x))*sqrt(c + d*sin(e + f*x))), x, 3, -((2*sqrt(c + d)*Elliptic.Pi((a*(c + d))/((a + b)*c), asin((sqrt(a + b)*sqrt(c + d*sin(e + f*x)))/(sqrt(c + d)*sqrt(a + b*sin(e + f*x)))), ((a - b)*(c + d))/((a + b)*(c - d)))*sec(e + f*x)*sqrt(-(((b*c - a*d)*(1 - sin(e + f*x)))/((c + d)*(a + b*sin(e + f*x)))))*sqrt(((b*c - a*d)*(1 + sin(e + f*x)))/((c - d)*(a + b*sin(e + f*x))))*(a + b*sin(e + f*x)))/(a*sqrt(a + b)*c*f)) - (2*b*sqrt(a + b)*Elliptic.F(asin((sqrt(c + d)*sqrt(a + b*sin(e + f*x)))/(sqrt(a + b)*sqrt(c + d*sin(e + f*x)))), ((a + b)*(c - d))/((a - b)*(c + d)))*sec(e + f*x)*sqrt(((b*c - a*d)*(1 - sin(e + f*x)))/((a + b)*(c + d*sin(e + f*x))))*sqrt(-(((b*c - a*d)*(1 + sin(e + f*x)))/((a - b)*(c + d*sin(e + f*x)))))*(c + d*sin(e + f*x)))/(a*sqrt(c + d)*(b*c - a*d)*f)]
 
 
     #= [1/(sin(e + f*x)*(c + d*sin(e + f*x))^(3/2)*sqrt(a + b*sin(e + f*x))), x, 0, 0]

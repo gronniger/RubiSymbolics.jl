@@ -1,5 +1,5 @@
 @testset "4.4.0 (a trg)^m (b cot)^n" begin
-    @variables a, b, c, d, e, f, m, n, p, x
+    (a, b, c, d, e, f, m, n, p, x, ) = @variables a b c d e f m n p x
 
     #= ::Package:: =#
 
@@ -55,10 +55,10 @@
     #=Integrands*of*the*form*(b*cot(c+d*x))^n*with*n*symbolic=#
 
 
-    @test_int [cot(a + b*x)^n, x, 2, -((cot(a + b*x)^(1 + n)*Hypergeometric2F1(1, (1 + n)/2, (3 + n)/2, -cot(a + b*x)^2))/(b*(1 + n)))]
+    @test_int [cot(a + b*x)^n, x, 2, -((cot(a + b*x)^(1 + n)*HypergeometricFunctions._₂F₁(1, (1 + n)/2, (3 + n)/2, -cot(a + b*x)^2))/(b*(1 + n)))]
 
 
-    @test_int [(b*cot(c + d*x))^n, x, 2, -(((b*cot(c + d*x))^(1 + n)*Hypergeometric2F1(1, (1 + n)/2, (3 + n)/2, -cot(c + d*x)^2))/(b*d*(1 + n)))]
+    @test_int [(b*cot(c + d*x))^n, x, 2, -(((b*cot(c + d*x))^(1 + n)*HypergeometricFunctions._₂F₁(1, (1 + n)/2, (3 + n)/2, -cot(c + d*x)^2))/(b*d*(1 + n)))]
 
 
     #= ::Section::Closed:: =#
@@ -99,7 +99,7 @@
     #=Integrands*of*the*form*(b*cot(c+d*x)^p)^n*with*n*symbolic=#
 
 
-    @test_int [(b*cot(c + d*x)^p)^n, x, 3, -((cot(c + d*x)*(b*cot(c + d*x)^p)^n*Hypergeometric2F1(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -cot(c + d*x)^2))/(d*(1 + n*p)))]
+    @test_int [(b*cot(c + d*x)^p)^n, x, 3, -((cot(c + d*x)*(b*cot(c + d*x)^p)^n*HypergeometricFunctions._₂F₁(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -cot(c + d*x)^2))/(d*(1 + n*p)))]
 
 
     #= ::Section::Closed:: =#
@@ -110,7 +110,7 @@
     #=Integrands*of*the*form*(a*(b*cot(c+d*x))^p)^n*with*n*symbolic=#
 
 
-    @test_int [(a*(b*cot(c + d*x))^p)^n, x, 3, -((cot(c + d*x)*(a*(b*cot(c + d*x))^p)^n*Hypergeometric2F1(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -cot(c + d*x)^2))/(d*(1 + n*p)))]
+    @test_int [(a*(b*cot(c + d*x))^p)^n, x, 3, -((cot(c + d*x)*(a*(b*cot(c + d*x))^p)^n*HypergeometricFunctions._₂F₁(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -cot(c + d*x)^2))/(d*(1 + n*p)))]
 
 
     #= ::Title:: =#
@@ -121,28 +121,28 @@
     #=Integrands*of*the*form*(a*sin(e+f*x))^m*(b*cot(e+f*x))^n=#
 
 
-    @test_int [(a*sin(e + f*x))^m*(b*cot(e + f*x))^n, x, 2, -(((b*cot(e + f*x))^(1 + n)*Hypergeometric2F1((1 + n)/2, (1/2)*(1 - m + n), (3 + n)/2, cos(e + f*x)^2)*(a*sin(e + f*x))^m*(sin(e + f*x)^2)^((1/2)*(1 - m + n)))/(b*f*(1 + n)))]
+    @test_int [(a*sin(e + f*x))^m*(b*cot(e + f*x))^n, x, 2, -(((b*cot(e + f*x))^(1 + n)*HypergeometricFunctions._₂F₁((1 + n)/2, (1/2)*(1 - m + n), (3 + n)/2, cos(e + f*x)^2)*(a*sin(e + f*x))^m*(sin(e + f*x)^2)^((1/2)*(1 - m + n)))/(b*f*(1 + n)))]
 
 
     #= ::Section::Closed:: =#
     #=Integrands*of*the*form*(a*cos(e+f*x))^m*(b*cot(e+f*x))^n=#
 
 
-    @test_int [(a*cos(e + f*x))^m*(b*cot(e + f*x))^n, x, 2, -(((a*cos(e + f*x))^m*(b*cot(e + f*x))^(1 + n)*Hypergeometric2F1((1 + n)/2, (1/2)*(1 + m + n), (1/2)*(3 + m + n), cos(e + f*x)^2)*(sin(e + f*x)^2)^((1 + n)/2))/(b*f*(1 + m + n)))]
+    @test_int [(a*cos(e + f*x))^m*(b*cot(e + f*x))^n, x, 2, -(((a*cos(e + f*x))^m*(b*cot(e + f*x))^(1 + n)*HypergeometricFunctions._₂F₁((1 + n)/2, (1/2)*(1 + m + n), (1/2)*(3 + m + n), cos(e + f*x)^2)*(sin(e + f*x)^2)^((1 + n)/2))/(b*f*(1 + m + n)))]
 
 
     #= ::Section::Closed:: =#
     #=Integrands*of*the*form*(a*cot(e+f*x))^m*(b*cot(e+f*x))^n=#
 
 
-    @test_int [(a*cot(e + f*x))^m*(b*cot(e + f*x))^n, x, 3, -(((a*cot(e + f*x))^(1 + m)*(b*cot(e + f*x))^n*Hypergeometric2F1(1, (1/2)*(1 + m + n), (1/2)*(3 + m + n), -cot(e + f*x)^2))/(a*f*(1 + m + n)))]
+    @test_int [(a*cot(e + f*x))^m*(b*cot(e + f*x))^n, x, 3, -(((a*cot(e + f*x))^(1 + m)*(b*cot(e + f*x))^n*HypergeometricFunctions._₂F₁(1, (1/2)*(1 + m + n), (1/2)*(3 + m + n), -cot(e + f*x)^2))/(a*f*(1 + m + n)))]
 
 
     #= ::Section::Closed:: =#
     #=Integrands*of*the*form*(a*sec(e+f*x))^m*(b*cot(e+f*x))^n=#
 
 
-    @test_int [(a*sec(e + f*x))^m*(b*cot(e + f*x))^n, x, 3, -(((b*cot(e + f*x))^(1 + n)*Hypergeometric2F1((1 + n)/2, (1/2)*(1 - m + n), (1/2)*(3 - m + n), cos(e + f*x)^2)*(a*sec(e + f*x))^m*(sin(e + f*x)^2)^((1 + n)/2))/(b*f*(1 - m + n)))]
+    @test_int [(a*sec(e + f*x))^m*(b*cot(e + f*x))^n, x, 3, -(((b*cot(e + f*x))^(1 + n)*HypergeometricFunctions._₂F₁((1 + n)/2, (1/2)*(1 - m + n), (1/2)*(3 - m + n), cos(e + f*x)^2)*(a*sec(e + f*x))^m*(sin(e + f*x)^2)^((1 + n)/2))/(b*f*(1 - m + n)))]
 
 
     #= ::Section::Closed:: =#
@@ -164,18 +164,18 @@
     @test_int [csc(e + f*x)^6*(d*cot(e + f*x))^n, x, 3, -((d*cot(e + f*x))^(1 + n)/(d*f*(1 + n))) - (2*(d*cot(e + f*x))^(3 + n))/(d^3*f*(3 + n)) - (d*cot(e + f*x))^(5 + n)/(d^5*f*(5 + n))]
     @test_int [csc(e + f*x)^4*(d*cot(e + f*x))^n, x, 3, -((d*cot(e + f*x))^(1 + n)/(d*f*(1 + n))) - (d*cot(e + f*x))^(3 + n)/(d^3*f*(3 + n))]
     @test_int [csc(e + f*x)^2*(d*cot(e + f*x))^n, x, 2, -((d*cot(e + f*x))^(1 + n)/(d*f*(1 + n)))]
-    @test_int [sin(e + f*x)^2*(d*cot(e + f*x))^n, x, 2, -(((d*cot(e + f*x))^(1 + n)*Hypergeometric2F1(2, (1 + n)/2, (3 + n)/2, -cot(e + f*x)^2))/(d*f*(1 + n)))]
-    @test_int [sin(e + f*x)^4*(d*cot(e + f*x))^n, x, 2, -(((d*cot(e + f*x))^(1 + n)*Hypergeometric2F1(3, (1 + n)/2, (3 + n)/2, -cot(e + f*x)^2))/(d*f*(1 + n)))]
+    @test_int [sin(e + f*x)^2*(d*cot(e + f*x))^n, x, 2, -(((d*cot(e + f*x))^(1 + n)*HypergeometricFunctions._₂F₁(2, (1 + n)/2, (3 + n)/2, -cot(e + f*x)^2))/(d*f*(1 + n)))]
+    @test_int [sin(e + f*x)^4*(d*cot(e + f*x))^n, x, 2, -(((d*cot(e + f*x))^(1 + n)*HypergeometricFunctions._₂F₁(3, (1 + n)/2, (3 + n)/2, -cot(e + f*x)^2))/(d*f*(1 + n)))]
 
-    @test_int [csc(e + f*x)^3*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*csc(e + f*x)^3*Hypergeometric2F1((1 + n)/2, (4 + n)/2, (3 + n)/2, cos(e + f*x)^2)*(sin(e + f*x)^2)^((4 + n)/2))/(d*f*(1 + n)))]
-    @test_int [csc(e + f*x)^1*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*csc(e + f*x)*Hypergeometric2F1((1 + n)/2, (2 + n)/2, (3 + n)/2, cos(e + f*x)^2)*(sin(e + f*x)^2)^((2 + n)/2))/(d*f*(1 + n)))]
-    @test_int [sin(e + f*x)^1*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*Hypergeometric2F1(n/2, (1 + n)/2, (3 + n)/2, cos(e + f*x)^2)*sin(e + f*x)*(sin(e + f*x)^2)^(n/2))/(d*f*(1 + n)))]
-    @test_int [sin(e + f*x)^3*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*Hypergeometric2F1((1/2)*(-2 + n), (1 + n)/2, (3 + n)/2, cos(e + f*x)^2)*sin(e + f*x)^3*(sin(e + f*x)^2)^((1/2)*(-2 + n)))/(d*f*(1 + n)))]
+    @test_int [csc(e + f*x)^3*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*csc(e + f*x)^3*HypergeometricFunctions._₂F₁((1 + n)/2, (4 + n)/2, (3 + n)/2, cos(e + f*x)^2)*(sin(e + f*x)^2)^((4 + n)/2))/(d*f*(1 + n)))]
+    @test_int [csc(e + f*x)^1*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*csc(e + f*x)*HypergeometricFunctions._₂F₁((1 + n)/2, (2 + n)/2, (3 + n)/2, cos(e + f*x)^2)*(sin(e + f*x)^2)^((2 + n)/2))/(d*f*(1 + n)))]
+    @test_int [sin(e + f*x)^1*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*HypergeometricFunctions._₂F₁(n/2, (1 + n)/2, (3 + n)/2, cos(e + f*x)^2)*sin(e + f*x)*(sin(e + f*x)^2)^(n/2))/(d*f*(1 + n)))]
+    @test_int [sin(e + f*x)^3*(d*cot(e + f*x))^n, x, 1, -(((d*cot(e + f*x))^(1 + n)*HypergeometricFunctions._₂F₁((1/2)*(-2 + n), (1 + n)/2, (3 + n)/2, cos(e + f*x)^2)*sin(e + f*x)^3*(sin(e + f*x)^2)^((1/2)*(-2 + n)))/(d*f*(1 + n)))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(a*csc(e+f*x))^m*(b*cot(e+f*x))^n*with*m*and*n*symbolic=#
 
 
-    @test_int [(a*csc(e + f*x))^m*(b*cot(e + f*x))^n, x, 1, -(((b*cot(e + f*x))^(1 + n)*(a*csc(e + f*x))^m*Hypergeometric2F1((1 + n)/2, (1/2)*(1 + m + n), (3 + n)/2, cos(e + f*x)^2)*(sin(e + f*x)^2)^((1/2)*(1 + m + n)))/(b*f*(1 + n)))]
+    @test_int [(a*csc(e + f*x))^m*(b*cot(e + f*x))^n, x, 1, -(((b*cot(e + f*x))^(1 + n)*(a*csc(e + f*x))^m*HypergeometricFunctions._₂F₁((1 + n)/2, (1/2)*(1 + m + n), (3 + n)/2, cos(e + f*x)^2)*(sin(e + f*x)^2)^((1/2)*(1 + m + n)))/(b*f*(1 + n)))]
     end

@@ -1,5 +1,5 @@
 @testset "4.6.7 (d trig)^m (a+b (c csc)^n)^p" begin
-    @variables a, b, c, d, x
+    (a, b, c, d, x, ) = @variables a b c d x
 
     #= ::Package:: =#
 

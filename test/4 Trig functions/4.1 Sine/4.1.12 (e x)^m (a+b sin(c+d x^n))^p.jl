@@ -1,5 +1,5 @@
 @testset "4.1.12 (e x)^m (a+b sin(c+d x^n))^p" begin
-    @variables a, b, c, d, e, f, g, m, n, p, x
+    (a, b, c, d, e, f, g, m, n, p, x, ) = @variables a b c d e f g m n p x
 
     #= ::Package:: =#
 
@@ -274,7 +274,7 @@
     @test_int [(e*x)^m*(a + b*sin(c + d*x^n))^p, x, 0, Unintegrable((e*x)^m*(a + b*sin(c + d*x^n))^p, x)]
 
 
-    @test_int [(e*x)^(n - 1)*(b*sin(c + d*x^n))^p, x, 3, ((e*x)^n*cos(c + d*x^n)*Hypergeometric2F1(1/2, (1 + p)/2, (3 + p)/2, sin(c + d*x^n)^2)*(b*sin(c + d*x^n))^(1 + p))/(x^n*(b*d*e*n*(1 + p)*sqrt(cos(c + d*x^n)^2)))]
+    @test_int [(e*x)^(n - 1)*(b*sin(c + d*x^n))^p, x, 3, ((e*x)^n*cos(c + d*x^n)*HypergeometricFunctions._₂F₁(1/2, (1 + p)/2, (3 + p)/2, sin(c + d*x^n)^2)*(b*sin(c + d*x^n))^(1 + p))/(x^n*(b*d*e*n*(1 + p)*sqrt(cos(c + d*x^n)^2)))]
     @test_int [(e*x)^(2*n - 1)*(b*sin(c + d*x^n))^p, x, 1, ((e*x)^(2*n)*Unintegrable(x^(-1 + 2*n)*(b*sin(c + d*x^n))^p, x))/(x^(2*n)*e)]
 
     @test_int [(e*x)^(n - 1)*(a + b*sin(c + d*x^n))^p, x, 5, -((sqrt(2)*(e*x)^n*AppellF1(1/2, 1/2, -p, 3/2, (1/2)*(1 - sin(c + d*x^n)), (b*(1 - sin(c + d*x^n)))/(a + b))*cos(c + d*x^n)*(a + b*sin(c + d*x^n))^p)/(x^n*((a + b*sin(c + d*x^n))/(a + b))^p*(d*e*n*sqrt(1 + sin(c + d*x^n)))))]

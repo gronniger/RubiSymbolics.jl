@@ -1,5 +1,5 @@
 @testset "4.3.7 (d trig)^m (a+b (c tan)^n)^p" begin
-    @variables a, b, c, d, e, f, m, n, p, x
+    (a, b, c, d, e, f, m, n, p, x, ) = @variables a b c d e f m n p x
 
     #= ::Package:: =#
 
@@ -51,24 +51,24 @@
     #=Integrands*of*the*form*(b*(c*tan(e+f*x))^n)^(p/2)=#
 
 
-    @test_int [(b*tan(e + f*x)^n)^(5/2), x, 3, (2*b^2*Hypergeometric2F1(1, (1/4)*(2 + 5*n), (1/4)*(6 + 5*n), -tan(e + f*x)^2)*tan(e + f*x)^(1 + 2*n)*sqrt(b*tan(e + f*x)^n))/(f*(2 + 5*n))]
-    @test_int [(b*tan(e + f*x)^n)^(3/2), x, 3, (2*b*Hypergeometric2F1(1, (1/4)*(2 + 3*n), (3*(2 + n))/4, -tan(e + f*x)^2)*tan(e + f*x)^(1 + n)*sqrt(b*tan(e + f*x)^n))/(f*(2 + 3*n))]
-    @test_int [(b*tan(e + f*x)^n)^(1/2), x, 3, (2*Hypergeometric2F1(1, (2 + n)/4, (6 + n)/4, -tan(e + f*x)^2)*tan(e + f*x)*sqrt(b*tan(e + f*x)^n))/(f*(2 + n))]
-    @test_int [1/(b*tan(e + f*x)^n)^(1/2), x, 3, (2*Hypergeometric2F1(1, (2 - n)/4, (6 - n)/4, -tan(e + f*x)^2)*tan(e + f*x))/(f*(2 - n)*sqrt(b*tan(e + f*x)^n))]
-    @test_int [1/(b*tan(e + f*x)^n)^(3/2), x, 3, (2*Hypergeometric2F1(1, (1/4)*(2 - 3*n), (3*(2 - n))/4, -tan(e + f*x)^2)*tan(e + f*x)^(1 - n))/(b*f*(2 - 3*n)*sqrt(b*tan(e + f*x)^n))]
-    @test_int [1/(b*tan(e + f*x)^n)^(5/2), x, 3, (2*Hypergeometric2F1(1, (1/4)*(2 - 5*n), (1/4)*(6 - 5*n), -tan(e + f*x)^2)*tan(e + f*x)^(1 - 2*n))/(b^2*f*(2 - 5*n)*sqrt(b*tan(e + f*x)^n))]
+    @test_int [(b*tan(e + f*x)^n)^(5/2), x, 3, (2*b^2*HypergeometricFunctions._₂F₁(1, (1/4)*(2 + 5*n), (1/4)*(6 + 5*n), -tan(e + f*x)^2)*tan(e + f*x)^(1 + 2*n)*sqrt(b*tan(e + f*x)^n))/(f*(2 + 5*n))]
+    @test_int [(b*tan(e + f*x)^n)^(3/2), x, 3, (2*b*HypergeometricFunctions._₂F₁(1, (1/4)*(2 + 3*n), (3*(2 + n))/4, -tan(e + f*x)^2)*tan(e + f*x)^(1 + n)*sqrt(b*tan(e + f*x)^n))/(f*(2 + 3*n))]
+    @test_int [(b*tan(e + f*x)^n)^(1/2), x, 3, (2*HypergeometricFunctions._₂F₁(1, (2 + n)/4, (6 + n)/4, -tan(e + f*x)^2)*tan(e + f*x)*sqrt(b*tan(e + f*x)^n))/(f*(2 + n))]
+    @test_int [1/(b*tan(e + f*x)^n)^(1/2), x, 3, (2*HypergeometricFunctions._₂F₁(1, (2 - n)/4, (6 - n)/4, -tan(e + f*x)^2)*tan(e + f*x))/(f*(2 - n)*sqrt(b*tan(e + f*x)^n))]
+    @test_int [1/(b*tan(e + f*x)^n)^(3/2), x, 3, (2*HypergeometricFunctions._₂F₁(1, (1/4)*(2 - 3*n), (3*(2 - n))/4, -tan(e + f*x)^2)*tan(e + f*x)^(1 - n))/(b*f*(2 - 3*n)*sqrt(b*tan(e + f*x)^n))]
+    @test_int [1/(b*tan(e + f*x)^n)^(5/2), x, 3, (2*HypergeometricFunctions._₂F₁(1, (1/4)*(2 - 5*n), (1/4)*(6 - 5*n), -tan(e + f*x)^2)*tan(e + f*x)^(1 - 2*n))/(b^2*f*(2 - 5*n)*sqrt(b*tan(e + f*x)^n))]
 
 
     #= ::Section::Closed:: =#
     #=Integrands*of*the*form*(b*(c*tan(e+f*x))^n)^p*when*p*symbolic=#
 
 
-    @test_int [(b*tan(e + f*x)^n)^p, x, 3, (Hypergeometric2F1(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^n)^p)/(f*(1 + n*p))]
+    @test_int [(b*tan(e + f*x)^n)^p, x, 3, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^n)^p)/(f*(1 + n*p))]
 
 
-    @test_int [(b*tan(e + f*x)^2)^p, x, 3, (Hypergeometric2F1(1, (1/2)*(1 + 2*p), (1/2)*(3 + 2*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + 2*p))]
-    @test_int [(b*tan(e + f*x)^3)^p, x, 3, (Hypergeometric2F1(1, (1/2)*(1 + 3*p), (3*(1 + p))/2, -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^3)^p)/(f*(1 + 3*p))]
-    @test_int [(b*tan(e + f*x)^4)^p, x, 3, (Hypergeometric2F1(1, (1/2)*(1 + 4*p), (1/2)*(3 + 4*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^4)^p)/(f*(1 + 4*p))]
+    @test_int [(b*tan(e + f*x)^2)^p, x, 3, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + 2*p), (1/2)*(3 + 2*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + 2*p))]
+    @test_int [(b*tan(e + f*x)^3)^p, x, 3, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + 3*p), (3*(1 + p))/2, -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^3)^p)/(f*(1 + 3*p))]
+    @test_int [(b*tan(e + f*x)^4)^p, x, 3, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + 4*p), (1/2)*(3 + 4*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^4)^p)/(f*(1 + 4*p))]
 
 
     @test_int [(b*tan(e + f*x)^n)^(1/n), x, 2, -((cot(e + f*x)*log(cos(e + f*x))*(b*tan(e + f*x)^n)^(1/n))/f)]
@@ -262,23 +262,23 @@
     #=Integrands*of*the*form*sin(e+f*x)^m*(a+b*tan(e+f*x)^2)^p*when*p*symbolic=#
 
 
-    @test_int [(d*sin(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 3, ((cos(e + f*x)^2)^(1/2 + p)*Hypergeometric2F1((1/2)*(1 + 2*p), (1/2)*(1 + m + 2*p), (1/2)*(3 + m + 2*p), sin(e + f*x)^2)*(d*sin(e + f*x))^m*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + m + 2*p))]
+    @test_int [(d*sin(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 3, ((cos(e + f*x)^2)^(1/2 + p)*HypergeometricFunctions._₂F₁((1/2)*(1 + 2*p), (1/2)*(1 + m + 2*p), (1/2)*(3 + m + 2*p), sin(e + f*x)^2)*(d*sin(e + f*x))^m*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + m + 2*p))]
 
 
     @test_int [(d*sin(e + f*x))^m*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1((1 + m)/2, (2 + m)/2, -p, (3 + m)/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*(sec(e + f*x)^2)^(m/2)*(d*sin(e + f*x))^m*tan(e + f*x)*(a + b*tan(e + f*x)^2)^p)/(f*(1 + m)*(1 + (b*tan(e + f*x)^2)/a)^p)]
 
 
-    @test_int [sin(e + f*x)^5*(a + b*tan(e + f*x)^2)^p, x, 5, ((10*a - 7*b - 2*b*p)*cos(e + f*x)^3*(a - b + b*sec(e + f*x)^2)^(1 + p))/(15*(a - b)^2*f) - (cos(e + f*x)^5*(a - b + b*sec(e + f*x)^2)^(1 + p))/(5*(a - b)*f) - ((15*a^2 - 20*a*b*(1 + p) + 4*b^2*(2 + 3*p + p^2))*cos(e + f*x)*Hypergeometric2F1(-1/2, -p, 1/2, -((b*sec(e + f*x)^2)/(a - b)))*(a - b + b*sec(e + f*x)^2)^p)/(15*(a - b)^2*f*(1 + (b*sec(e + f*x)^2)/(a - b))^p)]
-    @test_int [sin(e + f*x)^3*(a + b*tan(e + f*x)^2)^p, x, 4, (cos(e + f*x)^3*(a - b + b*sec(e + f*x)^2)^(1 + p))/(3*(a - b)*f) - ((3*a - 2*b*(1 + p))*cos(e + f*x)*Hypergeometric2F1(-1/2, -p, 1/2, -((b*sec(e + f*x)^2)/(a - b)))*(a - b + b*sec(e + f*x)^2)^p)/(3*(a - b)*f*(1 + (b*sec(e + f*x)^2)/(a - b))^p)]
-    @test_int [sin(e + f*x)^1*(a + b*tan(e + f*x)^2)^p, x, 3, -((cos(e + f*x)*Hypergeometric2F1(-1/2, -p, 1/2, -((b*sec(e + f*x)^2)/(a - b)))*(a - b + b*sec(e + f*x)^2)^p)/(f*(1 + (b*sec(e + f*x)^2)/(a - b))^p))]
+    @test_int [sin(e + f*x)^5*(a + b*tan(e + f*x)^2)^p, x, 5, ((10*a - 7*b - 2*b*p)*cos(e + f*x)^3*(a - b + b*sec(e + f*x)^2)^(1 + p))/(15*(a - b)^2*f) - (cos(e + f*x)^5*(a - b + b*sec(e + f*x)^2)^(1 + p))/(5*(a - b)*f) - ((15*a^2 - 20*a*b*(1 + p) + 4*b^2*(2 + 3*p + p^2))*cos(e + f*x)*HypergeometricFunctions._₂F₁(-1/2, -p, 1/2, -((b*sec(e + f*x)^2)/(a - b)))*(a - b + b*sec(e + f*x)^2)^p)/(15*(a - b)^2*f*(1 + (b*sec(e + f*x)^2)/(a - b))^p)]
+    @test_int [sin(e + f*x)^3*(a + b*tan(e + f*x)^2)^p, x, 4, (cos(e + f*x)^3*(a - b + b*sec(e + f*x)^2)^(1 + p))/(3*(a - b)*f) - ((3*a - 2*b*(1 + p))*cos(e + f*x)*HypergeometricFunctions._₂F₁(-1/2, -p, 1/2, -((b*sec(e + f*x)^2)/(a - b)))*(a - b + b*sec(e + f*x)^2)^p)/(3*(a - b)*f*(1 + (b*sec(e + f*x)^2)/(a - b))^p)]
+    @test_int [sin(e + f*x)^1*(a + b*tan(e + f*x)^2)^p, x, 3, -((cos(e + f*x)*HypergeometricFunctions._₂F₁(-1/2, -p, 1/2, -((b*sec(e + f*x)^2)/(a - b)))*(a - b + b*sec(e + f*x)^2)^p)/(f*(1 + (b*sec(e + f*x)^2)/(a - b))^p))]
     @test_int [csc(e + f*x)^1*(a + b*tan(e + f*x)^2)^p, x, 3, -((AppellF1(1/2, 1, -p, 3/2, sec(e + f*x)^2, -((b*sec(e + f*x)^2)/(a - b)))*sec(e + f*x)*(a - b + b*sec(e + f*x)^2)^p)/(f*(1 + (b*sec(e + f*x)^2)/(a - b))^p))]
     @test_int [csc(e + f*x)^3*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1(3/2, 2, -p, 5/2, sec(e + f*x)^2, -((b*sec(e + f*x)^2)/(a - b)))*sec(e + f*x)^3*(a - b + b*sec(e + f*x)^2)^p)/(3*f*(1 + (b*sec(e + f*x)^2)/(a - b))^p)]
 
     @test_int [sin(e + f*x)^2*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1(3/2, 2, -p, 5/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*tan(e + f*x)^3*(a + b*tan(e + f*x)^2)^p)/(3*f*(1 + (b*tan(e + f*x)^2)/a)^p)]
     @test_int [sin(e + f*x)^0*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1(1/2, 1, -p, 3/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*tan(e + f*x)*(a + b*tan(e + f*x)^2)^p)/(f*(1 + (b*tan(e + f*x)^2)/a)^p)]
-    @test_int [csc(e + f*x)^2*(a + b*tan(e + f*x)^2)^p, x, 3, -((cot(e + f*x)*Hypergeometric2F1(-1/2, -p, 1/2, -((b*tan(e + f*x)^2)/a))*(a + b*tan(e + f*x)^2)^p)/(f*(1 + (b*tan(e + f*x)^2)/a)^p))]
-    @test_int [csc(e + f*x)^4*(a + b*tan(e + f*x)^2)^p, x, 4, -(cot(e + f*x)^3*(a + b*tan(e + f*x)^2)^(1 + p))/(3*a*f) - ((3*a - b*(1 - 2*p))*cot(e + f*x)*Hypergeometric2F1(-1/2, -p, 1/2, -((b*tan(e + f*x)^2)/a))*(a + b*tan(e + f*x)^2)^p)/(3*a*f*(1 + (b*tan(e + f*x)^2)/a)^p)]
-    @test_int [csc(e + f*x)^6*(a + b*tan(e + f*x)^2)^p, x, 5, -((10*a - b*(3 - 2*p))*cot(e + f*x)^3*(a + b*tan(e + f*x)^2)^(1 + p))/(15*a^2*f) - (cot(e + f*x)^5*(a + b*tan(e + f*x)^2)^(1 + p))/(5*a*f) - ((15*a^2 - b*(10*a - b*(3 - 2*p))*(1 - 2*p))*cot(e + f*x)*Hypergeometric2F1(-1/2, -p, 1/2, -((b*tan(e + f*x)^2)/a))*(a + b*tan(e + f*x)^2)^p)/(15*a^2*f*(1 + (b*tan(e + f*x)^2)/a)^p)]
+    @test_int [csc(e + f*x)^2*(a + b*tan(e + f*x)^2)^p, x, 3, -((cot(e + f*x)*HypergeometricFunctions._₂F₁(-1/2, -p, 1/2, -((b*tan(e + f*x)^2)/a))*(a + b*tan(e + f*x)^2)^p)/(f*(1 + (b*tan(e + f*x)^2)/a)^p))]
+    @test_int [csc(e + f*x)^4*(a + b*tan(e + f*x)^2)^p, x, 4, -(cot(e + f*x)^3*(a + b*tan(e + f*x)^2)^(1 + p))/(3*a*f) - ((3*a - b*(1 - 2*p))*cot(e + f*x)*HypergeometricFunctions._₂F₁(-1/2, -p, 1/2, -((b*tan(e + f*x)^2)/a))*(a + b*tan(e + f*x)^2)^p)/(3*a*f*(1 + (b*tan(e + f*x)^2)/a)^p)]
+    @test_int [csc(e + f*x)^6*(a + b*tan(e + f*x)^2)^p, x, 5, -((10*a - b*(3 - 2*p))*cot(e + f*x)^3*(a + b*tan(e + f*x)^2)^(1 + p))/(15*a^2*f) - (cot(e + f*x)^5*(a + b*tan(e + f*x)^2)^(1 + p))/(5*a*f) - ((15*a^2 - b*(10*a - b*(3 - 2*p))*(1 - 2*p))*cot(e + f*x)*HypergeometricFunctions._₂F₁(-1/2, -p, 1/2, -((b*tan(e + f*x)^2)/a))*(a + b*tan(e + f*x)^2)^p)/(15*a^2*f*(1 + (b*tan(e + f*x)^2)/a)^p)]
 
 
     #= ::Section:: =#
@@ -297,19 +297,19 @@
     #=Integrands*of*the*form*(d*sin(e+f*x))^m*(b*(c*tan(e+f*x))^n)^p*when*p*symbolic=#
 
 
-    @test_int [(d*sin(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(1 + m + n*p), (1/2)*(3 + m + n*p), sin(e + f*x)^2)*(d*sin(e + f*x))^m*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + m + n*p))]
+    @test_int [(d*sin(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(1 + m + n*p), (1/2)*(3 + m + n*p), sin(e + f*x)^2)*(d*sin(e + f*x))^m*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + m + n*p))]
 
 
-    @test_int [sin(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 3, (Hypergeometric2F1(2, (1/2)*(3 + n*p), (1/2)*(5 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 + n*p))]
-    @test_int [sin(e + f*x)^0*(b*(c*tan(e + f*x))^n)^p, x, 3, (Hypergeometric2F1(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [sin(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 3, (HypergeometricFunctions._₂F₁(2, (1/2)*(3 + n*p), (1/2)*(5 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 + n*p))]
+    @test_int [sin(e + f*x)^0*(b*(c*tan(e + f*x))^n)^p, x, 3, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
     @test_int [csc(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 3, -((cot(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - n*p)))]
     @test_int [csc(e + f*x)^4*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - n*p))) - (cot(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 - n*p))]
     @test_int [csc(e + f*x)^6*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - n*p))) - (2*cot(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 - n*p)) - (cot(e + f*x)^5*(b*(c*tan(e + f*x))^n)^p)/(f*(5 - n*p))]
 
-    @test_int [sin(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(4 + n*p), (1/2)*(6 + n*p), sin(e + f*x)^2)*sin(e + f*x)^3*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(4 + n*p))]
-    @test_int [sin(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(2 + n*p), (1/2)*(4 + n*p), sin(e + f*x)^2)*sin(e + f*x)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(2 + n*p))]
-    @test_int [csc(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*Hypergeometric2F1((n*p)/2, (1/2)*(1 + n*p), (1/2)*(2 + n*p), sin(e + f*x)^2)*sec(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*n*p)]
-    @test_int [csc(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 3, -(((cos(e + f*x)^2)^((1/2)*(1 + n*p))*csc(e + f*x)^2*Hypergeometric2F1((1/2)*(-2 + n*p), (1/2)*(1 + n*p), (n*p)/2, sin(e + f*x)^2)*sec(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(2 - n*p)))]
+    @test_int [sin(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(4 + n*p), (1/2)*(6 + n*p), sin(e + f*x)^2)*sin(e + f*x)^3*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(4 + n*p))]
+    @test_int [sin(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(2 + n*p), (1/2)*(4 + n*p), sin(e + f*x)^2)*sin(e + f*x)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(2 + n*p))]
+    @test_int [csc(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 3, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*HypergeometricFunctions._₂F₁((n*p)/2, (1/2)*(1 + n*p), (1/2)*(2 + n*p), sin(e + f*x)^2)*sec(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*n*p)]
+    @test_int [csc(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 3, -(((cos(e + f*x)^2)^((1/2)*(1 + n*p))*csc(e + f*x)^2*HypergeometricFunctions._₂F₁((1/2)*(-2 + n*p), (1/2)*(1 + n*p), (n*p)/2, sin(e + f*x)^2)*sec(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(2 - n*p)))]
 
 
     #= ::Subsection::Closed:: =#
@@ -331,7 +331,7 @@
     #=Integrands*of*the*form*(d*cos(e+f*x))^m*(a+b*tan(e+f*x)^2)^p*when*p*symbolic=#
 
 
-    @test_int [(d*cos(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 3, ((d*cos(e + f*x))^m*(cos(e + f*x)^2)^((1/2)*(1 - m + 2*p))*Hypergeometric2F1((1/2)*(1 + 2*p), (1/2)*(1 - m + 2*p), (1/2)*(3 + 2*p), sin(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + 2*p))]
+    @test_int [(d*cos(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 3, ((d*cos(e + f*x))^m*(cos(e + f*x)^2)^((1/2)*(1 - m + 2*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + 2*p), (1/2)*(1 - m + 2*p), (1/2)*(3 + 2*p), sin(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + 2*p))]
 
 
     @test_int [(d*cos(e + f*x))^m*(a + b*tan(e + f*x)^2)^p, x, 4, (AppellF1(1/2, (2 + m)/2, -p, 3/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*(d*cos(e + f*x))^m*(sec(e + f*x)^2)^(m/2)*tan(e + f*x)*(a + b*tan(e + f*x)^2)^p)/((1 + (b*tan(e + f*x)^2)/a)^p*f)]
@@ -353,7 +353,7 @@
     #=Integrands*of*the*form*(d*cos(e+f*x))^m*(b*(cTan(e+f*x))^n)^p*when*p*symbolic=#
 
 
-    @test_int [(d*cos(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 3, ((d*cos(e + f*x))^m*(cos(e + f*x)^2)^((1/2)*(1 - m + n*p))*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(1 - m + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [(d*cos(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 3, ((d*cos(e + f*x))^m*(cos(e + f*x)^2)^((1/2)*(1 - m + n*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(1 - m + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
 
 
     #= ::Subsection::Closed:: =#
@@ -651,18 +651,18 @@
     #=Integrands*of*the*form*(d*tan(e+f*x))^m*(a+b*tan(e+f*x)^2)^p*when*p*symbolic=#
 
 
-    @test_int [(d*tan(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 4, (Hypergeometric2F1(1, (1/2)*(1 + m + 2*p), (1/2)*(3 + m + 2*p), -tan(e + f*x)^2)*tan(e + f*x)*(d*tan(e + f*x))^m*(b*tan(e + f*x)^2)^p)/(f*(1 + m + 2*p))]
+    @test_int [(d*tan(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 4, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + m + 2*p), (1/2)*(3 + m + 2*p), -tan(e + f*x)^2)*tan(e + f*x)*(d*tan(e + f*x))^m*(b*tan(e + f*x)^2)^p)/(f*(1 + m + 2*p))]
 
 
     @test_int [(d*tan(e + f*x))^m*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1((1 + m)/2, 1, -p, (3 + m)/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*(d*tan(e + f*x))^(1 + m)*(a + b*tan(e + f*x)^2)^p)/(d*f*(1 + m)*(1 + (b*tan(e + f*x)^2)/a)^p)]
 
 
-    @test_int [tan(e + f*x)^5*(a + b*tan(e + f*x)^2)^p, x, 5, -((a + b)*(a + b*tan(e + f*x)^2)^(1 + p))/(2*b^2*f*(1 + p)) - (Hypergeometric2F1(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) + (a + b*tan(e + f*x)^2)^(2 + p)/(2*b^2*f*(2 + p))]
-    @test_int [tan(e + f*x)^3*(a + b*tan(e + f*x)^2)^p, x, 4, (a + b*tan(e + f*x)^2)^(1 + p)/(2*b*f*(1 + p)) + (Hypergeometric2F1(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p))]
-    @test_int [tan(e + f*x)^1*(a + b*tan(e + f*x)^2)^p, x, 3, -(Hypergeometric2F1(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p))]
-    @test_int [cot(e + f*x)^1*(a + b*tan(e + f*x)^2)^p, x, 5, (Hypergeometric2F1(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) - (Hypergeometric2F1(1, 1 + p, 2 + p, 1 + (b*tan(e + f*x)^2)/a)*(a + b*tan(e + f*x)^2)^(1 + p))/(2*a*f*(1 + p))]
-    @test_int [cot(e + f*x)^3*(a + b*tan(e + f*x)^2)^p, x, 6, -(cot(e + f*x)^2*(a + b*tan(e + f*x)^2)^(1 + p))/(2*a*f) - (Hypergeometric2F1(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) + ((a - b*p)*Hypergeometric2F1(1, 1 + p, 2 + p, 1 + (b*tan(e + f*x)^2)/a)*(a + b*tan(e + f*x)^2)^(1 + p))/(2*a^2*f*(1 + p))]
-    @test_int [cot(e + f*x)^5*(a + b*tan(e + f*x)^2)^p, x, 7, ((2*a + b - b*p)*cot(e + f*x)^2*(a + b*tan(e + f*x)^2)^(1 + p))/(4*a^2*f) - (cot(e + f*x)^4*(a + b*tan(e + f*x)^2)^(1 + p))/(4*a*f) + (Hypergeometric2F1(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) - ((2*a^2 - 2*a*b*p - b^2*(1 - p)*p)*Hypergeometric2F1(1, 1 + p, 2 + p, 1 + (b*tan(e + f*x)^2)/a)*(a + b*tan(e + f*x)^2)^(1 + p))/(4*a^3*f*(1 + p))]
+    @test_int [tan(e + f*x)^5*(a + b*tan(e + f*x)^2)^p, x, 5, -((a + b)*(a + b*tan(e + f*x)^2)^(1 + p))/(2*b^2*f*(1 + p)) - (HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) + (a + b*tan(e + f*x)^2)^(2 + p)/(2*b^2*f*(2 + p))]
+    @test_int [tan(e + f*x)^3*(a + b*tan(e + f*x)^2)^p, x, 4, (a + b*tan(e + f*x)^2)^(1 + p)/(2*b*f*(1 + p)) + (HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p))]
+    @test_int [tan(e + f*x)^1*(a + b*tan(e + f*x)^2)^p, x, 3, -(HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p))]
+    @test_int [cot(e + f*x)^1*(a + b*tan(e + f*x)^2)^p, x, 5, (HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) - (HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, 1 + (b*tan(e + f*x)^2)/a)*(a + b*tan(e + f*x)^2)^(1 + p))/(2*a*f*(1 + p))]
+    @test_int [cot(e + f*x)^3*(a + b*tan(e + f*x)^2)^p, x, 6, -(cot(e + f*x)^2*(a + b*tan(e + f*x)^2)^(1 + p))/(2*a*f) - (HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) + ((a - b*p)*HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, 1 + (b*tan(e + f*x)^2)/a)*(a + b*tan(e + f*x)^2)^(1 + p))/(2*a^2*f*(1 + p))]
+    @test_int [cot(e + f*x)^5*(a + b*tan(e + f*x)^2)^p, x, 7, ((2*a + b - b*p)*cot(e + f*x)^2*(a + b*tan(e + f*x)^2)^(1 + p))/(4*a^2*f) - (cot(e + f*x)^4*(a + b*tan(e + f*x)^2)^(1 + p))/(4*a*f) + (HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, (a + b*tan(e + f*x)^2)/(a - b))*(a + b*tan(e + f*x)^2)^(1 + p))/(2*(a - b)*f*(1 + p)) - ((2*a^2 - 2*a*b*p - b^2*(1 - p)*p)*HypergeometricFunctions._₂F₁(1, 1 + p, 2 + p, 1 + (b*tan(e + f*x)^2)/a)*(a + b*tan(e + f*x)^2)^(1 + p))/(4*a^3*f*(1 + p))]
 
     @test_int [tan(e + f*x)^6*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1(7/2, 1, -p, 9/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*tan(e + f*x)^7*(a + b*tan(e + f*x)^2)^p)/(7*f*(1 + (b*tan(e + f*x)^2)/a)^p)]
     @test_int [tan(e + f*x)^4*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1(5/2, 1, -p, 7/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*tan(e + f*x)^5*(a + b*tan(e + f*x)^2)^p)/(5*f*(1 + (b*tan(e + f*x)^2)/a)^p)]
@@ -712,8 +712,8 @@
     #=Integrands*of*the*form*(a+b*tan(e+f*x)^4)^(p/2)=#
 
 
-    @test_int [(a + b*tan(c + d*x)^4)^(1/2), x, 8, (sqrt(a + b)*atan((sqrt(a + b)*tan(c + d*x))/sqrt(a + b*tan(c + d*x)^4)))/(2*d) + (sqrt(b)*tan(c + d*x)*sqrt(a + b*tan(c + d*x)^4))/(d*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)) - (a^(1/4)*b^(1/4)*EllipticE(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(d*sqrt(a + b*tan(c + d*x)^4)) + ((sqrt(a) - sqrt(b))*b^(1/4)*EllipticF(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(2*a^(1/4)*d*sqrt(a + b*tan(c + d*x)^4)) - (b^(1/4)*(a + b)*EllipticF(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(2*a^(1/4)*(sqrt(a) - sqrt(b))*d*sqrt(a + b*tan(c + d*x)^4)) + ((sqrt(a) + sqrt(b))*(a + b)*EllipticPi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*d*sqrt(a + b*tan(c + d*x)^4))]
-    @test_int [1/(a + b*tan(c + d*x)^4)^(1/2), x, 4, atan((sqrt(a + b)*tan(c + d*x))/sqrt(a + b*tan(c + d*x)^4))/(2*sqrt(a + b)*d) - (b^(1/4)*EllipticF(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(2*a^(1/4)*(sqrt(a) - sqrt(b))*d*sqrt(a + b*tan(c + d*x)^4)) + ((sqrt(a) + sqrt(b))*EllipticPi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*d*sqrt(a + b*tan(c + d*x)^4))]
+    @test_int [(a + b*tan(c + d*x)^4)^(1/2), x, 8, (sqrt(a + b)*atan((sqrt(a + b)*tan(c + d*x))/sqrt(a + b*tan(c + d*x)^4)))/(2*d) + (sqrt(b)*tan(c + d*x)*sqrt(a + b*tan(c + d*x)^4))/(d*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)) - (a^(1/4)*b^(1/4)*Elliptic.E(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(d*sqrt(a + b*tan(c + d*x)^4)) + ((sqrt(a) - sqrt(b))*b^(1/4)*Elliptic.F(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(2*a^(1/4)*d*sqrt(a + b*tan(c + d*x)^4)) - (b^(1/4)*(a + b)*Elliptic.F(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(2*a^(1/4)*(sqrt(a) - sqrt(b))*d*sqrt(a + b*tan(c + d*x)^4)) + ((sqrt(a) + sqrt(b))*(a + b)*Elliptic.Pi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*d*sqrt(a + b*tan(c + d*x)^4))]
+    @test_int [1/(a + b*tan(c + d*x)^4)^(1/2), x, 4, atan((sqrt(a + b)*tan(c + d*x))/sqrt(a + b*tan(c + d*x)^4))/(2*sqrt(a + b)*d) - (b^(1/4)*Elliptic.F(2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(2*a^(1/4)*(sqrt(a) - sqrt(b))*d*sqrt(a + b*tan(c + d*x)^4)) + ((sqrt(a) + sqrt(b))*Elliptic.Pi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(c + d*x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(c + d*x)^2)*sqrt((a + b*tan(c + d*x)^4)/(sqrt(a) + sqrt(b)*tan(c + d*x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*d*sqrt(a + b*tan(c + d*x)^4))]
 
 
     #= ::Subsection::Closed:: =#
@@ -728,7 +728,7 @@
     @test_int [tan(x)^1*sqrt(a + b*tan(x)^4), x, 8, (-(1/2))*sqrt(b)*atanh((sqrt(b)*tan(x)^2)/sqrt(a + b*tan(x)^4)) - (1/2)*sqrt(a + b)*atanh((a - b*tan(x)^2)/(sqrt(a + b)*sqrt(a + b*tan(x)^4))) + (1/2)*sqrt(a + b*tan(x)^4)]
     @test_int [cot(x)^1*sqrt(a + b*tan(x)^4), x, 11, (1/2)*sqrt(b)*atanh((sqrt(b)*tan(x)^2)/sqrt(a + b*tan(x)^4)) + (1/2)*sqrt(a + b)*atanh((a - b*tan(x)^2)/(sqrt(a + b)*sqrt(a + b*tan(x)^4))) - (1/2)*sqrt(a)*atanh(sqrt(a + b*tan(x)^4)/sqrt(a))]
 
-    @test_int [tan(x)^2*sqrt(a + b*tan(x)^4), x, 12, (-(1/2))*sqrt(a + b)*atan((sqrt(a + b)*tan(x))/sqrt(a + b*tan(x)^4)) + (1/3)*tan(x)*sqrt(a + b*tan(x)^4) - (sqrt(b)*tan(x)*sqrt(a + b*tan(x)^4))/(sqrt(a) + sqrt(b)*tan(x)^2) + (a^(1/4)*b^(1/4)*EllipticE(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/sqrt(a + b*tan(x)^4) + (a^(3/4)*EllipticF(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(3*b^(1/4)*sqrt(a + b*tan(x)^4)) - ((sqrt(a) - sqrt(b))*b^(1/4)*EllipticF(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(2*a^(1/4)*sqrt(a + b*tan(x)^4)) + (b^(1/4)*(a + b)*EllipticF(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(2*a^(1/4)*(sqrt(a) - sqrt(b))*sqrt(a + b*tan(x)^4)) - ((sqrt(a) + sqrt(b))*(a + b)*EllipticPi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*sqrt(a + b*tan(x)^4))]
+    @test_int [tan(x)^2*sqrt(a + b*tan(x)^4), x, 12, (-(1/2))*sqrt(a + b)*atan((sqrt(a + b)*tan(x))/sqrt(a + b*tan(x)^4)) + (1/3)*tan(x)*sqrt(a + b*tan(x)^4) - (sqrt(b)*tan(x)*sqrt(a + b*tan(x)^4))/(sqrt(a) + sqrt(b)*tan(x)^2) + (a^(1/4)*b^(1/4)*Elliptic.E(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/sqrt(a + b*tan(x)^4) + (a^(3/4)*Elliptic.F(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(3*b^(1/4)*sqrt(a + b*tan(x)^4)) - ((sqrt(a) - sqrt(b))*b^(1/4)*Elliptic.F(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(2*a^(1/4)*sqrt(a + b*tan(x)^4)) + (b^(1/4)*(a + b)*Elliptic.F(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(2*a^(1/4)*(sqrt(a) - sqrt(b))*sqrt(a + b*tan(x)^4)) - ((sqrt(a) + sqrt(b))*(a + b)*Elliptic.Pi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*sqrt(a + b*tan(x)^4))]
 
 
     @test_int [tan(x)^3*(a + b*tan(x)^4)^(3/2), x, 9, ((3*a^2 + 12*a*b + 8*b^2)*atanh((sqrt(b)*tan(x)^2)/sqrt(a + b*tan(x)^4)))/(16*sqrt(b)) + (1/2)*(a + b)^(3/2)*atanh((a - b*tan(x)^2)/(sqrt(a + b)*sqrt(a + b*tan(x)^4))) - (1/16)*(8*(a + b) - (3*a + 4*b)*tan(x)^2)*sqrt(a + b*tan(x)^4) - (1/24)*(4 - 3*tan(x)^2)*(a + b*tan(x)^4)^(3/2)]
@@ -744,7 +744,7 @@
     @test_int [tan(x)^1/sqrt(a + b*tan(x)^4), x, 4, -(atanh((a - b*tan(x)^2)/(sqrt(a + b)*sqrt(a + b*tan(x)^4)))/(2*sqrt(a + b)))]
     @test_int [cot(x)^1/sqrt(a + b*tan(x)^4), x, 9, atanh((a - b*tan(x)^2)/(sqrt(a + b)*sqrt(a + b*tan(x)^4)))/(2*sqrt(a + b)) - atanh(sqrt(a + b*tan(x)^4)/sqrt(a))/(2*sqrt(a))]
 
-    @test_int [tan(x)^2/sqrt(a + b*tan(x)^4), x, 4, -(atan((sqrt(a + b)*tan(x))/sqrt(a + b*tan(x)^4))/(2*sqrt(a + b))) + (a^(1/4)*EllipticF(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(2*(sqrt(a) - sqrt(b))*b^(1/4)*sqrt(a + b*tan(x)^4)) - ((sqrt(a) + sqrt(b))*EllipticPi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*sqrt(a + b*tan(x)^4))]
+    @test_int [tan(x)^2/sqrt(a + b*tan(x)^4), x, 4, -(atan((sqrt(a + b)*tan(x))/sqrt(a + b*tan(x)^4))/(2*sqrt(a + b))) + (a^(1/4)*Elliptic.F(2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(2*(sqrt(a) - sqrt(b))*b^(1/4)*sqrt(a + b*tan(x)^4)) - ((sqrt(a) + sqrt(b))*Elliptic.Pi(-((sqrt(a) - sqrt(b))^2/(4*sqrt(a)*sqrt(b))), 2*atan((b^(1/4)*tan(x))/a^(1/4)), 1/2)*(sqrt(a) + sqrt(b)*tan(x)^2)*sqrt((a + b*tan(x)^4)/(sqrt(a) + sqrt(b)*tan(x)^2)^2))/(4*a^(1/4)*(sqrt(a) - sqrt(b))*b^(1/4)*sqrt(a + b*tan(x)^4))]
 
 
     @test_int [tan(x)^3/(a + b*tan(x)^4)^(3/2), x, 6, atanh((a - b*tan(x)^2)/(sqrt(a + b)*sqrt(a + b*tan(x)^4)))/(2*(a + b)^(3/2)) - (1 - tan(x)^2)/(2*(a + b)*sqrt(a + b*tan(x)^4))]
@@ -765,29 +765,29 @@
     #=Integrands*of*the*form*tan(e+f*x)^m*(a+b*tan(e+f*x)^(n/2))^p=#
 
 
-    @test_int [(d*tan(e + f*x))^m*(a + b*sqrt(c*tan(e + f*x)))^2, x, 9, ((a^2 - b^2*sqrt(-c^2))*Hypergeometric2F1(1, 1 + m, 2 + m, -((c*tan(e + f*x))/sqrt(-c^2)))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*f*(1 + m)) + ((a^2 + b^2*sqrt(-c^2))*Hypergeometric2F1(1, 1 + m, 2 + m, (c*tan(e + f*x))/sqrt(-c^2))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*f*(1 + m)) + (4*a*b*Hypergeometric2F1(1, (1/4)*(3 + 2*m), (1/4)*(7 + 2*m), -tan(e + f*x)^2)*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*f*(3 + 2*m))]
-    @test_int [(d*tan(e + f*x))^m*(a + b*sqrt(c*tan(e + f*x)))^1, x, 7, (a*Hypergeometric2F1(1, (1 + m)/2, (3 + m)/2, -tan(e + f*x)^2)*tan(e + f*x)*(d*tan(e + f*x))^m)/(f*(1 + m)) + (2*b*Hypergeometric2F1(1, (1/4)*(3 + 2*m), (1/4)*(7 + 2*m), -tan(e + f*x)^2)*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*f*(3 + 2*m))]
-    @test_int [(d*tan(e + f*x))^m/(a + b*sqrt(c*tan(e + f*x)))^1, x, 14, (a*(a^2 - b^2*sqrt(-c^2))*Hypergeometric2F1(1, 1 + m, 2 + m, -((c*tan(e + f*x))/sqrt(-c^2)))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)*f*(1 + m)) + (a*(a^2 + b^2*sqrt(-c^2))*Hypergeometric2F1(1, 1 + m, 2 + m, (c*tan(e + f*x))/sqrt(-c^2))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)*f*(1 + m)) + (b^4*c^2*Hypergeometric2F1(1, 2*(1 + m), 3 + 2*m, -((b*sqrt(c*tan(e + f*x)))/a))*tan(e + f*x)*(d*tan(e + f*x))^m)/(a*(a^4 + b^4*c^2)*f*(1 + m)) - (b*(a^2 - b^2*sqrt(-c^2))*Hypergeometric2F1(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), -((c*tan(e + f*x))/sqrt(-c^2)))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)*f*(3 + 2*m)) - (b*(a^2 + b^2*sqrt(-c^2))*Hypergeometric2F1(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), (c*tan(e + f*x))/sqrt(-c^2))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)*f*(3 + 2*m))]
-    @test_int [(d*tan(e + f*x))^m/(a + b*sqrt(c*tan(e + f*x)))^2, x, 15, ((a^6 - 3*a^2*b^4*c^2 - 3*a^4*b^2*sqrt(-c^2) - b^6*(-c^2)^(3/2))*Hypergeometric2F1(1, 1 + m, 2 + m, -((c*tan(e + f*x))/sqrt(-c^2)))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)^2*f*(1 + m)) + ((a^6 - 3*a^2*b^4*c^2 + 3*a^4*b^2*sqrt(-c^2) + b^6*(-c^2)^(3/2))*Hypergeometric2F1(1, 1 + m, 2 + m, (c*tan(e + f*x))/sqrt(-c^2))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)^2*f*(1 + m)) + (4*a^2*b^4*c^2*Hypergeometric2F1(1, 2*(1 + m), 3 + 2*m, -((b*sqrt(c*tan(e + f*x)))/a))*tan(e + f*x)*(d*tan(e + f*x))^m)/((a^4 + b^4*c^2)^2*f*(1 + m)) + (b^4*c^2*Hypergeometric2F1(2, 2*(1 + m), 3 + 2*m, -((b*sqrt(c*tan(e + f*x)))/a))*tan(e + f*x)*(d*tan(e + f*x))^m)/(a^2*(a^4 + b^4*c^2)*f*(1 + m)) - (2*a*b*(a^4 - b^4*c^2 - 2*a^2*b^2*sqrt(-c^2))*Hypergeometric2F1(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), -((c*tan(e + f*x))/sqrt(-c^2)))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)^2*f*(3 + 2*m)) - (2*a*b*(a^4 - b^4*c^2 + 2*a^2*b^2*sqrt(-c^2))*Hypergeometric2F1(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), (c*tan(e + f*x))/sqrt(-c^2))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)^2*f*(3 + 2*m))]
+    @test_int [(d*tan(e + f*x))^m*(a + b*sqrt(c*tan(e + f*x)))^2, x, 9, ((a^2 - b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, 1 + m, 2 + m, -((c*tan(e + f*x))/sqrt(-c^2)))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*f*(1 + m)) + ((a^2 + b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, 1 + m, 2 + m, (c*tan(e + f*x))/sqrt(-c^2))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*f*(1 + m)) + (4*a*b*HypergeometricFunctions._₂F₁(1, (1/4)*(3 + 2*m), (1/4)*(7 + 2*m), -tan(e + f*x)^2)*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*f*(3 + 2*m))]
+    @test_int [(d*tan(e + f*x))^m*(a + b*sqrt(c*tan(e + f*x)))^1, x, 7, (a*HypergeometricFunctions._₂F₁(1, (1 + m)/2, (3 + m)/2, -tan(e + f*x)^2)*tan(e + f*x)*(d*tan(e + f*x))^m)/(f*(1 + m)) + (2*b*HypergeometricFunctions._₂F₁(1, (1/4)*(3 + 2*m), (1/4)*(7 + 2*m), -tan(e + f*x)^2)*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*f*(3 + 2*m))]
+    @test_int [(d*tan(e + f*x))^m/(a + b*sqrt(c*tan(e + f*x)))^1, x, 14, (a*(a^2 - b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, 1 + m, 2 + m, -((c*tan(e + f*x))/sqrt(-c^2)))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)*f*(1 + m)) + (a*(a^2 + b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, 1 + m, 2 + m, (c*tan(e + f*x))/sqrt(-c^2))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)*f*(1 + m)) + (b^4*c^2*HypergeometricFunctions._₂F₁(1, 2*(1 + m), 3 + 2*m, -((b*sqrt(c*tan(e + f*x)))/a))*tan(e + f*x)*(d*tan(e + f*x))^m)/(a*(a^4 + b^4*c^2)*f*(1 + m)) - (b*(a^2 - b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), -((c*tan(e + f*x))/sqrt(-c^2)))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)*f*(3 + 2*m)) - (b*(a^2 + b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), (c*tan(e + f*x))/sqrt(-c^2))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)*f*(3 + 2*m))]
+    @test_int [(d*tan(e + f*x))^m/(a + b*sqrt(c*tan(e + f*x)))^2, x, 15, ((a^6 - 3*a^2*b^4*c^2 - 3*a^4*b^2*sqrt(-c^2) - b^6*(-c^2)^(3/2))*HypergeometricFunctions._₂F₁(1, 1 + m, 2 + m, -((c*tan(e + f*x))/sqrt(-c^2)))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)^2*f*(1 + m)) + ((a^6 - 3*a^2*b^4*c^2 + 3*a^4*b^2*sqrt(-c^2) + b^6*(-c^2)^(3/2))*HypergeometricFunctions._₂F₁(1, 1 + m, 2 + m, (c*tan(e + f*x))/sqrt(-c^2))*tan(e + f*x)*(d*tan(e + f*x))^m)/(2*(a^4 + b^4*c^2)^2*f*(1 + m)) + (4*a^2*b^4*c^2*HypergeometricFunctions._₂F₁(1, 2*(1 + m), 3 + 2*m, -((b*sqrt(c*tan(e + f*x)))/a))*tan(e + f*x)*(d*tan(e + f*x))^m)/((a^4 + b^4*c^2)^2*f*(1 + m)) + (b^4*c^2*HypergeometricFunctions._₂F₁(2, 2*(1 + m), 3 + 2*m, -((b*sqrt(c*tan(e + f*x)))/a))*tan(e + f*x)*(d*tan(e + f*x))^m)/(a^2*(a^4 + b^4*c^2)*f*(1 + m)) - (2*a*b*(a^4 - b^4*c^2 - 2*a^2*b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), -((c*tan(e + f*x))/sqrt(-c^2)))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)^2*f*(3 + 2*m)) - (2*a*b*(a^4 - b^4*c^2 + 2*a^2*b^2*sqrt(-c^2))*HypergeometricFunctions._₂F₁(1, (1/2)*(3 + 2*m), (1/2)*(5 + 2*m), (c*tan(e + f*x))/sqrt(-c^2))*(c*tan(e + f*x))^(3/2)*(d*tan(e + f*x))^m)/(c*(a^4 + b^4*c^2)^2*f*(3 + 2*m))]
 
 
     #= ::Subsection::Closed:: =#
     #=Integrands*of*the*form*(d*tan(e+f*x))^m*(b*(c*tan(e+f*x))^n)^p*when*p*symbolic=#
 
 
-    @test_int [(d*tan(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 4, (Hypergeometric2F1(1, (1/2)*(1 + m + n*p), (1/2)*(3 + m + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(d*tan(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + m + n*p))]
+    @test_int [(d*tan(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 4, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + m + n*p), (1/2)*(3 + m + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(d*tan(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + m + n*p))]
 
 
-    @test_int [tan(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 4, (Hypergeometric2F1(1, (1/2)*(3 + n*p), (1/2)*(5 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 + n*p))]
-    @test_int [tan(e + f*x)^0*(b*(c*tan(e + f*x))^n)^p, x, 3, (Hypergeometric2F1(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
-    @test_int [cot(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)*Hypergeometric2F1(1, (1/2)*(-1 + n*p), (1/2)*(1 + n*p), -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - n*p)))]
-    @test_int [cot(e + f*x)^4*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)^3*Hypergeometric2F1(1, (1/2)*(-3 + n*p), (1/2)*(-1 + n*p), -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(3 - n*p)))]
-    @test_int [cot(e + f*x)^6*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)^5*Hypergeometric2F1(1, (1/2)*(-5 + n*p), (1/2)*(-3 + n*p), -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(5 - n*p)))]
+    @test_int [tan(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 4, (HypergeometricFunctions._₂F₁(1, (1/2)*(3 + n*p), (1/2)*(5 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 + n*p))]
+    @test_int [tan(e + f*x)^0*(b*(c*tan(e + f*x))^n)^p, x, 3, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [cot(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)*HypergeometricFunctions._₂F₁(1, (1/2)*(-1 + n*p), (1/2)*(1 + n*p), -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - n*p)))]
+    @test_int [cot(e + f*x)^4*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)^3*HypergeometricFunctions._₂F₁(1, (1/2)*(-3 + n*p), (1/2)*(-1 + n*p), -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(3 - n*p)))]
+    @test_int [cot(e + f*x)^6*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)^5*HypergeometricFunctions._₂F₁(1, (1/2)*(-5 + n*p), (1/2)*(-3 + n*p), -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(5 - n*p)))]
 
-    @test_int [tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 4, (Hypergeometric2F1(1, (1/2)*(4 + n*p), (1/2)*(6 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^4*(b*(c*tan(e + f*x))^n)^p)/(f*(4 + n*p))]
-    @test_int [tan(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 4, (Hypergeometric2F1(1, (1/2)*(2 + n*p), (1/2)*(4 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p)/(f*(2 + n*p))]
-    @test_int [cot(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 4, (Hypergeometric2F1(1, (n*p)/2, 1 + (n*p)/2, -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*n*p)]
-    @test_int [cot(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)^2*Hypergeometric2F1(1, (1/2)*(-2 + n*p), (n*p)/2, -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(2 - n*p)))]
+    @test_int [tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 4, (HypergeometricFunctions._₂F₁(1, (1/2)*(4 + n*p), (1/2)*(6 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^4*(b*(c*tan(e + f*x))^n)^p)/(f*(4 + n*p))]
+    @test_int [tan(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 4, (HypergeometricFunctions._₂F₁(1, (1/2)*(2 + n*p), (1/2)*(4 + n*p), -tan(e + f*x)^2)*tan(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p)/(f*(2 + n*p))]
+    @test_int [cot(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 4, (HypergeometricFunctions._₂F₁(1, (n*p)/2, 1 + (n*p)/2, -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*n*p)]
+    @test_int [cot(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 4, -((cot(e + f*x)^2*HypergeometricFunctions._₂F₁(1, (1/2)*(-2 + n*p), (n*p)/2, -tan(e + f*x)^2)*(b*(c*tan(e + f*x))^n)^p)/(f*(2 - n*p)))]
 
 
     #= ::Subsection::Closed:: =#
@@ -809,7 +809,7 @@
     #=Integrands*of*the*form*(d*cot(e+f*x))^m*(a+b*tan(e+f*x)^2)^p*when*p*symbolic=#
 
 
-    @test_int [(d*cot(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 4, ((d*cot(e + f*x))^m*Hypergeometric2F1(1, (1/2)*(1 - m + 2*p), (1/2)*(3 - m + 2*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 - m + 2*p))]
+    @test_int [(d*cot(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 4, ((d*cot(e + f*x))^m*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - m + 2*p), (1/2)*(3 - m + 2*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 - m + 2*p))]
 
 
     @test_int [(d*cot(e + f*x))^m*(a + b*tan(e + f*x)^2)^p, x, 4, (AppellF1((1 - m)/2, 1, -p, (3 - m)/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*(d*cot(e + f*x))^m*tan(e + f*x)*(a + b*tan(e + f*x)^2)^p)/((1 + (b*tan(e + f*x)^2)/a)^p*(f*(1 - m)))]
@@ -831,7 +831,7 @@
     #=Integrands*of*the*form*(d*cot(e+f*x))^m*(b*(cTan(e+f*x))^n)^p*when*p*symbolic=#
 
 
-    @test_int [(d*cot(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 4, ((d*cot(e + f*x))^m*Hypergeometric2F1(1, (1/2)*(1 - m + n*p), (1/2)*(3 - m + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - m + n*p))]
+    @test_int [(d*cot(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 4, ((d*cot(e + f*x))^m*HypergeometricFunctions._₂F₁(1, (1/2)*(1 - m + n*p), (1/2)*(3 - m + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - m + n*p))]
 
 
     #= ::Subsection::Closed:: =#
@@ -930,7 +930,7 @@
     #=Integrands*of*the*form*(d*sec(e+f*x))^m*(a+b*tan(e+f*x)^2)^p*when*p*symbolic=#
 
 
-    @test_int [(d*sec(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(1 + m + 2*p))*Hypergeometric2F1((1/2)*(1 + 2*p), (1/2)*(1 + m + 2*p), (1/2)*(3 + 2*p), sin(e + f*x)^2)*(d*sec(e + f*x))^m*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + 2*p))]
+    @test_int [(d*sec(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(1 + m + 2*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + 2*p), (1/2)*(1 + m + 2*p), (1/2)*(3 + 2*p), sin(e + f*x)^2)*(d*sec(e + f*x))^m*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 + 2*p))]
 
 
     @test_int [(d*sec(e + f*x))^m*(a + b*tan(e + f*x)^2)^p, x, 3, (AppellF1(1/2, 1 - m/2, -p, 3/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*(d*sec(e + f*x))^m*tan(e + f*x)*(a + b*tan(e + f*x)^2)^p)/((sec(e + f*x)^2)^(m/2)*(1 + (b*tan(e + f*x)^2)/a)^p*f)]
@@ -952,19 +952,19 @@
     #=Integrands*of*the*form*(d*sec(e+f*x))^m*(b*(cTan(e+f*x))^n)^p*when*p*symbolic=#
 
 
-    @test_int [(d*sec(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(1 + m + n*p))*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(1 + m + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*(d*sec(e + f*x))^m*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [(d*sec(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(1 + m + n*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(1 + m + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*(d*sec(e + f*x))^m*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
 
 
     @test_int [sec(e + f*x)^6*(b*(c*tan(e + f*x))^n)^p, x, 4, (tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p)) + (2*tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 + n*p)) + (tan(e + f*x)^5*(b*(c*tan(e + f*x))^n)^p)/(f*(5 + n*p))]
     @test_int [sec(e + f*x)^4*(b*(c*tan(e + f*x))^n)^p, x, 4, (tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p)) + (tan(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p)/(f*(3 + n*p))]
     @test_int [sec(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 3, (tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
-    @test_int [cos(e + f*x)^0*(b*(c*tan(e + f*x))^n)^p, x, 3, (Hypergeometric2F1(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
-    @test_int [cos(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 3, (Hypergeometric2F1(2, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [cos(e + f*x)^0*(b*(c*tan(e + f*x))^n)^p, x, 3, (HypergeometricFunctions._₂F₁(1, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [cos(e + f*x)^2*(b*(c*tan(e + f*x))^n)^p, x, 3, (HypergeometricFunctions._₂F₁(2, (1/2)*(1 + n*p), (1/2)*(3 + n*p), -tan(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
 
-    @test_int [sec(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(4 + n*p))*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(4 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sec(e + f*x)^3*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
-    @test_int [sec(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(2 + n*p))*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(2 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sec(e + f*x)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
-    @test_int [cos(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((n*p)/2)*Hypergeometric2F1((n*p)/2, (1/2)*(1 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sin(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
-    @test_int [cos(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((n*p)/2)*Hypergeometric2F1((1/2)*(-2 + n*p), (1/2)*(1 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sin(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [sec(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(4 + n*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(4 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sec(e + f*x)^3*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [sec(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((1/2)*(2 + n*p))*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(2 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sec(e + f*x)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [cos(e + f*x)^1*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((n*p)/2)*HypergeometricFunctions._₂F₁((n*p)/2, (1/2)*(1 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sin(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
+    @test_int [cos(e + f*x)^3*(b*(c*tan(e + f*x))^n)^p, x, 2, ((cos(e + f*x)^2)^((n*p)/2)*HypergeometricFunctions._₂F₁((1/2)*(-2 + n*p), (1/2)*(1 + n*p), (1/2)*(3 + n*p), sin(e + f*x)^2)*sin(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 + n*p))]
 
 
     #= ::Subsection::Closed:: =#
@@ -979,9 +979,9 @@
     @test_int [cos(e + f*x)^1*(a + b*(c*tan(e + f*x))^n)^p, x, 0, Unintegrable(cos(e + f*x)*(a + b*(c*tan(e + f*x))^n)^p, x)]
     @test_int [cos(e + f*x)^3*(a + b*(c*tan(e + f*x))^n)^p, x, 0, Unintegrable(cos(e + f*x)^3*(a + b*(c*tan(e + f*x))^n)^p, x)]
 
-    @test_int [sec(e + f*x)^6*(a + b*(c*tan(e + f*x))^n)^p, x, 9, (Hypergeometric2F1(1/n, -p, 1 + 1/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*f) + (2*Hypergeometric2F1(3/n, -p, (3 + n)/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)^3*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*(3*f)) + (Hypergeometric2F1(5/n, -p, (5 + n)/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)^5*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*(5*f))]
-    @test_int [sec(e + f*x)^4*(a + b*(c*tan(e + f*x))^n)^p, x, 7, (Hypergeometric2F1(1/n, -p, 1 + 1/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*f) + (Hypergeometric2F1(3/n, -p, (3 + n)/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)^3*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*(3*f))]
-    @test_int [sec(e + f*x)^2*(a + b*(c*tan(e + f*x))^n)^p, x, 3, (Hypergeometric2F1(1/n, -p, 1 + 1/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*f)]
+    @test_int [sec(e + f*x)^6*(a + b*(c*tan(e + f*x))^n)^p, x, 9, (HypergeometricFunctions._₂F₁(1/n, -p, 1 + 1/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*f) + (2*HypergeometricFunctions._₂F₁(3/n, -p, (3 + n)/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)^3*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*(3*f)) + (HypergeometricFunctions._₂F₁(5/n, -p, (5 + n)/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)^5*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*(5*f))]
+    @test_int [sec(e + f*x)^4*(a + b*(c*tan(e + f*x))^n)^p, x, 7, (HypergeometricFunctions._₂F₁(1/n, -p, 1 + 1/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*f) + (HypergeometricFunctions._₂F₁(3/n, -p, (3 + n)/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)^3*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*(3*f))]
+    @test_int [sec(e + f*x)^2*(a + b*(c*tan(e + f*x))^n)^p, x, 3, (HypergeometricFunctions._₂F₁(1/n, -p, 1 + 1/n, -((b*(c*tan(e + f*x))^n)/a))*tan(e + f*x)*(a + b*(c*tan(e + f*x))^n)^p)/((1 + (b*(c*tan(e + f*x))^n)/a)^p*f)]
     @test_int [sec(e + f*x)^0*(a + b*(c*tan(e + f*x))^n)^p, x, 0, Unintegrable((a + b*(c*tan(e + f*x))^n)^p, x)]
     @test_int [cos(e + f*x)^2*(a + b*(c*tan(e + f*x))^n)^p, x, 0, Unintegrable(cos(e + f*x)^2*(a + b*(c*tan(e + f*x))^n)^p, x)]
 
@@ -998,7 +998,7 @@
     #=Integrands*of*the*form*(d*csc(e+f*x))^m*(a+b*tan(e+f*x)^2)^p*when*p*symbolic=#
 
 
-    @test_int [(d*csc(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 4, ((cos(e + f*x)^2)^(1/2 + p)*(d*csc(e + f*x))^m*Hypergeometric2F1((1/2)*(1 + 2*p), (1/2)*(1 - m + 2*p), (1/2)*(3 - m + 2*p), sin(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 - m + 2*p))]
+    @test_int [(d*csc(e + f*x))^m*(b*tan(e + f*x)^2)^p, x, 4, ((cos(e + f*x)^2)^(1/2 + p)*(d*csc(e + f*x))^m*HypergeometricFunctions._₂F₁((1/2)*(1 + 2*p), (1/2)*(1 - m + 2*p), (1/2)*(3 - m + 2*p), sin(e + f*x)^2)*tan(e + f*x)*(b*tan(e + f*x)^2)^p)/(f*(1 - m + 2*p))]
 
 
     @test_int [(d*csc(e + f*x))^m*(a + b*tan(e + f*x)^2)^p, x, 4, (AppellF1((1 - m)/2, 1 - m/2, -p, (3 - m)/2, -tan(e + f*x)^2, -((b*tan(e + f*x)^2)/a))*(d*csc(e + f*x))^m*tan(e + f*x)*(a + b*tan(e + f*x)^2)^p)/((sec(e + f*x)^2)^(m/2)*(1 + (b*tan(e + f*x)^2)/a)^p*(f*(1 - m)))]
@@ -1020,7 +1020,7 @@
     #=Integrands*of*the*form*(d*csc(e+f*x))^m*(b*(cTan(e+f*x))^n)^p*when*p*symbolic=#
 
 
-    @test_int [(d*csc(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 4, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*(d*csc(e + f*x))^m*Hypergeometric2F1((1/2)*(1 + n*p), (1/2)*(1 - m + n*p), (1/2)*(3 - m + n*p), sin(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - m + n*p))]
+    @test_int [(d*csc(e + f*x))^m*(b*(c*tan(e + f*x))^n)^p, x, 4, ((cos(e + f*x)^2)^((1/2)*(1 + n*p))*(d*csc(e + f*x))^m*HypergeometricFunctions._₂F₁((1/2)*(1 + n*p), (1/2)*(1 - m + n*p), (1/2)*(3 - m + n*p), sin(e + f*x)^2)*tan(e + f*x)*(b*(c*tan(e + f*x))^n)^p)/(f*(1 - m + n*p))]
 
 
     #= ::Subsection::Closed:: =#

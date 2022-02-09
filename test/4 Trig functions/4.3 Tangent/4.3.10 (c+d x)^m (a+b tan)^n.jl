@@ -1,5 +1,5 @@
 @testset "4.3.10 (c+d x)^m (a+b tan)^n" begin
-    @variables a, b, c, d, e, f, m, x
+    (a, b, c, d, e, f, m, x, ) = @variables a b c d e f m x
 
     #= ::Package:: =#
 

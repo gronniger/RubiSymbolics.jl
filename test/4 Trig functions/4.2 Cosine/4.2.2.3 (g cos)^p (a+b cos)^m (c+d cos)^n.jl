@@ -1,5 +1,5 @@
 @testset "4.2.2.3 (g cos)^p (a+b cos)^m (c+d cos)^n" begin
-    @variables a, c, e, f, x
+    (a, c, e, f, x, ) = @variables a c e f x
 
     #= ::Package:: =#
 
