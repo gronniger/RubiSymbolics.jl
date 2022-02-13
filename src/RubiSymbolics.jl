@@ -1,9 +1,18 @@
 module RubiSymbolics
 using SpecialFunctions, Symbolics
-using SymbolicUtils: Symbolic, @rule, Fixpoint, Postwalk, Chain
+using Symbolics: value, get_variables
+using SymbolicUtils: Symbolic, Sym, @rule, Prewalk, Postwalk, PassThrough, Fixpoint, Chain
+using Metatheory: @matchable
+import TermInterface
 import Elliptic, HypergeometricFunctions
 
-mathematica_version = 13    # just a dummy value, no real meaning
+@matchable struct Antiderivative
+    expr::Symbolic
+    x::Sym
+    Antiderivative(expr::Num, x) = new(value(expr), x)
+end
+
+mathematica_version = 13    # just a dummy value, no real meaning yet
 
 syntax_repl_dict = Dict(
     "(*"    =>  "#=",
@@ -12,16 +21,28 @@ syntax_repl_dict = Dict(
     "}"     =>  "]",
     "["     =>  "(",
     "]"     =>  ")",
-    r"(?<=[a-zA-Z0-9_\)\]]) (?=[a-zA-Z0-9_\(\[])"=>  "*",   # space as *
+    r"(?<=([a-zA-Z0-9_\)\]])|(_\.)) (?=[a-zA-Z0-9_\(\[])"=>  "*",   # space as *
     "x -("              =>  "x - (",                # space required inside [ ]
     r"(\d)(?=\.[^\d])"  => s"\1.0",                 # float fix
+    "(a_. + b_.*x_)!"   => "factorial(~a' + ~b'*~x)",# fix in 8.6 Gamma Functions
     "(a + b*x)!"        => "factorial(a + b*x)",    # fix in 8.6 Gamma Functions
-    "\$VersionNumber"   => string(mathematica_version)  # remove $ character
+    "\$VersionNumber"   => string(mathematica_version),  # remove $ character
     # r"(?<base>\(\h*-\h*\d+\)\h*\^\h*(?<exp>()|())" => s"\g<base>"
+    "/;"    =>  "<--",   # temp. replacement for conditionals
+    "=!="   =>  "!==",
+    "f_'''" =>  "Derivative(3)(f_)",    # Derivatives
+    "f_''"  =>  "Derivative(2)(f_)",
+    "f_'"   =>  "Derivative(1)(f_)",
+    "g_'''" =>  "Derivative(3)(g_)",
+    "g_''"  =>  "Derivative(2)(g_)",
+    "g_'"   =>  "Derivative(1)(g_)",
+    "_."    =>  "_'"    # "." --> "'"
 )
 identifier(s::String) = Regex("(?<![a-zA-Z_])$s(?![a-zA-Z0-9_])")
+identifier(sym::Symbol) = identifier(string(sym))
 function_repl_dict = Dict(
     identifier("Expand") => "expand",
+    identifier("Int") => "Antiderivative",
 
     identifier("E") => "ℯ",
     identifier("Pi") => "pi",
@@ -65,20 +86,20 @@ function_repl_dict = Dict(
     identifier("Erfi") => "erfi",
     # # identifier("PolyLog") => "Polylogarithms.polylog",
 )
-@register_symbolic Base.exp(x::Complex)::Complex false
-@register_symbolic Base.sqrt(x::Complex)::Complex false
-@register_symbolic Base.log(x::Complex)::Complex false
+@register_symbolic Base.exp(x::Complex{Real})::Complex false
+@register_symbolic Base.sqrt(x::Complex{Real})::Complex false
+@register_symbolic Base.log(x::Complex{Real})::Complex false
 @register_symbolic Base.sin(x::Complex)::Complex false
-@register_symbolic Base.sinh(x::Complex)::Complex false
-@register_symbolic Base.asin(x::Complex)::Complex false
-@register_symbolic Base.asinh(x::Complex)::Complex false
+@register_symbolic Base.sinh(x::Complex{Real})::Complex false
+@register_symbolic Base.asin(x::Complex{Real})::Complex false
+@register_symbolic Base.asinh(x::Complex{Real})::Complex false
 @register_symbolic Base.cos(x::Complex)::Complex false
-@register_symbolic Base.cosh(x::Complex)::Complex false
-@register_symbolic Base.acos(x::Complex)::Complex false
-@register_symbolic Base.acosh(x::Complex)::Complex false
-@register_symbolic Base.tan(x::Complex)::Complex false
+@register_symbolic Base.cosh(x::Complex{Real})::Complex false
+@register_symbolic Base.acos(x::Complex{Real})::Complex false
+@register_symbolic Base.acosh(x::Complex{Real})::Complex false
+@register_symbolic Base.tan(x::Complex{Real})::Complex false
 @register_symbolic Base.tanh(x::Complex)::Complex false
-@register_symbolic Base.atan(x::Complex)::Complex false
+@register_symbolic Base.atan(x::Complex{Real})::Complex false
 @register_symbolic Base.atanh(x::Complex)::Complex false
 @register_symbolic Base.cot(x::Complex)::Complex false
 @register_symbolic Base.coth(x::Complex)::Complex false
@@ -156,10 +177,22 @@ CannotIntegrate(x, y) = nothing
 @register_symbolic CannotIntegrate(ex)
 @register_symbolic CannotIntegrate(x, y) false
 
-export  integrate
+function FreeQ(expr, x::Sym)
+    vars = get_variables(expr)
+    return !any(isequal.(x, vars))
+end
+FreeQ(expr, x::Num) = FreeQ(expr, value(x))
+FreeQ(expr_lst::AbstractArray, x) = all(FreeQ.(expr_lst, x))
+
+Refine(expr) = simplify(expr)   # no assumptionsystem -> should be OK, speed ?
+Quiet(expr) = expr  # nothing to mute here ?!
+PossibleZeroQ(x) = false    # Would check numerically for zero -> use simplify straight away
+
+export  integrate, Antiderivative
 export  If, LogIntegral, SinIntegral, SinhIntegral, CosIntegral,
         CoshIntegral, ExpIntegralE, ExpIntegralEi, FresnelS, FresnelC, PolyLog,
         ProductLog, Zeta, Gamma, AppellF1, Unintegrable, CannotIntegrate
 export erf, erfi
+export FreeQ
 
 end # module

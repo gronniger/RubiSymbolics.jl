@@ -31,7 +31,6 @@ for (root, dirs, files) in walkdir(testsuite_path)
         catch
             println(m)
         end
-
     end
     rel_path = relpath(root, testsuite_path)
     mkpath(joinpath(tests_root_path, rel_path))
@@ -62,7 +61,7 @@ for (root, dirs, files) in walkdir(testsuite_path)
             )
             empty!(vars)
             out_file_content = replace(out_file_content, test_re => test_subs)
-            out_file_content = replace(out_file_content, r"^|(\n(?!\n))" => "\n"*" "^4) #indent
+            out_file_content = replace(out_file_content, r"(\n(?!\n))" => "\n"*" "^4, r"^(?!\n)" => " "^4) #indent
             write(f, "@testset \"$(stem(file))\" begin\n")
             symbol_list = sort([x for x in setdiff(vars, [:im, :ℯ, :pi])])
             write(f, "    ($(join(symbol_list, ", ")), ) = @variables "*join(symbol_list, " ")*"\n")
