@@ -814,6 +814,8 @@ SimplerIntegrandQ[u_,v_,x_Symbol] :=
   Module[{lst=CancelCommonFactors[u,v],u1,v1},
   u1=lst[[1]];
   v1=lst[[2]];
+(*If[Head[u1]===Head[v1] && Length[u1]==Length[v1]==1,
+    SimplerIntegrandQ[u1[[1]],v1[[1]],x], *)
   If[LeafCount[u1]<3/4*LeafCount[v1],
     True,
   If[RationalFunctionQ[u1,x],
@@ -1126,7 +1128,7 @@ NumericFactor[u_] :=
   If[ProductQ[u],
     Map[NumericFactor,u],
   If[SumQ[u],
-    If[LeafCount[u]<50,
+    If[LeafCount[u]<50,             (* Eliminate this kludge! *)
       Function[If[SumQ[#], 1, NumericFactor[#]]][ContentFactor[u]],
     With[{m=NumericFactor[First[u]],n=NumericFactor[Rest[u]]},
     If[m<0 && n<0,
@@ -1150,7 +1152,7 @@ NonnumericFactors[u_] :=
   If[ProductQ[u],
     Map[NonnumericFactors,u],
   If[SumQ[u],
-    If[LeafCount[u]<50,
+    If[LeafCount[u]<50,             (* Eliminate this kludge! *)
       Function[If[SumQ[#], u, NonnumericFactors[#]]][ContentFactor[u]],
     With[{n=NumericFactor[u]},
     Map[Function[#/n],u]]],
@@ -2057,9 +2059,11 @@ SubstForFractionalPower[u_,v_,n_,w_,x_Symbol] :=
   Map[Function[SubstForFractionalPower[#,v,n,w,x]],u]]]
 
 
-(* SubstForInverseFunction[u,v,w,x] returns u with subexpressions equal to v replaced by x
+(* SubstForInverseFunction[u,v,w,x] returns u with subexpressions equal to v replaced by x 
 	and x replaced by w. *)
 SubstForInverseFunction[u_,v_,x_Symbol] :=
+(*  Module[{a=Coefficient[v[[1]],0],b=Coefficient[v[[1]],1]},
+  SubstForInverseFunction[u,v,-a/b+InverseFunction[Head[v]]/b,x]] *)
   SubstForInverseFunction[u,v,
 		(-Coefficient[v[[1]],x,0]+InverseFunction[Head[v]][x])/Coefficient[v[[1]],x,1],x]
 
@@ -2387,7 +2391,7 @@ SmartSimplify[u_] :=
     Module[{v,w},
     v=Simplify[u];
     w=Factor[v];
-    v=If[LeafCount[w]<LeafCount[v],w,v];
+    v=If[LeafCount[w]<LeafCount[v] (* -1 *),w,v];
     v=If[Not[FalseQ[w=FractionalPowerOfSquareQ[v]]] && FractionalPowerSubexpressionQ[u,w,Expand[w]],SubstForExpn[v,w,Expand[w]],v];
     v=FactorNumericGcd[v];
     TimeConstrained[FixSimplify[v],$TimeLimit/3,v]],
@@ -2519,28 +2523,28 @@ SimpHelp[u_,x_] :=
 NormalizeTrig[func_,m_.*(n_.*Pi+r_.)+s_.,b_,x_] :=
   If[m*n==1/4 && NegQ[b],
     Switch[func,
-	  Sin, Cos[Pi/4-m*r-s-b*x],
-	  Cos, Sin[Pi/4-m*r-s-b*x],
-	  Tan, Cot[Pi/4-m*r-s-b*x],
-	  Cot, Tan[Pi/4-m*r-s-b*x],
-	  Sec, Csc[Pi/4-m*r-s-b*x],
-	  Csc, Sec[Pi/4-m*r-s-b*x]],
+	  Sin, Cos[Pi/4-m*r-s-b*x],        (* Sin[Pi/4-z] == Cos[Pi/4+z] *)
+	  Cos, Sin[Pi/4-m*r-s-b*x],        (* Cos[Pi/4-z] == Sin[Pi/4+z] *)
+	  Tan, Cot[Pi/4-m*r-s-b*x],        (* Tan[Pi/4-z] == Cot[Pi/4+z] *)
+	  Cot, Tan[Pi/4-m*r-s-b*x],        (* Cot[Pi/4-z] == Tan[Pi/4+z] *)
+	  Sec, Csc[Pi/4-m*r-s-b*x],        (* Sec[Pi/4-z] == Csc[Pi/4+z] *)
+	  Csc, Sec[Pi/4-m*r-s-b*x]],       (* Csc[Pi/4-z] == Sec[Pi/4+z] *)
   If[m*n==-1/4,
     If[PosQ[b],
       Switch[func,
-	    Sin, -Cos[Pi/4+m*r+s+b*x],
-	    Cos, Sin[Pi/4+m*r+s+b*x],
-	    Tan, -Cot[Pi/4+m*r+s+b*x],
-	    Cot, -Tan[Pi/4+m*r+s+b*x],
-	    Sec, Csc[Pi/4+m*r+s+b*x],
-	    Csc, -Sec[Pi/4+m*r+s+b*x]],
+	    Sin, -Cos[Pi/4+m*r+s+b*x],     (* Sin[-Pi/4+z] == -Cos[Pi/4+z] *)
+	    Cos, Sin[Pi/4+m*r+s+b*x],      (* Cos[-Pi/4+z] == Sin[Pi/4+z] *)
+	    Tan, -Cot[Pi/4+m*r+s+b*x],     (* Tan[-Pi/4+z] == -Cot[Pi/4+z] *)
+	    Cot, -Tan[Pi/4+m*r+s+b*x],     (* Cot[-Pi/4+z] == -Tan[Pi/4+z] *)
+	    Sec, Csc[Pi/4+m*r+s+b*x],      (* Sec[-Pi/4+z] == Csc[Pi/4+z] *)
+	    Csc, -Sec[Pi/4+m*r+s+b*x]],    (* Csc[-Pi/4+z] == -Sec[Pi/4+z] *)
     Switch[func,
-	  Sin, -Sin[Pi/4-m*r-s-b*x],
-	  Cos, Cos[Pi/4-m*r-s-b*x],
-	  Tan, -Tan[Pi/4-m*r-s-b*x],
-	  Cot, -Cot[Pi/4-m*r-s-b*x],
-	  Sec, Sec[Pi/4-m*r-s-b*x],
-	  Csc, -Csc[Pi/4-m*r-s-b*x]]],
+	  Sin, -Sin[Pi/4-m*r-s-b*x],       (* Sin[-Pi/4-z] == -Sin[Pi/4+z] *)
+	  Cos, Cos[Pi/4-m*r-s-b*x],        (* Cos[-Pi/4-z] == Cos[Pi/4+z] *)
+	  Tan, -Tan[Pi/4-m*r-s-b*x],       (* Tan[-Pi/4-z] == -Tan[Pi/4+z] *)
+	  Cot, -Cot[Pi/4-m*r-s-b*x],       (* Cot[-Pi/4-z] == -Cot[Pi/4+z] *)
+	  Sec, Sec[Pi/4-m*r-s-b*x],        (* Sec[-Pi/4-z] == Sec[Pi/4+z] *)
+	  Csc, -Csc[Pi/4-m*r-s-b*x]]],     (* Csc[-Pi/4-z] == -Csc[Pi/4+z] *)
   func[m*n*Pi+m*r+s+b*x]]] /;
 RationalQ[m,n]
 
@@ -2548,28 +2552,28 @@ RationalQ[m,n]
 NormalizeHyperbolic[func_,m_.*(n_.*Complex[0,nz_]*Pi+r_.)+s_.,b_,x_] :=
   If[m*n*nz==1/4 && NegQ[b],
     Switch[func,
-	  Sinh, I*Cosh[I*Pi/4-m*r-s-b*x],
-	  Cosh, -I*Sinh[I*Pi/4-m*r-s-b*x],
-	  Tanh, -Coth[I*Pi/4-m*r-s-b*x],
-	  Coth, -Tanh[I*Pi/4-m*r-s-b*x],
-	  Sech, I*Csch[I*Pi/4-m*r-s-b*x],
-	  Csch, -I*Sech[I*Pi/4-m*r-s-b*x]],
+	  Sinh, I*Cosh[I*Pi/4-m*r-s-b*x],        (* Sinh[I*Pi/4-z] == I*Cosh[I*Pi/4+z] *)
+	  Cosh, -I*Sinh[I*Pi/4-m*r-s-b*x],       (* Cosh[I*Pi/4-z] == -I*Sinh[I*Pi/4+z] *)
+	  Tanh, -Coth[I*Pi/4-m*r-s-b*x],         (* Tanh[I*Pi/4-z] == -Coth[I*Pi/4+z] *)
+	  Coth, -Tanh[I*Pi/4-m*r-s-b*x],         (* Coth[I*Pi/4-z] == -Tanh[I*Pi/4+z] *)
+	  Sech, I*Csch[I*Pi/4-m*r-s-b*x],        (* Sech[I*Pi/4-z] == I*Csch[I*Pi/4+z] *)
+	  Csch, -I*Sech[I*Pi/4-m*r-s-b*x]],      (* Csch[I*Pi/4-z] == -I*Sech[I*Pi/4+z] *)
   If[m*n*nz==-1/4,
     If[PosQ[b],
       Switch[func,
-	    Sinh, -I*Cosh[I*Pi/4+m*r+s+b*x],
-	    Cosh, -I*Sinh[I*Pi/4+m*r+s+b*x],
-	    Tanh, Coth[I*Pi/4+m*r+s+b*x],
-	    Coth, Tanh[I*Pi/4+m*r+s+b*x],
-	    Sech, I*Csch[I*Pi/4+m*r+s+b*x],
-	    Csch, I*Sech[I*Pi/4+m*r+s+b*x]],
+	    Sinh, -I*Cosh[I*Pi/4+m*r+s+b*x],     (* Sinh[-I*Pi/4+z] == -I*Cosh[I*Pi/4+z] *)
+	    Cosh, -I*Sinh[I*Pi/4+m*r+s+b*x],     (* Cosh[-I*Pi/4+z] == -I*Sinh[I*Pi/4+z] *)
+	    Tanh, Coth[I*Pi/4+m*r+s+b*x],        (* Tanh[-I*Pi/4+z] == Coth[I*Pi/4+z] *)
+	    Coth, Tanh[I*Pi/4+m*r+s+b*x],        (* Coth[-I*Pi/4+z] == Tanh[I*Pi/4+z] *)
+	    Sech, I*Csch[I*Pi/4+m*r+s+b*x],      (* Sech[-I*Pi/4+z] == I*Csch[I*Pi/4+z] *)
+	    Csch, I*Sech[I*Pi/4+m*r+s+b*x]],     (* Csch[-I*Pi/4+z] == I*Sech[I*Pi/4+z] *)
     Switch[func,
-	  Sinh, -Sinh[I*Pi/4-m*r-s-b*x],
-	  Cosh, Cosh[I*Pi/4-m*r-s-b*x],
-	  Tanh, -Tanh[I*Pi/4-m*r-s-b*x],
-	  Coth, -Coth[I*Pi/4-m*r-s-b*x],
-	  Sech, Sech[I*Pi/4-m*r-s-b*x],
-	  Csch, -Csch[I*Pi/4-m*r-s-b*x]]],
+	  Sinh, -Sinh[I*Pi/4-m*r-s-b*x],         (* Sinh[-I*Pi/4-z] == -Sinh[I*Pi/4+z] *)
+	  Cosh, Cosh[I*Pi/4-m*r-s-b*x],          (* Cosh[-I*Pi/4-z] == Cosh[I*Pi/4+z] *)
+	  Tanh, -Tanh[I*Pi/4-m*r-s-b*x],         (* Tanh[-I*Pi/4-z] == -Tanh[I*Pi/4+z] *)
+	  Coth, -Coth[I*Pi/4-m*r-s-b*x],         (* Coth[-I*Pi/4-z] == -Coth[I*Pi/4+z] *)
+	  Sech, Sech[I*Pi/4-m*r-s-b*x],          (* Sech[-I*Pi/4-z] == Sech[I*Pi/4+z] *)
+	  Csch, -Csch[I*Pi/4-m*r-s-b*x]]],       (* Csch[-I*Pi/4-z] == -Csch[I*Pi/4+z] *)
   func[m*n*nz*I*Pi+m*r+s+b*x]]] /;
 RationalQ[m,n,nz]
 
@@ -3509,6 +3513,7 @@ PolynomialDivide[u_,v_,x_Symbol] :=
   monomial=x^Exponent[rem,x,Min];
   If[NegQ[Coefficient[rem,x,0]], monomial=-monomial];
   rem=Apply[Plus,Map[Function[Simp[Together[Coefficient[rem,x,#]*x^#/monomial],x]],Exponent[rem,x,List]]];
+(*rem=Simplify[rem]; *)
   If[BinomialQ[v,x],
     quo+free*monomial*rem/ExpandToSum[v,x],
   quo+free*monomial*rem/v]]
@@ -4312,7 +4317,13 @@ Dist[u_,v_,x_] :=
   If[SumQ[v],
     Map[Function[Dist[u,#,x]],v],
   If[IntegralFreeQ[v],
+(*  Simp[Simp[u,x]*v,x], *)
     Simp[u*v,x],
+(*If[$ShowSteps=!=True,
+    Simp[u*v,x],
+  Module[{w=Simp[u,x]},
+  If[w=!=u,
+    Dist[w,v,x], *)
   With[{w=Simp[u*x^2,x]/x^2},
   If[w=!=u && FreeQ[w,x] && w===Simp[w,x] && w===Simp[w*x^2,x]/x^2,
     Dist[w,v,x],
@@ -4551,6 +4562,7 @@ FunctionOfExponentialTestAux[base_,expon_,x_] :=
       $base$=base;
       $expon$=expon;
       tmp=1/tmp] );
+(*$expon$=If[SumQ[$expon$], Map[Function[#/Denominator[tmp]],$expon$], $expon$/Denominator[tmp]]; *)
   $expon$=$expon$/Denominator[tmp];
   If[tmp<0 && NegQ[Coefficient[$expon$,x,1]],
     $expon$=-$expon$;
@@ -4792,10 +4804,13 @@ FunctionOfSinQ[u_,v_,x_] :=
     False,
   If[TrigQ[u] && IntegerQuotientQ[u[[1]],v],
     If[OddQuotientQ[u[[1]],v],
+(* Basis: If m odd, Sin[m*v]^n is a function of Sin[v]. *)
       Head[u]===Sin || Head[u]===Csc,
+(* Basis: If m even, Cos[m*v]^n is a function of Sin[v]. *)
     Head[u]===Cos || Head[u]===Sec],
   If[IntegerPowerQ[u] && TrigQ[u[[1]]] && IntegerQuotientQ[u[[1,1]],v],
     If[EvenQ[u[[2]]],
+(* Basis: If m integer and n even, Trig[m*v]^n is a function of Sin[v]. *)
       True,
     FunctionOfSinQ[u[[1]],v,x]],
   If[ProductQ[u],
@@ -4804,12 +4819,15 @@ FunctionOfSinQ[u_,v_,x_] :=
     Module[{lst},
     lst=FindTrigFactor[Sin,Csc,u,v,False];
     If[ListQ[lst] && EvenQuotientQ[lst[[1]],v],
+(* Basis: If m even and n odd, Sin[m*v]^n == Cos[v]*u where u is a function of Sin[v]. *)
       FunctionOfSinQ[Cos[v]*lst[[2]],v,x],
     lst=FindTrigFactor[Cos,Sec,u,v,False];
     If[ListQ[lst] && OddQuotientQ[lst[[1]],v],
+(* Basis: If m odd and n odd, Cos[m*v]^n == Cos[v]*u where u is a function of Sin[v]. *)
       FunctionOfSinQ[Cos[v]*lst[[2]],v,x],
     lst=FindTrigFactor[Tan,Cot,u,v,True];
     If[ListQ[lst],
+(* Basis: If m integer and n odd, Tan[m*v]^n == Cos[v]*u where u is a function of Sin[v]. *)
       FunctionOfSinQ[Cos[v]*lst[[2]],v,x],
     Catch[Scan[Function[If[Not[FunctionOfSinQ[#,v,x]],Throw[False]]],u];True]]]]]],
   Catch[Scan[Function[If[Not[FunctionOfSinQ[#,v,x]],Throw[False]]],u];True]]]]]]
@@ -4822,18 +4840,22 @@ FunctionOfCosQ[u_,v_,x_] :=
   If[CalculusQ[u],
     False,
   If[TrigQ[u] && IntegerQuotientQ[u[[1]],v],
+(* Basis: If m integer, Cos[m*v]^n is a function of Cos[v]. *)
     Head[u]===Cos || Head[u]===Sec,
   If[IntegerPowerQ[u] && TrigQ[u[[1]]] && IntegerQuotientQ[u[[1,1]],v],
     If[EvenQ[u[[2]]],
+(* Basis: If m integer and n even, Trig[m*v]^n is a function of Cos[v]. *)
       True,
     FunctionOfCosQ[u[[1]],v,x]],
   If[ProductQ[u],
     Module[{lst},
     lst=FindTrigFactor[Sin,Csc,u,v,False];
     If[ListQ[lst],
+(* Basis: If m integer and n odd, Sin[m*v]^n == Sin[v]*u where u is a function of Cos[v]. *)
       FunctionOfCosQ[Sin[v]*lst[[2]],v,x],
     lst=FindTrigFactor[Tan,Cot,u,v,True];
     If[ListQ[lst],
+(* Basis: If m integer and n odd, Tan[m*v]^n == Sin[v]*u where u is a function of Cos[v]. *)
       FunctionOfCosQ[Sin[v]*lst[[2]],v,x],
     Catch[Scan[Function[If[Not[FunctionOfCosQ[#,v,x]],Throw[False]]],u];True]]]],
   Catch[Scan[Function[If[Not[FunctionOfCosQ[#,v,x]],Throw[False]]],u];True]]]]]]
@@ -4979,10 +5001,13 @@ FunctionOfSinhQ[u_,v_,x_] :=
     False,
   If[HyperbolicQ[u] && IntegerQuotientQ[u[[1]],v],
     If[OddQuotientQ[u[[1]],v],
+(* Basis: If m odd, Sinh[m*v]^n is a function of Sinh[v]. *)
       Head[u]===Sinh || Head[u]===Csch,
+(* Basis: If m even, Cos[m*v]^n is a function of Sinh[v]. *)
     Head[u]===Cosh || Head[u]===Sech],
   If[IntegerPowerQ[u] && HyperbolicQ[u[[1]]] && IntegerQuotientQ[u[[1,1]],v],
     If[EvenQ[u[[2]]],
+(* Basis: If m integer and n even, Hyper[m*v]^n is a function of Sinh[v]. *)
       True,
     FunctionOfSinhQ[u[[1]],v,x]],
   If[ProductQ[u],
@@ -4991,12 +5016,15 @@ FunctionOfSinhQ[u_,v_,x_] :=
     Module[{lst},
     lst=FindTrigFactor[Sinh,Csch,u,v,False];
     If[ListQ[lst] && EvenQuotientQ[lst[[1]],v],
+(* Basis: If m even and n odd, Sinh[m*v]^n == Cosh[v]*u where u is a function of Sinh[v]. *)
       FunctionOfSinhQ[Cosh[v]*lst[[2]],v,x],
     lst=FindTrigFactor[Cosh,Sech,u,v,False];
     If[ListQ[lst] && OddQuotientQ[lst[[1]],v],
+(* Basis: If m odd and n odd, Cosh[m*v]^n == Cosh[v]*u where u is a function of Sinh[v]. *)
       FunctionOfSinhQ[Cosh[v]*lst[[2]],v,x],
     lst=FindTrigFactor[Tanh,Coth,u,v,True];
     If[ListQ[lst],
+(* Basis: If m integer and n odd, Tanh[m*v]^n == Cosh[v]*u where u is a function of Sinh[v]. *)
       FunctionOfSinhQ[Cosh[v]*lst[[2]],v,x],
     Catch[Scan[Function[If[Not[FunctionOfSinhQ[#,v,x]],Throw[False]]],u];True]]]]]],
   Catch[Scan[Function[If[Not[FunctionOfSinhQ[#,v,x]],Throw[False]]],u];True]]]]]]
@@ -5009,18 +5037,22 @@ FunctionOfCoshQ[u_,v_,x_] :=
   If[CalculusQ[u],
     False,
   If[HyperbolicQ[u] && IntegerQuotientQ[u[[1]],v],
+(* Basis: If m integer, Cosh[m*v]^n is a function of Cosh[v]. *)
     Head[u]===Cosh || Head[u]===Sech,
   If[IntegerPowerQ[u] && HyperbolicQ[u[[1]]] && IntegerQuotientQ[u[[1,1]],v],
     If[EvenQ[u[[2]]],
+(* Basis: If m integer and n even, Hyper[m*v]^n is a function of Cosh[v]. *)
       True,
     FunctionOfCoshQ[u[[1]],v,x]],
   If[ProductQ[u],
     Module[{lst},
     lst=FindTrigFactor[Sinh,Csch,u,v,False];
     If[ListQ[lst],
+(* Basis: If m integer and n odd, Sinh[m*v]^n == Sinh[v]*u where u is a function of Cosh[v]. *)
       FunctionOfCoshQ[Sinh[v]*lst[[2]],v,x],
     lst=FindTrigFactor[Tanh,Coth,u,v,True];
     If[ListQ[lst],
+(* Basis: If m integer and n odd, Tanh[m*v]^n == Sinh[v]*u where u is a function of Cosh[v]. *)
       FunctionOfCoshQ[Sinh[v]*lst[[2]],v,x],
     Catch[Scan[Function[If[Not[FunctionOfCoshQ[#,v,x]],Throw[False]]],u];True]]]],
   Catch[Scan[Function[If[Not[FunctionOfCoshQ[#,v,x]],Throw[False]]],u];True]]]]]]
@@ -5120,10 +5152,12 @@ FindTrigFactor[func1_,func2_,u_,v_,flag_] :=
 
 (* If u/v is an integer, IntegerQuotientQ[u,v] returns True; else it returns False. *)
 IntegerQuotientQ[u_,v_] :=
+(* u===v || EqQ[u,v] || IntegerQ[u/v] *)
   IntegerQ[Simplify[u/v]]
 
 (* If u/v is odd, OddQuotientQ[u,v] returns True; else it returns False. *)
 OddQuotientQ[u_,v_] :=
+(* u===v || EqQ[u,v] || OddQ[u/v] *)
   OddQ[Simplify[u/v]]
 
 (* If u/v is even, EvenQuotientQ[u,v] returns True; else it returns False. *)
@@ -5463,6 +5497,7 @@ SubstAux[u_,x_,v_,flag_] :=
   With[{w=Map[Function[SubstAux[#,x,v,flag]],u]},
   If[PolyQ[w,x],
     With[{z=If[LinearQ[v,x] || MonomialQ[v,x],ExpandToSum[w,x],Simplify[w]]},
+(*  Print[{u,v,w,z}]; *)
     If[LeafCount[z]<=If[LinearQ[u,x],3/4,9/10]*LeafCount[w],
       If[EqQ[NumericFactor[z]^2,1],
         z,
@@ -5935,7 +5970,12 @@ RectifyTangent[u_,a_,b_,x_Symbol] :=
       I*b*ArcTanh[2*Cos[u]*Sin[u]]/2],
     e=SmartDenominator[c];
     c=c*e;
-    I*b*Log[RemoveContent[e*Cos[u]+c*Sin[u],x]]/2 -
+(*  If[EvenQ[Denominator[NumericFactor[Together[u]]]],
+      I*b*Log[RemoveContent[c^2+e^2-(c^2-e^2)*Cos[2*u]+2*c*e*Sin[2*u],x]]/4 - 
+      I*b*Log[RemoveContent[c^2+e^2-(c^2-e^2)*Cos[2*u]-2*c*e*Sin[2*u],x]]/4,
+    I*b*Log[RemoveContent[e^2+2*c*e*Cos[u]*Sin[u]+(c^2-e^2)*Sin[u]^2,x]]/4 - 
+    I*b*Log[RemoveContent[e^2-2*c*e*Cos[u]*Sin[u]+(c^2-e^2)*Sin[u]^2,x]]/4]]]], *)
+    I*b*Log[RemoveContent[e*Cos[u]+c*Sin[u],x]]/2 - 
     I*b*Log[RemoveContent[e*Cos[u]-c*Sin[u],x]]/2]]],
   If[LtQ[a,0],
     RectifyTangent[u,-a,-b,x],
@@ -6070,7 +6110,12 @@ RectifyCotangent[u_,a_,b_,x_Symbol] :=
       -I*b*ArcTanh[2*Cos[u]*Sin[u]]/2],
     e=SmartDenominator[c];
     c=c*e;
-    -I*b*Log[RemoveContent[c*Cos[u]+e*Sin[u],x]]/2 +
+(*  If[EvenQ[Denominator[NumericFactor[Together[u]]]],
+      -I*b*Log[RemoveContent[c^2+e^2+(c^2-e^2)*Cos[2*u]+2*c*e*Sin[2*u],x]]/4 + 
+       I*b*Log[RemoveContent[c^2+e^2+(c^2-e^2)*Cos[2*u]-2*c*e*Sin[2*u],x]]/4,
+    -I*b*Log[RemoveContent[e^2+(c^2-e^2)*Cos[u]^2+2*c*e*Cos[u]*Sin[u],x]]/4 + 
+     I*b*Log[RemoveContent[e^2+(c^2-e^2)*Cos[u]^2-2*c*e*Cos[u]*Sin[u],x]]/4]]]], *)
+    -I*b*Log[RemoveContent[c*Cos[u]+e*Sin[u],x]]/2 + 
     I*b*Log[RemoveContent[c*Cos[u]-e*Sin[u],x]]/2]]],
   If[LtQ[a,0],
     RectifyCotangent[u,-a,-b,x],
@@ -6313,6 +6358,13 @@ InverseFunctionOfLinear[u_,x_Symbol] :=
 
 
 TryPureTanSubst[u_,x_Symbol] :=
+(*  Not[MatchQ[u,Log[v_]]] &&
+  Not[MatchQ[u,f_[v_]^2 /; LinearQ[v,x]]] &&
+  Not[MatchQ[u,ArcTan[a_.*Tan[v_]] /; FreeQ[a,x]]] &&
+  Not[MatchQ[u,ArcTan[a_.*Cot[v_]] /; FreeQ[a,x]]] &&
+  Not[MatchQ[u,ArcCot[a_.*Tan[v_]] /; FreeQ[a,x]]] &&
+  Not[MatchQ[u,ArcCot[a_.*Cot[v_]] /; FreeQ[a,x]]] &&
+  u===ExpandIntegrand[u,x] *)
   Not[MatchQ[u,F_[c_.*(a_.+b_.*G_[v_])] /; FreeQ[{a,b,c},x] && MemberQ[{ArcTan,ArcCot,ArcTanh,ArcCoth},F] && MemberQ[{Tan,Cot,Tanh,Coth},G] && LinearQ[v,x]]]
 
 
@@ -6326,6 +6378,7 @@ MemberQ[{Sinh,Cosh,Sech,Csch},f]
 TryTanhSubst[u_,x_Symbol] :=
   FalseQ[FunctionOfLinear[u,x]] &&
   Not[MatchQ[u,r_.*(s_+t_)^n_. /; IntegerQ[n] && n>0]] &&
+(*Not[MatchQ[u,Log[f_[x]^2] /; MemberQ[{Sinh,Cosh,Sech,Csch},f]]]  && *)
   Not[MatchQ[u,Log[v_]]]  &&
   Not[MatchQ[u,1/(a_+b_.*f_[x]^n_) /; MemberQ[{Sinh,Cosh,Sech,Csch},f] && IntegerQ[n] && n>2]] &&
   Not[MatchQ[u,f_[m_.*x]*g_[n_.*x] /; IntegersQ[m,n] && MemberQ[{Sinh,Cosh,Sech,Csch},f] && MemberQ[{Sinh,Cosh,Sech,Csch},g]]] &&
@@ -7629,7 +7682,7 @@ PiecewiseLinearQ[u_,v_,x_Symbol] :=
   PiecewiseLinearQ[u,x] && PiecewiseLinearQ[v,x]
 
 PiecewiseLinearQ[u_,x_Symbol] :=
-  LinearQ[u,x] || 
+  LinearQ[u,x] (* && Not[MonomialQ[u,x]] *) || 
   MatchQ[u,Log[c_.*F_^(v_)] /; FreeQ[{F,c},x] && LinearQ[v,x]] || 
   MatchQ[u,F_[G_[v_]] /; LinearQ[v,x] && MemberQ[{
 	{ArcTanh,Tanh},{ArcTanh,Coth},{ArcCoth,Coth},{ArcCoth,Tanh},
@@ -7795,6 +7848,7 @@ RtAux[u_,n_] :=
   If[ComplexNumberQ[u],
     With[{a=Re[u],b=Im[u]},
     If[Not[IntegerQ[a] && IntegerQ[b]] && IntegerQ[a/(a^2+b^2)] && IntegerQ[b/(a^2+b^2)],
+(* Basis: a+b*I==1/(a/(a^2+b^2)-b/(a^2+b^2)*I) *)
       1/RtAux[a/(a^2+b^2)-b/(a^2+b^2)*I,n],
     NthRoot[u,n]]],
   If[OddQ[n] && NegQ[u] && PosQ[-u],

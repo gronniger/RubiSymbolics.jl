@@ -39,13 +39,13 @@ print_rule(x) = x
 print_rule(x, ys...) = "Rule($x, $(print_rule(ys...)))"
 
 @with_names begin
-    const spc = Star(Space())     # drop space or not ?
-    const dspc = Drop(spc)
-
     const identifier = (p"(?<![_a-zA-Z\$])[_a-zA-Z\$][_a-zA-Z0-9\$]*(?![_a-zA-Z0-9\$])" > str -> replace(str, r"\$" => "DOLLAR")) + Opt((e"." > "'") | p":\w+|:{}" #=TODO:replace by expr & format=#) |> prod
-    const string_ = p"\"[^\"]*?\""
+    const string = p"\"[^\"]*?\""
     const comment = E"(*" + p"(?:(?!(\*\))|(\(\*)).|\n)*" + E"*)" > print_comment
     const multi_comment = E"(*" + (p"(?:(?!(\*\))|(\(\*)).|\n)*" + comment)[0:end] + p"(?:(?!(\*\))|(\(\*)).|\n)*" + E"*)" > print_comment
+
+    const spc = Star(Space() + Opt(multi_comment))     # drop space or not ?
+    const dspc = Drop(spc)
 
     const int_num = p"\d+"
     const signed_int = p"[+-]?" + int_num
@@ -53,7 +53,7 @@ print_rule(x, ys...) = "Rule($x, $(print_rule(ys...)))"
     const float_num = (dec_num | int_num) + (e"*^" > "e") + signed_int |> prod
     const number = float_num | dec_num | int_num
 
-    const usage_stmt = identifier + E"::usage" + dspc + E"=" + dspc + string_ + dspc + E";" > print_usage
+    const usage_stmt = identifier + E"::usage" + dspc + E"=" + dspc + string + dspc + E";" > print_usage
     const slot = E"#" + Opt(int_num | identifier) |> print_slot
 
     const list = Delayed()
@@ -61,7 +61,7 @@ print_rule(x, ys...) = "Rule($x, $(print_rule(ys...)))"
     const atom = ((e"True" > "true")
         | (e"False" > "false")
         | (e"Null" > "nothing")
-        | identifier | slot | string_ | number | list)
+        | identifier | slot | string | number | list)
 
     const argument = Delayed()
     const subscript = Delayed()
@@ -85,7 +85,7 @@ print_rule(x, ys...) = "Rule($x, $(print_rule(ys...)))"
 
     const compare_ops = p"==|!=|>=|>|<=|<"
     const compare_expr = span_expr + (spc + compare_ops + spc + span_expr)[0:end]               |> prod
-    const same_expr = compare_expr + (spc + (e"===" | (e"=!=" > "!==")) + spc + compare_expr)[0:end]|> prod    # check for difference in semantics JL <-> MA
+    const same_expr = compare_expr + (spc + (e"===" | (e"=!=" > "!==")) + spc + compare_expr)[0:end]|> prod    # TODO: check for difference in semantics JL <-> MA
     const not_expr = Opt(e"!" + spc) + same_expr                                                |> prod
     const and_expr = not_expr + (spc + e"&&" + spc + not_expr)[0:end]                           |> prod
     const or_expr = and_expr + (spc + e"||" + spc + and_expr)[0:end]                            |> prod
@@ -132,8 +132,8 @@ end
 end
 
 orig_file = open(joinpath(@__DIR__, "../Rubi/IntegrationUtilityFunctions.m")) do f
-          read(f, String)
-      end
+    read(f, String)
+end
 out_file = parse_one(orig_file, MathematicaParser.file)[1]
 open(joinpath(@__DIR__, "../Rubi/IntegrationUtilityFunctions.jl"), "w") do f
     write(f, out_file)
