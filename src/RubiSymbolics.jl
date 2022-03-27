@@ -1,8 +1,9 @@
 module RubiSymbolics
 using SpecialFunctions, Symbolics
 using Symbolics: value, get_variables
-using SymbolicUtils: Symbolic, Sym, @rule, Prewalk, Postwalk, PassThrough, Fixpoint, Chain
-using Metatheory: @matchable
+using SymbolicUtils: Symbolic, Sym, @rule, @theory, Prewalk, Postwalk, PassThrough, Fixpoint, Chain
+using Metatheory: @matchable, DynamicRule
+using Metatheory.Syntax: rmlines
 import TermInterface
 import Elliptic, HypergeometricFunctions
 
@@ -12,9 +13,18 @@ import Elliptic, HypergeometricFunctions
     Antiderivative(expr::Num, x) = new(value(expr), x)
 end
 
+identifier(s::String) = Regex("(?<![a-zA-Z_])$s(?![a-zA-Z0-9_])")
+identifier(sym::Symbol) = identifier(string(sym))
+
 mathematica_version = 13    # just a dummy value, no real meaning yet
 
 syntax_repl_dict = Dict(
+    identifier("E") => "ℯ",
+    identifier("Pi") => "pi",
+    identifier("I") => "im",
+    identifier("True") => "true",
+    identifier("False") => "false",
+    identifier("Null") => "nothing",
     "(*"    =>  "#=",
     "*)"    =>  "=#",
     "{"     =>  "[",
@@ -26,9 +36,12 @@ syntax_repl_dict = Dict(
     r"(\d)(?=\.[^\d])"  => s"\1.0",                 # float fix
     "(a_. + b_.*x_)!"   => "factorial(~a' + ~b'*~x)",# fix in 8.6 Gamma Functions
     "(a + b*x)!"        => "factorial(a + b*x)",    # fix in 8.6 Gamma Functions
-    "\$VersionNumber"   => string(mathematica_version),  # remove $ character
+    # "\$VersionNumber"   => string(mathematica_version),  # remove $ character
     # r"(?<base>\(\h*-\h*\d+\)\h*\^\h*(?<exp>()|())" => s"\g<base>"
     "/;"    =>  "<--",   # temp. replacement for conditionals
+    "/."    =>  "←",     # temp. replacement for replaceall
+    "/:"    =>  "↶",     # temp. replacement for TagSetDelayed
+    "->"    =>  "=>",
     "=!="   =>  "!==",
     "f_'''" =>  "Derivative(3)(f_)",    # Derivatives
     "f_''"  =>  "Derivative(2)(f_)",
@@ -36,17 +49,19 @@ syntax_repl_dict = Dict(
     "g_'''" =>  "Derivative(3)(g_)",
     "g_''"  =>  "Derivative(2)(g_)",
     "g_'"   =>  "Derivative(1)(g_)",
-    "_."    =>  "_'"    # "." --> "'"
+    "_."    =>  "_'",    # "." --> "'"
+    r"(?<expr>(#\d*))\[\[(?<idxs>\h*(\d+)|(\w+)\h*(,\h*\d+\h*)*)\]\]" => s"Part(Symbol(\"\g<expr>\"), \g<idxs>)",
+    r"(?<expr>\w[a-zA-Z0-9]*)\[\[(?<idxs>\h*(\d+)|(\w+)\h*(,\h*\d+\h*)*)\]\]" => s"Part(\g<expr>, \g<idxs>)",
+    r"(?<expr>(\w[a-zA-Z0-9]*)\[[^\[]*\])\[\[(?<idxs>\h*(\d+)|(\w+)\h*(,\h*\d+\h*)*)\]\]" => s"Part(\g<expr>, \g<idxs>)",
+    r"#(\d)"=>  s"Symbol(\"#\1\")",
+    "#"     =>  "Symbol(\"#1\")",
+    "\$" => "DOLLAR",
 )
-identifier(s::String) = Regex("(?<![a-zA-Z_])$s(?![a-zA-Z0-9_])")
-identifier(sym::Symbol) = identifier(string(sym))
+
 function_repl_dict = Dict(
     identifier("Expand") => "expand",
     identifier("Int") => "Antiderivative",
-
-    identifier("E") => "ℯ",
-    identifier("Pi") => "pi",
-    identifier("I") => "im",
+    identifier("Function") => "MFunction",
 
     identifier("Exp") => "exp",
     identifier("Sqrt") => "sqrt",
@@ -128,7 +143,7 @@ function_repl_dict = Dict(
 @register_symbolic HypergeometricFunctions._₂F₁(a, b::Complex, c::Complex, z::Complex)::Complex false
 
 integrate(exp, x) = x   # TODO:fix dummy
-If(cond, true_stmt, false_stmt) = cond ? true_stmt : false_stmt
+If(cond, true_stmt, false_stmt=nothing) = cond ? true_stmt : false_stmt
 LogIntegral(z) = nothing
 SinIntegral(z) = nothing
 SinhIntegral(z) = nothing
@@ -150,6 +165,13 @@ Unintegrable(ex) = nothing
 Unintegrable(x, y) = nothing
 CannotIntegrate(ex) = nothing
 CannotIntegrate(x, y) = nothing
+
+function D end
+function Integrate end
+function Sum end
+function Product end
+function Dif end
+
 
 @register_symbolic LogIntegral(z)
 @register_symbolic SinIntegral(z)
@@ -177,6 +199,13 @@ CannotIntegrate(x, y) = nothing
 @register_symbolic CannotIntegrate(ex)
 @register_symbolic CannotIntegrate(x, y) false
 
+DOLLARTimeLimit = nothing
+
+NumberQ(::Any) = false
+NumberQ(::Number) = true
+
+Not(b::Bool) = !b
+
 function FreeQ(expr, x::Sym)
     vars = get_variables(expr)
     return !any(isequal.(x, vars))
@@ -187,6 +216,111 @@ FreeQ(expr_lst::AbstractArray, x) = all(FreeQ.(expr_lst, x))
 Refine(expr) = simplify(expr)   # no assumptionsystem -> should be OK, speed ?
 Quiet(expr) = expr  # nothing to mute here ?!
 PossibleZeroQ(x) = false    # Would check numerically for zero -> use simplify straight away
+
+abstract type AbstractAttribute end
+struct HoldFirstType <: AbstractAttribute end
+HoldFirst = HoldFirstType()
+struct HoldAllType <: AbstractAttribute end
+HoldAll = HoldAllType()
+SetAttributes(obj, a::AbstractAttribute) = nothing
+function Hold end
+function HoldForm end
+function Defer end
+function Pattern end
+Clear(x) = nothing
+ClearAll(args...) = nothing
+MemberQ(lst, form) = nothing
+
+const util_rules = DynamicRule[]
+expand_utils = Prewalk(Chain(util_rules))
+
+cond_repl = Prewalk(PassThrough(@rule (~a <-- ~b) --> (expand_utils(~a) where expand_utils(~b))))
+macro apply_utils(expr::Expr)
+    expr = cond_repl(expr)  # here because printing with 'where' fails
+    return :($(esc(expr)))
+end
+
+rm_block(expr) = expr
+function rm_block(expr::Expr)
+    if expr.head == :block && length(expr.args) == 2 && expr.args[1] isa LineNumberNode
+        return expr.args[2]
+    else
+        return Expr(expr.head, map(rm_block, expr.args)...)
+    end
+end
+
+macro rm_blocks(expr::Expr)
+    return esc(rm_block(expr))
+end
+
+r_if1 = @rule @rm_blocks If(~cond, ~then_var = ~then_val) --> (~cond ? ~then_var = ~then_val : nothing)
+r_if2 = @rule If(~cond, ~then) --> (~cond ? ~then : nothing)
+r_if3 = @rule If(~cond, ~then, ~else_stmt) --> (~cond ? ~then : ~else_stmt)
+if_simplifier = Prewalk(Chain([r_if1, r_if2, r_if3]))
+
+r_anon_sym = @theory begin
+    Symbol("#") --> :__args[1]
+    Symbol("#1") --> :__args[1]
+    Symbol("#2") --> :__args[2]
+    Symbol("#3") --> :__args[3]
+    Symbol("#4") --> :__args[4]
+    Symbol("#5") --> :__args[5]
+    Symbol("#6") --> :__args[6]
+    Symbol("#7") --> :__args[7]
+    Symbol("#8") --> :__args[8]
+    Symbol("#9") --> :__args[9]
+    Symbol("#10") --> :__args[10]
+end
+convert_ht_syms = Prewalk(Chain(r_anon_sym))
+r_lambda = @rule MFunction(~body) => :((__args...) -> $(convert_ht_syms(~body)))
+lambda_simplifier = Prewalk(PassThrough(r_lambda))
+r_multi_stmt = @rule Block(~lst, ~expr1; ~expr2) --> Block(~lst, begin ~expr1; ~expr2 end)
+multi_stmt_simplifier = Prewalk(PassThrough(r_multi_stmt))
+
+r_with = @rule With([~assignments...], ~expr) => begin
+    rlst = []
+    for ass in ~assignments
+        @assert ass.head == :(=)
+        r = eval(:(@rule $(Meta.quot(:($(ass.args[1])))) --> $(Meta.quot(:($(ass.args[2]))))))
+        push!(rlst, r)
+    end
+    return Prewalk(Chain(rlst))(~expr)
+end
+with_simplifier = Prewalk(PassThrough(r_with))
+
+r_module = @rule (Module([~assignments...], ~expr)) => Expr(:let, Expr(:block, ~assignments...), ~expr)
+module_simplifier = Prewalk(PassThrough(r_module))
+
+macro util_collect(expr::Expr)
+    e = rmlines(expr)
+    e = macroexpand(__module__, e)
+    e = if_simplifier(e)
+    e = lambda_simplifier(e)
+    e = multi_stmt_simplifier(e)
+    e = module_simplifier(e)
+    e = with_simplifier(e)
+    if e.head == :block
+        rule_defs = filter(x-> x.head == :(:=) , e.args)
+        declarations = Expr[]
+        for stmt in rule_defs
+            @assert stmt.args[1].head == :call
+            name = stmt.args[1].args[1]
+            args = stmt.args[1].args
+            num_args = length(args) - 1
+            decl = quote
+                $name(args::Real...) = SymbolicUtils.Term{Real}($name, args)
+                @register_symbolic $name($(Tuple(:x for n in 1:num_args)...)) false
+                push!(util_rules, @rule $(stmt.args[1]) => $(stmt.args[2]))
+            end
+            pushfirst!(declarations, decl)
+        end
+        prepend!(e.args, declarations)
+        filter!(x -> x.head != :(:=), e.args)
+        return esc(e)
+    else
+        error("theory is not in form begin a => b; ... end")
+    end
+end
 
 export  integrate, Antiderivative
 export  If, LogIntegral, SinIntegral, SinhIntegral, CosIntegral,

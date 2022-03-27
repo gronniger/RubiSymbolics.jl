@@ -1,0 +1,17 @@
+int_rules_3_1_2 = @theory begin
+
+    #= ::Subsection::Closed:: =#
+    #= 3.1.2*(d*x)^m*(a+b*log(c*x^n))^p =#
+    @apply_utils Antiderivative((~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))) / ~x, ~x) => (~a + ~b * log(~c * (~x) ^ ~n)) ^ 2 / (2 * ~b * ~n) <-- FreeQ([~a, ~b, ~c, ~n], ~x)
+    @apply_utils Antiderivative((~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))) ^ ~(p') / ~x, ~x) => (1 / (~b * ~n)) * Subst(Antiderivative((~x) ^ ~p, ~x), ~x, ~a + ~b * log(~c * (~x) ^ ~n)) <-- FreeQ([~a, ~b, ~c, ~n, ~p], ~x)
+    @apply_utils Antiderivative((~(d') * ~x) ^ ~(m') * (~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))), ~x) => (~b * (~d * ~x) ^ (~m + 1) * log(~c * (~x) ^ ~n)) / (~d * (~m + 1)) <-- FreeQ([~a, ~b, ~c, ~d, ~m, ~n], ~x) && (NeQ(~m, -1) && EqQ(~a * (~m + 1) - ~b * ~n, 0))
+    @apply_utils Antiderivative((~(d') * ~x) ^ ~(m') * (~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))), ~x) => ((~d * ~x) ^ (~m + 1) * (~a + ~b * log(~c * (~x) ^ ~n))) / (~d * (~m + 1)) - (~b * ~n * (~d * ~x) ^ (~m + 1)) / (~d * (~m + 1) ^ 2) <-- FreeQ([~a, ~b, ~c, ~d, ~m, ~n], ~x) && NeQ(~m, -1)
+    @apply_utils Antiderivative((~(d') * ~x) ^ ~(m') * (~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))) ^ ~(p'), ~x) => ((~d * ~x) ^ (~m + 1) * (~a + ~b * log(~c * (~x) ^ ~n)) ^ ~p) / (~d * (~m + 1)) - ((~b * ~n * ~p) / (~m + 1)) * Antiderivative((~d * ~x) ^ ~m * (~a + ~b * log(~c * (~x) ^ ~n)) ^ (~p - 1), ~x) <-- FreeQ([~a, ~b, ~c, ~d, ~m, ~n], ~x) && (NeQ(~m, -1) && GtQ(~p, 0))
+    @apply_utils Antiderivative((~(d') * ~x) ^ ~(m') * (~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))) ^ ~p, ~x) => ((~d * ~x) ^ (~m + 1) * (~a + ~b * log(~c * (~x) ^ ~n)) ^ (~p + 1)) / (~b * ~d * ~n * (~p + 1)) - ((~m + 1) / (~b * ~n * (~p + 1))) * Antiderivative((~d * ~x) ^ ~m * (~a + ~b * log(~c * (~x) ^ ~n)) ^ (~p + 1), ~x) <-- FreeQ([~a, ~b, ~c, ~d, ~m, ~n], ~x) && (NeQ(~m, -1) && LtQ(~p, -1))
+    @apply_utils Antiderivative((~x) ^ ~(m') / log(~(c') * (~x) ^ ~n), ~x) => (1 / ~n) * Subst(Antiderivative(1 / log(~c * ~x), ~x), ~x, (~x) ^ ~n) <-- FreeQ([~c, ~m, ~n], ~x) && EqQ(~m, ~n - 1)
+    @apply_utils Antiderivative((~d * ~x) ^ ~(m') / log(~(c') * (~x) ^ ~n), ~x) => ((~d * ~x) ^ ~m / (~x) ^ ~m) * Antiderivative((~x) ^ ~m / log(~c * (~x) ^ ~n), ~x) <-- FreeQ([~c, ~d, ~m, ~n], ~x) && EqQ(~m, ~n - 1)
+    @apply_utils Antiderivative((~x) ^ ~(m') * (~(a') + ~(b') * log(~(c') * ~x)) ^ ~p, ~x) => (1 / (~c) ^ (~m + 1)) * Subst(Antiderivative(ℯ ^ ((~m + 1) * ~x) * (~a + ~b * ~x) ^ ~p, ~x), ~x, log(~c * ~x)) <-- FreeQ([~a, ~b, ~c, ~p], ~x) && IntegerQ(~m)
+    @apply_utils Antiderivative((~(d') * ~x) ^ ~(m') * (~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))) ^ ~p, ~x) => ((~d * ~x) ^ (~m + 1) / (~d * ~n * (~c * (~x) ^ ~n) ^ ((~m + 1) / ~n))) * Subst(Antiderivative(ℯ ^ (((~m + 1) / ~n) * ~x) * (~a + ~b * ~x) ^ ~p, ~x), ~x, log(~c * (~x) ^ ~n)) <-- FreeQ([~a, ~b, ~c, ~d, ~m, ~n, ~p], ~x)
+    @apply_utils Antiderivative((~(d') * (~x) ^ ~q) ^ ~m * (~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))) ^ ~(p'), ~x) => ((~d * (~x) ^ ~q) ^ ~m / (~x) ^ (~m * ~q)) * Antiderivative((~x) ^ (~m * ~q) * (~a + ~b * log(~c * (~x) ^ ~n)) ^ ~p, ~x) <-- FreeQ([~a, ~b, ~c, ~d, ~m, ~n, ~p, ~q], ~x)
+    @apply_utils Antiderivative((~(d1') * (~x) ^ ~q1) ^ ~m1 * (~(d2') * (~x) ^ ~q2) ^ ~m2 * (~(a') + ~(b') * log(~(c') * (~x) ^ ~(n'))) ^ ~(p'), ~x) => (((~d1 * (~x) ^ ~q1) ^ ~m1 * (~d2 * (~x) ^ ~q2) ^ ~m2) / (~x) ^ (~m1 * ~q1 + ~m2 * ~q2)) * Antiderivative((~x) ^ (~m1 * ~q1 + ~m2 * ~q2) * (~a + ~b * log(~c * (~x) ^ ~n)) ^ ~p, ~x) <-- FreeQ([~a, ~b, ~c, ~d1, ~d2, ~m1, ~m2, ~n, ~p, ~q1, ~q2], ~x)
+end

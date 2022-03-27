@@ -5,8 +5,7 @@ rubi_rules_path = joinpath(@__DIR__, "../Rubi/IntegrationRules")
 rules_root_path = joinpath(@__DIR__, "rules")
 rule_re = r"(?<=\n)(Antiderivative\(.*,\h*~x\)\h*:=\h*.*?)(?=\n)"
 #--- Rules
-r_cond = @rule (~a <-- ~b) --> (~b ? ~a : nothing)
-# r_x_var = @rule x --> (~x)
+# r_cond = @rule (~a <-- ~b) --> (~a where ~b)    # keep as <-- in *.jl file ; 'where' has some issues at printing
 #--- utility Functions
 stem(path) = splitext(path)[1]
 function rule_subs(m)
@@ -17,17 +16,19 @@ function rule_subs(m)
         lhs_pvars = Symbol[]
         makepattern(expr.args[1], lhs_pvars, [])    # fills lhs_pvars
         rhs_str = replace(string(expr.args[2]),
-            [identifier(sym) => "~"*string(sym) for sym in lhs_pvars]...)
+            [identifier(sym) => "(~"*string(sym)*")" for sym in lhs_pvars]...)
         rhs = Meta.parse(rhs_str)
         expr = Expr(:call, :(=>), expr.args[1], rhs)
-        expr = Prewalk(PassThrough(r_cond))(expr)
-        return string(expr)
+        # expr = Prewalk(PassThrough(r_cond))(expr)
+        return "@apply_utils "*string(expr)
     catch e
         printstyled("Parse error:", e, "\n", color=:yellow)
         println(m)
         return "# Missing due to parse error: "*m
     end
 end
+
+# rule_subs(m) = m
 
 for (root, dirs, files) in walkdir(rubi_rules_path)
     rel_path = relpath(root, rubi_rules_path)
