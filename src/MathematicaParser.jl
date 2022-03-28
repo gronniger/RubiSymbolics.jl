@@ -4,6 +4,18 @@ import Base: >
 
 >(m::Matcher, s::String) = m > (x...) -> length(x)>0 ? s : ""     # TODO: change to |>
 def_val(x) = res -> isempty(res) ? x : res[1]
+function print_identifier(x)
+    if x == "E"
+        "ℯ"
+    elseif x == "I"
+        "im"
+    elseif x == "Pi"
+        "pi"
+    else
+        replace(x, r"\$" => "DOLLAR")
+    end
+end
+print_identifier() = prod()
 commajoin(seq) = join(seq, ", ")
 function parenjoinleft(seq)
     if isempty(seq)
@@ -39,7 +51,7 @@ print_rule(x) = x
 print_rule(x, ys...) = "Rule($x, $(print_rule(ys...)))"
 
 @with_names begin
-    const identifier = (p"(?<![_a-zA-Z\$])[_a-zA-Z\$][_a-zA-Z0-9\$]*(?![_a-zA-Z0-9\$])" > str -> replace(str, r"\$" => "DOLLAR")) + Opt((e"." > "'") | p":\w+|:{}" #=TODO:replace by expr & format=#) |> prod
+    const identifier = (p"(?<![_a-zA-Z\$])[_a-zA-Z\$][_a-zA-Z0-9\$]*(?![_a-zA-Z0-9\$])" > print_identifier) + Opt((e"." > "'") | p":\w+|:{}" #=TODO:replace by expr & format=#) |> prod
     const string = p"\"[^\"]*?\""
     const comment = E"(*" + p"(?:(?!(\*\))|(\(\*)).|\n)*" + E"*)" > print_comment
     const multi_comment = E"(*" + (p"(?:(?!(\*\))|(\(\*)).|\n)*" + comment)[0:end] + p"(?:(?!(\*\))|(\(\*)).|\n)*" + E"*)" > print_comment

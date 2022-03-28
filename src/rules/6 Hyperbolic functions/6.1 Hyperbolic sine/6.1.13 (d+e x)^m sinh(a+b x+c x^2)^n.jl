@@ -2,8 +2,8 @@ int_rules_6_1_13 = @theory begin
 
 #= ::Subsection::Closed:: =#
 #= 6.1.13 (d+e x)^m sinh(a+b x+c x^2)^n =#
-Int(Sinh(a_' + b_'*x_ + c_'*x_^2), x_Symbol) := (1/2*Int(E^(a + b*x + c*x^2), x) - 1/2*Int(E^(-a - b*x - c*x^2), x) <-- FreeQ([a, b, c], x))
-Int(Cosh(a_' + b_'*x_ + c_'*x_^2), x_Symbol) := (1/2*Int(E^(a + b*x + c*x^2), x) + 1/2*Int(E^(-a - b*x - c*x^2), x) <-- FreeQ([a, b, c], x))
+Int(Sinh(a_' + b_'*x_ + c_'*x_^2), x_Symbol) := (1/2*Int(ℯ^(a + b*x + c*x^2), x) - 1/2*Int(ℯ^(-a - b*x - c*x^2), x) <-- FreeQ([a, b, c], x))
+Int(Cosh(a_' + b_'*x_ + c_'*x_^2), x_Symbol) := (1/2*Int(ℯ^(a + b*x + c*x^2), x) + 1/2*Int(ℯ^(-a - b*x - c*x^2), x) <-- FreeQ([a, b, c], x))
 Int(Sinh(a_' + b_'*x_ + c_'*x_^2)^n_, x_Symbol) := (Int(ExpandTrigReduce(Sinh(a + b*x + c*x^2)^n, x), x) <-- FreeQ([a, b, c], x) && IGtQ(n, 1))
 Int(Cosh(a_' + b_'*x_ + c_'*x_^2)^n_, x_Symbol) := (Int(ExpandTrigReduce(Cosh(a + b*x + c*x^2)^n, x), x) <-- FreeQ([a, b, c], x) && IGtQ(n, 1))
 Int(Sinh(v_)^n_', x_Symbol) := (Int(Sinh(ExpandToSum(v, x))^n, x) <-- IGtQ(n, 0) && QuadraticQ(v, x) && Not(QuadraticMatchQ(v, x)))

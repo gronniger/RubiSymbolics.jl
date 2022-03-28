@@ -4,8 +4,8 @@ int_rules_8_4 = @theory begin
 #= 8.4 Trig integral functions =#
 Int(SinIntegral(a_' + b_'*x_), x_Symbol) := ((a + b*x)*SinIntegral(a + b*x)/b + Cos(a + b*x)/b <-- FreeQ([a, b], x))
 Int(CosIntegral(a_' + b_'*x_), x_Symbol) := ((a + b*x)*CosIntegral(a + b*x)/b - Sin(a + b*x)/b <-- FreeQ([a, b], x))
-Int(SinIntegral(b_'*x_)/x_, x_Symbol) := (1/2*b*x*HypergeometricPFQ([1, 1, 1], [2, 2, 2], -I*b*x) + 1/2*b*x*HypergeometricPFQ([1, 1, 1], [2, 2, 2], I*b*x) <-- FreeQ(b, x))
-Int(CosIntegral(b_'*x_)/x_, x_Symbol) := (-1/2*I*b*x* HypergeometricPFQ([1, 1, 1], [2, 2, 2], -I*b*x) + 1/2*I*b*x*HypergeometricPFQ([1, 1, 1], [2, 2, 2], I*b*x) + EulerGamma*Log(x) + 1/2*Log(b*x)^2 <-- FreeQ(b, x))
+Int(SinIntegral(b_'*x_)/x_, x_Symbol) := (1/2*b*x*HypergeometricPFQ([1, 1, 1], [2, 2, 2], -im*b*x) + 1/2*b*x*HypergeometricPFQ([1, 1, 1], [2, 2, 2], im*b*x) <-- FreeQ(b, x))
+Int(CosIntegral(b_'*x_)/x_, x_Symbol) := (-1/2*im*b*x* HypergeometricPFQ([1, 1, 1], [2, 2, 2], -im*b*x) + 1/2*im*b*x*HypergeometricPFQ([1, 1, 1], [2, 2, 2], im*b*x) + EulerGamma*Log(x) + 1/2*Log(b*x)^2 <-- FreeQ(b, x))
 Int((c_' + d_'*x_)^m_'*SinIntegral(a_' + b_'*x_), x_Symbol) := ((c + d*x)^(m + 1)*SinIntegral(a + b*x)/(d*(m + 1)) - b/(d*(m + 1))*Int((c + d*x)^(m + 1)*Sin(a + b*x)/(a + b*x), x) <-- FreeQ([a, b, c, d, m], x) && NeQ(m, -1))
 Int((c_' + d_'*x_)^m_'*CosIntegral(a_' + b_'*x_), x_Symbol) := ((c + d*x)^(m + 1)*CosIntegral(a + b*x)/(d*(m + 1)) - b/(d*(m + 1))*Int((c + d*x)^(m + 1)*Cos(a + b*x)/(a + b*x), x) <-- FreeQ([a, b, c, d, m], x) && NeQ(m, -1))
 Int(SinIntegral(a_' + b_'*x_)^2, x_Symbol) := ((a + b*x)*SinIntegral(a + b*x)^2/b - 2*Int(Sin(a + b*x)*SinIntegral(a + b*x), x) <-- FreeQ([a, b], x))

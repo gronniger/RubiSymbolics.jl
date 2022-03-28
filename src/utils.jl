@@ -135,7 +135,7 @@ SqrtNumberQ(u_*v_) :=
 
 
 SqrtNumberQ(u_) :=
-  RationalQ(u) || u===I
+  RationalQ(u) || u===im
 
 
 #= ::Subsection::Closed:: =#
@@ -1157,7 +1157,7 @@ NonnumericFactors(u_) :=
     If(EqQ(Im(u),0),
       1,    
     If(EqQ(Re(u),0),
-      I,
+      im,
     u)),
   If(PowerQ(u),
     If(RationalQ(u[1]) && FractionQ(u[2]),
@@ -1325,7 +1325,7 @@ RemainingFactors(u_) :=
   If(ComplexNumberQ(u) && Re(u)===0,
     If(Im(u)===1,
       1,
-    I*RemainingFactors(Im(u))),
+    im*RemainingFactors(Im(u))),
   1))
 
 
@@ -2459,8 +2459,8 @@ Simp(u_,x_) :=
   TimeConstrained(NormalizeSumFactors(SimpHelp(u,x)),DOLLARTimeLimit,u)
 
 
-SimpHelp(E^(u_'*(v_'*Log(a_)+w_)),x_) :=
-  a^(u*v)*SimpHelp(E^(u*w),x)
+SimpHelp(ℯ^(u_'*(v_'*Log(a_)+w_)),x_) :=
+  a^(u*v)*SimpHelp(ℯ^(u*w),x)
 
 SimpHelp(u_,x_) :=
   If(AtomQ(u) || StopFunctionQ(u),
@@ -2471,10 +2471,10 @@ SimpHelp(u_,x_) :=
       v,
     u)),
   If(ProductQ(u),
-    If(EqQ(First(u),1/2) && MatchQ(Rest(u),(a_'+n_*Pi+b_'*v_ <-- FreeQ([a,b],x) && Not(FreeQ(v,x)) && EqQ(n^2,1/4))),
-      If(MatchQ(Rest(u),(n_*Pi+b_'*v_ <-- FreeQ(b,x) && Not(FreeQ(v,x)) && EqQ(n^2,1/4))),
+    If(EqQ(First(u),1/2) && MatchQ(Rest(u),(a_'+n_*pi+b_'*v_ <-- FreeQ([a,b],x) && Not(FreeQ(v,x)) && EqQ(n^2,1/4))),
+      If(MatchQ(Rest(u),(n_*pi+b_'*v_ <-- FreeQ(b,x) && Not(FreeQ(v,x)) && EqQ(n^2,1/4))),
         Map(Function(1/2*Slot(1)),Rest(u)),
-      If(MatchQ(Rest(u),(m_*a_'+n_*Pi+p_*b_'*v_ <-- FreeQ([a,b],x) && Not(FreeQ(v,x)) && IntegersQ(m/2,p/2))),
+      If(MatchQ(Rest(u),(m_*a_'+n_*pi+p_*b_'*v_ <-- FreeQ([a,b],x) && Not(FreeQ(v,x)) && IntegersQ(m/2,p/2))),
         Map(Function(1/2*Slot(1)),Rest(u)),
       u)),
     Module([v=FreeFactors(u,x),w=NonfreeFactors(u,x)],
@@ -2486,7 +2486,7 @@ SimpHelp(u_,x_) :=
       Map(Function(SimpFixFactor(Slot(1),x)),v),
     v))),
   If(SumQ(u),
-    If(MatchQ(u,(a_'+n_*Pi+b_'*x <-- FreeQ([a,b],x) && EqQ(n^2,1/16))),
+    If(MatchQ(u,(a_'+n_*pi+b_'*x <-- FreeQ([a,b],x) && EqQ(n^2,1/16))),
       u,
     If(PolynomialQ(u,x) && Exponent(u,x)<=0,
       SimpHelp(Coefficient(u,x,0),x),
@@ -2499,71 +2499,71 @@ SimpHelp(u_,x_) :=
     v+w)))),
   If(TrigQ(u),
     With([v=SimpHelp(u[1],x)],
-    If(LinearQ(v,x) && MatchQ(Coefficient(v,x,0),(m_'*(n_'*Pi+r_')+s_' <-- RationalQ(m,n))),
+    If(LinearQ(v,x) && MatchQ(Coefficient(v,x,0),(m_'*(n_'*pi+r_')+s_' <-- RationalQ(m,n))),
       NormalizeTrig(Head(u),Coefficient(v,x,0),Coefficient(v,x,1),x),
     Head(u)(v))),
   If(HyperbolicQ(u),
     With([v=SimpHelp(u[1],x)],
-    If(LinearQ(v,x) && MatchQ(Coefficient(v,x,0),(m_'*(n_'*Complex(0,nz_)*Pi+r_')+s_' <-- RationalQ(m,n,nz))),
+    If(LinearQ(v,x) && MatchQ(Coefficient(v,x,0),(m_'*(n_'*Complex(0,nz_)*pi+r_')+s_' <-- RationalQ(m,n,nz))),
       NormalizeHyperbolic(Head(u),Coefficient(v,x,0),Coefficient(v,x,1),x),
     Head(u)(v))),
   Map(Function(SimpHelp(Slot(1),x)),u)))))))
 
 
-NormalizeTrig(func_,m_'*(n_'*Pi+r_')+s_',b_,x_) :=
+NormalizeTrig(func_,m_'*(n_'*pi+r_')+s_',b_,x_) :=
   (If(m*n==1/4 && NegQ(b),
     Switch(func,
-	  Sin, Cos(Pi/4-m*r-s-b*x),        #= Sin[Pi/4-z] == Cos[Pi/4+z] =#
-	  Cos, Sin(Pi/4-m*r-s-b*x),        #= Cos[Pi/4-z] == Sin[Pi/4+z] =#
-	  Tan, Cot(Pi/4-m*r-s-b*x),        #= Tan[Pi/4-z] == Cot[Pi/4+z] =#
-	  Cot, Tan(Pi/4-m*r-s-b*x),        #= Cot[Pi/4-z] == Tan[Pi/4+z] =#
-	  Sec, Csc(Pi/4-m*r-s-b*x),        #= Sec[Pi/4-z] == Csc[Pi/4+z] =#
-	  Csc, Sec(Pi/4-m*r-s-b*x)),       #= Csc[Pi/4-z] == Sec[Pi/4+z] =#
+	  Sin, Cos(pi/4-m*r-s-b*x),        #= Sin[Pi/4-z] == Cos[Pi/4+z] =#
+	  Cos, Sin(pi/4-m*r-s-b*x),        #= Cos[Pi/4-z] == Sin[Pi/4+z] =#
+	  Tan, Cot(pi/4-m*r-s-b*x),        #= Tan[Pi/4-z] == Cot[Pi/4+z] =#
+	  Cot, Tan(pi/4-m*r-s-b*x),        #= Cot[Pi/4-z] == Tan[Pi/4+z] =#
+	  Sec, Csc(pi/4-m*r-s-b*x),        #= Sec[Pi/4-z] == Csc[Pi/4+z] =#
+	  Csc, Sec(pi/4-m*r-s-b*x)),       #= Csc[Pi/4-z] == Sec[Pi/4+z] =#
   If(m*n==-1/4,
     If(PosQ(b),
       Switch(func,
-	    Sin, -Cos(Pi/4+m*r+s+b*x),     #= Sin[-Pi/4+z] == -Cos[Pi/4+z] =#
-	    Cos, Sin(Pi/4+m*r+s+b*x),      #= Cos[-Pi/4+z] == Sin[Pi/4+z] =#
-	    Tan, -Cot(Pi/4+m*r+s+b*x),     #= Tan[-Pi/4+z] == -Cot[Pi/4+z] =#
-	    Cot, -Tan(Pi/4+m*r+s+b*x),     #= Cot[-Pi/4+z] == -Tan[Pi/4+z] =#
-	    Sec, Csc(Pi/4+m*r+s+b*x),      #= Sec[-Pi/4+z] == Csc[Pi/4+z] =#
-	    Csc, -Sec(Pi/4+m*r+s+b*x)),    #= Csc[-Pi/4+z] == -Sec[Pi/4+z] =#
+	    Sin, -Cos(pi/4+m*r+s+b*x),     #= Sin[-Pi/4+z] == -Cos[Pi/4+z] =#
+	    Cos, Sin(pi/4+m*r+s+b*x),      #= Cos[-Pi/4+z] == Sin[Pi/4+z] =#
+	    Tan, -Cot(pi/4+m*r+s+b*x),     #= Tan[-Pi/4+z] == -Cot[Pi/4+z] =#
+	    Cot, -Tan(pi/4+m*r+s+b*x),     #= Cot[-Pi/4+z] == -Tan[Pi/4+z] =#
+	    Sec, Csc(pi/4+m*r+s+b*x),      #= Sec[-Pi/4+z] == Csc[Pi/4+z] =#
+	    Csc, -Sec(pi/4+m*r+s+b*x)),    #= Csc[-Pi/4+z] == -Sec[Pi/4+z] =#
     Switch(func,
-	  Sin, -Sin(Pi/4-m*r-s-b*x),       #= Sin[-Pi/4-z] == -Sin[Pi/4+z] =#
-	  Cos, Cos(Pi/4-m*r-s-b*x),        #= Cos[-Pi/4-z] == Cos[Pi/4+z] =#
-	  Tan, -Tan(Pi/4-m*r-s-b*x),       #= Tan[-Pi/4-z] == -Tan[Pi/4+z] =#
-	  Cot, -Cot(Pi/4-m*r-s-b*x),       #= Cot[-Pi/4-z] == -Cot[Pi/4+z] =#
-	  Sec, Sec(Pi/4-m*r-s-b*x),        #= Sec[-Pi/4-z] == Sec[Pi/4+z] =#
-	  Csc, -Csc(Pi/4-m*r-s-b*x))),     #= Csc[-Pi/4-z] == -Csc[Pi/4+z] =#
-  func(m*n*Pi+m*r+s+b*x))) <-- RationalQ(m,n))
+	  Sin, -Sin(pi/4-m*r-s-b*x),       #= Sin[-Pi/4-z] == -Sin[Pi/4+z] =#
+	  Cos, Cos(pi/4-m*r-s-b*x),        #= Cos[-Pi/4-z] == Cos[Pi/4+z] =#
+	  Tan, -Tan(pi/4-m*r-s-b*x),       #= Tan[-Pi/4-z] == -Tan[Pi/4+z] =#
+	  Cot, -Cot(pi/4-m*r-s-b*x),       #= Cot[-Pi/4-z] == -Cot[Pi/4+z] =#
+	  Sec, Sec(pi/4-m*r-s-b*x),        #= Sec[-Pi/4-z] == Sec[Pi/4+z] =#
+	  Csc, -Csc(pi/4-m*r-s-b*x))),     #= Csc[-Pi/4-z] == -Csc[Pi/4+z] =#
+  func(m*n*pi+m*r+s+b*x))) <-- RationalQ(m,n))
 
 
-NormalizeHyperbolic(func_,m_'*(n_'*Complex(0,nz_)*Pi+r_')+s_',b_,x_) :=
+NormalizeHyperbolic(func_,m_'*(n_'*Complex(0,nz_)*pi+r_')+s_',b_,x_) :=
   (If(m*n*nz==1/4 && NegQ(b),
     Switch(func,
-	  Sinh, I*Cosh(I*Pi/4-m*r-s-b*x),        #= Sinh[I*Pi/4-z] == I*Cosh[I*Pi/4+z] =#
-	  Cosh, -I*Sinh(I*Pi/4-m*r-s-b*x),       #= Cosh[I*Pi/4-z] == -I*Sinh[I*Pi/4+z] =#
-	  Tanh, -Coth(I*Pi/4-m*r-s-b*x),         #= Tanh[I*Pi/4-z] == -Coth[I*Pi/4+z] =#
-	  Coth, -Tanh(I*Pi/4-m*r-s-b*x),         #= Coth[I*Pi/4-z] == -Tanh[I*Pi/4+z] =#
-	  Sech, I*Csch(I*Pi/4-m*r-s-b*x),        #= Sech[I*Pi/4-z] == I*Csch[I*Pi/4+z] =#
-	  Csch, -I*Sech(I*Pi/4-m*r-s-b*x)),      #= Csch[I*Pi/4-z] == -I*Sech[I*Pi/4+z] =#
+	  Sinh, im*Cosh(im*pi/4-m*r-s-b*x),        #= Sinh[I*Pi/4-z] == I*Cosh[I*Pi/4+z] =#
+	  Cosh, -im*Sinh(im*pi/4-m*r-s-b*x),       #= Cosh[I*Pi/4-z] == -I*Sinh[I*Pi/4+z] =#
+	  Tanh, -Coth(im*pi/4-m*r-s-b*x),         #= Tanh[I*Pi/4-z] == -Coth[I*Pi/4+z] =#
+	  Coth, -Tanh(im*pi/4-m*r-s-b*x),         #= Coth[I*Pi/4-z] == -Tanh[I*Pi/4+z] =#
+	  Sech, im*Csch(im*pi/4-m*r-s-b*x),        #= Sech[I*Pi/4-z] == I*Csch[I*Pi/4+z] =#
+	  Csch, -im*Sech(im*pi/4-m*r-s-b*x)),      #= Csch[I*Pi/4-z] == -I*Sech[I*Pi/4+z] =#
   If(m*n*nz==-1/4,
     If(PosQ(b),
       Switch(func,
-	    Sinh, -I*Cosh(I*Pi/4+m*r+s+b*x),     #= Sinh[-I*Pi/4+z] == -I*Cosh[I*Pi/4+z] =#
-	    Cosh, -I*Sinh(I*Pi/4+m*r+s+b*x),     #= Cosh[-I*Pi/4+z] == -I*Sinh[I*Pi/4+z] =#
-	    Tanh, Coth(I*Pi/4+m*r+s+b*x),        #= Tanh[-I*Pi/4+z] == Coth[I*Pi/4+z] =#
-	    Coth, Tanh(I*Pi/4+m*r+s+b*x),        #= Coth[-I*Pi/4+z] == Tanh[I*Pi/4+z] =#
-	    Sech, I*Csch(I*Pi/4+m*r+s+b*x),      #= Sech[-I*Pi/4+z] == I*Csch[I*Pi/4+z] =#
-	    Csch, I*Sech(I*Pi/4+m*r+s+b*x)),     #= Csch[-I*Pi/4+z] == I*Sech[I*Pi/4+z] =#
+	    Sinh, -im*Cosh(im*pi/4+m*r+s+b*x),     #= Sinh[-I*Pi/4+z] == -I*Cosh[I*Pi/4+z] =#
+	    Cosh, -im*Sinh(im*pi/4+m*r+s+b*x),     #= Cosh[-I*Pi/4+z] == -I*Sinh[I*Pi/4+z] =#
+	    Tanh, Coth(im*pi/4+m*r+s+b*x),        #= Tanh[-I*Pi/4+z] == Coth[I*Pi/4+z] =#
+	    Coth, Tanh(im*pi/4+m*r+s+b*x),        #= Coth[-I*Pi/4+z] == Tanh[I*Pi/4+z] =#
+	    Sech, im*Csch(im*pi/4+m*r+s+b*x),      #= Sech[-I*Pi/4+z] == I*Csch[I*Pi/4+z] =#
+	    Csch, im*Sech(im*pi/4+m*r+s+b*x)),     #= Csch[-I*Pi/4+z] == I*Sech[I*Pi/4+z] =#
     Switch(func,
-	  Sinh, -Sinh(I*Pi/4-m*r-s-b*x),         #= Sinh[-I*Pi/4-z] == -Sinh[I*Pi/4+z] =#
-	  Cosh, Cosh(I*Pi/4-m*r-s-b*x),          #= Cosh[-I*Pi/4-z] == Cosh[I*Pi/4+z] =#
-	  Tanh, -Tanh(I*Pi/4-m*r-s-b*x),         #= Tanh[-I*Pi/4-z] == -Tanh[I*Pi/4+z] =#
-	  Coth, -Coth(I*Pi/4-m*r-s-b*x),         #= Coth[-I*Pi/4-z] == -Coth[I*Pi/4+z] =#
-	  Sech, Sech(I*Pi/4-m*r-s-b*x),          #= Sech[-I*Pi/4-z] == Sech[I*Pi/4+z] =#
-	  Csch, -Csch(I*Pi/4-m*r-s-b*x))),       #= Csch[-I*Pi/4-z] == -Csch[I*Pi/4+z] =#
-  func(m*n*nz*I*Pi+m*r+s+b*x))) <-- RationalQ(m,n,nz))
+	  Sinh, -Sinh(im*pi/4-m*r-s-b*x),         #= Sinh[-I*Pi/4-z] == -Sinh[I*Pi/4+z] =#
+	  Cosh, Cosh(im*pi/4-m*r-s-b*x),          #= Cosh[-I*Pi/4-z] == Cosh[I*Pi/4+z] =#
+	  Tanh, -Tanh(im*pi/4-m*r-s-b*x),         #= Tanh[-I*Pi/4-z] == -Tanh[I*Pi/4+z] =#
+	  Coth, -Coth(im*pi/4-m*r-s-b*x),         #= Coth[-I*Pi/4-z] == -Coth[I*Pi/4+z] =#
+	  Sech, Sech(im*pi/4-m*r-s-b*x),          #= Sech[-I*Pi/4-z] == Sech[I*Pi/4+z] =#
+	  Csch, -Csch(im*pi/4-m*r-s-b*x))),       #= Csch[-I*Pi/4-z] == -Csch[I*Pi/4+z] =#
+  func(m*n*nz*im*pi+m*r+s+b*x))) <-- RationalQ(m,n,nz))
 
 
 #= ::Subsection::Closed:: =#
@@ -2769,10 +2769,10 @@ FixSimplify(u_) := u
 FreeQ[c,x] && IntegerQ[p] && c^p=!=-1 =#
 
 SimpFixFactor((a_'*Complex(0,c_) + b_'*Complex(0,d_))^p_',x_) :=
-  (I^p*SimpFixFactor((a*c+b*d)^p,x) <-- IntegerQ(p))
+  (im^p*SimpFixFactor((a*c+b*d)^p,x) <-- IntegerQ(p))
 
 SimpFixFactor((a_'*Complex(0,d_) + b_'*Complex(0,e_)+ c_'*Complex(0,f_))^p_',x_) :=
-  (I^p*SimpFixFactor((a*d+b*e+c*f)^p,x) <-- IntegerQ(p))
+  (im^p*SimpFixFactor((a*d+b*e+c*f)^p,x) <-- IntegerQ(p))
 
 
 SimpFixFactor((a_'*c_^r_ + b_'*x_^n_')^p_',x_) :=
@@ -4303,7 +4303,7 @@ FunctionOfLinearSubst(u_,a_,b_,x_) :=
     tmp=If(tmp===b, 1, tmp/b);
     Coefficient(u,x,0)-a*tmp+tmp*x),
   If(PowerQ(u) && FreeQ(u[1],x),
-    E^FullSimplify(FunctionOfLinearSubst(Log(u[1])*u[2],a,b,x)),
+    ℯ^FullSimplify(FunctionOfLinearSubst(Log(u[1])*u[2],a,b,x)),
   Module([lst],
   If(ProductQ(u) && NeQ((lst=MonomialFactor(u,x))[1],0),
     If(RationalQ(LeadFactor(lst[2])) && LeadFactor(lst[2])<0,
@@ -4412,7 +4412,7 @@ FunctionOfExponentialTest(u_,x_) :=
     DOLLARexponFlagDOLLAR=true;
     FunctionOfExponentialTestAux(u[1],u[2],x),
   If(HyperbolicQ(u) && LinearQ(u[1],x),
-    FunctionOfExponentialTestAux(E,u[1],x),
+    FunctionOfExponentialTestAux(ℯ,u[1],x),
   If(PowerQ(u) && FreeQ(u[1],x) && SumQ(u[2]),
     FunctionOfExponentialTest(u[1]^First(u[2]),x) && FunctionOfExponentialTest(u[1]^Rest(u[2]),x),
   Catch(Scan(Function(If(Not(FunctionOfExponentialTest(Slot(1),x)),Throw(false))),u); true))))))
@@ -4481,8 +4481,8 @@ FunctionOfTrig(u_,v_,x_) :=
     false))),
   If(HyperbolicQ(u) && LinearQ(u[1],x),
     If(v===nothing,
-      I*u[1],
-    With([a=Coefficient(v,x,0),b=Coefficient(v,x,1),c=I*Coefficient(u[1],x,0),d=I*Coefficient(u[1],x,1)],
+      im*u[1],
+    With([a=Coefficient(v,x,0),b=Coefficient(v,x,1),c=im*Coefficient(u[1],x,0),d=im*Coefficient(u[1],x,1)],
     If(EqQ(a*d-b*c,0) && RationalQ(b/d),
       a/Numerator(b/d)+b*x/Numerator(b/d),
     false))),
@@ -5505,7 +5505,7 @@ SimplifyAntiderivative(ArcCot(a_'*Tanh(u_)),x_Symbol) :=
 
 
 SimplifyAntiderivative(ArcTanh(a_'*Tan(u_)),x_Symbol) :=
-  (RectifyTangent(u,I*a,-I,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
+  (RectifyTangent(u,im*a,-im,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
 
 
 #= ::Item:: =#
@@ -5513,7 +5513,7 @@ SimplifyAntiderivative(ArcTanh(a_'*Tan(u_)),x_Symbol) :=
 
 
 SimplifyAntiderivative(ArcCoth(a_'*Tan(u_)),x_Symbol) :=
-  (RectifyTangent(u,I*a,-I,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
+  (RectifyTangent(u,im*a,-im,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
 
 
 #= ::Item::Closed:: =#
@@ -5596,7 +5596,7 @@ SimplifyAntiderivative(ArcTan(a_'*Coth(u_)),x_Symbol) :=
 
 
 SimplifyAntiderivative(ArcCoth(a_'*Cot(u_)),x_Symbol) :=
-  (RectifyCotangent(u,I*a,I,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
+  (RectifyCotangent(u,im*a,im,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
 
 
 #= ::Item:: =#
@@ -5604,7 +5604,7 @@ SimplifyAntiderivative(ArcCoth(a_'*Cot(u_)),x_Symbol) :=
 
 
 SimplifyAntiderivative(ArcTanh(a_'*Cot(u_)),x_Symbol) :=
-  (RectifyCotangent(u,I*a,I,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
+  (RectifyCotangent(u,im*a,im,x) <-- FreeQ(a,x) && GtQ(a^2,0) && ComplexFreeQ(u))
 
 
 #= ::Item::Closed:: =#
@@ -5657,7 +5657,7 @@ SimplifyAntiderivative(ArcTan(c_'*(a_+b_'*Tan(u_))),x_Symbol) :=
 
 
 SimplifyAntiderivative(ArcTanh(c_'*(a_+b_'*Tan(u_))),x_Symbol) :=
-  (RectifyTangent(u,I*a*c,I*b*c,-I,x) <-- FreeQ([a,b,c],x) && GtQ(a^2*c^2,0) && GtQ(b^2*c^2,0) && ComplexFreeQ(u))
+  (RectifyTangent(u,im*a*c,im*b*c,-im,x) <-- FreeQ([a,b,c],x) && GtQ(a^2*c^2,0) && GtQ(b^2*c^2,0) && ComplexFreeQ(u))
 
 
 #= ::Input:: =#
@@ -5673,7 +5673,7 @@ SimplifyAntiderivative(ArcTan(c_'*(a_+b_'*Cot(u_))),x_Symbol) :=
 
 
 SimplifyAntiderivative(ArcTanh(c_'*(a_+b_'*Cot(u_))),x_Symbol) :=
-  (RectifyCotangent(u,I*a*c,I*b*c,-I,x) <-- FreeQ([a,b,c],x) && GtQ(a^2*c^2,0) && GtQ(b^2*c^2,0) && ComplexFreeQ(u))
+  (RectifyCotangent(u,im*a*c,im*b*c,-im,x) <-- FreeQ([a,b,c],x) && GtQ(a^2*c^2,0) && GtQ(b^2*c^2,0) && ComplexFreeQ(u))
 
 
 #= ::Input:: =#
@@ -5797,13 +5797,13 @@ SimplifyAntiderivativeSum(u_,x_Symbol) := u
 #= RectifyTangent[u,a,b,x] returns an expression whose derivative equals the derivative of b*ArcTan[a*Tan[u]] wrt x. =#
 RectifyTangent(u_,a_,b_,x_Symbol) :=
   If(MatchQ(Together(a),d_'*Complex(0,c_)),
-    Module([c=a/I,e],
+    Module([c=a/im,e],
     If(LtQ(c,0),
       RectifyTangent(u,-a,-b,x),
     If(EqQ(c,1),
       If(EvenQ(Denominator(NumericFactor(Together(u)))),
-        I*b*ArcTanh(Sin(2*u))/2,
-      I*b*ArcTanh(2*Cos(u)*Sin(u))/2),
+        im*b*ArcTanh(Sin(2*u))/2,
+      im*b*ArcTanh(2*Cos(u)*Sin(u))/2),
     e=SmartDenominator(c);
     c=c*e;
 #=  If[EvenQ[Denominator[NumericFactor[Together[u]]]],
@@ -5811,8 +5811,8 @@ RectifyTangent(u_,a_,b_,x_Symbol) :=
       I*b*Log[RemoveContent[c^2+e^2-(c^2-e^2)*Cos[2*u]-2*c*e*Sin[2*u],x]]/4,
     I*b*Log[RemoveContent[e^2+2*c*e*Cos[u]*Sin[u]+(c^2-e^2)*Sin[u]^2,x]]/4 - 
     I*b*Log[RemoveContent[e^2-2*c*e*Cos[u]*Sin[u]+(c^2-e^2)*Sin[u]^2,x]]/4]]]], =#
-    I*b*Log(RemoveContent(e*Cos(u)+c*Sin(u),x))/2 - 
-    I*b*Log(RemoveContent(e*Cos(u)-c*Sin(u),x))/2))),
+    im*b*Log(RemoveContent(e*Cos(u)+c*Sin(u),x))/2 - 
+    im*b*Log(RemoveContent(e*Cos(u)-c*Sin(u),x))/2))),
   If(LtQ(a,0),
     RectifyTangent(u,-a,-b,x),
   If(EqQ(a,1),
@@ -5861,17 +5861,17 @@ RectifyTangent(u_,a_,b_,x_Symbol) :=
 #= RectifyTangent[u,a,b,r,x] returns an expression whose derivative equals the derivative of r*ArcTan[a+b*Tan[u]] wrt x. =#
 RectifyTangent(u_,a_,b_,r_,x_Symbol) :=
   If(MatchQ(Together(a),d_'*Complex(0,c_)) && MatchQ(Together(b),d_'*Complex(0,c_)),
-    Module([c=a/I,d=b/I,e],
+    Module([c=a/im,d=b/im,e],
     If(LtQ(d,0),
       RectifyTangent(u,-a,-b,-r,x),
     e=SmartDenominator(Together(c+d*x));
     c=c*e;
     d=d*e;
     If(EvenQ(Denominator(NumericFactor(Together(u)))),
-      I*r*Log(RemoveContent(Simplify((c+e)^2+d^2)+Simplify((c+e)^2-d^2)*Cos(2*u)+Simplify(2*(c+e)*d)*Sin(2*u),x))/4 - 
-      I*r*Log(RemoveContent(Simplify((c-e)^2+d^2)+Simplify((c-e)^2-d^2)*Cos(2*u)+Simplify(2*(c-e)*d)*Sin(2*u),x))/4,
-    I*r*Log(RemoveContent(Simplify((c+e)^2)+Simplify(2*(c+e)*d)*Cos(u)*Sin(u)-Simplify((c+e)^2-d^2)*Sin(u)^2,x))/4 - 
-    I*r*Log(RemoveContent(Simplify((c-e)^2)+Simplify(2*(c-e)*d)*Cos(u)*Sin(u)-Simplify((c-e)^2-d^2)*Sin(u)^2,x))/4))),
+      im*r*Log(RemoveContent(Simplify((c+e)^2+d^2)+Simplify((c+e)^2-d^2)*Cos(2*u)+Simplify(2*(c+e)*d)*Sin(2*u),x))/4 - 
+      im*r*Log(RemoveContent(Simplify((c-e)^2+d^2)+Simplify((c-e)^2-d^2)*Cos(2*u)+Simplify(2*(c-e)*d)*Sin(2*u),x))/4,
+    im*r*Log(RemoveContent(Simplify((c+e)^2)+Simplify(2*(c+e)*d)*Cos(u)*Sin(u)-Simplify((c+e)^2-d^2)*Sin(u)^2,x))/4 - 
+    im*r*Log(RemoveContent(Simplify((c-e)^2)+Simplify(2*(c-e)*d)*Cos(u)*Sin(u)-Simplify((c-e)^2-d^2)*Sin(u)^2,x))/4))),
   If(LtQ(b,0),
     RectifyTangent(u,-a,-b,-r,x),
   If(EvenQ(Denominator(NumericFactor(Together(u)))),
@@ -5937,13 +5937,13 @@ FreeQ[{a,b,c},x] =#
 #= RectifyCotangent[u,a,b,x] returns an expression whose derivative equals the derivative of b*ArcCot[a*Cot[u]] wrt x. =#
 RectifyCotangent(u_,a_,b_,x_Symbol) :=
   If(MatchQ(Together(a),d_'*Complex(0,c_)),
-    Module([c=a/I,e],
+    Module([c=a/im,e],
     If(LtQ(c,0),
       RectifyCotangent(u,-a,-b,x),
     If(EqQ(c,1),
       If(EvenQ(Denominator(NumericFactor(Together(u)))),
-        -I*b*ArcTanh(Sin(2*u))/2,
-      -I*b*ArcTanh(2*Cos(u)*Sin(u))/2),
+        -im*b*ArcTanh(Sin(2*u))/2,
+      -im*b*ArcTanh(2*Cos(u)*Sin(u))/2),
     e=SmartDenominator(c);
     c=c*e;
 #=  If[EvenQ[Denominator[NumericFactor[Together[u]]]],
@@ -5951,8 +5951,8 @@ RectifyCotangent(u_,a_,b_,x_Symbol) :=
        I*b*Log[RemoveContent[c^2+e^2+(c^2-e^2)*Cos[2*u]-2*c*e*Sin[2*u],x]]/4,
     -I*b*Log[RemoveContent[e^2+(c^2-e^2)*Cos[u]^2+2*c*e*Cos[u]*Sin[u],x]]/4 + 
      I*b*Log[RemoveContent[e^2+(c^2-e^2)*Cos[u]^2-2*c*e*Cos[u]*Sin[u],x]]/4]]]], =#
-    -I*b*Log(RemoveContent(c*Cos(u)+e*Sin(u),x))/2 + 
-    I*b*Log(RemoveContent(c*Cos(u)-e*Sin(u),x))/2))),
+    -im*b*Log(RemoveContent(c*Cos(u)+e*Sin(u),x))/2 + 
+    im*b*Log(RemoveContent(c*Cos(u)-e*Sin(u),x))/2))),
   If(LtQ(a,0),
     RectifyCotangent(u,-a,-b,x),
   If(EqQ(a,1),
@@ -6001,17 +6001,17 @@ RectifyCotangent(u_,a_,b_,x_Symbol) :=
 #= RectifyCotangent[u,a,b,r,x] returns an expression whose derivative equals the derivative of r*ArcTan[a+b*Cot[u]] wrt x. =#
 RectifyCotangent(u_,a_,b_,r_,x_Symbol) :=
   If(MatchQ(Together(a),d_'*Complex(0,c_)) && MatchQ(Together(b),d_'*Complex(0,c_)),
-    Module([c=a/I,d=b/I,e],
+    Module([c=a/im,d=b/im,e],
     If(LtQ(d,0),
       RectifyTangent(u,-a,-b,-r,x),
     e=SmartDenominator(Together(c+d*x));
     c=c*e;
     d=d*e;
     If(EvenQ(Denominator(NumericFactor(Together(u)))),
-      I*r*Log(RemoveContent(Simplify((c+e)^2+d^2)-Simplify((c+e)^2-d^2)*Cos(2*u)+Simplify(2*(c+e)*d)*Sin(2*u),x))/4 - 
-      I*r*Log(RemoveContent(Simplify((c-e)^2+d^2)-Simplify((c-e)^2-d^2)*Cos(2*u)+Simplify(2*(c-e)*d)*Sin(2*u),x))/4,
-    I*r*Log(RemoveContent(Simplify((c+e)^2)-Simplify((c+e)^2-d^2)*Cos(u)^2+Simplify(2*(c+e)*d)*Cos(u)*Sin(u),x))/4 - 
-    I*r*Log(RemoveContent(Simplify((c-e)^2)-Simplify((c-e)^2-d^2)*Cos(u)^2+Simplify(2*(c-e)*d)*Cos(u)*Sin(u),x))/4))),
+      im*r*Log(RemoveContent(Simplify((c+e)^2+d^2)-Simplify((c+e)^2-d^2)*Cos(2*u)+Simplify(2*(c+e)*d)*Sin(2*u),x))/4 - 
+      im*r*Log(RemoveContent(Simplify((c-e)^2+d^2)-Simplify((c-e)^2-d^2)*Cos(2*u)+Simplify(2*(c-e)*d)*Sin(2*u),x))/4,
+    im*r*Log(RemoveContent(Simplify((c+e)^2)-Simplify((c+e)^2-d^2)*Cos(u)^2+Simplify(2*(c+e)*d)*Cos(u)*Sin(u),x))/4 - 
+    im*r*Log(RemoveContent(Simplify((c-e)^2)-Simplify((c-e)^2-d^2)*Cos(u)^2+Simplify(2*(c-e)*d)*Cos(u)*Sin(u),x))/4))),
   If(LtQ(b,0),
     RectifyCotangent(u,-a,-b,-r,x),
   If(EvenQ(Denominator(NumericFactor(Together(u)))),
@@ -6292,14 +6292,14 @@ DeactivateTrigAux(u_,x_) :=
 	  Sec, ReduceInertTrig(sec,v),
 	  Csc, ReduceInertTrig(csc,v))),
   If(HyperbolicQ(u) && LinearQ(u[1],x),
-    With([v=ExpandToSum(I*u[1],x)],
+    With([v=ExpandToSum(im*u[1],x)],
     Switch(Head(u),
-	  Sinh, -I*ReduceInertTrig(sin,v),
+	  Sinh, -im*ReduceInertTrig(sin,v),
 	  Cosh, ReduceInertTrig(cos,v),
-	  Tanh, -I*ReduceInertTrig(tan,v),
-	  Coth, I*ReduceInertTrig(cot,v),
+	  Tanh, -im*ReduceInertTrig(tan,v),
+	  Coth, im*ReduceInertTrig(cot,v),
 	  Sech, ReduceInertTrig(sec,v),
-	  Csch, I*ReduceInertTrig(csc,v))),
+	  Csch, im*ReduceInertTrig(csc,v))),
   Map(Function(DeactivateTrigAux(Slot(1),x)),u))))
 
 
@@ -6517,11 +6517,11 @@ PowerOfInertTrigSumQ(u_,func_,x_) :=
 #=ReduceInertTrig[func,a,b,x]=#
 
 
-ReduceInertTrig(func_,m_'*(n_'*Pi+u_')+v_') :=
+ReduceInertTrig(func_,m_'*(n_'*pi+u_')+v_') :=
   (ReduceInertTrig(func,m*n,m*u+v) <-- RationalQ(m,n))
 
-ReduceInertTrig(func_,m_'*Complex(0,mz_)*(n_'*Complex(0,nz_)*Pi+u_')+v_') :=
-  (ReduceInertTrig(func,-m*mz*n*nz,m*mz*I*u+v) <-- RationalQ(m,mz,n,nz))
+ReduceInertTrig(func_,m_'*Complex(0,mz_)*(n_'*Complex(0,nz_)*pi+u_')+v_') :=
+  (ReduceInertTrig(func,-m*mz*n*nz,m*mz*im*u+v) <-- RationalQ(m,mz,n,nz))
 
 ReduceInertTrig(func_,u_) :=
   func(u)
@@ -6532,7 +6532,7 @@ ReduceInertTrig(func_,u_) :=
 ReduceInertTrig(func_,m_,u_) :=
   (If(m<0,
     If(m>=-1/4,
-      func(m*Pi+u),
+      func(m*pi+u),
     Switch(func,
 	  sin, -ReduceInertTrig(sin,-m,-u),
 	  cos, ReduceInertTrig(cos,-m,-u),
@@ -6558,7 +6558,7 @@ ReduceInertTrig(func_,m_,u_) :=
 	  cot, -ReduceInertTrig(tan,m-1/2,u),
 	  sec, -ReduceInertTrig(csc,m-1/2,u),
 	  csc, ReduceInertTrig(sec,m-1/2,u)),
-  func(m*Pi+u))))) <-- RationalQ(m))
+  func(m*pi+u))))) <-- RationalQ(m))
 
 
 #= ::Subsection::Closed:: =#
@@ -6585,7 +6585,7 @@ UnifyInertTrigFunction(a_*u_,x_) :=
 
 
 UnifyInertTrigFunction((a_'*cos(e_'+f_'*x_))^m_'*(b_'*csc(e_'+f_'*x_))^n_',x_) :=
-  ((a*sin(e+Pi/2+f*x))^m*(-b*sec(e+Pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
+  ((a*sin(e+pi/2+f*x))^m*(-b*sec(e+pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
 
 
 #= ::Text:: =#
@@ -6593,7 +6593,7 @@ UnifyInertTrigFunction((a_'*cos(e_'+f_'*x_))^m_'*(b_'*csc(e_'+f_'*x_))^n_',x_) :
 
 
 UnifyInertTrigFunction((a_'*cos(e_'+f_'*x_))^m_'*(b_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((a*sin(e+Pi/2+f*x))^m*(b*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
+  ((a*sin(e+pi/2+f*x))^m*(b*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6605,7 +6605,7 @@ UnifyInertTrigFunction((a_'*cos(e_'+f_'*x_))^m_'*(b_'*sec(e_'+f_'*x_))^n_',x_) :
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^n_',x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^n <-- FreeQ([a,b,e,f,n],x))
+  ((a+b*sin(e+pi/2+f*x))^n <-- FreeQ([a,b,e,f,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6617,7 +6617,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^n_',x_) :=
 
 
 UnifyInertTrigFunction((g_'*sin(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_) :=
-  ((g*cos(e-Pi/2+f*x))^p*(a-b*sin(e-Pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
+  ((g*cos(e-pi/2+f*x))^p*(a-b*sin(e-pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Text:: =#
@@ -6625,7 +6625,7 @@ UnifyInertTrigFunction((g_'*sin(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_
 
 
 UnifyInertTrigFunction((g_'*csc(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_) :=
-  ((g*sec(e-Pi/2+f*x))^p*(a-b*sin(e-Pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
+  ((g*sec(e-pi/2+f*x))^p*(a-b*sin(e-pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6642,8 +6642,8 @@ UnifyInertTrigFunction((g_'*csc(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_
 
 UnifyInertTrigFunction((g_'*cot(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_) :=
   (If(true,
-    (-g*tan(e-Pi/2+f*x))^p*(a-b*sin(e-Pi/2+f*x))^m,
-  (-g*tan(e+Pi/2+f*x))^p*(a+b*sin(e+Pi/2+f*x))^m) <-- FreeQ([a,b,e,f,g,m,p],x))
+    (-g*tan(e-pi/2+f*x))^p*(a-b*sin(e-pi/2+f*x))^m,
+  (-g*tan(e+pi/2+f*x))^p*(a+b*sin(e+pi/2+f*x))^m) <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Text:: =#
@@ -6651,7 +6651,7 @@ UnifyInertTrigFunction((g_'*cot(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_
 
 
 UnifyInertTrigFunction((g_'*tan(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_) :=
-  ((-g*cot(e+Pi/2+f*x))^p*(a+b*sin(e+Pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
+  ((-g*cot(e+pi/2+f*x))^p*(a+b*sin(e+pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6663,7 +6663,7 @@ UnifyInertTrigFunction((g_'*tan(e_'+f_'*x_))^p_'*(a_+b_'*cos(e_'+f_'*x_))^m_',x_
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_',x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^m*(c+d*sin(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
+  ((a+b*sin(e+pi/2+f*x))^m*(c+d*sin(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
 
 
 #= ::Text:: =#
@@ -6671,7 +6671,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^m*(c+d*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
+  ((a+b*sin(e+pi/2+f*x))^m*(c+d*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6688,8 +6688,8 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n
 
 UnifyInertTrigFunction((g_'*sin(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_',x_) :=
   (If(IntegerQ(2*p) && p<0 && IntegerQ(2*n),
-    (g*cos(e-Pi/2+f*x))^p*(a-b*sin(e-Pi/2+f*x))^m*(c-d*sin(e-Pi/2+f*x))^n,
-  (-g*cos(e+Pi/2+f*x))^p*(a+b*sin(e+Pi/2+f*x))^m*(c+d*sin(e+Pi/2+f*x))^n) <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+    (g*cos(e-pi/2+f*x))^p*(a-b*sin(e-pi/2+f*x))^m*(c-d*sin(e-pi/2+f*x))^n,
+  (-g*cos(e+pi/2+f*x))^p*(a+b*sin(e+pi/2+f*x))^m*(c+d*sin(e+pi/2+f*x))^n) <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Text:: =#
@@ -6697,7 +6697,7 @@ UnifyInertTrigFunction((g_'*sin(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((g_'*csc(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_',x_) :=
-  ((g*sec(e-Pi/2+f*x))^p*(a-b*sin(e-Pi/2+f*x))^m*(c-d*sin(e-Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((g*sec(e-pi/2+f*x))^p*(a-b*sin(e-pi/2+f*x))^m*(c-d*sin(e-pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6709,7 +6709,7 @@ UnifyInertTrigFunction((g_'*csc(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((g_'*cos(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_',x_) :=
-  ((g*sin(e+Pi/2+f*x))^p*(a+b*sin(e+Pi/2+f*x))^m*(c+d*sin(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((g*sin(e+pi/2+f*x))^p*(a+b*sin(e+pi/2+f*x))^m*(c+d*sin(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Text:: =#
@@ -6717,7 +6717,7 @@ UnifyInertTrigFunction((g_'*cos(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((g_'*cos(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((g*sin(e+Pi/2+f*x))^p*(a+b*sin(e+Pi/2+f*x))^m*(c+d*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((g*sin(e+pi/2+f*x))^p*(a+b*sin(e+pi/2+f*x))^m*(c+d*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Text:: =#
@@ -6725,7 +6725,7 @@ UnifyInertTrigFunction((g_'*cos(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_',x_) :=
-  ((g*csc(e+Pi/2+f*x))^p*(a+b*sin(e+Pi/2+f*x))^m*(c+d*sin(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((g*csc(e+pi/2+f*x))^p*(a+b*sin(e+pi/2+f*x))^m*(c+d*sin(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Text:: =#
@@ -6733,7 +6733,7 @@ UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((g*csc(e+Pi/2+f*x))^p*(a+b*sin(e+Pi/2+f*x))^m*(c+d*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((g*csc(e+pi/2+f*x))^p*(a+b*sin(e+pi/2+f*x))^m*(c+d*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6745,7 +6745,7 @@ UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_'+b_'*cos(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_'*(A_'+B_'*cos(e_'+f_'*x_)),x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^m*(c+d*sin(e+Pi/2+f*x))^n*(A+B*sin(e+Pi/2+f*x)) <-- FreeQ([a,b,c,d,e,f,A,B,m,n],x))
+  ((a+b*sin(e+pi/2+f*x))^m*(c+d*sin(e+pi/2+f*x))^n*(A+B*sin(e+pi/2+f*x)) <-- FreeQ([a,b,c,d,e,f,A,B,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6757,7 +6757,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(A_'+B_'*cos(e_'+f_'*x_)+C_'*cos(e_'+f_'*x_)^2),x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^m*(A+B*sin(e+Pi/2+f*x)+C*sin(e+Pi/2+f*x)^2) <-- FreeQ([a,b,c,e,f,A,B,C,m],x))
+  ((a+b*sin(e+pi/2+f*x))^m*(A+B*sin(e+pi/2+f*x)+C*sin(e+pi/2+f*x)^2) <-- FreeQ([a,b,c,e,f,A,B,C,m],x))
 
 
 #= ::Text:: =#
@@ -6765,7 +6765,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(A_'+B_'*cos(e_'+f_'*x_)+C_
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(A_'+C_'*cos(e_'+f_'*x_)^2),x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^m*(A+C*sin(e+Pi/2+f*x)^2) <-- FreeQ([a,b,c,e,f,A,C,m],x))
+  ((a+b*sin(e+pi/2+f*x))^m*(A+C*sin(e+pi/2+f*x)^2) <-- FreeQ([a,b,c,e,f,A,C,m],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6777,7 +6777,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(A_'+C_'*cos(e_'+f_'*x_)^2)
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_'*(A_'+B_'*cos(e_'+f_'*x_)+C_'*cos(e_'+f_'*x_)^2),x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^m*(c+d*sin(e+Pi/2+f*x))^n*(A+B*sin(e+Pi/2+f*x)+C*sin(e+Pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,B,C,m,n],x))
+  ((a+b*sin(e+pi/2+f*x))^m*(c+d*sin(e+pi/2+f*x))^n*(A+B*sin(e+pi/2+f*x)+C*sin(e+pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,B,C,m,n],x))
 
 
 #= ::Text:: =#
@@ -6785,7 +6785,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n_'*(A_'+C_'*cos(e_'+f_'*x_)^2),x_) :=
-  ((a+b*sin(e+Pi/2+f*x))^m*(c+d*sin(e+Pi/2+f*x))^n*(A+C*sin(e+Pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,C,m,n],x))
+  ((a+b*sin(e+pi/2+f*x))^m*(c+d*sin(e+pi/2+f*x))^n*(A+C*sin(e+pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,C,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6797,7 +6797,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_))^m_'*(c_'+d_'*cos(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_,x_) :=
-  ((a+b*(c*sin(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,e,f,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((a+b*(c*sin(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,e,f,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -6805,7 +6805,7 @@ UnifyInertTrigFunction((a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_,x_) :=
 
 
 UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((d*sin(e+Pi/2+f*x))^m*(a+b*(c*sin(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((d*sin(e+pi/2+f*x))^m*(a+b*(c*sin(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -6813,7 +6813,7 @@ UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*cos(e+Pi/2+f*x))^m*(a+b*(c*sin(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*cos(e+pi/2+f*x))^m*(a+b*(c*sin(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -6821,7 +6821,7 @@ UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*cot(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*tan(e+Pi/2+f*x))^m*(a+b*(c*sin(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*tan(e+pi/2+f*x))^m*(a+b*(c*sin(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -6829,7 +6829,7 @@ UnifyInertTrigFunction((d_'*cot(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*tan(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*cot(e+Pi/2+f*x))^m*(a+b*(c*sin(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*cot(e+pi/2+f*x))^m*(a+b*(c*sin(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -6837,7 +6837,7 @@ UnifyInertTrigFunction((d_'*tan(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*sec(e+Pi/2+f*x))^m*(a+b*(c*sin(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*sec(e+pi/2+f*x))^m*(a+b*(c*sin(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -6845,7 +6845,7 @@ UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*sec(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((d*csc(e+Pi/2+f*x))^m*(a+b*(c*sin(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((d*csc(e+pi/2+f*x))^m*(a+b*(c*sin(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -6853,7 +6853,7 @@ UnifyInertTrigFunction((d_'*sec(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cos(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_)^n_)^m_'*(A_'+B_'*cos(e_'+f_'*x_)^n_),x_) :=
-  ((a+b*sin(e+Pi/2+f*x)^n)^m*(A+B*sin(e+Pi/2+f*x)^n) <-- FreeQ([a,b,e,f,A,B,m,n],x) && Not(EqQ(a,0) && IntegerQ(m)))
+  ((a+b*sin(e+pi/2+f*x)^n)^m*(A+B*sin(e+pi/2+f*x)^n) <-- FreeQ([a,b,e,f,A,B,m,n],x) && Not(EqQ(a,0) && IntegerQ(m)))
 
 
 #= ::Subsubsection:: =#
@@ -6869,7 +6869,7 @@ UnifyInertTrigFunction((a_'+b_'*cos(e_'+f_'*x_)^n_)^m_'*(A_'+B_'*cos(e_'+f_'*x_)
 
 
 UnifyInertTrigFunction((a_'*cos(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((a*sin(e+Pi/2+f*x))^m*(-b*tan(e+Pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
+  ((a*sin(e+pi/2+f*x))^m*(-b*tan(e+pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
 
 
 #= ::Text:: =#
@@ -6877,7 +6877,7 @@ UnifyInertTrigFunction((a_'*cos(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :
 
 
 UnifyInertTrigFunction((a_'*sin(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((a*cos(e-Pi/2+f*x))^m*(-b*tan(e-Pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
+  ((a*cos(e-pi/2+f*x))^m*(-b*tan(e-pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
 
 
 #= ::Text:: =#
@@ -6885,7 +6885,7 @@ UnifyInertTrigFunction((a_'*sin(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :
 
 
 UnifyInertTrigFunction((a_'*csc(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((a*sec(e-Pi/2+f*x))^m*(-b*tan(e-Pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
+  ((a*sec(e-pi/2+f*x))^m*(-b*tan(e-pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
 
 
 #= ::Text:: =#
@@ -6893,7 +6893,7 @@ UnifyInertTrigFunction((a_'*csc(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :
 
 
 UnifyInertTrigFunction((a_'*sec(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((a*csc(e+Pi/2+f*x))^m*(-b*tan(e+Pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
+  ((a*csc(e+pi/2+f*x))^m*(-b*tan(e+pi/2+f*x))^n <-- FreeQ([a,b,e,f,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6905,7 +6905,7 @@ UnifyInertTrigFunction((a_'*sec(e_'+f_'*x_))^m_'*(b_'*cot(e_'+f_'*x_))^n_',x_) :
 
 
 UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((a-b*tan(e+Pi/2+f*x))^n <-- FreeQ([a,b,e,f,n],x))
+  ((a-b*tan(e+pi/2+f*x))^n <-- FreeQ([a,b,e,f,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6917,7 +6917,7 @@ UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^n_',x_) :=
 
 
 UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((d*sec(e-Pi/2+f*x))^m*(a-b*tan(e-Pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
+  ((d*sec(e-pi/2+f*x))^m*(a-b*tan(e-pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
 
 
 #= ::Text:: =#
@@ -6925,7 +6925,7 @@ UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_
 
 
 UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((d*cos(e-Pi/2+f*x))^m*(a-b*tan(e-Pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
+  ((d*cos(e-pi/2+f*x))^m*(a-b*tan(e-pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6937,7 +6937,7 @@ UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_
 
 
 UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((d*sin(e+Pi/2+f*x))^m*(a-b*tan(e+Pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
+  ((d*sin(e+pi/2+f*x))^m*(a-b*tan(e+pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
 
 
 #= ::Text:: =#
@@ -6945,7 +6945,7 @@ UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_
 
 
 UnifyInertTrigFunction((d_'*sec(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((d*csc(e+Pi/2+f*x))^m*(a-b*tan(e+Pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
+  ((d*csc(e+pi/2+f*x))^m*(a-b*tan(e+pi/2+f*x))^n <-- FreeQ([a,b,d,e,f,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6957,7 +6957,7 @@ UnifyInertTrigFunction((d_'*sec(e_'+f_'*x_))^m_'*(a_+b_'*cot(e_'+f_'*x_))^n_',x_
 
 
 UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((a-b*tan(e+Pi/2+f*x))^m*(c-d*tan(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
+  ((a-b*tan(e+pi/2+f*x))^m*(c-d*tan(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6969,7 +6969,7 @@ UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((g_'*cot(e_'+f_'*x_))^p_'*(a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n_',x_) :=
-  ((-g*tan(e+Pi/2+f*x))^p*(a-b*tan(e+Pi/2+f*x))^m*(c-d*tan(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((-g*tan(e+pi/2+f*x))^p*(a-b*tan(e+pi/2+f*x))^m*(c-d*tan(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Text:: =#
@@ -6977,7 +6977,7 @@ UnifyInertTrigFunction((g_'*cot(e_'+f_'*x_))^p_'*(a_'+b_'*cot(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((g_'*cot(e_'+f_'*x_))^p_'*(a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*tan(e_'+f_'*x_))^n_',x_) :=
-  ((-g*tan(e+Pi/2+f*x))^p*(a-b*tan(e+Pi/2+f*x))^m*(c-d*cot(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((-g*tan(e+pi/2+f*x))^p*(a-b*tan(e+pi/2+f*x))^m*(c-d*cot(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -6989,7 +6989,7 @@ UnifyInertTrigFunction((g_'*cot(e_'+f_'*x_))^p_'*(a_'+b_'*cot(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n_'*(A_'+B_'*cot(e_'+f_'*x_)),x_) :=
-  ((a-b*tan(e+Pi/2+f*x))^m*(c-d*tan(e+Pi/2+f*x))^n*(A-B*tan(e+Pi/2+f*x)) <-- FreeQ([a,b,c,d,e,f,A,B,m,n],x))
+  ((a-b*tan(e+pi/2+f*x))^m*(c-d*tan(e+pi/2+f*x))^n*(A-B*tan(e+pi/2+f*x)) <-- FreeQ([a,b,c,d,e,f,A,B,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7001,7 +7001,7 @@ UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(A_'+B_'*cot(e_'+f_'*x_)+C_'*cot(e_'+f_'*x_)^2),x_) :=
-  ((a-b*tan(e+Pi/2+f*x))^m*(A-B*tan(e+Pi/2+f*x)+C*tan(e+Pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,B,C,m],x))
+  ((a-b*tan(e+pi/2+f*x))^m*(A-B*tan(e+pi/2+f*x)+C*tan(e+pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,B,C,m],x))
 
 
 #= ::Text:: =#
@@ -7009,7 +7009,7 @@ UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(A_'+B_'*cot(e_'+f_'*x_)+C_
 
 
 UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(A_'+C_'*cot(e_'+f_'*x_)^2),x_) :=
-  ((a-b*tan(e+Pi/2+f*x))^m*(A+C*tan(e+Pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,C,m],x))
+  ((a-b*tan(e+pi/2+f*x))^m*(A+C*tan(e+pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,C,m],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7022,7 +7022,7 @@ UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(A_'+C_'*cot(e_'+f_'*x_)^2)
 
 
 UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n_'*(A_'+B_'*cot(e_'+f_'*x_)+C_'*cot(e_'+f_'*x_)^2),x_) :=
-  ((a-b*tan(e+Pi/2+f*x))^m*(c-d*tan(e+Pi/2+f*x))^n*(A-B*tan(e+Pi/2+f*x)+C*tan(e+Pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,B,C,m,n],x))
+  ((a-b*tan(e+pi/2+f*x))^m*(c-d*tan(e+pi/2+f*x))^n*(A-B*tan(e+pi/2+f*x)+C*tan(e+pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,B,C,m,n],x))
 
 
 #= ::Text:: =#
@@ -7030,7 +7030,7 @@ UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n_'*(A_'+C_'*cot(e_'+f_'*x_)^2),x_) :=
-  ((a-b*tan(e+Pi/2+f*x))^m*(c-d*tan(e+Pi/2+f*x))^n*(A+C*tan(e+Pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,C,m,n],x))
+  ((a-b*tan(e+pi/2+f*x))^m*(c-d*tan(e+pi/2+f*x))^n*(A+C*tan(e+pi/2+f*x)^2) <-- FreeQ([a,b,c,d,e,f,A,C,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7042,7 +7042,7 @@ UnifyInertTrigFunction((a_'+b_'*cot(e_'+f_'*x_))^m_'*(c_'+d_'*cot(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_,x_) :=
-  ((a+b*(-c*tan(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,e,f,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((a+b*(-c*tan(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,e,f,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7050,7 +7050,7 @@ UnifyInertTrigFunction((a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_,x_) :=
 
 
 UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((d*sin(e+Pi/2+f*x))^m*(a+b*(-c*tan(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((d*sin(e+pi/2+f*x))^m*(a+b*(-c*tan(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7058,7 +7058,7 @@ UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*cos(e+Pi/2+f*x))^m*(a+b*(-c*tan(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*cos(e+pi/2+f*x))^m*(a+b*(-c*tan(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7066,7 +7066,7 @@ UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*cot(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*tan(e+Pi/2+f*x))^m*(a+b*(-c*tan(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*tan(e+pi/2+f*x))^m*(a+b*(-c*tan(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7074,7 +7074,7 @@ UnifyInertTrigFunction((d_'*cot(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*tan(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*cot(e+Pi/2+f*x))^m*(a+b*(-c*tan(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*cot(e+pi/2+f*x))^m*(a+b*(-c*tan(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7082,7 +7082,7 @@ UnifyInertTrigFunction((d_'*tan(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*sec(e+Pi/2+f*x))^m*(a+b*(-c*tan(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*sec(e+pi/2+f*x))^m*(a+b*(-c*tan(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7090,7 +7090,7 @@ UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*sec(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((d*csc(e+Pi/2+f*x))^m*(a+b*(-c*tan(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((d*csc(e+pi/2+f*x))^m*(a+b*(-c*tan(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Subsubsection:: =#
@@ -7106,7 +7106,7 @@ UnifyInertTrigFunction((d_'*sec(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*cot(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,e,f,n],x))
+  ((a+b*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,e,f,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7118,7 +7118,7 @@ UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^n_',x_) :=
 
 
 UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_) :=
-  ((g*csc(e+Pi/2+f*x))^p*(a+b*csc(e+Pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
+  ((g*csc(e+pi/2+f*x))^p*(a+b*csc(e+pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7130,7 +7130,7 @@ UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_
 
 
 UnifyInertTrigFunction((g_'*sin(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_) :=
-  ((g*cos(e-Pi/2+f*x))^p*(a-b*csc(e-Pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
+  ((g*cos(e-pi/2+f*x))^p*(a-b*csc(e-pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Text:: =#
@@ -7138,7 +7138,7 @@ UnifyInertTrigFunction((g_'*sin(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_
 
 
 UnifyInertTrigFunction((g_'*csc(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_) :=
-  ((g*sec(e-Pi/2+f*x))^p*(a-b*csc(e-Pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
+  ((g*sec(e-pi/2+f*x))^p*(a-b*csc(e-pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7150,7 +7150,7 @@ UnifyInertTrigFunction((g_'*csc(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_
 
 
 UnifyInertTrigFunction((g_'*tan(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_) :=
-  ((-g*cot(e+Pi/2+f*x))^p*(a+b*csc(e+Pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
+  ((-g*cot(e+pi/2+f*x))^p*(a+b*csc(e+pi/2+f*x))^m <-- FreeQ([a,b,e,f,g,m,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7162,7 +7162,7 @@ UnifyInertTrigFunction((g_'*tan(e_'+f_'*x_))^p_'*(a_+b_'*sec(e_'+f_'*x_))^m_',x_
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^m*(c+d*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
+  ((a+b*csc(e+pi/2+f*x))^m*(c+d*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,m,n],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7174,7 +7174,7 @@ UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_'+b_'*sec(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((g*csc(e+Pi/2+f*x))^p*(a+b*csc(e+Pi/2+f*x))^m*(c+d*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((g*csc(e+pi/2+f*x))^p*(a+b*csc(e+pi/2+f*x))^m*(c+d*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Text:: =#
@@ -7182,7 +7182,7 @@ UnifyInertTrigFunction((g_'*sec(e_'+f_'*x_))^p_'*(a_'+b_'*sec(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((g_'*cos(e_'+f_'*x_))^p_'*(a_'+b_'*sec(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n_',x_) :=
-  ((g*sin(e+Pi/2+f*x))^p*(a+b*csc(e+Pi/2+f*x))^m*(c+d*csc(e+Pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
+  ((g*sin(e+pi/2+f*x))^p*(a+b*csc(e+pi/2+f*x))^m*(c+d*csc(e+pi/2+f*x))^n <-- FreeQ([a,b,c,d,e,f,g,m,n,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7194,7 +7194,7 @@ UnifyInertTrigFunction((g_'*cos(e_'+f_'*x_))^p_'*(a_'+b_'*sec(e_'+f_'*x_))^m_'*(
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(d_'*sec(e_'+f_'*x_))^n_'*(A_'+B_'*sec(e_'+f_'*x_)),x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^m*(d*csc(e+Pi/2+f*x))^n*(A+B*csc(e+Pi/2+f*x)) <-- FreeQ([a,b,d,e,f,A,B,m,n],x))
+  ((a+b*csc(e+pi/2+f*x))^m*(d*csc(e+pi/2+f*x))^n*(A+B*csc(e+pi/2+f*x)) <-- FreeQ([a,b,d,e,f,A,B,m,n],x))
 
 
 #= ::Text:: =#
@@ -7202,7 +7202,7 @@ UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(d_'*sec(e_'+f_'*x_))^n_'*(
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n_'*(A_'+B_'*sec(e_'+f_'*x_))^p_',x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^m*(c+d*csc(e+Pi/2+f*x))^n*(A+B*csc(e+Pi/2+f*x))^p <-- FreeQ([a,b,c,d,e,f,A,B,m,n,p],x))
+  ((a+b*csc(e+pi/2+f*x))^m*(c+d*csc(e+pi/2+f*x))^n*(A+B*csc(e+pi/2+f*x))^p <-- FreeQ([a,b,c,d,e,f,A,B,m,n,p],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7214,7 +7214,7 @@ UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(c_'+d_'*sec(e_'+f_'*x_))^n
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(A_'+B_'*sec(e_'+f_'*x_)+C_'*sec(e_'+f_'*x_)^2),x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^m*(A+B*csc(e+Pi/2+f*x)+C*csc(e+Pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,B,C,m],x))
+  ((a+b*csc(e+pi/2+f*x))^m*(A+B*csc(e+pi/2+f*x)+C*csc(e+pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,B,C,m],x))
 
 
 #= ::Text:: =#
@@ -7222,7 +7222,7 @@ UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(A_'+B_'*sec(e_'+f_'*x_)+C_
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(A_'+C_'*sec(e_'+f_'*x_)^2),x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^m*(A+C*csc(e+Pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,C,m],x))
+  ((a+b*csc(e+pi/2+f*x))^m*(A+C*csc(e+pi/2+f*x)^2) <-- FreeQ([a,b,e,f,A,C,m],x))
 
 
 #= ::Subsubsection::Closed:: =#
@@ -7235,7 +7235,7 @@ UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(A_'+C_'*sec(e_'+f_'*x_)^2)
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(d_'*sec(e_'+f_'*x_))^n_'*(A_'+B_'*sec(e_'+f_'*x_)+C_'*sec(e_'+f_'*x_)^2),x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^m*(d*csc(e+Pi/2+f*x))^n*(A+B*csc(e+Pi/2+f*x)+C*csc(e+Pi/2+f*x)^2) <-- FreeQ([a,b,d,e,f,A,B,C,m,n],x))
+  ((a+b*csc(e+pi/2+f*x))^m*(d*csc(e+pi/2+f*x))^n*(A+B*csc(e+pi/2+f*x)+C*csc(e+pi/2+f*x)^2) <-- FreeQ([a,b,d,e,f,A,B,C,m,n],x))
 
 
 #= ::Text:: =#
@@ -7243,7 +7243,7 @@ UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(d_'*sec(e_'+f_'*x_))^n_'*(
 
 
 UnifyInertTrigFunction((a_'+b_'*sec(e_'+f_'*x_))^m_'*(d_'*sec(e_'+f_'*x_))^n_'*(A_'+C_'*sec(e_'+f_'*x_)^2),x_) :=
-  ((a+b*csc(e+Pi/2+f*x))^m*(d*csc(e+Pi/2+f*x))^n*(A+C*csc(e+Pi/2+f*x)^2) <-- FreeQ([a,b,d,e,f,A,C,m,n],x))
+  ((a+b*csc(e+pi/2+f*x))^m*(d*csc(e+pi/2+f*x))^n*(A+C*csc(e+pi/2+f*x)^2) <-- FreeQ([a,b,d,e,f,A,C,m,n],x))
 
 
 UnifyInertTrigFunction(u_,x_) := u
@@ -7258,7 +7258,7 @@ UnifyInertTrigFunction(u_,x_) := u
 
 
 UnifyInertTrigFunction((a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_,x_) :=
-  ((a+b*(-c*sec(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,e,f,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((a+b*(-c*sec(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,e,f,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7266,7 +7266,7 @@ UnifyInertTrigFunction((a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_,x_) :=
 
 
 UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((d*sin(e+Pi/2+f*x))^m*(a+b*(-c*sec(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((d*sin(e+pi/2+f*x))^m*(a+b*(-c*sec(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7274,7 +7274,7 @@ UnifyInertTrigFunction((d_'*cos(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*cos(e+Pi/2+f*x))^m*(a+b*(-c*sec(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*cos(e+pi/2+f*x))^m*(a+b*(-c*sec(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7282,7 +7282,7 @@ UnifyInertTrigFunction((d_'*sin(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*cot(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*tan(e+Pi/2+f*x))^m*(a+b*(-c*sec(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*tan(e+pi/2+f*x))^m*(a+b*(-c*sec(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7290,7 +7290,7 @@ UnifyInertTrigFunction((d_'*cot(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*tan(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*cot(e+Pi/2+f*x))^m*(a+b*(-c*sec(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*cot(e+pi/2+f*x))^m*(a+b*(-c*sec(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7298,7 +7298,7 @@ UnifyInertTrigFunction((d_'*tan(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((-d*sec(e+Pi/2+f*x))^m*(a+b*(-c*sec(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(n,2) && EqQ(p,1)) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((-d*sec(e+pi/2+f*x))^m*(a+b*(-c*sec(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(n,2) && EqQ(p,1)) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Text:: =#
@@ -7306,7 +7306,7 @@ UnifyInertTrigFunction((d_'*csc(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^
 
 
 UnifyInertTrigFunction((d_'*sec(e_'+f_'*x_))^m_'*(a_'+b_'*(c_'*csc(e_'+f_'*x_))^n_)^p_',x_) :=
-  ((d*csc(e+Pi/2+f*x))^m*(a+b*(-c*sec(e+Pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
+  ((d*csc(e+pi/2+f*x))^m*(a+b*(-c*sec(e+pi/2+f*x))^n)^p <-- FreeQ([a,b,c,d,e,f,m,n,p],x) && Not(EqQ(a,0) && IntegerQ(p)))
 
 
 #= ::Subsection::Closed:: =#
@@ -7546,7 +7546,7 @@ RtAux(u_,n_) :=
     With([a=Re(u),b=Im(u)],
     If(Not(IntegerQ(a) && IntegerQ(b)) && IntegerQ(a/(a^2+b^2)) && IntegerQ(b/(a^2+b^2)),
 #= Basis: a+b*I==1/(a/(a^2+b^2)-b/(a^2+b^2)*I) =#
-      1/RtAux(a/(a^2+b^2)-b/(a^2+b^2)*I,n),
+      1/RtAux(a/(a^2+b^2)-b/(a^2+b^2)*im,n),
     NthRoot(u,n))),
   If(OddQ(n) && NegQ(u) && PosQ(-u),
     -RtAux(-u,n),

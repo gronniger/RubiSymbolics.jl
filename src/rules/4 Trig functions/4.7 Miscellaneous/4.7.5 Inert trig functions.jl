@@ -66,7 +66,7 @@ Int(u_'*(a_'*cot(c_' + d_'*x_)^n_' + b_'*csc(c_' + d_'*x_)^n_')^p_, x_Symbol) :=
 Int(u_*(a_*F_(c_' + d_'*x_)^p_' + b_'*F_(c_' + d_'*x_)^q_')^n_', x_Symbol) := (Int(ActivateTrig(u*F(c + d*x)^(n*p)*(a + b*F(c + d*x)^(q - p))^n), x) <-- FreeQ([a, b, c, d, p, q], x) && InertTrigQ(F) && IntegerQ(n) && PosQ(q - p))
 Int(u_*(a_*F_(d_' + e_'*x_)^p_' + b_'*F_(d_' + e_'*x_)^q_' + c_'*F_(d_' + e_'*x_)^r_')^n_', x_Symbol) := (Int(ActivateTrig( u*F(d + e*x)^(n*p)*(a + b*F(d + e*x)^(q - p) + c*F(d + e*x)^(r - p))^n), x) <-- FreeQ([a, b, c, d, e, p, q, r], x) && InertTrigQ(F) && IntegerQ(n) && PosQ(q - p) && PosQ(r - p))
 Int(u_*(a_ + b_'*F_(d_' + e_'*x_)^p_' + c_'*F_(d_' + e_'*x_)^q_')^n_', x_Symbol) := (Int(ActivateTrig( u*F(d + e*x)^(n*p)*(b + a*F(d + e*x)^(-p) + c*F(d + e*x)^(q - p))^ n), x) <-- FreeQ([a, b, c, d, e, p, q], x) && InertTrigQ(F) && IntegerQ(n) && NegQ(p))
-Int(u_'*(a_'*cos(c_' + d_'*x_) + b_'*sin(c_' + d_'*x_))^n_', x_Symbol) := (Int(ActivateTrig(u)*(a*E^(-a/b*(c + d*x)))^n, x) <-- FreeQ([a, b, c, d, n], x) && EqQ(a^2 + b^2, 0))
+Int(u_'*(a_'*cos(c_' + d_'*x_) + b_'*sin(c_' + d_'*x_))^n_', x_Symbol) := (Int(ActivateTrig(u)*(a*ℯ^(-a/b*(c + d*x)))^n, x) <-- FreeQ([a, b, c, d, n], x) && EqQ(a^2 + b^2, 0))
 Int(u_, x_Symbol) := (Int(TrigSimplify(u), x) <-- TrigSimplifyQ(u))
 Int(u_'*(a_*v_)^p_, x_Symbol) := (With([uu = ActivateTrig(u), vv = ActivateTrig(v)], a^IntPart(p)*(a*vv)^FracPart(p)/(vv^FracPart(p))* Int(uu*vv^p, x)) <-- FreeQ([a, p], x) && Not(IntegerQ(p)) && Not(InertTrigFreeQ(v)))
 Int(u_'*(v_^m_)^p_, x_Symbol) := (With([uu = ActivateTrig(u), vv = ActivateTrig(v)], (vv^m)^FracPart(p)/(vv^(m*FracPart(p)))*Int(uu*vv^(m*p), x)) <-- FreeQ([m, p], x) && Not(IntegerQ(p)) && Not(InertTrigFreeQ(v)))
