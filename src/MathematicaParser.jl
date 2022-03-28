@@ -130,11 +130,3 @@ print_rule(x, ys...) = "Rule($x, $(print_rule(ys...)))"
 
 end
 end
-
-orig_file = open(joinpath(@__DIR__, "../Rubi/IntegrationUtilityFunctions.m")) do f
-    read(f, String)
-end
-out_file = parse_one(orig_file, MathematicaParser.file)[1]
-open(joinpath(@__DIR__, "../Rubi/IntegrationUtilityFunctions.jl"), "w") do f
-    write(f, out_file)
-end

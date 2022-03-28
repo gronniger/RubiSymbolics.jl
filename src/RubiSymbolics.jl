@@ -6,6 +6,8 @@ using Metatheory: @matchable
 import TermInterface
 import Elliptic, HypergeometricFunctions
 
+include("./MathematicaParser.jl")
+
 @matchable struct Antiderivative
     expr::Symbolic
     x::Sym

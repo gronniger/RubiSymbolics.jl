@@ -1,0 +1,6 @@
+include("7.1.1 (a+b arcsinh(c x))^n.jl")
+include("7.1.2 (d x)^m (a+b arcsinh(c x))^n.jl")
+include("7.1.3 (d+e x^2)^p (a+b arcsinh(c x))^n.jl")
+include("7.1.4 (f x)^m (d+e x^2)^p (a+b arcsinh(c x))^n.jl")
+include("7.1.5 u (a+b arcsinh(c x))^n.jl")
+include("7.1.6 Miscellaneous inverse hyperbolic sine.jl")
