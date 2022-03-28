@@ -2,7 +2,7 @@ using RubiSymbolics: MathematicaParser
 using ParserCombinator
 
 rubi_utils_file = joinpath(@__DIR__, "../Rubi/IntegrationUtilityFunctions.m")
-utils_file = joinpath(@__DIR__, "utils.jl")
+utils_file = joinpath(@__DIR__, "RubiUtils.jl")
 
 
 orig_file_content = open(rubi_utils_file) do rf

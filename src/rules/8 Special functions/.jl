@@ -8,3 +8,15 @@ include("8.6 Gamma functions.jl")
 include("8.7 Zeta function.jl")
 include("8.8 Polylogarithm function.jl")
 include("8.9 Product logarithm function.jl")
+int_rule_8 = [
+    int_rules_8_1...,
+    int_rules_8_10...,
+    int_rules_8_2...,
+    int_rules_8_3...,
+    int_rules_8_4...,
+    int_rules_8_5...,
+    int_rules_8_6...,
+    int_rules_8_7...,
+    int_rules_8_8...,
+    int_rules_8_9...,
+]

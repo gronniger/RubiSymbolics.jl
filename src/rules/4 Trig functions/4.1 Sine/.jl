@@ -19,3 +19,26 @@ include("4.1.6 (a+b cos+c sin)^n.jl")
 include("4.1.7 (d trig)^m (a+b (c sin)^n)^p.jl")
 include("4.1.8 trig^m (a+b cos^p+c sin^q)^n.jl")
 include("4.1.9 trig^m (a+b sin^n+c sin^(2 n))^p.jl")
+int_rule_4_1 = [
+    int_rules_4_1_0_1...,
+    int_rules_4_1_0_2...,
+    int_rules_4_1_0_3...,
+    int_rules_4_1_1_1...,
+    int_rules_4_1_1_2...,
+    int_rules_4_1_1_3...,
+    int_rules_4_1_10...,
+    int_rules_4_1_11...,
+    int_rules_4_1_12...,
+    int_rules_4_1_13...,
+    int_rules_4_1_2_1...,
+    int_rules_4_1_2_2...,
+    int_rules_4_1_2_3...,
+    int_rules_4_1_3_1...,
+    int_rules_4_1_4_1...,
+    int_rules_4_1_4_2...,
+    int_rules_4_1_5...,
+    int_rules_4_1_6...,
+    int_rules_4_1_7...,
+    int_rules_4_1_8...,
+    int_rules_4_1_9...,
+]

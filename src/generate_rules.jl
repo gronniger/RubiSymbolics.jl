@@ -13,12 +13,25 @@ for (root, dirs, files) in walkdir(rubi_rules_path)
     root_include_file = joinpath(rules_root_path, rel_path, ".jl")
     touch(root_include_file)
     open(root_include_file, "w") do f
+        # include code from subdirs
         for dir in dirs
             write(f, "include(\"$(joinpath(dir, ".jl"))\")\n")
         end
         for file in files
             write(f, "include(\"$(stem(file)*".jl")\")\n")
         end
+        # collect rules from subdirs
+        th_number = replace(split(splitpath(root)[end])[1], "." => "_")
+        write(f, "int_rule_$th_number = [\n")
+        for dir in dirs
+            th_number = replace(split(dir)[1], "." => "_")
+            write(f, "    int_rules_$th_number...,\n")
+        end
+        for file in files
+            th_number = replace(split(file)[1], "." => "_")
+            write(f, "    int_rules_$th_number...,\n")
+        end
+        write(f, "]")
     end
     for file in files
         rules_file = joinpath(rules_root_path, rel_path, stem(file)*".jl")
